@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jejak Sirah</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=Instrument+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
 <style>
@@ -16,7 +20,7 @@
   --f-quran: "Amiri Quran", "Amiri", "Traditional Arabic", serif;
 }
 html, body, #root { height: 100%; }
-body { background: var(--lapis-0); color: var(--ink); font: 14px/1.5 var(--f-ui); }
+body { margin: 0; background: var(--lapis-0); color: var(--ink); font: 14px/1.5 var(--f-ui); }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 2px; }
 
@@ -184,7 +188,8 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
-
+</head>
+<body>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
@@ -193,3 +198,5 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 <script src="data.js"></script>
 <script src="scene.js"></script>
 <script src="app.js"></script>
+</body>
+</html>
