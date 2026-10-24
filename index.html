@@ -234,10 +234,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
   background: var(--lapis-1); border: 1px solid var(--gold); border-radius: 16px; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
 .profile p { margin: 0 0 10px; font: 15px/1.6 var(--f-text); }
 .profile-head { display: flex; gap: 18px; align-items: center; margin-bottom: 14px; }
-.profile h2 { margin: 0; font: 600 24px/1.2 var(--f-text); color: var(--gold-soft); }
-.profile .gelar { margin: 2px 0 0; font: 13px/1.4 var(--f-ui); color: var(--ink); }
-.profile .years { margin: 2px 0 0; font: 12.5px/1.4 var(--f-ui); color: var(--gold); font-variant-numeric: tabular-nums; }
-.profile .status { font: 500 13px/1.4 var(--f-ui); color: var(--gold-soft); background: var(--lapis-2); border-radius: 8px; padding: 6px 10px; display: inline-block; }
+.profile h2, .prof h2 { margin: 0; font: 600 24px/1.2 var(--f-text); color: var(--gold-soft); }
+.profile .gelar, .prof .gelar { margin: 2px 0 0; font: 13px/1.4 var(--f-ui); color: var(--ink); }
+.profile .years, .prof .years { margin: 2px 0 0; font: 12.5px/1.4 var(--f-ui); color: var(--gold); font-variant-numeric: tabular-nums; }
+.profile .status, .prof .status { font: 500 13px/1.4 var(--f-ui); color: var(--gold-soft); background: var(--lapis-2); border-radius: 8px; padding: 6px 10px; display: inline-block; }
 .profile h3 { margin: 16px 0 8px; font: 600 14px/1.3 var(--f-ui); color: var(--muted); }
 .close { position: absolute; top: 10px; right: 12px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: var(--lapis-2); cursor: pointer; font-size: 18px; }
 .plist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -528,6 +528,33 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 .nz-in .st { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; color: var(--muted); }
 .nz-in .st.full { color: var(--k-kitab); }
 .nz-p.dim { color: var(--muted); }
+/* Tokoh */
+.tk-list { list-style: none; margin: 0; padding: 6px 10px 10px; flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 2px; }
+.tk-list button { width: 100%; display: flex; gap: 10px; align-items: center; text-align: left; padding: 6px 8px; border-radius: 10px; border: 1px solid transparent; background: none; cursor: pointer; color: var(--ink); }
+.tk-list button:hover { background: var(--lapis-2); }
+.tk-list button.on { background: var(--lapis-2); border-color: var(--gold); }
+.tk-list span { display: flex; flex-direction: column; min-width: 0; }
+.tk-list b { font: 600 14.5px/1.3 var(--f-text); }
+.tk-list small { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nz-seg button small { opacity: .7; margin-left: 2px; }
+.hidup { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--ink); cursor: pointer; }
+.hidup input { accent-color: var(--gold); width: 16px; height: 16px; }
+.prof p { margin: 0 0 10px; font: 15px/1.6 var(--f-text); }
+.prof h3 { margin: 18px 0 8px; font: 600 14px/1.3 var(--f-ui); color: var(--gold); }
+.prof .kel { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0 0; }
+.prof .kel span { font: 500 11.5px/1 var(--f-ui); padding: 4px 8px; border-radius: 99px; background: var(--lapis-2); border: 1px solid var(--line); color: var(--gold-soft); }
+.prof .dim { color: var(--muted); font-size: 14px; }
+.tinggal { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; border-left: 2px solid var(--line); }
+.tinggal li { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: baseline; padding: 6px 10px; margin-left: -2px; border-left: 2px solid transparent; }
+.tinggal li.now { border-left-color: var(--gold); background: linear-gradient(90deg, rgba(212, 174, 90, .12), transparent); }
+.tinggal .py { color: var(--gold); font-variant-numeric: tabular-nums; font-weight: 600; font-size: 13px; }
+.tinggal .tg { display: flex; flex-direction: column; }
+.tinggal b { font-weight: 600; }
+.tinggal small { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+.chip.go small { color: var(--muted); }
+.prof-src { margin-top: 18px !important; font: 12.5px/1.5 var(--f-ui) !important; color: var(--muted); }
+.prof-src a { color: var(--gold-soft); }
+.tk-detail .profile-head { margin-bottom: 14px; }
 .nz-src { margin: 14px 0 0; font-size: 12px; color: var(--muted); line-height: 1.5; }
 .nz-detail { grid-column: 1; grid-row: 2 / -1; z-index: 30; justify-self: stretch; align-self: stretch; width: auto; padding-inline: max(24px, calc(50% - 380px)) !important; box-sizing: border-box; margin: 0; min-height: 0; overflow: auto;
   padding: 26px 24px 28px; border-radius: 14px; background: var(--lapis-1); border: 1px solid var(--line); animation: nzIn .3s ease both; }
@@ -596,6 +623,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="data.js"></script>
 <script src="city-data.js"></script>
+<script src="tokoh.js"></script>
 <script src="events.js"></script>
 <script src="scene.js"></script>
 <script src="city.js"></script>

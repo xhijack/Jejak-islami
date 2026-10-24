@@ -171,8 +171,10 @@
     const allHere = sel ? D.peristiwa.filter((e) => e.lok === sel) : [];
     const prev = [...allHere].reverse().find((e) => e.tahun < year), next = allHere.find((e) => e.tahun > year);
     const hereTokoh = new Set(here.flatMap((e) => e.tokoh));
+    const tinggalDi = (t) => { const r = D.tinggalPada && D.tinggalPada(t, year); return r && r[0] === sel; };
     const living = Object.entries(D.tokoh).filter(([, t]) => alive(t, year))
-      .sort((a, b) => (hereTokoh.has(b[0]) - hereTokoh.has(a[0])) || a[1].lahir - b[1].lahir);
+      .sort((a, b) => (hereTokoh.has(b[0]) - hereTokoh.has(a[0])) || (sel ? tinggalDi(b[1]) - tinggalDi(a[1]) : 0) || a[1].lahir - b[1].lahir);
+    const nWarga = sel ? living.filter(([, t]) => tinggalDi(t)).length : 0;
     const goto = (e) => { setYear(e.tahun); select(e.lok); setTab("peristiwa"); };
 
     return html`<aside class="panel" aria-label="Detail">
@@ -188,7 +190,7 @@
 
       <div class="tabs" role="tablist">
         <button role="tab" aria-selected=${tab === "peristiwa"} onClick=${() => setTab("peristiwa")}>Peristiwa${here.length ? ` (${here.length})` : ""}</button>
-        <button role="tab" aria-selected=${tab === "tokoh"} onClick=${() => setTab("tokoh")}>Tokoh yang hidup (${living.length})</button>
+        <button role="tab" aria-selected=${tab === "tokoh"} onClick=${() => setTab("tokoh")}>${sel ? `Tokoh (${nWarga} tinggal di sini)` : `Tokoh yang hidup (${living.length})`}</button>
       </div>
 
       <div class="panel-body">
@@ -201,11 +203,16 @@
                 ${next && html`<button type="button" onClick=${() => setYear(next.tahun)}><small>Berikutnya, ${next.tahun} M</small>${next.judul}</button>`}
               </div>`}
             </div>`)}
-        ${tab === "tokoh" && html`<ul class="people">
-          ${living.map(([id, t]) => html`<li key=${id}><button type="button" class=${hereTokoh.has(id) ? "here" : ""} onClick=${() => onProfile(id)}>
+        ${tab === "tokoh" && (() => {
+          const item = ([id, t]) => html`<li key=${id}><button type="button" class=${hereTokoh.has(id) ? "here" : ""} onClick=${() => onProfile(id)}>
             <${Medal} id=${id} size="sm" />
-            <span><b>${t.nama}</b><small>${hereTokoh.has(id) ? "Terlibat di sini · " : ""}usia ±${year - t.lahir} th</small></span></button></li>`)}
-        </ul>`}
+            <span><b>${t.nama}</b><small>${hereTokoh.has(id) ? "Terlibat peristiwa di sini · " : ""}usia ±${Math.max(0, year - t.lahir)} th</small></span></button></li>`;
+          if (!sel) return html`<ul class="people">${living.map(item)}</ul>`;
+          const warga = living.filter(([, t]) => tinggalDi(t)), lain = living.filter(([, t]) => !tinggalDi(t));
+          return html`<section><h3 class="sec">Tinggal di ${l.nama} pada ${year} M</h3>
+              ${warga.length ? html`<ul class="people">${warga.map(item)}</ul>` : html`<p class="empty-p">Belum ada tokoh di aplikasi yang tercatat tinggal di sini pada tahun ini.</p>`}</section>
+            <section><h3 class="sec">Tokoh lain yang hidup pada ${year} M</h3><ul class="people">${lain.map(item)}</ul></section>`;
+        })()}
       </div>
     </aside>`;
   }
@@ -245,30 +252,83 @@
   }
 
   // ---------- Profil ----------
-  function Profile({ id, year, onClose, onGoto, onGotoCity }) {
+  const kelNama = (k) => (D.kelompok && D.kelompok[k]) || k;
+  const tahunProfil = (t) => (t.takTercatat ? `±${t.lahir} – ±${t.wafat} M (tidak tercatat pasti)` : tahunTokoh(t));
+  const namaTempat = (r) => (r[0] ? D.lokasi[r[0]].nama : (r[3] || "Di luar peta").split(";")[0]);
+  function ProfileBody({ id, year, onGoto, onGotoCity, onGotoLok }) {
     const t = D.tokoh[id];
     const evs = D.peristiwa.filter((e) => e.tokoh.includes(id));
     const cityRefs = window.MEKAH.tempat.flatMap((p) => p.riwayat.filter((r) => r.tokoh.includes(id) && !r.lihat).map((r) => ({ p, r })))
       .sort((a, b) => (a.r.t ? a.r.t[0] : 0) - (b.r.t ? b.r.t[0] : 0));
     const status = year < t.lahir ? `Belum lahir pada ${year} M.` : year > t.wafat ? `Telah wafat pada ${year} M.` : `Pada ${year} M berusia ±${year - t.lahir} tahun.`;
+    const kini = D.tinggalPada ? D.tinggalPada(t, year) : null;
+    const rumah = (t.rumah || []).map(([pid, ket]) => ({ p: window.MEKAH.tempat.find((x) => x.id === pid), ket })).filter((x) => x.p);
+    return html`<div class="prof">
+      <div class="profile-head">
+        <${Medal} id=${id} size="lg" />
+        <div><h2>${t.nama}</h2><p class="gelar">${t.gelar}</p><p class="years">${tahunProfil(t)}</p>
+          ${t.kel && html`<p class="kel">${t.kel.map((k) => html`<span key=${k}>${kelNama(k)}</span>`)}</p>`}</div>
+      </div>
+      <p class="status">${status}${kini && year >= t.lahir && year <= t.wafat ? ` Tinggal di ${namaTempat(kini)}.` : ""}</p>
+      <p>${t.ringkas}</p>
+      ${t.tinggal && t.tinggal.length > 0 && html`<h3>Tempat tinggal</h3>
+        <ol class="tinggal">${t.tinggal.map((r, i) => { const now = year >= r[1] && year <= r[2]; return html`<li key=${i} class=${now ? "now" : ""}>
+          <span class="py">${r[1] === r[2] ? r[1] : `${r[1]}–${r[2]}`}</span>
+          <span class="tg"><b>${namaTempat(r)}</b>${r[0] && r[3] ? html`<small>${r[3]}</small>` : !r[0] && r[3] && r[3].includes(";") ? html`<small>${r[3].split(";").slice(1).join(";").trim()}</small>` : ""}</span>
+          ${r[0] && onGotoLok && html`<button type="button" class="link small" onClick=${() => onGotoLok(r[0], Math.max(570, Math.min(661, Math.max(r[1], t.lahir))))}>Lihat di peta</button>`}
+        </li>`; })}</ol>`}
+      ${rumah.length > 0 && html`<h3>Rumah di peta kota Mekah</h3>
+        <div class="chips">${rumah.map(({ p, ket }) => html`<button type="button" key=${p.id} class="chip go" onClick=${() => onGotoCity(p.id)}>${p.nama}${ket ? html` <small>(${ket})</small>` : ""}</button>`)}</div>`}
+      <h3>Kejadian yang melibatkannya</h3>
+      ${evs.length ? html`<ol class="plist">${evs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => onGoto(e)}>
+        <span class="py">${e.tahun}</span><span><b>${e.judul}</b><small>${e.tempat || D.lokasi[e.lok].nama}</small></span></button></li>`)}</ol>`
+        : html`<p class="dim">Belum ada kejadian di peta yang mencatat tokoh ini.</p>`}
+      ${cityRefs.length > 0 && html`<h3>Jejak di kota Mekah</h3>
+        <ol class="plist">${cityRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r)}>
+          <span class="py">${r.t ? r.t[0] : "–"}</span><span><b>${r.judul}</b><small>${p.nama}</small></span></button></li>`)}</ol>`}
+      ${t.wiki && html`<p class="prof-src">Sumber profil: <a href=${t.wiki} target="_blank" rel="noopener">${/sunnah\.com/.test(t.wiki) ? "Sunnah.com" : "Wikipedia"}</a>. Tahun bertanda ± adalah perkiraan.</p>`}
+    </div>`;
+  }
+  function Profile({ id, year, onClose, onGoto, onGotoCity, onGotoLok }) {
+    const t = D.tokoh[id];
     useEffect(() => { const k = (e) => e.key === "Escape" && onClose(); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, []);
     return html`<div class="overlay" onClick=${onClose}>
       <div class="profile" role="dialog" aria-modal="true" aria-label=${t.nama} onClick=${(e) => e.stopPropagation()}>
         <button type="button" class="close" onClick=${onClose} aria-label="Tutup">×</button>
-        <div class="profile-head">
-          <${Medal} id=${id} size="lg" />
-          <div><h2>${t.nama}</h2><p class="gelar">${t.gelar}</p><p class="years">${tahunTokoh(t)}</p></div>
-        </div>
-        <p class="status">${status}</p>
-        <p>${t.ringkas}</p>
-        <h3>Peristiwa di peta</h3>
-        <ol class="plist">${evs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => onGoto(e)}>
-          <span class="py">${e.tahun}</span><span><b>${e.judul}</b><small>${D.lokasi[e.lok].nama}</small></span></button></li>`)}</ol>
-        ${cityRefs.length > 0 && html`<h3>Jejak di kota Mekah</h3>
-          <ol class="plist">${cityRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r)}>
-            <span class="py">${r.t ? r.t[0] : "–"}</span><span><b>${r.judul}</b><small>${p.nama}</small></span></button></li>`)}</ol>`}
+        <${ProfileBody} id=${id} year=${year} onGoto=${onGoto} onGotoCity=${onGotoCity} onGotoLok=${onGotoLok} />
       </div>
     </div>`;
+  }
+
+  // ---------- Halaman Tokoh ----------
+  const URUT_KEL = ["keluarga", "istri", "khulafa", "asyarah", "muhajirin", "anshar", "sahabiyat", "panglima", "ulama", "penentang", "raja", "pra", "lain"];
+  function TokohList({ sel, onSelect, year }) {
+    const [q, setQ] = useState(""), [kel, setKel] = useState("semua"), [hidup, setHidup] = useState(false);
+    const ql = q.trim().toLowerCase();
+    const all = Object.entries(D.tokoh);
+    const list = all.filter(([, t]) => (!ql || (t.nama + " " + t.gelar).toLowerCase().includes(ql)) && (kel === "semua" || (t.kel || []).includes(kel)) && (!hidup || alive(t, year)))
+      .sort((a, b) => a[1].lahir - b[1].lahir);
+    const count = (k) => all.filter(([, t]) => (t.kel || []).includes(k)).length;
+    return html`<aside class="panel nz-panel" aria-label="Daftar tokoh">
+      <div class="loc-head plain">
+        <h2>Tokoh</h2>
+        <p class="loc-ket">${all.length} tokoh dari Tahun Gajah sampai akhir Khulafaur Rasyidin, beserta tempat tinggal dan kejadiannya.</p>
+      </div>
+      <div class="nz-tools">
+        <label class="nz-search"><span class="sr">Cari tokoh</span><input type="search" placeholder="Cari nama atau gelar" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>
+        <label class="hidup"><input type="checkbox" checked=${hidup} onChange=${(e) => setHidup(e.target.checked)} /> Hanya yang hidup pada ${year} M</label>
+        <div class="nz-seg small" role="group" aria-label="Kelompok">
+          <button type="button" class=${kel === "semua" ? "on" : ""} aria-pressed=${kel === "semua"} onClick=${() => setKel("semua")}>Semua</button>
+          ${URUT_KEL.filter((k) => count(k)).map((k) => html`<button key=${k} type="button" class=${kel === k ? "on" : ""} aria-pressed=${kel === k} onClick=${() => setKel(k)}>${kelNama(k)} <small>${count(k)}</small></button>`)}
+        </div>
+      </div>
+      <ul class="tk-list">
+        ${list.map(([id, t]) => html`<li key=${id}><button type="button" class=${id === sel ? "on" : ""} aria-pressed=${id === sel} onClick=${() => onSelect(id)}>
+          <${Medal} id=${id} size="sm" />
+          <span><b>${t.nama}</b><small>${t.kira ? "±" : ""}${t.lahir}–${t.wafat} M · ${t.gelar}</small></span></button></li>`)}
+        ${!list.length && html`<li class="nz-none">Tidak ada tokoh yang cocok.</li>`}
+      </ul>
+    </aside>`;
   }
 
   // ---------- Kota Mekah ----------
@@ -436,6 +496,7 @@
       if (Array.isArray(o)) { o.forEach((x) => walk(x, depth + 1)); return; }
       if (typeof o.url === "string" && /^https?:/.test(o.url) && !seen.has(o.url)) seen.set(o.url, o.s || o.sumber || o.judul || o.t || o.url);
       if (typeof o.wu === "string" && /^https?:/.test(o.wu) && !seen.has(o.wu)) seen.set(o.wu, o.ws || o.wu);
+      if (typeof o.wiki === "string" && /^https?:/.test(o.wiki) && !seen.has(o.wiki)) seen.set(o.wiki, o.nama ? "Profil " + o.nama : o.wiki);
       Object.values(o).forEach((v) => { if (v && typeof v === "object") walk(v, depth + 1); });
     };
     [window.SIRAH, window.MEKAH, window.NUZUL, window.SURAH, window.TONTONAN].forEach((x) => walk(x, 0));
@@ -475,6 +536,7 @@
           <h3>Isi aplikasi</h3>
           <ul class="about-list">
             <li><b>Peta wilayah</b> ${Object.keys(D.lokasi).length} tempat, ${D.peristiwa.length} peristiwa, dan ${Object.keys(D.tokoh).length} tokoh, mengikuti tahun di timeline.</li>
+            <li><b>Tokoh</b> ${Object.keys(D.tokoh).length} tokoh dengan profil, tempat tinggal per periode, rumah di peta Mekah bila tercatat, dan kejadian yang melibatkannya.</li>
             <li><b>Kota Mekah</b> ${window.MEKAH.tempat.length} tempat dengan tingkat keyakinan lokasi, jalan kaki, dan ${Object.keys(window.TONTONAN).length} tontonan peristiwa.</li>
             <li><b>Asbabun Nuzul</b> ${window.NUZUL.urutan.length} kejadian (${Object.keys(window.NUZUL.artikel).length} sudah lengkap) dan 114 surah dengan waktu turunnya.</li>
           </ul>
@@ -551,6 +613,7 @@
     const [nuzul, setNuzul] = useState(false), [nuzulSel, setNuzulSel] = useState(null);
     const storyFrom = useRef(null);
     const [about, setAbout] = useState(false);
+    const [tokohView, setTokohView] = useState(false), [tokohSel, setTokohSel] = useState("nabi");
     const [nzTab, setNzTab] = useState("kejadian"), [nzSurah, setNzSurah] = useState(null);
     const pickTab = (t) => { setNzTab(t); if (t === "surah") { setNuzulSel(null); setNzSurah(nzSurah || 96); } else if (!nuzulSel) setNuzulSel(window.NUZUL.urutan[0].id); };
     window.__wiki = (id) => { setPlaying(false); setNuzul(true); setNzTab("kejadian"); setNuzulSel(id); };
@@ -561,23 +624,25 @@
       setPlaying(false); setProfile(null); setNuzul(false); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
     };
     const endStory = () => { setStory(null); if (storyFrom.current === "nuzul") setNuzul(true); storyFrom.current = null; };
-    const view = nuzul ? "nuzul" : mode;
+    const view = nuzul ? "nuzul" : tokohView ? "tokoh" : mode;
     const go = (v) => {
-      setPlaying(false); setStory(null); storyFrom.current = null;
-      if (v === "nuzul") { if (!nuzul) toggleNuzul(); return; }
-      setNuzul(false); setMode(v); if (v === "wilayah" && mode === "mekah") setSel("makkah");
+      setPlaying(false); setStory(null); storyFrom.current = null; setProfile(null);
+      if (v === "nuzul") { setTokohView(false); if (!nuzul) toggleNuzul(); return; }
+      if (v === "tokoh") { setNuzul(false); setTokohView(true); return; }
+      setNuzul(false); setTokohView(false); setMode(v); if (v === "wilayah" && mode === "mekah") setSel("makkah");
     };
+    const gotoLok = (lok, y) => { setPlaying(false); setProfile(null); setNuzul(false); setTokohView(false); setStory(null); setMode("wilayah"); setYear(y); setSel(lok); };
     const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
-    const goto = (e) => { setPlaying(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
-    const gotoCity = (pid, r) => { setPlaying(false); if (r && r.t) setYear(r.t[0]); setMode("mekah"); setCsel(pid); setProfile(null); };
+    const goto = (e) => { setPlaying(false); setNuzul(false); setTokohView(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
+    const gotoCity = (pid, r) => { setPlaying(false); setNuzul(false); setTokohView(false); if (r && r.t) setYear(r.t[0]); setMode("mekah"); setCsel(pid); setProfile(null); };
     const city = mode === "mekah";
 
     return html`<div class=${`app${city ? " in-city" : ""}`}>
       <header class="top">
         <div class="brand"><h1>Jejak Sirah</h1><p>570–661 M, dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
         <nav class="nav" aria-label="Bagian utama">
-          ${[["wilayah", "Peta wilayah", "Jazirah Arab dan sekitarnya"], ["mekah", "Kota Mekah", "Ka'bah, rumah, dan tontonan"], ["nuzul", "Asbabun Nuzul", "Sebab turunnya ayat, per surah"]].map(([v, l, d]) =>
+          ${[["wilayah", "Peta wilayah", "Jazirah Arab dan sekitarnya"], ["mekah", "Kota Mekah", "Ka'bah, rumah, dan tontonan"], ["tokoh", "Tokoh", "Profil, tempat tinggal, kejadian"], ["nuzul", "Asbabun Nuzul", "Sebab turunnya ayat, per surah"]].map(([v, l, d]) =>
             html`<button type="button" key=${v} class=${view === v ? "on" : ""} aria-current=${view === v ? "page" : undefined} onClick=${() => go(v)}><b>${l}</b><small>${d}</small></button>`)}
         </nav>
         <div class="top-end"><${DraftNote} /><button type="button" class="about-btn" onClick=${() => setAbout(true)}>Tentang</button></div>
@@ -589,8 +654,10 @@
         : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
-      ${!nuzul && html`<${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />`}
-      ${nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />` : html`<${React.Fragment}>
+      ${!nuzul && !tokohView && html`<${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />`}
+      ${tokohView ? html`<${TokohList} sel=${tokohSel} onSelect=${setTokohSel} year=${year} />
+        <section class="nz-detail tk-detail" key=${tokohSel} aria-label="Profil tokoh"><${ProfileBody} id=${tokohSel} year=${year} onGoto=${goto} onGotoCity=${gotoCity} onGotoLok=${gotoLok} /></section>`
+      : nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />` : html`<${React.Fragment}>
       ${city
         ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
@@ -605,7 +672,7 @@
       ${nuzul && !nuzulSel && nzTab === "surah" && nzSurah && !story && window.SirahSurahDetail && html`<${window.SirahSurahDetail} no=${nzSurah}
         onSelect=${setNuzulSel} onSurah=${setNzSurah} onClose=${() => setNzSurah(null)} />`}
       ${about && html`<${About} onClose=${() => setAbout(false)} />`}
-      ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
+      ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} onGotoLok=${gotoLok} />`}
     </div>`;
   }
 
