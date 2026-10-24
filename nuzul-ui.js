@@ -76,7 +76,75 @@
 
   // ---------- Daftar (panel kanan) ----------
   const ENTRIES = () => (window.__nzEntries || (window.__nzEntries = buildEntries()));
-  function NuzulList({ sel, onSelect }) {
+
+  // ---------- Per surah ----------
+  const DER = { shahih: "Hadits shahih", sirah: "Kitab sirah", tafsir: "Kitab tafsir" };
+  function SurahList({ sel, onSelect }) {
+    const entries = ENTRIES();
+    const [q, setQ] = useState(""), [urut, setUrut] = useState("mushaf"), [filt, setFilt] = useState("semua");
+    const ql = q.trim().toLowerCase();
+    const count = useMemo(() => { const c = {}; entries.forEach((x) => { const n = x.u.s; if (n) c[n] = (c[n] || 0) + 1; }); return c; }, []);
+    let list = window.SURAH.filter((s) => (!ql || (s.no + " " + s.nama + " " + s.arti).toLowerCase().includes(ql))
+      && (filt === "semua" || (filt === "mk" ? s.mk : filt === "md" ? !s.mk : count[s.no])));
+    if (urut === "turun") list = [...list].sort((a, b) => a.urut - b.urut);
+    return html`<${React.Fragment}>
+      <div class="nz-tools">
+        <label class="nz-search"><span class="sr">Cari surah</span><input type="search" placeholder="Cari nama atau nomor surah" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>
+        <div class="nz-seg" role="group" aria-label="Urutkan">
+          <button type="button" class=${urut === "mushaf" ? "on" : ""} aria-pressed=${urut === "mushaf"} onClick=${() => setUrut("mushaf")}>Urutan mushaf</button>
+          <button type="button" class=${urut === "turun" ? "on" : ""} aria-pressed=${urut === "turun"} onClick=${() => setUrut("turun")}>Urutan turun</button>
+        </div>
+        <div class="nz-seg small" role="group" aria-label="Saring">
+          ${[["semua", "Semua"], ["mk", "Makkiyah"], ["md", "Madaniyah"], ["ada", "Ada asbabun nuzul"]].map(([k, l]) => html`<button key=${k} type="button" class=${filt === k ? "on" : ""} aria-pressed=${filt === k} onClick=${() => setFilt(k)}>${l}</button>`)}
+        </div>
+      </div>
+      <ol class="nz-list nz-surah">
+        ${list.map((s) => html`<li key=${s.no}><button type="button" class=${s.no === sel ? "on" : ""} aria-pressed=${s.no === sel} onClick=${() => onSelect(s.no)}>
+          <span class="n">${urut === "turun" ? s.urut : s.no}</span>
+          <span class="t"><b>${s.nama} <span class="ar" lang="ar">${s.ar}</span></b>
+            <small>${s.arti} · ${s.ayat} ayat</small>
+            <small class="y">${s.mk ? "Makkiyah" : "Madaniyah"}${s.beda ? " (diperselisihkan)" : ""} · urutan turun ke-${s.urut} · ${s.periode.tahun}</small></span>
+          ${count[s.no] && html`<span class="nz-count" title=${`${count[s.no]} kejadian asbabun nuzul`}>${count[s.no]}</span>`}
+        </button></li>`)}
+        ${!list.length && html`<li class="nz-none">Tidak ada surah yang cocok.</li>`}
+      </ol></${React.Fragment}>`;
+  }
+
+  function SurahDetail({ no, onSelect, onSurah, onClose }) {
+    const s = window.SURAH[no - 1], entries = ENTRIES().filter((x) => x.u.s === no);
+    const ref = useRef(null);
+    useEffect(() => { if (ref.current) ref.current.scrollTop = 0; }, [no]);
+    useEffect(() => { const k = (e) => { if (e.key === "Escape") onClose(); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); });
+    const byTurun = useMemo(() => [...window.SURAH].sort((a, b) => a.urut - b.urut), []);
+    const ti = byTurun.findIndex((x) => x.no === no), sebelum = byTurun[ti - 1], sesudah = byTurun[ti + 1];
+    return html`<section class="nz-detail" ref=${ref} aria-label=${"Surah " + s.nama}>
+      <div class="nz-head">
+        <div><p class="nz-k">Surah ke-${s.no} dalam mushaf · urutan turun ke-${s.urut} dari 114</p>
+          <h2>${s.nama} <span class="nz-ar" lang="ar">${s.ar}</span></h2><p class="nz-sub">${s.arti} · ${s.ayat} ayat</p></div>
+        <button type="button" class="close" onClick=${onClose} aria-label="Tutup">×</button>
+      </div>
+      <h3 class="nz-h">Kapan diturunkan</h3>
+      <dl class="nz-facts">
+        <div><dt>Golongan</dt><dd>${s.mk ? "Makkiyah (turun sebelum Hijrah)" : "Madaniyah (turun setelah Hijrah)"}${s.beda ? "; diperselisihkan ulama" : ""}</dd></div>
+        <div><dt>Urutan turun</dt><dd>Ke-${s.urut} dari 114, setelah ${sebelum ? sebelum.nama : "—"}${sesudah ? ", sebelum " + sesudah.nama : ""}</dd></div>
+        <div><dt>${s.catatan.length ? "Perkiraan dari urutan turun" : "Perkiraan periode"}</dt><dd>${s.periode.label}, ${s.periode.tahun}</dd></div>
+      </dl>
+      ${s.catatan.length ? html`<ul class="nz-catat">${s.catatan.map((c, i) => html`<li key=${i}><p>${c.t}</p>
+          <small><span class=${`nz-der ${c.d}`}>${DER[c.d]}</span> ${c.url ? html`<a href=${c.url} target="_blank" rel="noopener">${c.s}</a>` : c.s}</small></li>`)}</ul>`
+        : html`<p class="nz-note">Belum ada riwayat yang mencatat waktu turunnya surah ini secara khusus. Periode di atas hanya perkiraan kasar dari urutan turun.</p>`}
+      <h3 class="nz-h">Asbabun nuzul dalam surah ini</h3>
+      ${entries.length ? html`<ul class="nz-in">${entries.map((x) => html`<li key=${x.id}><button type="button" onClick=${() => onSelect(x.id)}>
+          <b>${x.judul}</b><small>${x.sub}${x.u.waktu ? " · " + x.u.waktu : ""}</small><span class=${`st ${x.full ? "full" : ""}`}>${x.full ? "Lengkap" : "Ringkasan"}</span></button></li>`)}</ul>`
+        : html`<p class="nz-p dim">Belum ada kejadian asbabun nuzul untuk surah ini di aplikasi. Banyak ayat turun tanpa sebab khusus; yang punya riwayat akan ditambahkan bertahap.</p>`}
+      <p class="nz-src">Golongan dan urutan turun mengikuti mushaf standar Mesir (Al-Azhar, 1924), dipakai juga oleh Tanzil. Urutan ini hasil ijtihad ulama, bukan nash.</p>
+      <nav class="nz-nav" aria-label="Surah lain menurut urutan turun">
+        ${sebelum ? html`<button type="button" onClick=${() => onSurah(sebelum.no)}><small>‹ Turun sebelumnya</small>${sebelum.nama}</button>` : html`<span />`}
+        ${sesudah ? html`<button type="button" class="r" onClick=${() => onSurah(sesudah.no)}><small>Turun sesudahnya ›</small>${sesudah.nama}</button>` : html`<span />`}
+      </nav>
+    </section>`;
+  }
+
+  function NuzulList({ sel, onSelect, tab = "kejadian", onTab, surah, onSurah }) {
     const entries = ENTRIES();
     const [q, setQ] = useState("");
     const ql = q.trim().toLowerCase();
@@ -84,10 +152,14 @@
     return html`<aside class="panel nz-panel" aria-label="Daftar asbabun nuzul">
       <div class="loc-head plain">
         <h2>Asbabun Nuzul</h2>
-        <p class="loc-ket">Urutan kejadian turunnya ayat. Pilih salah satu untuk melihat sebab turunnya dan memutar kejadiannya.</p>
-        <label class="nz-search"><span class="sr">Cari</span><input id="nz-q" type="search" placeholder="Cari surah atau peristiwa" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>
+        <div class="nz-tabs" role="tablist">
+          <button type="button" role="tab" aria-selected=${tab === "kejadian"} class=${tab === "kejadian" ? "on" : ""} onClick=${() => onTab && onTab("kejadian")}>Per kejadian</button>
+          <button type="button" role="tab" aria-selected=${tab === "surah"} class=${tab === "surah" ? "on" : ""} onClick=${() => onTab && onTab("surah")}>Per surah (114)</button>
+        </div>
+        <p class="loc-ket">${tab === "surah" ? "Kapan setiap surah diturunkan, dan kejadian asbabun nuzul di dalamnya." : "Urutan kejadian turunnya ayat. Pilih salah satu untuk melihat sebab turunnya dan memutar kejadiannya."}</p>
+        ${tab !== "surah" && html`<label class="nz-search"><span class="sr">Cari</span><input id="nz-q" type="search" placeholder="Cari surah atau peristiwa" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>`}
       </div>
-      <ol class="nz-list">
+      ${tab === "surah" ? html`<${SurahList} sel=${surah} onSelect=${onSurah} />` : html`<ol class="nz-list">
         ${list.map((x) => {
           const art = toArticle(x);
           return html`<li key=${x.id}><button type="button" class=${x.id === sel ? "on" : ""} onClick=${() => onSelect(x.id)} aria-pressed=${x.id === sel}>
@@ -97,7 +169,7 @@
           </button></li>`;
         })}
         ${!list.length && html`<li class="nz-none">Tidak ada yang cocok dengan "${q}".</li>`}
-      </ol>
+      </ol>`}
       <p class="draft">Isi masih draf dan perlu diverifikasi ustadz. Entri "Ringkasan" akan dilengkapi satu per satu.</p>
     </aside>`;
   }
@@ -143,6 +215,7 @@
       </footer>
     </section>`;
   }
+  window.SirahSurahDetail = SurahDetail;
   window.SirahNuzulList = NuzulList;
   window.SirahNuzulDetail = NuzulDetail;
 })();

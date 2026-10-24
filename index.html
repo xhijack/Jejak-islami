@@ -431,6 +431,36 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 .nz-list .t small.st.full { color: var(--k-kitab); }
 .nz-play-dot { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: var(--lapis-0); font-size: 10px; }
 .nz-none { color: var(--muted); padding: 8px; }
+.nz-tabs { display: flex; gap: 4px; margin: 8px 0 4px; padding: 3px; border-radius: 99px; background: var(--lapis-1); border: 1px solid var(--line); }
+.nz-tabs button { flex: 1; height: 32px; border: 0; border-radius: 99px; background: none; color: var(--muted); font: 600 13px/1 var(--f-ui); cursor: pointer; }
+.nz-tabs button.on { background: var(--gold); color: var(--lapis-0); }
+.nz-tools { padding: 0 16px 6px; display: flex; flex-direction: column; gap: 6px; }
+.nz-tools .nz-search input { margin-top: 0; }
+.nz-seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.nz-seg button { height: 28px; padding: 0 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--lapis-2); color: var(--ink); font: 500 12.5px/1 var(--f-ui); cursor: pointer; }
+.nz-seg.small button { height: 26px; font-size: 12px; }
+.nz-seg button.on { border-color: var(--gold); background: rgba(212, 174, 90, .18); color: var(--gold-soft); }
+.nz-surah .t b .ar { font: 18px/1 var(--f-ar); color: var(--gold-soft); margin-left: 6px; }
+.nz-count { flex: none; min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; display: grid; place-items: center; border-radius: 99px; background: var(--gold); color: var(--lapis-0); font: 700 12px/1 var(--f-ui); }
+.nz-ar { font: 26px/1 var(--f-ar); color: var(--gold); margin-left: 8px; }
+.nz-catat { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.nz-catat li { padding: 10px 12px; border-radius: 10px; background: var(--lapis-1); border-left: 3px solid var(--gold); }
+.nz-catat p { margin: 0 0 4px; font: 15px/1.55 var(--f-text); color: var(--ink); }
+.nz-catat small { font-size: 12.5px; color: var(--muted); }
+.nz-catat a { color: var(--gold-soft); }
+.nz-der { display: inline-block; padding: 1px 8px; margin-right: 6px; border-radius: 99px; font-size: 11px; font-weight: 600; background: var(--lapis-3); color: var(--ink); }
+.nz-der.shahih { background: rgba(120, 190, 140, .22); color: #bfe6c8; }
+.nz-der.sirah { background: rgba(212, 174, 90, .22); color: var(--gold-soft); }
+.nz-der.tafsir { background: rgba(140, 160, 220, .22); color: #c8d4f4; }
+.nz-in { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.nz-in button { width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--lapis-2); color: var(--ink); cursor: pointer; }
+.nz-in button:hover { border-color: var(--gold); }
+.nz-in b { font: 600 15px/1.3 var(--f-text); color: var(--gold-soft); }
+.nz-in small { grid-column: 1; font-size: 12.5px; color: var(--muted); }
+.nz-in .st { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; color: var(--muted); }
+.nz-in .st.full { color: var(--k-kitab); }
+.nz-p.dim { color: var(--muted); }
+.nz-src { margin: 14px 0 0; font-size: 12px; color: var(--muted); line-height: 1.5; }
 .nz-detail { grid-column: 1; grid-row: 2; z-index: 30; justify-self: start; align-self: stretch; width: min(560px, calc(100% - 24px)); box-sizing: border-box; margin: 12px; min-height: 0; overflow: auto;
   padding: 18px 20px 20px; border-radius: 14px; background: rgba(12, 20, 48, .96); border: 1px solid var(--gold); box-shadow: 0 20px 50px rgba(0, 0, 0, .45); animation: nzIn .35s ease both; }
 @keyframes nzIn { from { opacity: 0; transform: translateX(-10px); } }
@@ -495,6 +525,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 <script src="scene.js"></script>
 <script src="city.js"></script>
 <script src="nuzul.js"></script>
+<script src="surah.js"></script>
 <script src="interior.js"></script>
 <script src="nuzul-ui.js"></script>
 <script src="story.js"></script>

@@ -430,8 +430,10 @@
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
     const [nuzul, setNuzul] = useState(false), [nuzulSel, setNuzulSel] = useState(null);
-    window.__wiki = (id) => { setPlaying(false); setNuzul(true); setNuzulSel(id); };
-    const toggleNuzul = () => { if (nuzul) { setNuzul(false); return; } setPlaying(false); setNuzul(true); setNuzulSel(nuzulSel || window.NUZUL.urutan[0].id); };
+    const [nzTab, setNzTab] = useState("kejadian"), [nzSurah, setNzSurah] = useState(null);
+    const pickTab = (t) => { setNzTab(t); if (t === "surah") { setNuzulSel(null); setNzSurah(nzSurah || 96); } else if (!nuzulSel) setNuzulSel(window.NUZUL.urutan[0].id); };
+    window.__wiki = (id) => { setPlaying(false); setNuzul(true); setNzTab("kejadian"); setNuzulSel(id); };
+    const toggleNuzul = () => { if (nuzul) { setNuzul(false); return; } setPlaying(false); setNuzul(true); if (nzTab === "kejadian") setNuzulSel(nuzulSel || window.NUZUL.urutan[0].id); else if (!nzSurah) setNzSurah(96); };
     window.__tonton = (id) => {
       const ev = window.TONTONAN[id]; if (!ev) return;
       setPlaying(false); setProfile(null); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
@@ -458,7 +460,7 @@
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
       <${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />
-      ${nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} />` : html`<${React.Fragment}>
+      ${nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />` : html`<${React.Fragment}>
       ${city
         ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
@@ -467,6 +469,8 @@
       ${nuzul && nuzulSel && !story && window.SirahNuzulDetail && html`<${window.SirahNuzulDetail} id=${nuzulSel} onSelect=${setNuzulSel} onClose=${() => setNuzulSel(null)}
         onWatch=${(id) => window.__tonton(id)} onProfile=${setProfile}
         onMap=${(pt) => { setNuzul(false); setStory(null); setPlaying(false); setYear(pt.tahun); if (pt.tempat) { setMode("mekah"); setCsel(pt.tempat); } else { setMode("wilayah"); setSel(pt.lok); } }} />`}
+      ${nuzul && !nuzulSel && nzTab === "surah" && nzSurah && !story && window.SirahSurahDetail && html`<${window.SirahSurahDetail} no=${nzSurah}
+        onSelect=${setNuzulSel} onSurah=${setNzSurah} onClose=${() => setNzSurah(null)} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }
