@@ -349,6 +349,201 @@
     </div>`;
   }
 
+  // ---------- Jaringan 3D (Three.js): tampak atas = jaringan 2D, sumbu tegak = tahun lahir ----------
+  const WARNA_SIMPUL = { nabi: 0xfff3cf, keluarga: 0xc79a3c, istri: 0xd0607a, sahabat: 0x5b78d6, anshar: 0x49b08a, penentang: 0x9c6b6b };
+  let L3 = null;
+  function layout3D() {
+    if (L3) return L3;
+    const { P, box } = layout();
+    const cx = box[0] + box[2] / 2, cz = box[1] + box[3] / 2, w = Math.max(box[2], box[3]);
+    const ys = (w * 0.55) / 120; // ±120 tahun
+    const Q = {};
+    // tampak atas sama dengan jaringan 2D; sumbu tegak: makin ke atas makin tua (lahir lebih awal)
+    NODES.forEach((id) => { const t = D.tokoh[id]; Q[id] = { x: P[id].x - cx, y: (570 - (t.lahir || 570)) * ys, z: P[id].y - cz }; });
+    L3 = { Q, w, ys };
+    return L3;
+  }
+  function glowTex(THREE) {
+    const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+    const r = g.createRadialGradient(64, 64, 0, 64, 64, 64); r.addColorStop(0, "rgba(255,246,216,1)"); r.addColorStop(0.35, "rgba(255,226,150,.55)"); r.addColorStop(1, "rgba(212,174,90,0)");
+    g.fillStyle = r; g.fillRect(0, 0, 128, 128); const t = new THREE.CanvasTexture(c); return t;
+  }
+  function buat3D(container, labels, opts) {
+    const THREE = window.THREE, { Q, w, ys } = layout3D();
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); container.appendChild(renderer.domElement);
+    const scene = new THREE.Scene(); scene.fog = new THREE.Fog(0x0b1430, w * 1.4, w * 3.4);
+    const camera = new THREE.PerspectiveCamera(42, 1, 1, w * 10);
+    scene.add(new THREE.HemisphereLight(0xdde4ff, 0x2a2140, 0.9));
+    const sun = new THREE.DirectionalLight(0xffe7c0, 0.8); sun.position.set(1, 2, 1.5); scene.add(sun);
+    // simpul
+    const meshes = {}, pick = [];
+    const geo = new THREE.SphereGeometry(1, 20, 14);
+    NODES.forEach((id) => {
+      const kg = kelompokSimpul(id), r = id === "nabi" ? 22 : 13;
+      const mat = id === "nabi" ? new THREE.MeshBasicMaterial({ color: WARNA_SIMPUL.nabi, transparent: true })
+        : new THREE.MeshStandardMaterial({ color: WARNA_SIMPUL[kg], roughness: 0.4, metalness: 0.2, emissive: WARNA_SIMPUL[kg], emissiveIntensity: 0.3, transparent: true });
+      const m = new THREE.Mesh(geo, mat); m.scale.setScalar(r); m.position.set(Q[id].x, Q[id].y, Q[id].z); m.userData.id = id; m.userData.r = r;
+      scene.add(m); meshes[id] = m; pick.push(m);
+    });
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex(THREE), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+    glow.scale.setScalar(130); glow.position.copy(meshes.nabi.position); scene.add(glow);
+    // garis hubungan per jenis
+    const garis = {};
+    JENIS.forEach(([k, , c]) => {
+      const es = valid.filter((e) => e.g === k), pos = new Float32Array(es.length * 6);
+      es.forEach((e, i) => { const a = Q[e.a], b = Q[e.b]; pos.set([a.x, a.y, a.z, b.x, b.y, b.z], i * 6); });
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      const mat = k === "muakhah" ? new THREE.LineDashedMaterial({ color: c, dashSize: 7, gapSize: 5, transparent: true, opacity: 0.35 })
+        : new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: 0.35 });
+      const ln = new THREE.LineSegments(g, mat); if (k === "muakhah") ln.computeLineDistances();
+      scene.add(ln); garis[k] = ln;
+    });
+    // penggaris tahun lahir
+    const X0 = -w * 0.62, Z0 = -w * 0.1;
+    const ax = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(X0, (570 - 660) * ys, Z0), new THREE.Vector3(X0, (570 - 490) * ys, Z0)]);
+    scene.add(new THREE.Line(ax, new THREE.LineBasicMaterial({ color: 0xd4ae5a, transparent: true, opacity: 0.5 })));
+    const TICK = [500, 530, 570, 600, 630, 660];
+    TICK.forEach((y) => { const t = new THREE.Mesh(new THREE.SphereGeometry(3, 8, 6), new THREE.MeshBasicMaterial({ color: 0xd4ae5a })); t.position.set(X0, (570 - y) * ys, Z0); scene.add(t); });
+    const lantai = new THREE.GridHelper(w * 1.3, 13, 0x26397a, 0x1b2b5e); lantai.position.y = (570 - 665) * ys; lantai.material.transparent = true; lantai.material.opacity = 0.35; scene.add(lantai);
+    // sorotan: tabung untuk hubungan yang aktif
+    let sorotG = new THREE.Group(); scene.add(sorotG);
+    const up = new THREE.Vector3(0, 1, 0);
+    function tabung(a, b, color, putus) {
+      const A = new THREE.Vector3(a.x, a.y, a.z), B = new THREE.Vector3(b.x, b.y, b.z), d = B.clone().sub(A), len = d.length();
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(putus ? 2.4 : 3.6, putus ? 2.4 : 3.6, len, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }));
+      m.position.copy(A).add(B).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(up, d.normalize()); return m;
+    }
+    let state = { terang: new Set(NODES), fokus: "nabi", tepi: [] };
+    function sorot(st) {
+      state = st;
+      scene.remove(sorotG); sorotG.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); sorotG = new THREE.Group(); scene.add(sorotG);
+      st.tepi.forEach((e) => sorotG.add(tabung(Q[e.a], Q[e.b], WARNA[e.g], e.g === "muakhah" || e.cerai)));
+      NODES.forEach((id) => {
+        const m = meshes[id], on = st.terang.has(id), on2 = st.tampil.has(id);
+        m.visible = on2; m.material.opacity = on ? 1 : 0.22;
+        if (m.material.emissiveIntensity !== undefined && id !== "nabi") m.material.emissiveIntensity = id === st.fokus ? 0.8 : on ? 0.4 : 0.08;
+        m.scale.setScalar(m.userData.r * (id === st.fokus ? 1.45 : 1));
+      });
+      JENIS.forEach(([k]) => { garis[k].visible = !!st.on[k]; garis[k].material.opacity = st.redup ? 0.12 : 0.35; });
+    }
+    // kamera orbit
+    const cam = { az: 0.6, el: 0.42, dist: w * 1.25, target: new THREE.Vector3(0, 0, 0) }, goal = { az: cam.az, el: cam.el, dist: cam.dist, target: cam.target.clone() };
+    let auto = true, last = performance.now();
+    const el = renderer.domElement; el.style.touchAction = "none";
+    let drag = null; const pts = new Map();
+    el.addEventListener("pointerdown", (ev) => {
+      el.setPointerCapture(ev.pointerId); pts.set(ev.pointerId, [ev.clientX, ev.clientY]);
+      drag = { x: ev.clientX, y: ev.clientY, moved: 0, pan: ev.button === 2 || ev.shiftKey || ev.ctrlKey, pinch: pts.size === 2 ? Math.hypot(...[...pts.values()].reduce((a, b) => [a[0] - b[0], a[1] - b[1]])) : 0 };
+      auto = false;
+    });
+    el.addEventListener("pointermove", (ev) => {
+      if (!drag || !pts.has(ev.pointerId)) return;
+      pts.set(ev.pointerId, [ev.clientX, ev.clientY]);
+      if (pts.size === 2) { const d = Math.hypot(...[...pts.values()].reduce((a, b) => [a[0] - b[0], a[1] - b[1]])); if (drag.pinch) goal.dist = Math.max(w * 0.25, Math.min(w * 3, goal.dist * (drag.pinch / d))); drag.pinch = d; drag.moved += 10; return; }
+      const dx = ev.clientX - drag.x, dy = ev.clientY - drag.y; drag.x = ev.clientX; drag.y = ev.clientY; drag.moved += Math.abs(dx) + Math.abs(dy);
+      if (drag.pan) {
+        const k = (2 * cam.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
+        const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0), upv = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+        goal.target.addScaledVector(right, -dx * k).addScaledVector(upv, dy * k); cam.target.copy(goal.target);
+      } else { goal.az -= dx * 0.006; goal.el = Math.max(-1.35, Math.min(1.45, goal.el + dy * 0.005)); }
+    });
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+    el.addEventListener("pointerup", (ev) => {
+      pts.delete(ev.pointerId);
+      if (drag && drag.moved < 5 && ev.button === 0) {
+        const r = el.getBoundingClientRect(); ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+        ray.setFromCamera(ndc, camera); const hit = ray.intersectObjects(pick.filter((m) => m.visible))[0];
+        if (hit) opts.onPick(hit.object.userData.id);
+      }
+      if (!pts.size) drag = null;
+    });
+    el.addEventListener("contextmenu", (ev) => ev.preventDefault());
+    container.parentElement.addEventListener("pointerenter", () => { auto = false; });
+    el.addEventListener("wheel", (ev) => { ev.preventDefault(); auto = false; goal.dist = Math.max(w * 0.25, Math.min(w * 3, goal.dist * Math.exp(ev.deltaY * (ev.ctrlKey ? 0.01 : 0.0012)))); }, { passive: false });
+    function resize() { const W = container.clientWidth, H = container.clientHeight; renderer.setSize(W, H, false); camera.aspect = W / Math.max(1, H); camera.updateProjectionMatrix(); }
+    const ro = new ResizeObserver(resize); ro.observe(container); resize();
+    const v = new THREE.Vector3(); let raf;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function frame(now) {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (auto && !reduce) goal.az += dt * 0.12;
+      const k = reduce ? 1 : 0.12;
+      cam.az += (goal.az - cam.az) * k; cam.el += (goal.el - cam.el) * k; cam.dist += (goal.dist - cam.dist) * k; cam.target.lerp(goal.target, k);
+      camera.position.set(cam.target.x + cam.dist * Math.cos(cam.el) * Math.sin(cam.az), cam.target.y + cam.dist * Math.sin(cam.el), cam.target.z + cam.dist * Math.cos(cam.el) * Math.cos(cam.az));
+      camera.lookAt(cam.target);
+      glow.material.opacity = 0.75 + 0.25 * Math.sin(now / 600);
+      const W = container.clientWidth, H = container.clientHeight;
+      for (const id in labels) {
+        const n = labels[id]; if (!n) continue;
+        let p;
+        if (id.startsWith("__t")) { const y = +id.slice(3); p = v.set(X0 - 10, (570 - y) * ys, Z0); }
+        else { const m = meshes[id]; if (!m || !m.visible) { n.style.visibility = "hidden"; continue; } p = v.set(m.position.x, m.position.y - m.userData.r * m.scale.x / m.userData.r - 6, m.position.z); }
+        p.project(camera);
+        n.style.transform = `translate(${((p.x * 0.5 + 0.5) * W).toFixed(1)}px, ${((-p.y * 0.5 + 0.5) * H).toFixed(1)}px)`;
+        n.style.visibility = p.z < 1 ? "visible" : "hidden";
+        n.style.zIndex = String(Math.round((1 - p.z) * 100000));
+      }
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+    return {
+      sorot,
+      zoom(f) { auto = false; goal.dist = Math.max(w * 0.25, Math.min(w * 3, goal.dist * f)); },
+      putar(d) { auto = false; goal.az += d; },
+      reset() { goal.az = 0.6; goal.el = 0.42; goal.dist = w * 1.25; goal.target.set(0, 0, 0); },
+      atas() { auto = false; goal.el = 1.45; goal.dist = w * 1.1; },
+      samping() { auto = false; goal.el = 0.02; goal.dist = w * 1.2; },
+      ke(id) { const m = meshes[id]; if (m) goal.target.lerp(m.position, 0.6); },
+      setAuto(a) { auto = a; },
+      dispose() { cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); el.remove(); }
+    };
+  }
+
+  function Jaringan3D({ focus, onFocus, on, path }) {
+    const box = useRef(null), eng = useRef(null), labels = useRef({}), pickRef = useRef(onFocus);
+    pickRef.current = onFocus;
+    const [gagal, setGagal] = useState(false);
+    useEffect(() => {
+      try { eng.current = buat3D(box.current, labels.current, { onPick: (id) => pickRef.current(id) }); } catch (e) { setGagal(true); }
+      return () => eng.current && eng.current.dispose();
+    }, []);
+    const jalur = path && path.length > 0;
+    const pathN = new Set(jalur ? [path[0].from, ...path.map((p) => p.s.to)] : []);
+    const neigh = new Set([focus]); (ADJ[focus] || []).forEach((e) => on[e.g] && neigh.add(e.a === focus ? e.b : e.a));
+    const terang = jalur ? pathN : neigh;
+    const tepi = jalur ? path.map((p) => p.e) : (ADJ[focus] || []).filter((e) => on[e.g]);
+    const tampil = new Set([focus]); valid.forEach((e) => { if (on[e.g]) { tampil.add(e.a); tampil.add(e.b); } });
+    useEffect(() => { eng.current && eng.current.sorot({ terang, tepi, fokus: focus, on, tampil, redup: true }); if (eng.current && !jalur) eng.current.ke(focus); },
+      [focus, on, path]);
+    const reg = (id) => (n) => { if (n) labels.current[id] = n; else delete labels.current[id]; };
+    if (gagal) return html`<div class="kr-net"><p class="kr-none" style=${{ padding: "20px" }}>Tampilan 3D tidak didukung di perangkat ini. Pilih tampilan 2D.</p></div>`;
+    return html`<div class="kr-net kr-3d">
+      <div class="kr-canvas" ref=${box}></div>
+      <div class="kr-labels">
+        ${NODES.map((id) => html`<div key=${id} ref=${reg(id)} class=${`kr-l k-${kelompokSimpul(id)}${terang.has(id) ? " on" : ""}${id === focus ? " fokus" : ""}${tampil.has(id) ? "" : " sembunyi"}`}
+          role="button" tabindex="0" onClick=${() => onFocus(id)} onKeyDown=${(ev) => { if (ev.key === "Enter") onFocus(id); }}>${SINGKAT[id]}</div>`)}
+        ${[500, 530, 570, 600, 630, 660].map((y) => html`<div key=${y} ref=${reg("__t" + y)} class="kr-tick">${y === 570 ? "570 M (Tahun Gajah)" : y + " M"}</div>`)}
+      </div>
+      <div class="kr-legend">
+        <div>${JENIS.filter(([k]) => on[k]).map(([k, l, c]) => html`<span key=${k}><i style=${{ background: c }} class=${k === "muakhah" ? "putus" : ""}></i>${l}</span>`)}</div>
+        <div>${SIMPUL.map(([k, l]) => html`<span key=${k}><b class=${`dot k-${k}`}></b>${l}</span>`)}</div>
+        <div><span>Sumbu tegak: tahun lahir (makin atas makin tua)</span></div>
+      </div>
+      <div class="kr-zoom tool-group">
+        <button type="button" class="tool" onClick=${() => eng.current.zoom(0.8)} aria-label="Perbesar">+</button>
+        <button type="button" class="tool" onClick=${() => eng.current.zoom(1.25)} aria-label="Perkecil">−</button>
+        <button type="button" class="tool" onClick=${() => eng.current.putar(-0.5)} aria-label="Putar kiri">⟲</button>
+        <button type="button" class="tool" onClick=${() => eng.current.putar(0.5)} aria-label="Putar kanan">⟳</button>
+        <button type="button" class="tool wide" onClick=${() => eng.current.atas()}>Dari atas</button>
+        <button type="button" class="tool wide" onClick=${() => eng.current.samping()}>Dari samping</button>
+        <button type="button" class="tool wide" onClick=${() => eng.current.reset()}>Atur ulang</button>
+      </div>
+      <p class="kr-hint">Seret untuk memutar, klik kanan atau Shift + seret untuk menggeser, gulir untuk zoom. Klik bola atau nama untuk melihat kerabatnya.</p>
+    </div>`;
+  }
+
   // ---------- Panel ----------
   const nama = (id) => D.tokoh[id].nama;
   const PRESET = ["abubakar", "umar", "utsman", "ali", "muawiyah", "khalid", "zubair", "ibnuabbas", "abusufyan", "abulahab"];
@@ -433,11 +628,21 @@
     </aside>`;
   }
 
-  function Kerabat({ onProfile, onTokoh }) {
-    const [focus, setFocus] = useState("nabi");
-    const [from, setFrom] = useState("nabi"), [to, setTo] = useState("abubakar");
+  function Kerabat({ onProfile, onTokoh, rute, onRute }) {
+    const r0 = rute || {};
+    const [focus, setFocus] = useState(r0.fokus && D.tokoh[r0.fokus] ? r0.fokus : "nabi");
+    const [from, setFrom] = useState(r0.dari && ADJ[r0.dari] ? r0.dari : "nabi"), [to, setTo] = useState(r0.ke && ADJ[r0.ke] ? r0.ke : "abubakar");
+    const [dim, setDim] = useState(() => { try { return localStorage.getItem("jejak-kerabat-dim") || "3d"; } catch (e) { return "3d"; } });
+    const pilihDim = (d) => { setDim(d); try { localStorage.setItem("jejak-kerabat-dim", d); } catch (e) {} };
     const [on, setOn] = useState({ darah: true, nikah: true, susuan: true, muakhah: true });
-    const [mode, setMode] = useState("jalur");
+    const [mode, setMode] = useState(r0.fokus ? "fokus" : "jalur");
+    // URL ikut berubah: #/kerabat/<dari>/<ke> atau #/kerabat/fokus/<id>
+    useEffect(() => { onRute && onRute(mode === "fokus" ? { fokus: focus } : { dari: from, ke: to }); }, [mode, focus, from, to]);
+    useEffect(() => {
+      if (!rute) return;
+      if (rute.fokus && rute.fokus !== focus && D.tokoh[rute.fokus]) { setFocus(rute.fokus); setMode("fokus"); }
+      else if (rute.dari && rute.ke && (rute.dari !== from || rute.ke !== to) && ADJ[rute.dari] && ADJ[rute.ke]) { setFrom(rute.dari); setTo(rute.ke); setMode("jalur"); }
+    }, [rute && rute.fokus, rute && rute.dari, rute && rute.ke]);
     const semua = useMemo(() => semuaJalur(from, to, on), [from, to, on]);
     const utama = semua && semua.length ? semua[0] : semua, lain = semua && semua.length ? semua.slice(1) : [];
     const [alt, setAlt] = useState(null);
@@ -448,10 +653,14 @@
     return html`<${React.Fragment}>
       <section class="nz-detail kr-main" aria-label="Jaringan kekerabatan">
         <header class="kr-head">
-          <h2>${mode === "jalur" && path && path.length ? `${nama(from)} dan ${nama(to)}` : `Kerabat ${nama(focus)}`}</h2>
-          <p>${mode === "jalur" && path && path.length ? "Jalur hubungan disorot di jaringan. Klik sebuah nama untuk beralih ke kerabatnya." : "Hubungan langsung disorot. Pilih dua tokoh di panel kanan untuk melihat jalurnya."}</p>
+          <div><h2>${mode === "jalur" && path && path.length ? `${nama(from)} dan ${nama(to)}` : `Kerabat ${nama(focus)}`}</h2>
+          <p>${mode === "jalur" && path && path.length ? "Jalur hubungan disorot di jaringan. Klik sebuah nama untuk beralih ke kerabatnya." : "Hubungan langsung disorot. Pilih dua tokoh di panel kanan untuk melihat jalurnya."}</p></div>
+          <div class="nz-seg" role="group" aria-label="Tampilan jaringan">
+            ${[["3d", "3D"], ["2d", "2D"]].map(([k, l]) => html`<button key=${k} type="button" class=${dim === k ? "on" : ""} aria-pressed=${dim === k} onClick=${() => pilihDim(k)}>${l}</button>`)}
+          </div>
         </header>
-        <${Jaringan} focus=${focus} onFocus=${fokus} on=${on} path=${mode === "jalur" ? path : null} />
+        ${dim === "3d" && window.THREE ? html`<${Jaringan3D} focus=${focus} onFocus=${fokus} on=${on} path=${mode === "jalur" ? path : null} />`
+          : html`<${Jaringan} focus=${focus} onFocus=${fokus} on=${on} path=${mode === "jalur" ? path : null} />`}
       </section>
       <${KerabatPanel} focus=${focus} onFocus=${fokus} from=${from} to=${to} setFrom=${(v) => pick(v)} setTo=${(v) => pick(undefined, v)}
         on=${on} setOn=${setOn} path=${path} lain=${alt ? [utama, ...lain.filter((p) => p !== alt)] : lain} onAlt=${(p) => { setAlt(p === utama ? null : p); setMode("jalur"); }} onProfile=${onProfile} onTokoh=${onTokoh} />

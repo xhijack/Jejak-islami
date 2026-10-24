@@ -134,6 +134,30 @@
     return { zoomAt };
   }
 
+  // Ikon 3D kecil di puncak tiang penanda, alasnya di y = 0
+  function ikon3D(THREE, n, mat) {
+    const g = new THREE.Group(), M = (geo, m = mat, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); g.add(o); return o; };
+    const box = (w, h, d) => new THREE.BoxGeometry(w, h, d), cyl = (a, b, h, s = 10) => new THREE.CylinderGeometry(a, b, h, s);
+    const dome = (r) => new THREE.SphereGeometry(r, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+    if (n === "kabah") { M(box(0.17, 0.19, 0.17), new THREE.MeshStandardMaterial({ color: 0x17140f, roughness: 0.6 }), 0, 0.095); M(box(0.176, 0.03, 0.176), mat, 0, 0.14); }
+    else if (n === "masjid") { M(box(0.2, 0.07, 0.15), mat, 0, 0.035); M(dome(0.06), mat, 0, 0.07); const t = M(cyl(0.014, 0.016, 0.2, 8), mat, 0.085, 0.1, 0); M(new THREE.ConeGeometry(0.022, 0.04, 8), mat, 0.085, 0.22); t.castShadow = false; }
+    else if (n === "kubah") { M(cyl(0.085, 0.085, 0.07, 8), mat, 0, 0.035); M(dome(0.075), mat, 0, 0.07); M(cyl(0.006, 0.006, 0.05, 6), mat, 0, 0.165); }
+    else if (n === "pedang") {
+      [0.7, -0.7].forEach((a) => { const b = M(box(0.022, 0.25, 0.01), mat, 0, 0.12); b.rotation.z = a; const h = M(box(0.07, 0.016, 0.016), mat, 0, 0.12); h.rotation.z = a; h.position.set(Math.sin(-a) * -0.075, 0.12 - Math.cos(a) * 0.075, 0); });
+    }
+    else if (n === "benteng") { M(cyl(0.07, 0.08, 0.17, 12), mat, 0, 0.085); for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2; M(box(0.03, 0.035, 0.03), mat, Math.cos(a) * 0.06, 0.185, Math.sin(a) * 0.06); } }
+    else if (n === "kota") { M(box(0.07, 0.12, 0.07), mat, -0.06, 0.06, 0.02); M(box(0.07, 0.2, 0.07), mat, 0.01, 0.1, -0.02); M(box(0.06, 0.15, 0.06), mat, 0.07, 0.075, 0.03); }
+    else if (n === "mahkota") { M(new THREE.CylinderGeometry(0.085, 0.075, 0.06, 18, 1, true), mat, 0, 0.03); for (let i = 0; i < 5; i++) { const a = (i / 5) * Math.PI * 2; M(new THREE.ConeGeometry(0.018, 0.07, 6), mat, Math.cos(a) * 0.08, 0.095, Math.sin(a) * 0.08); M(new THREE.SphereGeometry(0.012, 8, 6), mat, Math.cos(a) * 0.08, 0.135, Math.sin(a) * 0.08); } }
+    else if (n === "kemah") { M(new THREE.ConeGeometry(0.11, 0.17, 4), mat, 0, 0.085); M(cyl(0.004, 0.004, 0.06, 4), mat, 0, 0.2); }
+    else if (n === "kurma") {
+      M(cyl(0.011, 0.016, 0.2, 6), mat, 0, 0.1);
+      for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2, l = M(box(0.11, 0.008, 0.03), mat, Math.cos(a) * 0.05, 0.19, Math.sin(a) * 0.05); l.rotation.y = -a; l.rotation.z = -0.45; }
+    }
+    else if (n === "gunung") { M(new THREE.ConeGeometry(0.1, 0.16, 6), mat, 0, 0.08); }
+    else { M(new THREE.OctahedronGeometry(0.11, 0), mat, 0, 0.11); }
+    return g;
+  }
+
   function create(container, opts) {
     const THREE = window.THREE;
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -215,7 +239,8 @@
       const pillarMat = new THREE.MeshStandardMaterial({ color: gold, emissive: 0x6b4d10, emissiveIntensity: 0.2, metalness: 0.7, roughness: 0.3 });
       const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.06, 1, 10), pillarMat);
       pillar.position.y = 0.5; g.add(pillar);
-      const top = new THREE.Mesh(new THREE.OctahedronGeometry(0.11, 0), pillarMat); top.position.y = 1.05; g.add(top);
+      const ik = l.ikon || { kabah: "kabah", kota: "kota", medan: "pedang", oasis: "kurma", gunung: "gunung" }[l.jenis] || "kota";
+      const top = ikon3D(THREE, ik, pillarMat); top.position.y = 1.0; top.scale.setScalar(1.25); g.add(top);
       const ringMat = new THREE.MeshBasicMaterial({ color: 0xf2d27a, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
       const ring = new THREE.Mesh(new THREE.RingGeometry(0.22, 0.3, 40), ringMat);
       ring.rotation.x = -Math.PI / 2; ring.position.y = 0.04; g.add(ring);
@@ -305,8 +330,8 @@
         const m = markers[id];
         const want = m.active ? 1.25 : 0.45;
         m.h += (want - m.h) * 0.1;
-        m.pillar.scale.y = m.h; m.pillar.position.y = m.h / 2; m.top.position.y = m.h + 0.06;
-        m.top.rotation.y = t * (m.active ? 1.2 : 0.3);
+        m.pillar.scale.y = m.h; m.pillar.position.y = m.h / 2; m.top.position.y = m.h - 0.01;
+        m.top.rotation.y = t * (m.active ? 0.9 : 0.25);
         m.pillarMat.emissiveIntensity = m.active ? 0.55 + 0.25 * Math.sin(t * 3) : 0.1;
         const isSel = id === selected;
         const p = reduce ? 0.5 : (t * 0.7) % 1;
@@ -322,7 +347,7 @@
           lab.style.zIndex = String(Math.round((1 - v.z) * 10000));
           // Tingkat detail label: 0 jauh (nama kota), 1 sedang (jumlah tokoh), 2 dekat (nama tokoh)
           const d = camera.position.distanceTo(m.g.position);
-          let lod = d < 17 ? 2 : d < 25 ? 1 : 0;
+          let lod = d < 10.5 ? 2 : d < 25 ? 1 : 0;
           if (lod === 2) near.push({ lab, c: Math.hypot(v.x, v.y * 1.2), y: v.y, sel: id === selected });
           if (lod === 2) lod = 1;
           lab._lod = lod;

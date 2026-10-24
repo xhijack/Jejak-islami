@@ -28,6 +28,50 @@
 
   window.SirahMedal = Medal;
 
+  // ---------- Ikon fungsi tempat (garis 16×16, warna mengikuti teks) ----------
+  const IKON = {
+    kabah: ["M4 5.5h8v8H4z", "M4 8.3h8", 1],
+    masjid: ["M3 14h10M4.5 14V9a3.5 3.5 0 0 1 7 0v5M8 5.5V4M7 14v-2.5a1 1 0 0 1 2 0V14"],
+    kubah: ["M2.5 14h11M3.5 14v-3.5h9V14M4.5 10.5a3.5 3.5 0 0 1 7 0M8 7V5.5"],
+    pedang: ["M3 3l8.5 8.5M13 3l-8.5 8.5M10 13l3-3M3 10l3 3"],
+    benteng: ["M4 14V6.5h8V14M3.5 6.5V3.5h2v1.5h1.5V3.5h2v1.5h1.5V3.5h2v3M7 14v-2.5h2V14"],
+    kota: ["M2 14h12M3 14V8.5h3V14M6 14V5h4v9M10 14V9.5h3V14M7.5 7h1M7.5 9.5h1"],
+    mahkota: ["M3 12.5h10L13.5 5l-3 2.5L8 3.5 5.5 7.5l-3-2.5zM3 14h10"],
+    kemah: ["M1.5 13.5 8 3.5l6.5 10zM8 3.5v10M6 13.5 8 10.5l2 3"],
+    kurma: ["M8 14V7.5M8 7.5C6.5 5.5 4.5 5 2.5 6M8 7.5c1.5-2 3.5-2.5 5.5-1.5M8 7.5C7.5 5 6 3.5 4 3M8 7.5C8.5 5 10 3.5 12 3M6 14h4"],
+    gunung: ["M1.5 13.5 6 5.5l3 4.5 2-2.5 3.5 6z"],
+    bukit: ["M1.5 13.5c2-4 4.3-6 6.5-6s4.5 2 6.5 6z"],
+    rumah: ["M2.5 8 8 3.5 13.5 8M4 7v6.5h8V7M7 13.5v-3h2v3"],
+    balai: ["M2 6h12L8 2.5zM3.5 6v7M6.5 6v7M9.5 6v7M12.5 6v7M2 13.5h12"],
+    sumur: ["M3 4h10M5 4v3.5M11 4v3.5M8 4v4M3.5 8.5h9v5h-9zM3.5 11h9"],
+    makam: ["M2 14h12M4 14V9.5a1.75 1.75 0 0 1 3.5 0V14M9 14v-3a1.5 1.5 0 0 1 3 0v3"],
+    pasar: ["M2.5 3h11l1 3h-13zM3 6v7.5M13 6v7.5M2.5 13.5h11M6 13.5V10h4v3.5"],
+    jalan: ["M5.5 14 7 2M10.5 14 9 2M8 3.5v1.5M8 7.25v1.5M8 11v1.5"],
+    kampung: ["M1.5 9 4.5 6.5 7.5 9M2.5 8.5v5h4v-5M8 8l3.25-3 3.25 3M9 7.5v6h4.5v-6M1.5 13.5h13"],
+    wadi: ["M1.5 6c2-1.5 3.5-1.5 5 0s3 1.5 5 0 2.5-1 3-1M1.5 10c2-1.5 3.5-1.5 5 0s3 1.5 5 0 2.5-1 3-1"],
+    batu: ["M1.5 13.5 3 10l2.5-1 1.5 2 2-3.5 2.5 1 1.5 2.5 1.5 2.5z", null, 1],
+    gua: ["M1.5 13.5c1.5-6 4-9 6.5-9s5 3 6.5 9zM6 13.5c0-2 .9-3.5 2-3.5s2 1.5 2 3.5"],
+    parit: ["M1.5 6h4v4.5h5V6h4M1.5 13h13"],
+    titik: ["M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", null, 1]
+  };
+  const IKON_NAMA = { kabah: "Ka'bah", masjid: "Masjid", kubah: "Tempat suci", pedang: "Medan perang", benteng: "Benteng", kota: "Kota", mahkota: "Pusat kerajaan",
+    kemah: "Ekspedisi tanpa pertempuran", kurma: "Oasis atau kebun kurma", gunung: "Gunung", bukit: "Bukit", rumah: "Rumah", balai: "Balai pertemuan", sumur: "Sumur",
+    makam: "Pemakaman", pasar: "Pasar", jalan: "Jalan", kampung: "Kampung kabilah", wadi: "Wadi", batu: "Harrah (padang batu)", gua: "Gua", parit: "Parit", titik: "Titik penting" };
+  function Ikon({ n, cls = "" }) {
+    const d = IKON[n] || IKON.titik;
+    return html`<svg class=${"ikon " + cls} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d=${d[0]} fill=${d[2] ? "currentColor" : "none"} fill-opacity=${d[2] ? (n === "titik" ? 1 : 0.28) : 0} />
+      ${d[1] && html`<path d=${d[1]} stroke-width="2.2" />`}</svg>`;
+  }
+  // Ikon untuk tempat di peta kota, menurut jenis dan beberapa pengecualian
+  const IKON_TEMPAT = { zamzam: "sumur", hira: "gua", "gua-tsur": "gua", nadwah: "balai", saqifah: "balai", mirbad: "kurma", musalla: "masjid", "tsaniyyah-wada": "bukit",
+    khandaq: "parit", "kemah-ahzab": "kemah", syaikhain: "kemah", "harrah-waqim": "batu", "harrah-wabrah": "batu", qanat: "wadi", aqiq: "wadi", bathan: "wadi" };
+  const IKON_JENIS = { kabah: "kabah", masjid: "masjid", rumah: "rumah", benteng: "benteng", sumur: "sumur", kebun: "kurma", makam: "makam", pasar: "pasar",
+    gunung: "gunung", bukit: "bukit", jalan: "jalan", kawasan: "kampung", titik: "titik" };
+  const ikonTempat = (p) => IKON_TEMPAT[p.id] || IKON_JENIS[p.jenis] || "titik";
+  const ikonLokasi = (l) => l.ikon || { kabah: "kabah", kota: "kota", medan: "pedang", oasis: "kurma", gunung: "gunung" }[l.jenis] || "kota";
+  window.SirahIkon = Ikon;
+
   // ---------- Ilustrasi lokasi ----------
   function Vignette({ jenis }) {
     const g = "var(--gold)";
@@ -73,7 +117,7 @@
       ${open && html`<div class="pop-box" role="dialog" aria-label=${label}>${children}</div>`}
     </div>`;
   }
-  function MapControls({ api, hold, zoomIn, zoomOut, onOverview, overviewLabel, help, children }) {
+  function MapControls({ api, hold, zoomIn, zoomOut, onOverview, overviewLabel, help, legenda, children }) {
     return html`<div class="map-tools" role="toolbar" aria-label="Kontrol peta">
       ${children}
       <div class="tool-group panpad" aria-label="Geser peta">
@@ -93,6 +137,7 @@
       <button type="button" class="tool wide" onClick=${onOverview}>${overviewLabel}</button>
       <${Popover} label="Cara menggerakkan peta" icon="?" cls="up">
         <ul class="help-list">${help.map(([k, v]) => html`<li key=${k}><b>${k}</b><span>${v}</span></li>`)}</ul>
+        ${legenda && html`<p class="help-sub">Arti ikon</p><ul class="ikon-legend">${legenda.map((n) => html`<li key=${n}><${Ikon} n=${n} />${IKON_NAMA[n]}</li>`)}</ul>`}
       </${Popover}>
     </div>`;
   }
@@ -101,6 +146,8 @@
   // ---------- Peta ----------
   function MapView({ year, sel, activeLoks, tokohAt, wargaAt, onSelect, onProfile, onOverview, rute, ruteHi, focusReq }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
+    const [buka, setBuka] = useState(null); // kota yang daftar warganya dibuka lewat tombol jumlah
+    useEffect(() => { setBuka(null); }, [year]);
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
     const hold = (k) => ({
       onPointerDown: (e) => { e.preventDefault(); api.current.press(k, true); },
@@ -123,14 +170,20 @@
       <div class="map-labels">
         ${Object.entries(D.lokasi).map(([id, l]) => {
           const act = activeLoks.has(id), tk = tokohAt[id] || [], wg = (wargaAt && wargaAt[id]) || [];
-          return html`<div key=${id} class=${`pin${act ? " is-active" : ""}${sel === id ? " is-sel" : ""}${l.kecil ? " kecil" : ""}`} ref=${reg(id)}>
+          const open = buka === id;
+          return html`<div key=${id} class=${`pin i-${ikonLokasi(l)}${act ? " is-active" : ""}${sel === id ? " is-sel" : ""}${l.kecil ? " kecil" : ""}${open ? " wg-open" : ""}`} ref=${reg(id)}>
            <div class="pin-wrap">
-            <button type="button" class="pin-btn" onClick=${() => onSelect(id)} aria-pressed=${sel === id}>
-              <span class="pin-name">${l.nama}</span><span class="pin-ar" lang="ar">${l.arab}</span>${wg.length > 0 && html`<span class="pin-n" title=${`${wg.length} tokoh tinggal di sini pada ${year} M`}><i aria-hidden="true"></i>${wg.length}</span>`}
-            </button>
+            <div class="pin-row">
+              <button type="button" class="pin-btn" onClick=${() => onSelect(id)} aria-pressed=${sel === id} title=${IKON_NAMA[ikonLokasi(l)]}>
+                <${Ikon} n=${ikonLokasi(l)} cls="pin-ikon" /><span class="pin-name">${l.nama}</span>${l.arab && html`<span class="pin-ar" lang="ar">${l.arab}</span>`}
+              </button>
+              ${wg.length > 0 && html`<button type="button" class="pin-n" aria-expanded=${open} onClick=${(e) => { e.stopPropagation(); setBuka(open ? null : id); }}
+                title=${`${wg.length} tokoh tinggal di ${l.nama} pada ${year} M. Klik untuk ${open ? "menutup" : "melihat"} namanya.`}><i aria-hidden="true"></i>${wg.length}</button>`}
+            </div>
             ${wg.length > 0 && html`<div class="pin-warga" aria-label=${`Tokoh yang tinggal di ${l.nama} pada ${year} M`}>
-              <div class="wg-names"><p class="wg-head">Tinggal di ${l.nama}, ${year} M</p>${wg.slice(0, 10).map((t) => html`<button type="button" key=${t} class="wg-name" onClick=${(e) => { e.stopPropagation(); onProfile(t); }}><${Medal} id=${t} size="xs" /><span>${D.tokoh[t].nama}</span></button>`)}
-                ${wg.length > 10 && html`<button type="button" class="wg-name more-w" onClick=${() => onSelect(id)}>+${wg.length - 10} lainnya</button>`}</div>
+              <div class="wg-names"><p class="wg-head">Tinggal di ${l.nama}, ${year} M${open && html`<button type="button" class="wg-x" aria-label="Tutup" onClick=${(e) => { e.stopPropagation(); setBuka(null); }}>×</button>`}</p>
+                ${wg.slice(0, 8).map((t) => html`<button type="button" key=${t} class="wg-name" onClick=${(e) => { e.stopPropagation(); onProfile(t); }}>${D.tokoh[t].nama}</button>`)}
+                ${wg.length > 8 && html`<button type="button" class="wg-name more-w" onClick=${(e) => { e.stopPropagation(); setBuka(null); onSelect(id); }}>+${wg.length - 8} lainnya di panel</button>`}</div>
             </div>`}
             ${act && tk.length > 0 && html`<div class="pin-medals">
               ${tk.slice(0, 3).map((t) => html`<${Medal} key=${t} id=${t} size="sm" onClick=${onProfile} />`)}
@@ -143,7 +196,8 @@
       </div>
       ${rute && html`<p class="rute-note"><i></i>Rute Hijrah (perkiraan, mengikuti daftar singgahan Ibnu Ishaq)</p>`}
       <${MapControls} api=${api} hold=${hold} zoomIn=${0.8} zoomOut=${1.25} onOverview=${onOverview} overviewLabel="Seluruh peta"
-        help=${[...HELP_PETA, ["Klik nama kota", "lihat peristiwa dan tokohnya"]]} />
+        help=${[...HELP_PETA, ["Klik nama kota", "lihat peristiwa dan tokohnya"], ["Klik angka di label", "lihat nama tokoh yang tinggal di sana"]]}
+        legenda=${["kabah", "masjid", "kubah", "kota", "mahkota", "benteng", "kurma", "pedang", "kemah"]} />
     </section>`;
   }
 
@@ -411,8 +465,8 @@
       <div class="map-labels">
         ${K.tempat.map((p) => html`<div key=${p.id} ref=${reg(p.id)}
             class=${`pin k-${p.keyakinan} j-${p.jenis}${activeIds.has(p.id) ? " is-active" : ""}${csel === p.id ? " is-sel" : ""}`}>
-          <div class="pin-wrap"><button type="button" class="pin-btn" onClick=${() => onSelect(p.id)} aria-pressed=${csel === p.id}>
-            <i class="kdot"></i><span class="pin-name">${p.nama}</span>
+          <div class="pin-wrap"><button type="button" class="pin-btn" onClick=${() => onSelect(p.id)} aria-pressed=${csel === p.id} title=${IKON_NAMA[ikonTempat(p)]}>
+            <${Ikon} n=${ikonTempat(p)} cls="pin-ikon" /><span class="pin-name">${p.nama}</span>
           </button></div>
         </div>`)}
       </div>
@@ -427,7 +481,8 @@
             </ul>`}
       </div>
       ${!walking && html`<${MapControls} api=${api} hold=${hold} zoomIn=${0.75} zoomOut=${1.33} onOverview=${onOverview} overviewLabel="Seluruh kota"
-        help=${[...HELP_PETA, ["Klik nama tempat", "lihat riwayatnya"], ["Jalan kaki", "jelajahi kota setinggi mata"]]}>
+        help=${[...HELP_PETA, ["Klik nama tempat", "lihat riwayatnya"], ["Jalan kaki", "jelajahi kota setinggi mata"], ["Warna ikon", "seberapa yakin letaknya; bentuknya menunjukkan jenis tempat"]]}
+        legenda=${kota === "madinah" ? ["masjid", "rumah", "kampung", "benteng", "sumur", "pasar", "makam", "kurma", "gunung", "batu", "wadi", "parit", "kemah"] : ["kabah", "rumah", "balai", "sumur", "gua", "gunung", "bukit", "jalan", "kampung", "titik"]}>
         <button type="button" class="tool wide primary" onClick=${() => api.current.startWalk(csel)}>Jalan kaki${csel ? " di sini" : ""}</button>
         <${Popover} label="Pengaturan tampilan" icon="⚙" cls="up">
           <div class="set-row"><span><b>Kualitas grafis</b><small>Mode ringan mematikan bayangan, bebatuan, dan relief tanah untuk laptop yang lebih lemah.</small></span>
@@ -498,7 +553,7 @@
     const list = semua.filter((x) => adaPada(x, year)), tiada = semua.filter((x) => !adaPada(x, year));
     const now = list.filter((x) => activeIds.has(x.id)), rest = list.filter((x) => !activeIds.has(x.id));
     const row = (x) => html`<li key=${x.id}><button type="button" class=${`prow k-${x.keyakinan}`} onClick=${() => setCsel(x.id)}>
-      <i class="kdot"></i><span><b>${x.nama}</b><small>${K.keyakinan[x.keyakinan].nama} · ${(x.riwayat || []).length} riwayat${x.ada && !adaPada(x, year) ? ` · ${year < x.ada[0] ? "mulai " + x.ada[0] : "sampai " + x.ada[1]} M` : ""}</small></span></button></li>`;
+      <${Ikon} n=${ikonTempat(x)} cls="prow-ikon" /><span><b>${x.nama}</b><small>${IKON_NAMA[ikonTempat(x)]} · ${K.keyakinan[x.keyakinan].nama} · ${(x.riwayat || []).length} riwayat${x.ada && !adaPada(x, year) ? ` · ${year < x.ada[0] ? "mulai " + x.ada[0] : "sampai " + x.ada[1]} M` : ""}</small></span></button></li>`;
     return html`<aside class="panel" aria-label=${"Tempat di " + info.nama}>
       <div class="loc-head plain">
         <h2>Kota ${info.nama}</h2>
@@ -642,22 +697,54 @@
   ].filter(([v]) => (v !== "hijrah" || window.HIJRAH) && (v !== "perang" || window.PERANG));
   const BACA = ["nuzul", "hijrah", "perang"]; // halaman baca yang bisa memutar tontonan lalu kembali
 
+  // ---------- Alamat halaman (hash), misalnya #/perang/uhud atau #/kota/madinah/masjid-nabawi?tahun=625 ----------
+  const VIEW_URL = { wilayah: "peta", kota: "kota", hijrah: "hijrah", perang: "perang", tokoh: "tokoh", kerabat: "kerabat", nuzul: "nuzul" };
+  const URL_VIEW = Object.fromEntries(Object.entries(VIEW_URL).map(([k, v]) => [v, k]));
+  function bacaHash() {
+    let h = "";
+    try { h = decodeURIComponent((window.location.hash || "").replace(/^#\/?/, "")); } catch (e) { h = ""; }
+    const [path, q] = h.split("?"), seg = (path || "").split("/").filter(Boolean);
+    const t = +new URLSearchParams(q || "").get("tahun");
+    return { view: URL_VIEW[seg[0]] || null, seg: seg.slice(1), tahun: t >= Y0 && t <= Y1 ? t : null };
+  }
+  const tulisHash = (view, seg, tahun) => "#/" + [VIEW_URL[view], ...seg.filter((x) => x != null && x !== "")].map((x) => encodeURIComponent(x)).join("/") + (tahun ? "?tahun=" + tahun : "");
+  // Terjemahkan alamat menjadi keadaan awal aplikasi
+  function dariHash(h) {
+    const r = {}, [a, b, c] = h.seg;
+    if (!h.view) return r;
+    r.view = h.view;
+    if (h.tahun) r.year = h.tahun;
+    if (h.view === "wilayah") r.sel = a && D.lokasi[a] ? a : null;
+    if (h.view === "kota") { r.kota = a === "madinah" && window.MADINAH ? "madinah" : "mekah"; const K0 = kotaData(r.kota); r.csel = b && K0.tempat.some((p) => p.id === b) ? b : null; }
+    if (h.view === "hijrah" && window.HIJRAH) r.hjSel = a && window.HIJRAH.episode.some((e) => e.id === a) ? a : null;
+    if (h.view === "perang" && window.PERANG) { r.prSel = a && window.PERANG.daftar.some((p) => p.id === a) ? a : null; r.sim = r.prSel && b === "simulasi" && window.PERANG_SKENARIO && window.PERANG_SKENARIO[a] ? a : null; }
+    if (h.view === "tokoh") r.tokohSel = a && D.tokoh[a] ? a : "nabi";
+    if (h.view === "kerabat") r.krRute = a === "fokus" ? { fokus: b } : a && b ? { dari: a, ke: b } : null;
+    if (h.view === "nuzul" && window.NUZUL) {
+      if (a === "surah") { r.nzTab = "surah"; r.nzSurah = Math.max(1, Math.min(114, +b || 96)); r.nuzulSel = null; }
+      else { r.nzTab = "kejadian"; r.nuzulSel = a && window.NUZUL.urutan.some((u) => u.id === a) ? a : window.NUZUL.urutan[0].id; }
+    }
+    return r;
+  }
+  const H0 = dariHash(bacaHash());
+
   function App() {
-    const [year, setYear] = useState(610);
-    const [sel, setSel] = useState("makkah");
+    const [year, setYear] = useState(H0.year || (H0.view === "kota" && H0.kota === "madinah" ? 622 : 610));
+    const [sel, setSel] = useState(H0.view === "wilayah" ? H0.sel : "makkah");
     const [profile, setProfile] = useState(null);
     const [playing, setPlaying] = useState(false);
-    const [view, setView] = useState("wilayah");
-    const [kota, setKota] = useState("mekah");
-    const [csel, setCsel] = useState(null);
+    const [view, setView] = useState(H0.view || "wilayah");
+    const [kota, setKota] = useState(H0.kota || "mekah");
+    const [csel, setCsel] = useState(H0.csel || null);
+    const [krRute, setKrRute] = useState(H0.krRute || null);
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
     const storyFrom = useRef(null);
     const [about, setAbout] = useState(false);
-    const [nuzulSel, setNuzulSel] = useState(null), [nzTab, setNzTab] = useState("kejadian"), [nzSurah, setNzSurah] = useState(null);
-    const [tokohSel, setTokohSel] = useState("nabi");
-    const [hjSel, setHjSel] = useState(window.HIJRAH ? window.HIJRAH.episode[0].id : null);
-    const [prSel, setPrSel] = useState("badar"), [sim, setSim] = useState(null);
+    const [nuzulSel, setNuzulSel] = useState(H0.nuzulSel || null), [nzTab, setNzTab] = useState(H0.nzTab || "kejadian"), [nzSurah, setNzSurah] = useState(H0.nzSurah || null);
+    const [tokohSel, setTokohSel] = useState(H0.tokohSel || "nabi");
+    const [hjSel, setHjSel] = useState(H0.view === "hijrah" ? H0.hjSel : window.HIJRAH ? window.HIJRAH.episode[0].id : null);
+    const [prSel, setPrSel] = useState(H0.view === "perang" ? H0.prSel : "badar"), [sim, setSim] = useState(H0.sim || null);
     const [ruteHi, setRuteHi] = useState(null), [focusReq, setFocusReq] = useState(null);
 
     const eventsYear = useMemo(() => D.peristiwa.filter((e) => e.tahun === year), [year]);
@@ -684,6 +771,48 @@
       }, 2600);
       return () => clearTimeout(t);
     }, [playing, year]);
+
+    // Alamat mengikuti halaman yang dibuka; tombol kembali di peramban ikut bekerja
+    const hashKini = (() => {
+      if (view === "wilayah") return tulisHash(view, [sel], year);
+      if (view === "kota") return tulisHash(view, [kota, csel], year);
+      if (view === "hijrah") return tulisHash(view, [hjSel]);
+      if (view === "perang") return tulisHash(view, [prSel, sim ? "simulasi" : null]);
+      if (view === "tokoh") return tulisHash(view, [tokohSel]);
+      if (view === "kerabat") return tulisHash(view, krRute ? (krRute.fokus ? ["fokus", krRute.fokus] : [krRute.dari, krRute.ke]) : []);
+      if (view === "nuzul") return tulisHash(view, nzTab === "surah" && !nuzulSel ? ["surah", nzSurah] : [nuzulSel]);
+      return "#/";
+    })();
+    const pertama = useRef(true);
+    useEffect(() => {
+      if (story) return;
+      const cur = window.location.hash || "";
+      if (cur === hashKini) { pertama.current = false; return; }
+      const jalan = (x) => x.split("?")[0];
+      try {
+        if (pertama.current || jalan(cur) === jalan(hashKini)) window.history.replaceState(null, "", hashKini);
+        else window.history.pushState(null, "", hashKini);
+      } catch (e) { /* alamat tidak bisa diubah di lingkungan ini */ }
+      pertama.current = false;
+    }, [hashKini, story]);
+    useEffect(() => {
+      const balik = () => {
+        const r = dariHash(bacaHash()); if (!r.view) return;
+        setStory(null); setProfile(null); setPlaying(false);
+        if (r.year) setYear(r.year);
+        if ("sel" in r) setSel(r.sel);
+        if (r.kota) setKota(r.kota);
+        if ("csel" in r) setCsel(r.csel);
+        if ("hjSel" in r) setHjSel(r.hjSel);
+        if ("prSel" in r) { setPrSel(r.prSel); setSim(r.sim || null); }
+        if (r.tokohSel) setTokohSel(r.tokohSel);
+        if ("krRute" in r) setKrRute(r.krRute);
+        if (r.nzTab) { setNzTab(r.nzTab); setNuzulSel(r.nuzulSel || null); if (r.nzSurah) setNzSurah(r.nzSurah); }
+        setView(r.view);
+      };
+      window.addEventListener("popstate", balik); window.addEventListener("hashchange", balik);
+      return () => { window.removeEventListener("popstate", balik); window.removeEventListener("hashchange", balik); };
+    }, []);
 
     const city = view === "kota";
     const reset = () => { setPlaying(false); setStory(null); storyFrom.current = null; setProfile(null); setSim(null); };
@@ -725,7 +854,8 @@
     const lihatPerang = (p) => { reset(); setYear(p.tahun); setView("wilayah"); setSel(p.lokPeta || null); if (!p.lokPeta && p.tempat) setFocusReq({ lon: p.tempat.lon, lat: p.tempat.lat, dist: 12, k: Date.now() }); };
 
     const reader = (() => {
-      if (view === "kerabat" && window.SirahKerabat) return html`<${window.SirahKerabat} onProfile=${setProfile} onTokoh=${(id) => { setProfile(null); setTokohSel(id); setView("tokoh"); }} />`;
+      if (view === "kerabat" && window.SirahKerabat) return html`<${window.SirahKerabat} rute=${krRute} onRute=${(r) => setKrRute((o) => (JSON.stringify(o) === JSON.stringify(r) ? o : r))}
+        onProfile=${setProfile} onTokoh=${(id) => { setProfile(null); setTokohSel(id); setView("tokoh"); }} />`;
       if (view === "tokoh") return html`<${TokohList} sel=${tokohSel} onSelect=${setTokohSel} year=${year} />
         <section class="nz-detail tk-detail" key=${tokohSel} aria-label="Profil tokoh"><${ProfileBody} id=${tokohSel} year=${year} onGoto=${goto} onGotoCity=${gotoCity} onGotoLok=${gotoLok} /></section>`;
       if (view === "hijrah" && window.SirahHijrahList) return html`<${window.SirahHijrahList} sel=${hjSel} onSelect=${setHjSel} onRute=${lihatRute} />

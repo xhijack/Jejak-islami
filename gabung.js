@@ -13,6 +13,12 @@
     });
   });
 
+  // 2a. Ikon peta wilayah menurut fungsi tempat
+  const IKON = { makkah: "kabah", madinah: "masjid", quds: "kubah", khaibar: "benteng", thaif: "kota", tabuk: "kemah", habasyah: "mahkota", madain: "mahkota",
+    badar: "pedang", yarmuk: "pedang", yamamah: "pedang", shiffin: "pedang", mutah: "pedang", hunain: "pedang", nahawand: "pedang",
+    syam: "kota", kufah: "kota", bashrah: "kota", mesir: "kota", yaman: "kota", hims: "kota" };
+  Object.entries(IKON).forEach(([id, ik]) => { if (D.lokasi[id] && !D.lokasi[id].ikon) D.lokasi[id].ikon = ik; });
+
   // 2. Lokasi peta wilayah untuk ghazwah yang tempatnya belum ada di peta
   if (window.PERANG) {
     window.PERANG.daftar.forEach((p) => {
@@ -21,7 +27,8 @@
       p.lokPeta = id;
       D.lokasi[id] = {
         nama: p.tempat.nama.split(/[,(]/)[0].trim(), arab: "", lat: p.tempat.lat, lon: p.tempat.lon,
-        jenis: "medan", kecil: true, perang: p.id, ket: p.tempat.nama
+        jenis: "medan", kecil: true, perang: p.id, ket: p.tempat.nama,
+        ikon: p.jenis === "pertempuran" ? "pedang" : p.jenis === "pengepungan" ? "benteng" : "kemah"
       };
     });
     window.PERANG.daftar.forEach((p) => { if (p.lok) p.lokPeta = p.lok; });
