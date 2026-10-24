@@ -11,12 +11,21 @@
     tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }, sinis: { eye: "half", mouth: "smirk" }
   };
   // Tokoh perempuan: [warna baju, warna kerudung]
-  const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"], aisyah: ["#3f5f4f", "#7a3a4a"], ummuruman: ["#5a4a6a", "#3a3a4a"] };
+  const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"], aisyah: ["#3f5f4f", "#7a3a4a"], ummuruman: ["#5a4a6a", "#3a3a4a"],
+    asma: ["#4a5a72", "#7a3a4a"], ummumabad: ["#6a4a2e", "#3a2c26"], ummuayyub: ["#5a3a3a", "#3a4a5a"] };
   // Tokoh laki-laki: [warna jubah, warna serban, warna janggut]; tanpa entri = tampilan Waraqah
   const MALE = window.SirahMale = { abubakar: ["#6b5a3a", "#f0e9d8", "#cbb9a0"], umar: ["#3a4a5a", "#e8dcc0", "#2a1d16"], ali: ["#2f5a4a", "#e8dcc0", "#3a2a20"],
     safwan: ["#5a4a2a", "#e0d4b4", "#3a2a20"], sahabat: ["#4f5f4a", "#e6dcc4", "#3a2a20"], sahabat2: ["#6a4a3a", "#e2d6ba", "#2e2018"], sahabat3: ["#3a4a6a", "#ece2c8", "#4a3a2a"], kabar: ["#5a5a3a", "#e6dcc0", "#3a2a20"], abulahab: ["#8a3b22", "#e0d3ae", "#5a3a26"], abujahal: ["#3e2f5a", "#cfc3a0", "#2e2018"], pembesar: ["#2f4f5a", "#e6dcc0", "#3a2a20"],
-    ibnuummimaktum: ["#7a6a50", "#efe8d8", "#4a3a2a"], quraisy1: ["#5c4a3a", "#d9cfb4", "#3a2a20"], quraisy2: ["#4a5a3a", "#e2d8bc", "#5a4636"], quraisy3: ["#6a3a3a", "#e8dcc2", "#2e2018"] };
-  const BLIND = { waraqah: 1, ibnuummimaktum: 1 };
+    ibnuummimaktum: ["#7a6a50", "#efe8d8", "#4a3a2a"], quraisy1: ["#5c4a3a", "#d9cfb4", "#3a2a20"], quraisy2: ["#4a5a3a", "#e2d8bc", "#5a4636"], quraisy3: ["#6a3a3a", "#e8dcc2", "#2e2018"],
+    // Hijrah
+    abdullahabubakar: ["#5a6a4a", "#efe8d8", "#3a2a20"], amirfuhairah: ["#4a4030", "#e6dcc4", "#2a1d16"], uraiqith: ["#7a4a2a", "#d8c8a0", "#3a2a20"],
+    suraqah: ["#5a2e2e", "#e0d0a8", "#3a2a20"], abuquhafah: ["#6a5a4a", "#f2efe6", "#f2efe6"], penyeru: ["#4a3a5a", "#e0d4b8", "#2e2018"],
+    penggembala: ["#6a5a3a", "#d8ccb0", "#3a2a20"], abumabad: ["#5a4a3a", "#d8ccae", "#4a3a2a"], mudlij: ["#4a4a3a", "#ddd0b0", "#3a2a20"], pejalan: ["#5a5048", "#e2d6bc", "#3a2a20"], pencari: ["#5a4636", "#d8ccb0", "#2e2018"],
+    kultsum: ["#5a4a34", "#f0ead8", "#e8e2d4"], anshar1: ["#3a5a4a", "#e6dcc4", "#3a2a20"], anshar2: ["#5a4a6a", "#e2d6ba", "#2e2018"], anshar3: ["#6a5a3a", "#ece2c8", "#4a3a2a"],
+    yahudi: ["#3a3a5a", "#d8d0c0", "#4a3a2a"], sahlnajjar: ["#6a7a4a", "#efe8d8", "#e2c09a"], suhailnajjar: ["#7a5a3a", "#efe8d8", "#e2c09a"], abuayyub: ["#4a6a5a", "#efe8d8", "#5a4a3a"],
+    asad: ["#5a3a4a", "#e6dcc0", "#3a2a20"], ammar: ["#4a5a3a", "#d8ccb0", "#2a1d16"], saadubadah: ["#2f4f6a", "#e6dcc0", "#3a2a20"], saadrabi: ["#6a4a2a", "#e2d6bc", "#3a2a20"],
+    abdullahrawahah: ["#4a3a6a", "#ece2c8", "#3a2a20"], abdurrahman: ["#5a6a3a", "#efe8d8", "#3a2a20"], anas: ["#6a7a5a", "#efe8d8", "#e2c09a"], abdullahsalam: ["#3a4a4a", "#e0d8c4", "#6a5a4a"] };
+  const BLIND = window.SirahBlind = { waraqah: 1, ibnuummimaktum: 1, abuquhafah: 1 };
   const ST = { fill: "none", stroke: "#2a1d16", "stroke-width": 3.4, "stroke-linecap": "round" };
   function Eye({ kind, x }) {
     if (kind === "dot") return html`<g class="pl-blink"><circle cx=${x} cy="-30" r="3.6" fill="#2a1d16" /></g>`;
@@ -87,7 +96,7 @@
       if (b.inside === null) s.inside = null;
       else if (b.inside) {
         const I = b.inside, prev = s.inside && (!I.scene || I.scene === s.inside.scene) ? s.inside : { scene: I.scene, chars: {}, jibril: { x: 800, y: 300, power: 0 } };
-        const nx = { ...prev, label: I.label !== undefined ? I.label : prev.label, labels: I.labels !== undefined ? I.labels : prev.labels, cam: I.cam || prev.cam, rasul: I.rasul ? { ...prev.rasul, ...I.rasul } : prev.rasul, jibril: I.jibril ? { ...prev.jibril, ...I.jibril } : prev.jibril, chars: { ...prev.chars } };
+        const nx = { ...prev, label: I.label !== undefined ? I.label : prev.label, labels: I.labels !== undefined ? I.labels : prev.labels, props: I.props !== undefined ? I.props : prev.props, cam: I.cam || prev.cam, rasul: I.rasul ? { ...prev.rasul, ...I.rasul } : prev.rasul, jibril: I.jibril ? { ...prev.jibril, ...I.jibril } : prev.jibril, chars: { ...prev.chars } };
         (I.chars || []).forEach((c) => { nx.chars[c.id] = { on: true, ...nx.chars[c.id], ...c }; });
         s.inside = nx;
       }
@@ -105,7 +114,9 @@
   };
   const textOf = (b) => (b.say ? b.say.text : b.narr) || "";
   const holdOf = (b) => (b.hold || 0) + 1400 + textOf(b).length * 22 + (b.say && b.say.arab ? 1000 : 0);
-  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril", wahyu: "Wahyu turun" };
+  // "quran": ayat yang mengenang peristiwa tetapi turun belakangan (bukan wahyu yang turun saat itu)
+  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril", wahyu: "Wahyu turun", quran: "Diabadikan dalam Al-Qur'an" };
+  const isAyat = (w) => w === "wahyu" || w === "quran";
 
   function SirahStory({ api, id, onClose }) {
     const ev = window.TONTONAN[id], S = api.story;
@@ -185,8 +196,8 @@
         </div>`)}
       </div>
 
-      ${who === "wahyu" && !st.inside && html`<div class="pl-bubble light st-wahyu" key=${"w" + i} role="status">
-        <p class="pl-who">${NAMA.wahyu}${b.say.ayat ? html` <span>${b.say.ayat}</span>` : ""}</p>
+      ${isAyat(who) && !st.inside && html`<div class="pl-bubble light st-wahyu" key=${"w" + i} role="status">
+        <p class="pl-who">${NAMA[who]}${b.say.ayat ? html` <span>${b.say.ayat}</span>` : ""}</p>
         ${b.say.arab && html`<p class="pl-ar" lang="ar" dir="rtl">${b.say.arab}</p>`}
         <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p></div>`}
       ${lastInside.current && window.SirahInterior && html`<${window.SirahInterior} inside=${lastInside.current} show=${!!st.inside} say=${st.inside ? b.say : null}
@@ -207,7 +218,7 @@
 
       <div class="st-bottom">
         <div class="pl-caption">
-          ${!b.say ? html`<p class="pl-narr">${shown}<span class="pl-caret">${caret}</span></p>` : html`<p class="pl-narr dim">${who === "wahyu" ? "Wahyu turun kepada Rasulullah ﷺ" : (NAMA[who] || ev.tokoh[who].nama) + " berbicara"}</p>`}
+          ${!b.say ? html`<p class="pl-narr">${shown}<span class="pl-caret">${caret}</span></p>` : html`<p class="pl-narr dim">${who === "wahyu" ? "Wahyu turun kepada Rasulullah ﷺ" : who === "quran" ? "Ayat yang mengenang peristiwa ini (turun kemudian)" : (NAMA[who] || ev.tokoh[who].nama) + " berbicara"}</p>`}
           <p class="pl-src">Sumber: ${b.url ? html`<a href=${b.url} target="_blank" rel="noopener">${b.sumber}</a>` : b.sumber}</p>
         </div>
         <div class="pl-ctl">

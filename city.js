@@ -25,8 +25,13 @@
   const HILLOCKS = [[100, -85, 26, 9], [125, 340, 24, 7]]; // Shafa, Marwah
   // Jabal Nur (Wikipedia: 21°27′29″U 39°51′40″T) ≈ 3,6 km ke timur dan 3,9 km ke utara Ka'bah; Gua Hira di dekat puncaknya
   const JN = [3616, 3943], HIRA = [3590, 3915];
+  // Jabal Tsur (21,3775 LU 39,8508 BT) ≈ 2,6 km ke timur dan 5 km ke selatan Ka'bah; gua di dekat puncaknya
+  const TSUR = [2552, -4976], GUA_TSUR = [2538, -4952];
   const FAR = [[1500, 1150, 420, 170], [700, 2650, 480, 200], [2650, 1950, 500, 210], [4350, 3050, 480, 190], [3050, 4750, 560, 240], [4650, 4650, 480, 200],
-    [1750, 3850, 450, 170], [-800, 1800, 480, 170], [2250, 350, 430, 150], [-1200, -200, 450, 150], [4200, 1600, 500, 170], [1200, 4500, 500, 190], [400, -1400, 420, 140]];
+    [1750, 3850, 450, 170], [-800, 1800, 480, 170], [2250, 350, 430, 150], [-1200, -200, 450, 150], [4200, 1600, 500, 170], [1200, 4500, 500, 190], [400, -1400, 420, 140],
+    // pegunungan di selatan Mekah, mengapit lembah menuju Jabal Tsur
+    [-750, -2300, 480, 170], [-100, -3500, 520, 180], [650, -4700, 500, 175], [1500, -5750, 480, 165], [1400, -2050, 440, 160],
+    [2650, -2950, 500, 185], [3550, -4150, 520, 195], [3850, -5500, 480, 185], [-1300, -4300, 520, 170], [4500, -2300, 480, 170]];
 
   function mountainH(e, n) {
     let h = 0;
@@ -34,6 +39,7 @@
     for (const [a, b, c, d, w, ht] of RIDGES) h += ht * Math.exp(-((segDist(e, n, a, b, c, d) / w) ** 2));
     for (const [pe, pn, r, ht] of FAR) { const dx = e - pe, dy = n - pn; if (dx > 3 * r || dx < -3 * r || dy > 3 * r || dy < -3 * r) continue; h += ht * Math.exp(-(dx * dx + dy * dy) / (r * r)); }
     const dj = Math.hypot(e - JN[0], n - JN[1]); if (dj < 900) h += 290 * Math.pow(1 - dj / 900, 1.7);
+    const dt = Math.hypot(e - TSUR[0], n - TSUR[1]); if (dt < 1150) h += 330 * Math.pow(1 - dt / 1150, 1.6);
     return h * (0.75 + 0.5 * fbm(e / 90, n / 90));
   }
   function heightAt(e, n) {
@@ -260,19 +266,24 @@
     const terrainMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, map: groundTex.map, normalMap: groundTex.normal, normalScale: new THREE.Vector2(0.9, 0.9) });
     for (const t of [groundTex.map, groundTex.normal]) t.repeat.set(SIZE / 9, SIZE / 9);
     const terrain = new THREE.Mesh(geo, terrainMat); terrain.receiveShadow = true; scene.add(terrain);
-    // Medan jauh (±24 m per titik) sampai Jabal Nur; di bawah medan dekat
-    const FE0 = -1800, FE1 = 5000, FN0 = -1800, FN1 = 5200, FSEG = 280;
-    const fgeo = new THREE.PlaneGeometry((FE1 - FE0) / M, (FN1 - FN0) / M, FSEG, FSEG); fgeo.rotateX(-Math.PI / 2);
-    const fpos = fgeo.attributes.position, fcol = new Float32Array(fpos.count * 3);
+    // Medan jauh (±24 m per titik) dari Jabal Tsur di selatan sampai Jabal Nur di utara; di bawah medan dekat
+    const FE0 = -1800, FE1 = 5000, FN0 = -6200, FN1 = 5200, FSEG = 280, FSEGN = Math.round((FSEG * (FN1 - FN0)) / (FE1 - FE0));
+    const fgeo = new THREE.PlaneGeometry((FE1 - FE0) / M, (FN1 - FN0) / M, FSEG, FSEGN); fgeo.rotateX(-Math.PI / 2);
+    const fpos = fgeo.attributes.position, fcol = new Float32Array(fpos.count * 3), FROW = FSEG + 1;
     const NE0 = OFF_E - HALF, NE1 = OFF_E + HALF, NN0 = OFF_N - HALF, NN1 = OFF_N + HALF;
+    // Tinggi dihitung sekali per titik; kemiringan diambil dari titik tetangga (lebih hemat daripada memanggil heightAt lagi)
+    const fh = new Float32Array(fpos.count), fm = new Float32Array(fpos.count);
+    for (let i = 0; i < fpos.count; i++) { const e = fpos.getX(i) * M + (FE0 + FE1) / 2, n = -fpos.getZ(i) * M + (FN0 + FN1) / 2; fm[i] = mountainH(e, n); fh[i] = heightAt(e, n); }
+    const FST = (FE1 - FE0) / FSEG;
     for (let i = 0; i < fpos.count; i++) {
       const e = fpos.getX(i) * M + (FE0 + FE1) / 2, n = -fpos.getZ(i) * M + (FN0 + FN1) / 2;
-      const h = heightAt(e, n), mh = mountainH(e, n);
+      const h = fh[i], mh = fm[i];
       const inside = Math.min(e - NE0, NE1 - e, n - NN0, NN1 - n);       // >0 di dalam area medan dekat
       const sink = inside > 0 ? smooth(0, 60, inside) * 8 : 0;
       const edge = Math.min(1, Math.min(e - FE0, FE1 - e, n - FN0, FN1 - n) / 150);
       fpos.setX(i, toX(e)); fpos.setZ(i, toZ(n)); fpos.setY(i, (((h - sink) * VX) / M) * edge - (1 - edge) * 1.5);
-      const hx = heightAt(e + 24, n), hy = heightAt(e, n + 24), slope = Math.hypot(hx - h, hy - h) / 24, r = fbm(e / 60, n / 60);
+      const ix = i % FROW, iy = Math.floor(i / FROW);
+      const hx = fh[i + (ix < FSEG ? 1 : -1)], hy = fh[i + (iy < FSEGN ? FROW : -FROW)], slope = Math.hypot(hx - h, hy - h) / FST, r = fbm(e / 60, n / 60);
       if (mh < 6) tmp.copy(cSand).lerp(cDust, r * 0.7);
       else if (mh < 60) tmp.copy(cDust).lerp(cRock, (mh - 6) / 54 + r * 0.2);
       else tmp.copy(cRock).lerp(cDark, Math.min(1, (mh - 60) / 90 + r * 0.3));
@@ -285,16 +296,19 @@
     const base = new THREE.Mesh(new THREE.BoxGeometry((FE1 - FE0) / M + 0.6, 1.4, (FN1 - FN0) / M + 0.6), new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
     base.position.set(toX((FE0 + FE1) / 2), -2.2, toZ((FN0 + FN1) / 2)); scene.add(base);
 
-    // Mulut Gua Hira: celah gelap di antara batu besar, menghadap ke arah Mekah
-    const cave = new THREE.Group();
-    { const gy = Y(HIRA[0], HIRA[1]), ang = Math.atan2(-HIRA[0], HIRA[1]);
-      const dark = new THREE.Mesh(new THREE.BoxGeometry(3 / M, (2 * VX) / M, 2.5 / M), new THREE.MeshBasicMaterial({ color: 0x050403 }));
+    // Mulut gua (Hira dan Tsur): celah gelap di antara batu besar, menghadap ke arah Mekah
+    function addCave([ce, cn], big) {
+      const cave = new THREE.Group(), k = big ? 1.5 : 1;
+      const gy = Y(ce, cn), ang = Math.atan2(-ce, cn);
+      const dark = new THREE.Mesh(new THREE.BoxGeometry((3 * k) / M, (2 * VX) / M, 2.5 / M), new THREE.MeshBasicMaterial({ color: 0x050403 }));
       dark.position.set(0, (1 * VX) / M, 0); cave.add(dark);
       const rm = new THREE.MeshStandardMaterial({ color: 0x4a382b, roughness: 1, flatShading: true });
       for (const [x, y, z, sc] of [[-3, 1.6, 0.5, 2.6], [3.2, 1.4, 0.2, 2.4], [0, 3.6, -0.6, 3], [-1.8, 3, 1.2, 1.6], [2.4, 3.2, 1, 1.8]]) {
-        const b = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), rm); b.scale.set(sc / M, (sc * 0.8 * VX) / M, sc / M); b.position.set(x / M, (y * VX) / M, z / M); b.castShadow = true; cave.add(b);
+        const b = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), rm); b.scale.set((sc * k) / M, (sc * 0.8 * VX * k) / M, (sc * k) / M); b.position.set((x * k) / M, (y * VX * k) / M, (z * k) / M); b.castShadow = true; cave.add(b);
       }
-      cave.position.set(toX(HIRA[0]), gy, toZ(HIRA[1])); cave.rotation.y = ang; scene.add(cave); }
+      cave.position.set(toX(ce), gy, toZ(cn)); cave.rotation.y = ang; scene.add(cave);
+    }
+    addCave(HIRA); addCave(GUA_TSUR, true);
 
     // Bebatuan berserakan di lereng dan sesekali di lembah
     const rocks = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ roughness: 0.95, flatShading: true }), 2600);
@@ -532,7 +546,7 @@
     const keys = new Set();
     const el = renderer.domElement;
     // Mode peta: seret kiri = geser. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
-    const clampT = (t) => { t.x = Math.max(-85, Math.min(245, t.x)); t.z = Math.max(-255, Math.min(85, t.z)); };
+    const clampT = (t) => { t.x = Math.max(-85, Math.min(245, t.x)); t.z = Math.max(-255, Math.min(305, t.z)); };
     function panBy(dx, dy) {
       const k = (2 * st.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
       const ca = Math.cos(st.az), sa = Math.sin(st.az), ky = k / Math.max(0.45, Math.sin(st.el));
@@ -622,7 +636,7 @@
         if (f || sd) {
           const sp = 7 * run * dt, se = Math.sin(walk.yaw), cn = Math.cos(walk.yaw);
           const de = (se * f + cn * sd) * sp, dn = (cn * f - se * sd) * sp;
-          const ne = Math.max(-1700, Math.min(4900, walk.e + de)), nn = Math.max(-1700, Math.min(5100, walk.n + dn));
+          const ne = Math.max(-1700, Math.min(4900, walk.e + de)), nn = Math.max(-6100, Math.min(5100, walk.n + dn));
           if (!blocked(ne, nn)) { walk.e = ne; walk.n = nn; } else if (!blocked(ne, walk.n)) walk.e = ne; else if (!blocked(walk.e, nn)) walk.n = nn;
         }
         const eyeY = ((heightAt(walk.e, walk.n) + 1.7) * VX) / M;
@@ -636,11 +650,12 @@
         const sp = goal.dist * 0.9 * dt * run;
         goal.target.x += (fx * f + rx * sd) * sp; goal.target.z += (fz * f + rz * sd) * sp;
         goal.az += ((keys.has("e") ? 1 : 0) - (keys.has("q") ? 1 : 0)) * dt * 1.4;
-        if (story.on) storyCamera(now); else { clampT(goal.target); goal.target.y = Y(goal.target.x * M, -goal.target.z * M) * 0.6; }
+        if (story.on) storyCamera(now); else { clampT(goal.target); const gy = Y(goal.target.x * M, -goal.target.z * M); goal.target.y = Math.max(gy * 0.6, gy - 2.5); }
         // pelunakan berbasis waktu agar sama cepat di laptop lambat maupun cepat
         const k = reduce ? 1 : 1 - Math.exp(-dtR * (story.on ? 2.4 : 5));
         if (story.on) { let da = goal.az - st.az; da = Math.atan2(Math.sin(da), Math.cos(da)); st.az += da * (1 - Math.exp(-dtR * 1.6)); } else st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * (reduce ? 1 : 1 - Math.exp(-dtR * (story.on ? 2.4 : 11))); st.target.lerp(goal.target, k);
         camera.position.set(st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az), st.target.y + st.dist * Math.sin(st.el), st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
+        { const cg = Y(camera.position.x * M, -camera.position.z * M) + 0.5; if (camera.position.y < cg) camera.position.y = cg; } // jangan masuk ke dalam gunung (Jabal Nur, Jabal Tsur)
         camera.lookAt(st.target);
       }
       camera.updateMatrixWorld();

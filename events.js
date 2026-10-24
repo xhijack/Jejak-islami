@@ -665,7 +665,7 @@
             { id: "quraisy3", path: "jaga3", from: 0, to: 1, dur: 7000, expr: "tegas" }, { id: "abujahal", on: false }], ...A3251,
           narr: "Kaum musyrikin berjaga semalaman di sekitar rumah, mengira yang berbaring di dalam adalah Nabi." },
         { rasul: { path: "keluar", from: 0, to: 1, dur: 20000 }, cam: { follow: "rasul", dist: 14, el: 0.75, az: "behind", up: 3 }, ...S_("HR. Bukhari no. 3905 (Aisyah)", "https://sunnah.com/bukhari:3905"),
-          narr: "Rasulullah ﷺ keluar. Bersama Abu Bakar, beliau menuju Gua Tsur, sekitar 4 km di selatan Mekah, dan bersembunyi di sana tiga malam." }
+          narr: "Rasulullah ﷺ keluar. Bersama Abu Bakar, beliau menuju Gua Tsur, sekitar lima mil di selatan Mekah, dan bersembunyi di sana tiga malam. Tonton \"Malam Keberangkatan ke Gua Tsur\"." }
       ] },
       { judul: "Pagi harinya", beats: [
         { malam: 0, cam: { at: [116, 102], dist: 3, el: 0.45, az: -0.94, up: 3 }, chars: [{ id: "ali", at: [120, 96], expr: "tegas", on: true },
@@ -876,5 +876,695 @@
       ] }
     ],
     penutup: "Yang tampak sebagai kekalahan di Hudaibiyah, Allah sebut sebagai kemenangan yang nyata."
+  };
+  // =====================================================================
+  // ---------- Hijrah: dari rumah Abu Bakar sampai jalan pantai ----------
+  // Rumah Abu Bakar (perkiraan) di (-228, -199); Gua Tsur di (2538, -4952). Rute ke Tsur perkiraan.
+  const SN_ = (k, n) => S_(`HR. ${k} no. ${n}`, `https://sunnah.com/${k.toLowerCase()}:${n}`);
+  const B3905 = S_("HR. Bukhari no. 3905 (Aisyah)", "https://sunnah.com/bukhari:3905");
+  const B2979 = S_("HR. Bukhari no. 2979 (Asma' binti Abu Bakar)", "https://sunnah.com/bukhari:2979");
+  const B3653 = S_("HR. Bukhari no. 3653 (Anas, dari Abu Bakar)", "https://sunnah.com/bukhari:3653");
+  const B3615 = S_("HR. Bukhari no. 3615 (Al-Bara', dari Abu Bakar)", "https://sunnah.com/bukhari:3615");
+  const B3906 = S_("HR. Bukhari no. 3906 (Suraqah bin Malik)", "https://sunnah.com/bukhari:3906");
+  const B3911 = S_("HR. Bukhari no. 3911 (Anas)", "https://sunnah.com/bukhari:3911");
+  const B2263 = S_("HR. Bukhari no. 2263 (Aisyah)", "https://sunnah.com/bukhari:2263");
+  const SIRAH_H = S_("Sirah Ibnu Hisyam; Ar-Rahiq Al-Makhtum (kitab sirah)", "https://usul.ai/t/the-sealed-nectar-with-additions/104");
+  const LEMAH = (s, url) => S_(`${s} · riwayat lemah`, url || "");
+  const AB = [-228, -199], AB_DEPAN = [-219, -191], AB_BELAKANG = [-237, -207];
+  const GUA_T = [2538, -4952], KAKI_T = [2000, -4350];
+  const CAM_AB = { at: [-222, -194], dist: 3.2, el: 0.42, az: 2.29, up: 3 };
+  const CAM_TSUR = { at: GUA_T, dist: 4.5, el: 0.32, az: -2.67, up: 4 };
+  const geser = (pts, de, dn) => pts.map(([e, n]) => [e + de, n + dn]);
+  const frac = (pts, k) => { let a = 0, t = 0; for (let i = 1; i < pts.length; i++) { const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); t += d; if (i <= k) a += d; } return a / t; };
+  const KE_AB = [R_RUMAH, [126, 70], [110, 20], [70, -30], [30, -62], [-40, -110], [-120, -150], [-180, -176], AB_DEPAN];
+  const KE_TSUR = [AB_BELAKANG, [-200, -262], [-120, -320], [-40, -345], [-30, -520], [-60, -820], [-250, -1250], [-150, -1700], [250, -2200], [600, -2650], [1100, -3050], [1500, -3500], [1800, -4000], KAKI_T];
+  const T_KOTA = frac(KE_TSUR, 4);                                  // ujung selatan kota, sebelum keluar ke lembah
+  const NAIK_T = [KAKI_T, [2150, -4500], [2300, -4620], [2250, -4720], [2420, -4800], [2380, -4880], GUA_T];
+  const TGL_HIJRAH = (extra = []) => ({
+    judul: "Akhir Shafar 1 H (±September 622 M)",
+    rinci: [
+      { k: "Malam keberangkatan", v: "Malam 27 Shafar 1 H (±12/13 September 622 M) menurut Ar-Rahiq Al-Makhtum. Hadits shahih tidak menyebut tanggalnya.", s: "Ar-Rahiq Al-Makhtum", url: "https://usul.ai/t/the-sealed-nectar-with-additions/104" },
+      { k: "Di gua", v: "Tiga malam, lalu pemandu datang pada pagi hari ketiga.", s: "HR. Bukhari no. 3905", url: "https://sunnah.com/bukhari:3905" },
+      ...extra
+    ]
+  });
+  const PENGANTAR_H = (r) => PENGANTAR(r) + " Letak rumah Abu Bakar dan rute ke Jabal Tsur adalah perkiraan.";
+
+  // ---------- Siang hari di rumah Abu Bakar ----------
+  window.TONTONAN["siang-abubakar"] = {
+    peta: true, malam: 0,
+    judul: "Siang Hari di Rumah Abu Bakar",
+    tahun: 622,
+    tanggal: TGL_HIJRAH([{ k: "Waktu kunjungan", v: "Tengah hari, saat panas terik; menurut kitab sirah pada hari terakhir sebelum keberangkatan.", s: "HR. Bukhari no. 3905; Sirah Ibnu Hisyam", url: "https://sunnah.com/bukhari:3905" }]),
+    pengantar: PENGANTAR_H("HR. Bukhari no. 3905 dan 2979"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, aisyah: { nama: "Aisyah" }, asma: { nama: "Asma' binti Abu Bakar" } },
+    lampu: [], paths: { datang: KE_AB },
+    babak: [
+      { judul: "Kunjungan di tengah hari", beats: [
+        { cam: { at: [-60, -60], dist: 22, el: 0.8, az: 1.9, up: 0 }, rasul: { at: R_RUMAH, state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: [-214, -187], expr: "netral", on: true }, { id: "aisyah", at: [-224, -186], expr: "netral", on: true }, { id: "asma", at: [-210, -197], expr: "netral", on: true }],
+          ...B3905, narr: "Mekah, akhir bulan Shafar. Kaum muslimin sudah banyak yang berhijrah ke Madinah, sementara Abu Bakar menunggu izin untuk menemani Rasulullah ﷺ." },
+        { rasul: { path: "datang", from: 0, to: 1, dur: 12000 }, cam: { follow: "rasul", dist: 9, el: 0.6, az: "behind", up: 3 }, ...B3905,
+          narr: "Aisyah bercerita: suatu hari, saat mereka duduk di rumah Abu Bakar di tengah hari yang terik, Rasulullah ﷺ datang dengan kepala tertutup, pada jam yang biasanya beliau tidak datang." },
+        { cam: CAM_AB, chars: [{ id: "abubakar", expr: "kaget" }], ...B3905,
+          say: { who: "abubakar", text: "Demi Allah, beliau tidak datang pada jam seperti ini kecuali karena ada urusan penting.", arab: "وَاللَّهِ مَا جَاءَ بِهِ فِي هَذِهِ السَّاعَةِ إِلَّا أَمْرٌ" } }
+      ] },
+      { judul: "\"Aku telah diizinkan keluar\"", beats: [
+        { inside: { scene: "rumah-abubakar", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 560, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "abubakar", x: 980, y: 650, expr: "kaget", on: true }, { id: "aisyah", x: 1200, y: 660, expr: "netral", on: true, s: 0.85 }, { id: "asma", x: 1370, y: 650, expr: "netral", on: true, s: 0.95 }] },
+          ...B3905, say: { who: "rasul", text: "Suruh keluar orang-orang yang ada bersamamu.", arab: "أَخْرِجْ مَنْ عِنْدَكَ" } },
+        { ...B3905, say: { who: "abubakar", text: "Mereka hanyalah keluargamu, ayahku tebusanmu, wahai Rasulullah.", arab: "إِنَّمَا هُمْ أَهْلُكَ بِأَبِي أَنْتَ يَا رَسُولَ اللَّهِ" } },
+        { ...B3905, say: { who: "rasul", text: "Sungguh, aku telah diizinkan untuk keluar.", arab: "فَإِنِّي قَدْ أُذِنَ لِي فِي الْخُرُوجِ" } },
+        { inside: { chars: [{ id: "abubakar", expr: "kagum" }] }, ...B3905, say: { who: "abubakar", text: "Aku menemanimu, ayahku tebusanmu, wahai Rasulullah?", arab: "الصَّحَابَةَ بِأَبِي أَنْتَ يَا رَسُولَ اللَّهِ" } },
+        { ...B3905, say: { who: "rasul", text: "Ya.", arab: "نَعَمْ" } },
+        { inside: { chars: [{ id: "abubakar", expr: "lembut" }, { id: "aisyah", expr: "senyum" }] }, ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Aisyah)", ""),
+          narr: "Menurut riwayat Ibnu Ishaq, Aisyah berkata ia belum pernah melihat orang menangis karena gembira sampai ia melihat ayahnya menangis hari itu." },
+        { ...B3905, say: { who: "abubakar", text: "Ambillah salah satu dari dua untaku ini, wahai Rasulullah." } },
+        { ...B3905, say: { who: "rasul", text: "Dengan membayar harganya.", arab: "بِالثَّمَنِ" } }
+      ] },
+      { judul: "Dzatun Nithaqain", beats: [
+        { inside: { chars: [{ id: "abubakar", x: 900, expr: "netral" }, { id: "aisyah", x: 1140, expr: "netral" }, { id: "asma", x: 1320, expr: "khawatir" }],
+            props: [{ id: "bekal", kind: "bekal", x: 760, y: 760, s: 1.1, depan: true }] }, ...B3905,
+          narr: "Mereka menyiapkan bekal secepatnya dan menaruhnya dalam kantong kulit. Tetapi tidak ada tali untuk mengikat kantong makanan dan wadah air." },
+        { inside: { props: [{ id: "bekal", kind: "bekal", x: 760, y: 760, s: 1.1, depan: true }, { id: "sabuk", kind: "sabuk", x: 1250, y: 820, s: 0.9, depan: true }] }, ...B2979,
+          say: { who: "asma", text: "Demi Allah, aku tidak menemukan apa pun untuk mengikatnya selain ikat pinggangku.", arab: "وَاللَّهِ مَا أَجِدُ شَيْئًا أَرْبِطُ بِهِ إِلَّا نِطَاقِي" } },
+        { ...B2979, say: { who: "abubakar", text: "Belahlah menjadi dua. Ikatkan yang satu pada wadah air dan yang lain pada kantong makanan.", arab: "فَشُقِّيهِ بِاثْنَيْنِ" } },
+        { inside: { chars: [{ id: "asma", x: 1200, expr: "senyum" }], props: [{ id: "bekal", kind: "bekal", x: 760, y: 760, s: 1.1, depan: true, ikat: true }, { id: "sabuk", kind: "sabuk", x: 1050, y: 820, s: 0.9, depan: true, belah: true }] },
+          hitung: "Dzatun Nithaqain", ...B2979,
+          narr: "Asma' pun melakukannya. Sejak itu ia dijuluki Dzatun Nithaqain, \"pemilik dua ikat pinggang\"." },
+        { inside: null, cam: { at: [-222, -194], dist: 7, el: 0.55, az: 2.29, up: 3 }, chars: [{ id: "asma", expr: "senyum" }], ...B3905,
+          narr: "Rencana pun disusun: keduanya akan berangkat di malam hari, bersembunyi di sebuah gua di Jabal Tsur, lalu melanjutkan perjalanan dengan seorang pemandu." }
+      ] }
+    ],
+    penutup: "Malam itu Rasulullah ﷺ datang lagi ke rumah ini, lalu bersama Abu Bakar berangkat ke selatan, menuju Gua Tsur."
+  };
+
+  // ---------- Keluar di malam hari menuju Gua Tsur ----------
+  window.TONTONAN["keluar-menuju-tsur"] = {
+    peta: true, malam: 1,
+    judul: "Malam Keberangkatan ke Gua Tsur",
+    tahun: 622,
+    tanggal: TGL_HIJRAH(),
+    pengantar: PENGANTAR_H("Sirah Ibnu Hisyam, Ar-Rahiq Al-Makhtum, HR. Bukhari no. 3905, dan HR. Tirmidzi no. 3925") + " Kisah menabur pasir sambil membaca Yasin: 9 adalah riwayat mursal (lemah).",
+    tokoh: { abubakar: { nama: "Abu Bakar" }, abujahal: { nama: "Abu Jahal" }, quraisy1: { nama: "Pemuda Quraisy" }, quraisy2: { nama: "Pemuda Quraisy" }, quraisy3: { nama: "Pemuda Quraisy" } },
+    lampu: [[139, 103], [-222, -194]],
+    paths: { keAbubakar: KE_AB, keTsur: KE_TSUR, keTsurAB: geser(KE_TSUR, 5, -4), naik: NAIK_T, naikAB: geser(NAIK_T, 4, -3) },
+    babak: [
+      { judul: "Rumah yang dikepung", beats: [
+        { cam: { at: [122, 92], dist: 4.5, el: 0.55, az: -0.94, up: 3 }, rasul: { at: R_RUMAH, state: "tenang" }, tanggal: true,
+          chars: [{ id: "abujahal", at: [102, 104], expr: "sinis", on: true }, { id: "quraisy1", at: [110, 78], expr: "tegas", on: true }, { id: "quraisy2", at: [138, 76], expr: "tegas", on: true }, { id: "quraisy3", at: [104, 90], expr: "tegas", on: true },
+            { id: "abubakar", at: AB_DEPAN, expr: "khawatir", on: true }],
+          ...SIRAH_H, narr: "Malam itu para pemuda pilihan dari berbagai kabilah mengepung rumah Rasulullah ﷺ, menunggu saat untuk menyerang. Di dalam, Ali bin Abi Thalib berbaring di tempat tidur beliau." },
+        { ...LEMAH("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Muhammad bin Ka'ab Al-Qurazhi, mursal)"),
+          narr: "Menurut sebuah riwayat dalam kitab sirah, beliau keluar melewati mereka, menaburkan segenggam pasir ke atas kepala mereka sambil membaca awal Surah Yasin. Riwayat ini sanadnya terputus; yang pasti, beliau keluar dengan selamat." },
+        { ...LEMAH("Sirah Ibnu Hisyam (mursal)"), hold: 2500, say: { who: "rasul", ayat: "QS. Yasin: 9", arab: "وَجَعَلْنَا مِن بَيْنِ أَيْدِيهِمْ سَدًّا وَمِنْ خَلْفِهِمْ سَدًّا فَأَغْشَيْنَاهُمْ فَهُمْ لَا يُبْصِرُونَ",
+          text: "Dan Kami jadikan di hadapan mereka sekat dan di belakang mereka sekat, lalu Kami tutup (penglihatan) mereka sehingga mereka tidak dapat melihat." } }
+      ] },
+      { judul: "Ke rumah Abu Bakar", beats: [
+        { rasul: { path: "keAbubakar", from: 0, to: 1, dur: 14000 }, cam: { follow: "rasul", dist: 8, el: 0.62, az: "behind", up: 3 }, ...SIRAH_H,
+          narr: "Rasulullah ﷺ berjalan dalam gelap melewati lorong-lorong kota menuju rumah Abu Bakar, yang sudah menunggu dengan bekal dan kendaraan yang dititipkan kepada pemandu." },
+        { cam: CAM_AB, chars: [{ id: "abubakar", expr: "lembut" }], ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""),
+          narr: "Abu Bakar membawa seluruh hartanya yang tersisa, sekitar lima atau enam ribu dirham, untuk keperluan perjalanan." },
+        { rasul: { at: AB_BELAKANG }, chars: [{ id: "abubakar", at: geser([AB_BELAKANG], 5, -4)[0] }], cam: { at: AB, dist: 4, el: 0.6, az: -0.85, up: 3 }, ...SIRAH_H,
+          narr: "Menurut kitab sirah, keduanya keluar lewat pintu kecil di belakang rumah." }
+      ] },
+      { judul: "Ke selatan, bukan ke utara", beats: [
+        { rasul: { path: "keTsur", from: 0, to: T_KOTA, dur: 11000 }, chars: [{ id: "abubakar", path: "keTsurAB", from: 0, to: T_KOTA, dur: 11000 }],
+          cam: { follow: "rasul", dist: 6, el: 0.6, az: "behind", up: 3 }, ...SIRAH_H,
+          narr: "Mereka berjalan ke selatan melewati Misfalah, bagian bawah kota. Jalan ke Madinah ada di utara; para pengejar tentu mengira mereka ke sana." },
+        { cam: { at: [-35, -440], dist: 6, el: 0.24, az: 0.05, up: 4 }, ...S_("HR. Tirmidzi no. 3925 (Abdullah bin 'Adi); hasan shahih menurut Tirmidzi", "https://sunnah.com/tirmidhi:3925"),
+          narr: "Ada hadits tentang Mekah yang sering dikaitkan dengan malam ini, walaupun hadits itu tidak menyebut kapan diucapkan:" },
+        { ...S_("HR. Tirmidzi no. 3925 (Abdullah bin 'Adi)", "https://sunnah.com/tirmidhi:3925"), hold: 2500,
+          say: { who: "rasul", text: "Demi Allah, engkau adalah bumi Allah yang terbaik dan yang paling dicintai Allah. Seandainya aku tidak diusir darimu, aku tidak akan keluar.", arab: "وَاللَّهِ إِنَّكِ لَخَيْرُ أَرْضِ اللَّهِ وَأَحَبُّ أَرْضِ اللَّهِ إِلَى اللَّهِ وَلَوْلَا أَنِّي أُخْرِجْتُ مِنْكِ مَا خَرَجْتُ" } },
+        { rasul: { path: "keTsur", from: T_KOTA, to: 1, dur: 24000 }, chars: [{ id: "abubakar", path: "keTsurAB", from: T_KOTA, to: 1, dur: 24000 }],
+          cam: { at: [1700, -2700], dist: 300, el: 1.0, az: 1.62, up: 0 }, ...SIRAH_H,
+          narr: "Mereka menempuh sekitar lima mil di antara bukit-bukit batu menuju Jabal Tsur, berlawanan arah dengan Madinah di utara." }
+      ] },
+      { judul: "Mendaki Jabal Tsur", beats: [
+        { rasul: { path: "naik", from: 0, to: 1, dur: 13000 }, chars: [{ id: "abubakar", path: "naikAB", from: 0, to: 1, dur: 13000, expr: "khawatir" }],
+          cam: { follow: "rasul", dist: 7, el: 0.78, az: "behind", up: 3 }, ...SIRAH_H,
+          narr: "Jalan ke puncak menanjak dan berbatu. Gua itu berada di dekat puncak Jabal Tsur." },
+        { cam: CAM_TSUR, chars: [{ id: "abubakar", expr: "lembut" }], ...B3905,
+          narr: "Mereka sampai di sebuah gua di Gunung Tsur dan bersembunyi di sana tiga malam." }
+      ] }
+    ],
+    penutup: "Selama tiga malam di gua, Abdullah bin Abi Bakar membawa kabar dari Mekah dan Amir bin Fuhairah membawa susu. Tonton \"Tiga Malam di Gua Tsur\"."
+  };
+
+  // ---------- Tiga malam di Gua Tsur ----------
+  window.TONTONAN["tiga-malam"] = {
+    peta: true, malam: 1,
+    judul: "Tiga Malam di Gua Tsur",
+    tahun: 622,
+    tanggal: TGL_HIJRAH([{ k: "Hadiah Quraisy", v: "Bukhari menyebut diyat bagi masing-masing tanpa angka; Ibnu Ishaq menyebut seratus unta untuk masing-masing.", s: "HR. Bukhari no. 3906; Sirah Ibnu Hisyam", url: "https://sunnah.com/bukhari:3906" }]),
+    pengantar: PENGANTAR_H("HR. Bukhari no. 3905 dan 3906 serta Sirah Ibnu Hisyam"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, abdullahabubakar: { nama: "Abdullah bin Abi Bakar" }, amirfuhairah: { nama: "Amir bin Fuhairah" },
+      penyeru: { nama: "Penyeru Quraisy" }, quraisy1: { nama: "Orang Quraisy" }, abujahal: { nama: "Abu Jahal" }, asma: { nama: "Asma' binti Abu Bakar" }, abuquhafah: { nama: "Abu Quhafah" } },
+    lampu: [[-222, -194], [2520, -4930]],
+    paths: { naikAbdullah: geser(NAIK_T, -3, 4), turunAbdullah: geser(NAIK_T, -3, 4).slice().reverse() },
+    babak: [
+      { judul: "Malam pertama", beats: [
+        { cam: CAM_TSUR, rasul: { at: GUA_T, state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: [2543, -4956], expr: "khawatir", on: true }, { id: "abdullahabubakar", at: KAKI_T, expr: "tegas", on: true }], ...B3905,
+          narr: "Rasulullah ﷺ dan Abu Bakar bersembunyi di gua di Jabal Tsur." },
+        { chars: [{ id: "abdullahabubakar", path: "naikAbdullah", from: 0, to: 1, dur: 9000 }], cam: { follow: "abdullahabubakar", dist: 8, el: 0.5, az: "behind", up: 3 }, ...B3905,
+          narr: "Ketika hari mulai gelap, Abdullah bin Abi Bakar, pemuda yang cerdas dan cepat paham, mendaki ke gua membawa setiap rencana Quraisy yang ia dengar." },
+        { inside: { scene: "gua-tsur-luar", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 1080, y: 420, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 900, y: 470, expr: "netral", on: true, s: 0.8 }, { id: "abdullahabubakar", x: 720, y: 540, expr: "tegas", on: true, s: 0.85 }],
+            props: [{ id: "jejak", kind: "jejak", x: 300, y: 730, n: 9, ang: -28, s: 1.2, warna: "#6a5a6c" }] }, ...B3905,
+          narr: "Abdullah bermalam bersama mereka, lalu turun sebelum fajar, sehingga pagi harinya ia sudah berada di tengah Quraisy seperti orang yang bermalam di Mekah." },
+        { inside: { chars: [{ id: "abdullahabubakar", x: 230, y: 790, expr: "netral" }, { id: "amirfuhairah", x: 420, y: 660, expr: "senyum", on: true, s: 0.85 }],
+            props: [{ id: "jejak", kind: "jejak", x: 300, y: 730, n: 9, ang: -28, s: 1.2, warna: "#6a5a6c" }, { id: "domba", kind: "domba", x: 620, y: 700, n: 5, s: 0.9, depan: true }] }, ...B3905,
+          narr: "Amir bin Fuhairah, bekas budak yang dimerdekakan Abu Bakar, menggembalakan kambing di dekat gua. Ia membawanya kepada mereka selepas sebagian malam, sehingga keduanya bisa minum susu segar." },
+        { inside: { chars: [{ id: "amirfuhairah", x: 180, y: 810 }], props: [{ id: "jejak", kind: "jejak", x: 300, y: 730, n: 9, ang: -28, s: 1.2, warna: "#6a5a6c", hapus: true }, { id: "domba", kind: "domba", x: 400, y: 790, n: 5, s: 0.9, dur: 4, depan: true }] },
+          ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq)", ""), hitung: "Jejak terhapus",
+          narr: "Menurut kitab sirah, kambing-kambing itu sengaja digiring di atas jejak Abdullah sehingga jejaknya terhapus. Sebelum fajar, Amir menggiringnya pergi." }
+      ] },
+      { judul: "Sementara itu di Mekah", beats: [
+        { inside: null, malam: 0, cam: { at: [20, -12], dist: 4.5, el: 0.4, az: 0.9, up: 3 },
+          chars: [{ id: "abubakar", on: false }, { id: "abdullahabubakar", on: false }, { id: "penyeru", at: [24, -18], expr: "tegas", on: true }, { id: "quraisy1", at: [36, -6], expr: "kaget", on: true }], ...B3906,
+          narr: "Di Mekah, Quraisy menjaga jalan-jalan dan mengirim utusan ke kabilah-kabilah, menjanjikan diyat bagi siapa pun yang membunuh atau menawan salah satu dari keduanya." },
+        { hitung: "100 unta untuk masing-masing", ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq); HR. Bukhari no. 3906 menyebut \"diyat\"", "https://sunnah.com/bukhari:3906"),
+          say: { who: "penyeru", text: "Siapa yang membawa Muhammad atau Abu Bakar, hidup atau mati, baginya seratus ekor unta untuk masing-masing!" } },
+        { cam: CAM_AB, chars: [{ id: "penyeru", on: false }, { id: "quraisy1", at: [-210, -184], expr: "tegas" }, { id: "abujahal", at: [-214, -182], expr: "sinis", on: true }, { id: "asma", at: [-221, -192], expr: "tegas", on: true }],
+          ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""), say: { who: "abujahal", text: "Di mana ayahmu, wahai putri Abu Bakar?" } },
+        { ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""), say: { who: "asma", text: "Demi Allah, aku tidak tahu di mana ayahku." } },
+        { chars: [{ id: "abujahal", expr: "tegas" }, { id: "asma", expr: "sedih" }], ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""),
+          narr: "Abu Jahal marah dan menampar Asma', lalu pergi bersama rombongannya." },
+        { inside: { scene: "rumah-abubakar", cam: { x: 800, y: 470, s: 1 },
+            chars: [{ id: "abuquhafah", x: 620, y: 650, expr: "khawatir", on: true }, { id: "asma", x: 940, y: 650, expr: "lembut", on: true }] },
+          chars: [{ id: "abujahal", on: false }, { id: "quraisy1", on: false }], ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""),
+          say: { who: "abuquhafah", text: "Demi Allah, kurasa ia telah membuat kalian susah dengan membawa seluruh hartanya." } },
+        { inside: { chars: [{ id: "asma", x: 760, expr: "lembut" }, { id: "abuquhafah", expr: "lembut" }] }, ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""),
+          narr: "Kakek Asma' ini sudah buta dan belum masuk Islam. Asma' menaruh batu-batu di ceruk tempat ayahnya biasa menyimpan uang, menutupnya dengan kain, lalu menuntun tangan kakeknya untuk merabanya. Orang tua itu pun tenang." },
+        { ...S_("Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", ""), narr: "Asma' berkata, sebenarnya ayahnya tidak meninggalkan apa pun; ia hanya ingin menenangkan kakeknya." }
+      ] },
+      { judul: "Malam kedua dan ketiga", beats: [
+        { inside: { scene: "gua-tsur-luar", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 1080, y: 420, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 900, y: 470, expr: "netral", on: true, s: 0.8 }, { id: "abdullahabubakar", x: 720, y: 540, expr: "tegas", on: true, s: 0.85 }],
+            props: [{ id: "jejak", kind: "jejak", x: 300, y: 730, n: 9, ang: -28, s: 1.2, warna: "#6a5a6c" }] },
+          malam: 1, ...B3905, narr: "Malam berikutnya Abdullah datang lagi membawa kabar, dan Amir kembali membawa kambing-kambingnya." },
+        { inside: { chars: [{ id: "abdullahabubakar", x: 230, y: 790 }, { id: "amirfuhairah", x: 180, y: 810, on: true, s: 0.85 }],
+            props: [{ id: "jejak", kind: "jejak", x: 300, y: 730, n: 9, ang: -28, s: 1.2, warna: "#6a5a6c", hapus: true }, { id: "domba", kind: "domba", x: 400, y: 790, n: 5, s: 0.9, depan: true }] },
+          hitung: "Malam ketiga", ...B3905, narr: "Begitu pula malam ketiga. Para pencari tidak menemukan jejak mereka." },
+        { inside: { chars: [{ id: "abdullahabubakar", on: false }, { id: "amirfuhairah", x: 640, y: 620 }], props: [{ id: "domba", kind: "domba", x: 480, y: 690, n: 5, s: 0.9, depan: true }] }, ...B3905,
+          narr: "Pada pagi hari ketiga, pemandu yang telah mereka sewa datang membawa dua unta, sesuai janji." }
+      ] }
+    ],
+    penutup: "Rombongan berangkat lewat jalan pantai. Tonton \"Berangkat Lewat Jalan Pantai\"."
+  };
+
+  // ---------- "Jangan bersedih, Allah bersama kita" ----------
+  const QURAISY4 = { nama: "Pencari jejak" };
+  window.TONTONAN["laa-tahzan"] = {
+    peta: false, malam: 0,
+    judul: "\"Jangan Bersedih, Allah Bersama Kita\"",
+    tahun: 622,
+    tanggal: TGL_HIJRAH([{ k: "Turunnya ayat", v: "Surah At-Taubah turun sekitar 9 H; ayat 40 mengenang peristiwa di gua ini.", s: "Catatan penyusun" }]),
+    pengantar: PENGANTAR("HR. Bukhari no. 3653 dan QS. At-Taubah: 40") + " Kisah laba-laba dan merpati ditampilkan dengan label riwayat lemah.",
+    tokoh: { abubakar: { nama: "Abu Bakar" }, quraisy1: { nama: "Pemuda Quraisy" }, quraisy2: { nama: "Pemuda Quraisy" }, quraisy3: { nama: "Pemuda Quraisy" }, pencari: QURAISY4 },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Para pengejar di atas gua", beats: [
+        { inside: { scene: "gua-tsur", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 690, y: 680, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 930, y: 640, expr: "khawatir", on: true, s: 0.7 },
+              { id: "pencari", x: 1700, y: 250, expr: "tegas", on: true, s: 0.42 }, { id: "quraisy1", x: 1820, y: 262, expr: "tegas", on: true, s: 0.42 }, { id: "quraisy2", x: 1930, y: 272, expr: "tegas", on: true, s: 0.42 }] },
+          tanggal: true, ...B3653, narr: "Para pencari jejak Quraisy mengikuti tanda-tanda sampai ke Jabal Tsur." },
+        { inside: { chars: [{ id: "pencari", x: 760, y: 236 }, { id: "quraisy1", x: 900, y: 238 }, { id: "quraisy2", x: 1040, y: 250 }] }, ...B3653,
+          narr: "Mereka sampai tepat di atas gua. Dari dalam, Abu Bakar melihat kaki-kaki mereka." },
+        { inside: { chars: [{ id: "abubakar", expr: "khawatir" }] }, ...B3653,
+          say: { who: "abubakar", text: "Wahai Rasulullah, seandainya salah seorang dari mereka melihat ke bawah kakinya, tentu ia akan melihat kita.", arab: "لَوْ أَنَّ أَحَدَهُمْ نَظَرَ تَحْتَ قَدَمَيْهِ لَأَبْصَرَنَا" } },
+        { ...B3653, hold: 1500, say: { who: "rasul", text: "Apa pendapatmu, wahai Abu Bakar, tentang dua orang yang Allah adalah yang ketiganya?", arab: "مَا ظَنُّكَ يَا أَبَا بَكْرٍ بِاثْنَيْنِ اللَّهُ ثَالِثُهُمَا" } },
+        { inside: { chars: [{ id: "abubakar", expr: "lembut" }], labels: [LBL("Sakinah", "سكينة", 800, 560, "ketenangan dari Allah")] }, ...S_("QS. At-Taubah: 40 (turun sekitar 9 H)", ""), hold: 4500,
+          say: { who: "quran", ayat: "QS. At-Taubah: 40", arab: "إِذْ هُمَا فِي الْغَارِ إِذْ يَقُولُ لِصَاحِبِهِ لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا ۖ فَأَنزَلَ اللَّهُ سَكِينَتَهُ عَلَيْهِ",
+            text: "…ketika keduanya berada di dalam gua, ketika ia berkata kepada sahabatnya, \"Jangan bersedih, sesungguhnya Allah bersama kita.\" Lalu Allah menurunkan ketenangan kepadanya…" } },
+        { inside: { labels: [], chars: [{ id: "pencari", x: -200, y: 300, on: false }, { id: "quraisy1", x: -120, y: 320, on: false }, { id: "quraisy2", x: -60, y: 340, on: false }] }, ...B3653,
+          narr: "Para pengejar berbalik tanpa menemukan mereka. Allah melindungi keduanya dengan cara yang tidak terlihat." }
+      ] },
+      { judul: "Kisah yang masyhur", beats: [
+        { inside: { scene: "gua-tsur-kisah", cam: { x: 800, y: 470, s: 1 } },
+          ...LEMAH("HR. Ahmad no. 3251 (Ibnu Abbas); sanadnya diperselisihkan", "https://hadithunlocked.com/ahmad:3251"),
+          narr: "Ada riwayat bahwa para pengejar melihat sarang laba-laba di mulut gua dan berkata, \"Seandainya ia masuk ke sini, tentu tidak ada sarang laba-laba di mulutnya.\" Sanadnya dinilai hasan oleh Ibnu Hajar dan Ibnu Katsir, tetapi lemah menurut Al-Albani." },
+        { ...LEMAH("Al-Bazzar dan Ath-Thabarani; Majma' Az-Zawa'id", "https://islamqa.info/en/answers/27224"),
+          narr: "Kisah sebatang pohon dan sepasang merpati di depan gua lebih lemah lagi, karena sebagian perawinya tidak dikenal." },
+        { inside: { scene: "gua-tsur-pasti", cam: { x: 800, y: 470, s: 1 } }, ...S_("QS. At-Taubah: 40; HR. Bukhari no. 3653", "https://sunnah.com/bukhari:3653"),
+          narr: "Yang pasti menurut Al-Qur'an dan hadits shahih: keduanya bersembunyi di gua, para pengejar sampai sangat dekat, dan Allah melindungi mereka. Kisah-kisah tadi boleh diceritakan dengan menyebut derajatnya." }
+      ] }
+    ],
+    penutup: "Setelah tiga malam, rombongan melanjutkan perjalanan ke Madinah lewat jalan pantai."
+  };
+
+  // ---------- Berangkat lewat jalan pantai ----------
+  window.TONTONAN["berangkat-pantai"] = {
+    peta: false, malam: 0,
+    judul: "Berangkat Lewat Jalan Pantai",
+    tahun: 622,
+    tanggal: { judul: "1 Rabi'ul Awwal 1 H (±16 September 622 M)", rinci: [
+      { k: "Keberangkatan", v: "Pagi hari ketiga menurut Bukhari; malam Senin 1 Rabi'ul Awwal 1 H menurut Ar-Rahiq. Padanan Masehi perkiraan.", s: "HR. Bukhari no. 3905; Ar-Rahiq Al-Makhtum", url: "https://sunnah.com/bukhari:3905" },
+      { k: "Pemandu", v: "Seorang lelaki dari Bani Ad-Dil yang masih memeluk agama Quraisy. Kitab sirah menyebut namanya Abdullah bin Uraiqith.", s: "HR. Bukhari no. 2263", url: "https://sunnah.com/bukhari:2263" }] },
+    pengantar: PENGANTAR("HR. Bukhari no. 2263, 3905, 3615, dan 3911"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, amirfuhairah: { nama: "Amir bin Fuhairah" }, uraiqith: { nama: "Abdullah bin Uraiqith (pemandu)" }, penggembala: { nama: "Penggembala" }, pejalan: { nama: "Seorang kenalan" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Pemandu datang", beats: [
+        { inside: { scene: "kaki-tsur", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 1010, y: 560, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 1130, y: 600, expr: "netral", on: true, s: 0.75 }, { id: "uraiqith", x: -120, y: 700, expr: "netral", on: true, s: 0.85 }],
+            props: [{ id: "unta1", kind: "unta", x: -300, y: 760, s: 0.9 }, { id: "unta2", kind: "unta", x: -520, y: 770, s: 0.85, pelana: "#7a3a4a" }] },
+          tanggal: true, ...B2263, narr: "Keduanya telah menyewa seorang penunjuk jalan yang mahir dari Bani Ad-Dil. Ia masih memeluk agama Quraisy, tetapi keduanya memercayainya dan menitipkan unta kepadanya." },
+        { inside: { chars: [{ id: "uraiqith", x: 560, y: 700 }], props: [{ id: "unta1", kind: "unta", x: 380, y: 760, s: 0.9, dur: 3 }, { id: "unta2", kind: "unta", x: 190, y: 770, s: 0.85, pelana: "#7a3a4a", dur: 3 }] },
+          ...B3905, narr: "Sesuai janji, pada pagi hari ketiga ia datang membawa kedua unta itu ke Gua Tsur." },
+        { inside: { rasul: { x: 760, y: 640 }, chars: [{ id: "abubakar", x: 900, y: 680 }, { id: "amirfuhairah", x: 1060, y: 690, expr: "senyum", on: true, s: 0.85 }] }, ...B3905,
+          narr: "Berangkatlah mereka berempat: Rasulullah ﷺ, Abu Bakar, Amir bin Fuhairah, dan sang pemandu. Ia membawa mereka lewat bagian bawah Mekah, lalu menyusuri jalan pantai." }
+      ] },
+      { judul: "Naungan batu di tengah hari", beats: [
+        { inside: { scene: "batu-naungan", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 840, y: 690, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 1080, y: 700, expr: "netral", on: true, s: 0.8 }, { id: "penggembala", x: 1800, y: 700, expr: "netral", on: true, s: 0.75 }],
+            props: [{ id: "tikar", kind: "tikar", x: 860, y: 760, s: 1.1 }, { id: "domba", kind: "domba", x: 1900, y: 720, n: 5, s: 0.8 }] }, ...B3615,
+          narr: "Abu Bakar bercerita: mereka berjalan semalaman dan siangnya sampai tengah hari, ketika jalan sepi. Tampak sebuah batu tinggi yang masih menyisakan naungan. Abu Bakar meratakan tanah, menghamparkan alas, dan mempersilakan Rasulullah ﷺ beristirahat." },
+        { inside: { chars: [{ id: "penggembala", x: 1330 }], props: [{ id: "tikar", kind: "tikar", x: 860, y: 760, s: 1.1 }, { id: "domba", kind: "domba", x: 1440, y: 720, n: 5, s: 0.8, dur: 3 }] }, ...B3615,
+          say: { who: "abubakar", text: "Milik siapa engkau, wahai anak muda?", arab: "لِمَنْ أَنْتَ يَا غُلَامُ" } },
+        { ...B3615, say: { who: "penggembala", text: "Milik seorang lelaki Quraisy.", arab: "لِرَجُلٍ مِنْ قُرَيْشٍ" } },
+        { inside: { props: [{ id: "tikar", kind: "tikar", x: 860, y: 760, s: 1.1 }, { id: "domba", kind: "domba", x: 1440, y: 720, n: 5, s: 0.8 }, { id: "bejana", kind: "bejana", x: 980, y: 790, isi: 0.9, depan: true }] }, ...B3615,
+          narr: "Abu Bakar meminta susu, menyuruhnya membersihkan ambing kambing dari debu, lalu mendinginkan susu itu dengan air. Ketika Rasulullah ﷺ bangun, beliau minum sampai Abu Bakar merasa senang." },
+        { ...B3615, say: { who: "rasul", text: "Bukankah sudah tiba waktunya untuk berangkat?", arab: "أَلَمْ يَأْنِ لِلرَّحِيلِ" } }
+      ] },
+      { judul: "\"Ia menunjukiku jalan\"", beats: [
+        { inside: { scene: "pesisir", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 620, y: 640, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 760, y: 680, expr: "netral", on: true, s: 0.8 }, { id: "pejalan", x: 1120, y: 690, expr: "kagum", on: true, s: 0.8 }],
+            props: [{ id: "unta1", kind: "unta", x: 360, y: 740, s: 0.85 }] }, ...B3911,
+          narr: "Di sepanjang jalan, orang yang mengenal Abu Bakar bertanya siapa lelaki yang bersamanya." },
+        { ...B3911, say: { who: "abubakar", text: "Lelaki ini menunjukiku jalan.", arab: "هَذَا الرَّجُلُ يَهْدِينِي السَّبِيلَ" } },
+        { inside: { chars: [{ id: "pejalan", expr: "senyum" }] }, ...B3911,
+          narr: "Orang mengira yang dimaksud jalan biasa, padahal maksud Abu Bakar adalah jalan kebaikan." }
+      ] }
+    ],
+    penutup: "Di jalan pantai ini, Suraqah bin Malik kemudian memacu kudanya mengejar rombongan. Tonton \"Suraqah Mengejar\"."
+  };
+
+  // ---------- Suraqah bin Malik mengejar ----------
+  window.TONTONAN["suraqah"] = {
+    peta: false, malam: 0,
+    judul: "Suraqah Mengejar",
+    tahun: 622,
+    tanggal: { judul: "Awal Rabi'ul Awwal 1 H (±September 622 M)", rinci: [
+      { k: "Waktu", v: "Tidak disebut dalam hadits. Bukhari no. 3615 mengisahkannya setelah istirahat siang; Ar-Rahiq mengutip kemungkinan hari ketiga perjalanan.", s: "HR. Bukhari no. 3615; Ar-Rahiq Al-Makhtum", url: "https://sunnah.com/bukhari:3615" },
+      { k: "Tempat", v: "Pesisir di wilayah Bani Mudlij, dekat Qudaid. Titik ini perkiraan.", s: "HR. Bukhari no. 3906", url: "https://sunnah.com/bukhari:3906" }] },
+    pengantar: PENGANTAR("HR. Bukhari no. 3906, 3615, dan 3911") + " Kisah gelang Kisra tidak ada dalam riwayat Bukhari dan tidak ditampilkan.",
+    tokoh: { abubakar: { nama: "Abu Bakar" }, amirfuhairah: { nama: "Amir bin Fuhairah" }, uraiqith: { nama: "Pemandu" }, suraqah: { nama: "Suraqah bin Malik" }, mudlij: { nama: "Seorang dari Bani Mudlij" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Kabar di majelis Bani Mudlij", beats: [
+        { inside: { scene: "kemah-badui", label: "Perkampungan Bani Mudlij, dekat Qudaid (perkiraan)", cam: { x: 800, y: 470, s: 1 },
+            chars: [{ id: "suraqah", x: 760, y: 660, expr: "netral", on: true }, { id: "mudlij", x: 480, y: 670, expr: "kaget", on: true }] }, tanggal: true, ...B3906,
+          say: { who: "mudlij", text: "Wahai Suraqah, tadi aku melihat beberapa sosok di pantai. Kurasa itu Muhammad dan sahabat-sahabatnya.", arab: "إِنِّي قَدْ رَأَيْتُ آنِفًا أَسْوِدَةً بِالسَّاحِلِ أُرَاهَا مُحَمَّدًا وَأَصْحَابَهُ" } },
+        { inside: { chars: [{ id: "suraqah", expr: "sinis" }] }, ...B3906,
+          say: { who: "suraqah", text: "Itu bukan mereka. Engkau melihat si Fulan dan si Fulan yang berangkat di depan mata kita.", arab: "إِنَّهُمْ لَيْسُوا بِهِمْ" } },
+        { ...B3906, narr: "Suraqah tahu itu benar, tetapi ia ingin hadiah Quraisy untuk dirinya sendiri. Diam-diam ia menyuruh budaknya membawa kuda ke balik bukit kecil, lalu keluar lewat belakang rumah dengan ujung tombak direndahkan agar tidak terlihat." }
+      ] },
+      { judul: "Pengejaran di pesisir", beats: [
+        { inside: { scene: "pesisir", label: null, cam: { x: 800, y: 470, s: 1 }, rasul: { x: 470, y: 640, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 600, y: 680, expr: "netral", on: true, s: 0.75 }, { id: "amirfuhairah", x: 330, y: 690, expr: "netral", on: true, s: 0.75 }, { id: "uraiqith", x: 210, y: 690, expr: "netral", on: true, s: 0.75 },
+              { id: "suraqah", x: 1820, y: 500, expr: "tegas", on: true, s: 0.7 }],
+            props: [{ id: "unta1", kind: "unta", x: 130, y: 740, s: 0.75 }, { id: "kuda", kind: "kuda", x: 1830, y: 700, s: 0.9, flip: true }] }, ...B3906,
+          narr: "Ia memacu kudanya. Kudanya tersandung dan ia terjatuh. Menurut kebiasaan jahiliyah ia mengundi dengan anak panah, dan hasilnya tidak sesuai keinginannya, tetapi ia tetap melanjutkan." },
+        { inside: { chars: [{ id: "suraqah", x: 1180, y: 500 }], props: [{ id: "unta1", kind: "unta", x: 130, y: 740, s: 0.75 }, { id: "kuda", kind: "kuda", x: 1190, y: 700, s: 0.9, flip: true, dur: 3 }] }, ...B3906,
+          narr: "Ia makin dekat, sampai mendengar bacaan Al-Qur'an Rasulullah ﷺ. Beliau tidak menoleh, sedangkan Abu Bakar sering menoleh ke belakang." },
+        { inside: { chars: [{ id: "abubakar", expr: "khawatir" }] }, ...B3615,
+          say: { who: "abubakar", text: "Para pengejar telah menyusul kita, wahai Rasulullah.", arab: "هَذَا الطَّلَبُ قَدْ لَحِقَنَا يَا رَسُولَ اللَّهِ" } },
+        { ...B3615, say: { who: "rasul", text: "Jangan bersedih, sesungguhnya Allah bersama kita.", arab: "لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا" } },
+        { inside: { chars: [{ id: "suraqah", x: 1120, y: 640, expr: "kaget" }, { id: "abubakar", expr: "kagum" }], props: [{ id: "unta1", kind: "unta", x: 130, y: 740, s: 0.75 }, { id: "kuda", kind: "kuda", x: 1190, y: 700, s: 0.9, flip: true, terbenam: true }] },
+          hitung: "Kaki kuda terbenam", ...B3906, narr: "Tiba-tiba kaki depan kudanya terbenam ke tanah sampai ke lutut, dan Suraqah jatuh. Ketika kuda itu menarik kakinya keluar, debu membubung seperti asap." }
+      ] },
+      { judul: "Surat jaminan keamanan", beats: [
+        { inside: { chars: [{ id: "suraqah", x: 980, y: 680, expr: "khawatir" }] }, ...B3615,
+          say: { who: "suraqah", text: "Aku tahu kalian telah mendoakan keburukan atasku. Doakanlah kebaikan untukku. Demi Allah, aku akan menghalau para pencari dari kalian." } },
+        { ...B3615, narr: "Rasulullah ﷺ mendoakannya, dan kudanya terlepas. Suraqah menceritakan hadiah yang dijanjikan Quraisy dan menawarkan bekal, tetapi mereka tidak mengambil apa pun." },
+        { ...B3906, say: { who: "rasul", text: "Rahasiakan tentang kami.", arab: "أَخْفِ عَنَّا" } },
+        { inside: { chars: [{ id: "amirfuhairah", x: 800, y: 690, expr: "senyum" }], props: [{ id: "unta1", kind: "unta", x: 130, y: 740, s: 0.75 }, { id: "kuda", kind: "kuda", x: 1240, y: 700, s: 0.9, flip: true }, { id: "surat", kind: "surat", x: 930, y: 600, s: 0.9, depan: true }] },
+          hitung: "Surat jaminan keamanan", ...B3906, narr: "Suraqah meminta surat jaminan keamanan. Rasulullah ﷺ menyuruh Amir bin Fuhairah, dan ia menuliskannya pada sepotong kulit." },
+        { inside: { chars: [{ id: "suraqah", x: 1750, y: 500, expr: "senyum" }], props: [{ id: "unta1", kind: "unta", x: 130, y: 740, s: 0.75 }, { id: "kuda", kind: "kuda", x: 1760, y: 700, s: 0.9, flip: false, dur: 3 }] }, ...B3911,
+          narr: "Suraqah menepati janjinya: setiap pencari yang ia temui ia suruh pulang. Anas berkata, di awal hari ia memburu Nabi ﷺ, dan di akhir hari ia menjadi pelindung beliau." },
+        { ...S_("Ibnu Hajar, Al-Mathalib Al-'Aliyah no. 2040; sanadnya dinilai shahih", "https://en.tohed.com/hadith/matalib-al-aliyah/2040/"),
+          narr: "Delapan tahun kemudian, di Ji'ranah sepulang dari Thaif, Suraqah datang membawa surat itu. Rasulullah ﷺ menyambutnya, dan ia masuk Islam." }
+      ] }
+    ],
+    penutup: "Kisah yang terkenal tentang janji gelang Kisra kepada Suraqah tidak terdapat dalam riwayat Bukhari, dan riwayat lain tentangnya lemah."
+  };
+
+  // ---------- Kemah Ummu Ma'bad (riwayat diperselisihkan) ----------
+  const UM = LEMAH("Al-Hakim, Al-Mustadrak; Ibnu Sa'd, Ath-Thabaqat (diperselisihkan)", "https://shamela.ws/book/23708/883");
+  window.TONTONAN["ummu-mabad"] = {
+    peta: false, malam: 0,
+    judul: "Kemah Ummu Ma'bad",
+    tahun: 622,
+    tanggal: { judul: "Awal Rabi'ul Awwal 1 H (±September 622 M)", rinci: [
+      { k: "Derajat", v: "Diperselisihkan. Tiap sanadnya dipersoalkan, tetapi Ibnu Katsir menyebutnya masyhur dengan jalur-jalur yang saling menguatkan.", s: "Ibnu Katsir, Al-Bidayah wan Nihayah 3/190", url: "https://shamela.ws/book/23708/883" },
+      { k: "Tempat", v: "Qudaid, menurut sebagian kitab sirah. Titik ini perkiraan.", s: "Kitab sirah" }] },
+    pengantar: "Riwayat ini derajatnya diperselisihkan (lemah menurut sebagian ulama), jadi ditampilkan dengan label. Rasulullah ﷺ tidak digambarkan; dalam riwayat ini Ummu Ma'bad menggambarkan rupa beliau, dan bagian itu sengaja tidak ditampilkan. Perlu diverifikasi ustadz.",
+    tokoh: { abubakar: { nama: "Abu Bakar" }, amirfuhairah: { nama: "Amir bin Fuhairah" }, uraiqith: { nama: "Pemandu" }, ummumabad: { nama: "Ummu Ma'bad" }, abumabad: { nama: "Abu Ma'bad" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Singgah di kemah", beats: [
+        { inside: { scene: "kemah-badui", label: "Kemah Ummu Ma'bad, Qudaid (riwayat diperselisihkan)", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 560, y: 610, small: true, state: "tenang" },
+            chars: [{ id: "ummumabad", x: 1100, y: 670, expr: "netral", on: true, s: 0.9 }, { id: "abubakar", x: 700, y: 680, expr: "netral", on: true, s: 0.75 }, { id: "amirfuhairah", x: 380, y: 690, expr: "netral", on: true, s: 0.7 }, { id: "uraiqith", x: 250, y: 690, expr: "netral", on: true, s: 0.7 }],
+            props: [{ id: "lencana", kind: "lencana", x: 800, y: 120, teks: "Riwayat diperselisihkan", w: 340 }, { id: "kambing", kind: "kambing", x: 1390, y: 720, s: 0.9, kurus: true }, { id: "bejana", kind: "bejana", x: 930, y: 790, isi: 0, depan: true }] },
+          tanggal: true, ...UM,
+          narr: "Rombongan melewati kemah Ummu Ma'bad dari Khuza'ah, perempuan yang biasa memberi makan dan minum musafir di depan kemahnya. Mereka ingin membeli daging atau kurma." },
+        { inside: { chars: [{ id: "ummumabad", expr: "sedih" }] }, ...UM, say: { who: "ummumabad", text: "Seandainya kami punya sesuatu, kalian tidak akan kekurangan jamuan. Musim sedang kering." } },
+        { ...UM, say: { who: "rasul", text: "Kambing apa ini, wahai Ummu Ma'bad?" } },
+        { ...UM, say: { who: "ummumabad", text: "Kambing yang tertinggal dari kawanan karena terlalu lemah." } },
+        { ...UM, say: { who: "rasul", text: "Bolehkah aku memerahnya?" } },
+        { inside: { chars: [{ id: "ummumabad", expr: "netral" }] }, ...UM, say: { who: "ummumabad", text: "Silakan, jika engkau melihat ada susunya." } },
+        { inside: { chars: [{ id: "ummumabad", expr: "kaget" }, { id: "abubakar", expr: "kagum" }], props: [{ id: "lencana", kind: "lencana", x: 800, y: 120, teks: "Riwayat diperselisihkan", w: 340 }, { id: "kambing", kind: "kambing", x: 1390, y: 720, s: 0.9, kurus: true }, { id: "bejana", kind: "bejana", x: 930, y: 790, isi: 1, depan: true }] },
+          ...UM, narr: "Beliau mengusap ambingnya, menyebut nama Allah, dan berdoa. Kambing itu pun mengeluarkan susu yang banyak. Semua minum sampai puas, lalu beliau memerah lagi dan meninggalkan satu bejana penuh untuk tuan rumah." }
+      ] },
+      { judul: "Abu Ma'bad pulang", beats: [
+        { inside: { rasul: { x: -320, y: 610 }, chars: [{ id: "abubakar", x: -200, on: false }, { id: "amirfuhairah", x: -300, on: false }, { id: "uraiqith", x: -400, on: false }, { id: "abumabad", x: 640, y: 680, expr: "kaget", on: true, s: 0.85 }] },
+          ...UM, say: { who: "abumabad", text: "Dari mana susu ini, wahai Ummu Ma'bad? Kambing-kambing kita jauh di padang dan tidak ada yang bisa diperah." } },
+        { inside: { chars: [{ id: "ummumabad", expr: "senyum" }] }, ...UM, say: { who: "ummumabad", text: "Tadi lewat seorang lelaki yang penuh berkah." } },
+        { inside: { chars: [{ id: "abumabad", expr: "kagum" }] }, ...UM, say: { who: "abumabad", text: "Demi Allah, inilah orang Quraisy yang sedang dicari-cari itu." } },
+        { ...UM, narr: "Dalam riwayat ini Ummu Ma'bad juga menggambarkan rupa Rasulullah ﷺ kepada suaminya. Aplikasi ini sengaja tidak menampilkan gambaran fisik beliau." }
+      ] }
+    ],
+    penutup: "Kisah Ummu Ma'bad masyhur dalam kitab sirah, tetapi derajat sanadnya diperselisihkan. Mohon diverifikasi sebelum diceritakan."
+  };
+  // =====================================================================
+  // ---------- Hijrah di Madinah (peta 3D kota Madinah, kota: "madinah") ----------
+  // Posisi dalam meter dari Raudhah Masjid Nabawi (e = timur, n = utara). Jalur rombongan dan letak kerumunan adalah perkiraan.
+  const B428 = S_("HR. Bukhari no. 428 (Anas)", "https://sunnah.com/bukhari:428");
+  const B3925 = S_("HR. Bukhari no. 3925 (Al-Bara' bin 'Azib)", "https://sunnah.com/bukhari:3925");
+  const B446 = S_("HR. Bukhari no. 446 (Ibnu Umar)", "https://sunnah.com/bukhari:446");
+  const B447 = S_("HR. Bukhari no. 447 (Abu Sa'id Al-Khudri)", "https://sunnah.com/bukhari:447");
+  const M2053 = S_("HR. Muslim no. 2053c (Abu Ayyub)", "https://sunnah.com/muslim:2053c");
+  const IH = S_("Sirah Ibnu Hisyam (Ibnu Ishaq)", "");
+  const RAHIQ = S_("Ar-Rahiq Al-Makhtum (kitab sirah)", "https://usul.ai/t/the-sealed-nectar-with-additions/110");
+  const KULTSUM = [660, -3165], QUBA = [610, -3110], JUMUAH = [419, -2410], MIRBAD = [-6, 14], R_ABUAYYUB = [35, -60];
+  const TIBA = [[-2950, -4500], [-2600, -4300], [-2250, -3700], [-2000, -3350], [-1700, -3250], [-1000, -3220], [-300, -3190], [300, -3170], [640, -3168]];
+  const T_TEPI = frac(TIBA, 4);                                    // tepi harrah, tempat kaum Anshar menyambut
+  const KE_JUMUAH = [[650, -3160], [610, -3080], [560, -2900], [470, -2620], [425, -2425]];
+  const KE_KOTA = [[425, -2425], [380, -2350], [150, -1700], [-60, -1100], [-250, -500], [-380, -50], [-380, 250], [-220, 140], [-80, 60], [-20, 30], MIRBAD];
+  const K1 = frac(KE_KOTA, 3), K2 = frac(KE_KOTA, 6), K3 = frac(KE_KOTA, 7);
+  const PENGANTAR_M = (r) => PENGANTAR(r) + " Jalur rombongan dan letak kerumunan di peta Madinah adalah perkiraan.";
+  const TGL_QUBA = (extra = []) => ({
+    judul: "Rabi'ul Awwal 1 H (±September 622 M)",
+    rinci: [
+      { k: "Tiba di Quba", v: "Senin, 8 Rabi'ul Awwal 1 H (±23 September 622 M) menurut Ar-Rahiq; Senin 12 Rabi'ul Awwal menurut Ibnu Ishaq. Bukhari hanya menyebut hari Senin di bulan Rabi'ul Awwal.", s: "HR. Bukhari no. 3906; Ar-Rahiq Al-Makhtum", url: "https://sunnah.com/bukhari:3906" },
+      { k: "Lama di Quba", v: "Empat hari (Ibnu Ishaq), lebih dari sepuluh malam (Bukhari 3906), atau empat belas malam (Anas, Bukhari 428).", s: "HR. Bukhari no. 3906 dan 428", url: "https://sunnah.com/bukhari:428" },
+      ...extra
+    ]
+  });
+  const ANSHAR = { anshar1: { nama: "Orang Anshar" }, anshar2: { nama: "Orang Anshar" }, anshar3: { nama: "Orang Anshar" } };
+
+  // ---------- Penantian di harrah dan tiba di Quba ----------
+  window.TONTONAN["tiba-quba"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Tiba di Quba",
+    tahun: 622,
+    tanggal: TGL_QUBA(),
+    pengantar: PENGANTAR_M("HR. Bukhari no. 3906 dan Sirah Ibnu Hisyam"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, amirfuhairah: { nama: "Amir bin Fuhairah" }, ...ANSHAR, yahudi: { nama: "Seorang Yahudi" }, kultsum: { nama: "Kultsum bin Al-Hidm" } },
+    lampu: [], paths: { tiba: TIBA, tibaAB: geser(TIBA, 5, -4), tibaAmir: geser(TIBA, -5, 4),
+      pulang1: [[-2080, -3180], [-1600, -3200]], pulang2: [[-2055, -3205], [-1580, -3225]], pulang3: [[-2105, -3230], [-1620, -3250]],
+      sambut1: [[-1600, -3200], [-1710, -3240]], sambut2: [[-1580, -3225], [-1700, -3262]], sambut3: [[-1620, -3250], [-1720, -3270]],
+      iring1: [[-1710, -3240], [-1000, -3210], [-300, -3180], [300, -3160], [628, -3150]], iring2: [[-1700, -3262], [-1000, -3232], [-300, -3200], [300, -3180], [630, -3182]] },
+    babak: [
+      { judul: "Menanti di tepi harrah", beats: [
+        { cam: { at: [-2080, -3205], dist: 4.5, el: 0.42, az: 2.3, up: 1.5 }, rasul: { at: TIBA[0], state: "tenang" }, tanggal: true,
+          chars: [{ id: "anshar1", at: [-2080, -3180], expr: "netral", on: true }, { id: "anshar2", at: [-2055, -3205], expr: "netral", on: true }, { id: "anshar3", at: [-2105, -3230], expr: "khawatir", on: true },
+            { id: "yahudi", at: [-1740, -3060], expr: "netral", on: true }, { id: "abubakar", at: TIBA[0], on: true }, { id: "amirfuhairah", at: TIBA[0], on: true }, { id: "kultsum", at: [690, -3170], expr: "senyum", on: true }],
+          ...B3906, narr: "Kaum muslimin Madinah sudah mendengar Rasulullah ﷺ keluar dari Mekah. Setiap pagi mereka pergi ke harrah, padang batu hitam di tepi kota, dan menunggu beliau." },
+        { chars: [{ id: "anshar1", path: "pulang1", from: 0, to: 1, dur: 6000, expr: "sedih" }, { id: "anshar2", path: "pulang2", from: 0, to: 1, dur: 6500, expr: "netral" }, { id: "anshar3", path: "pulang3", from: 0, to: 1, dur: 6000, expr: "sedih" }],
+          cam: { at: [-1850, -3210], dist: 14, el: 0.6, az: 2.3, up: 1 }, ...B3906,
+          narr: "Mereka menunggu sampai panas tengah hari memaksa mereka pulang. Suatu hari, setelah lama menunggu, mereka baru saja kembali ke rumah." },
+        { cam: { at: [-1745, -3068], dist: 3.5, el: 0.4, az: 2.6, up: 1.5 }, chars: [{ id: "yahudi", expr: "kaget" }], ...B3906,
+          narr: "Seorang Yahudi naik ke atas salah satu bentengnya untuk suatu keperluan. Ia melihat rombongan berpakaian putih muncul dari balik fatamorgana." },
+        { ...B3906, say: { who: "yahudi", text: "Wahai orang-orang Arab, inilah orang besar kalian yang kalian tunggu!", arab: "يَا مَعَاشِرَ الْعَرَبِ، هَذَا جَدُّكُمُ الَّذِي تَنْتَظِرُونَ" } }
+      ] },
+      { judul: "Penyambutan", beats: [
+        { rasul: { path: "tiba", from: 0, to: T_TEPI, dur: 12000 }, chars: [{ id: "abubakar", path: "tibaAB", from: 0, to: T_TEPI, dur: 12000 }, { id: "amirfuhairah", path: "tibaAmir", from: 0, to: T_TEPI, dur: 12000 },
+            { id: "anshar1", path: "sambut1", from: 0, to: 1, dur: 7000, expr: "senyum" }, { id: "anshar2", path: "sambut2", from: 0, to: 1, dur: 7500, expr: "kagum" }, { id: "anshar3", path: "sambut3", from: 0, to: 1, dur: 7000, expr: "senyum" }],
+          cam: { at: [-1640, -3215], dist: 34, el: 0.8, az: 2.0, up: 0 }, ...B3906,
+          narr: "Kaum muslimin bergegas mengambil senjata dan keluar menyambut Rasulullah ﷺ di tepi harrah." },
+        { rasul: { path: "tiba", from: T_TEPI, to: 1, dur: 16000 }, chars: [{ id: "abubakar", path: "tibaAB", from: T_TEPI, to: 1, dur: 16000 }, { id: "amirfuhairah", path: "tibaAmir", from: T_TEPI, to: 1, dur: 16000 },
+            { id: "anshar1", path: "iring1", from: 0, to: 1, dur: 16000 }, { id: "anshar2", path: "iring2", from: 0, to: 1, dur: 16000 }, { id: "anshar3", on: false }, { id: "yahudi", on: false }],
+          cam: { at: [-520, -3260], dist: 165, el: 1.0, az: 0.05, up: 0 }, ...B3906,
+          narr: "Beliau berbelok ke kanan bersama mereka, lalu singgah di perkampungan Bani Amr bin Auf di Quba, pada hari Senin di bulan Rabi'ul Awwal." },
+        { cam: { at: [655, -3165], dist: 4, el: 0.42, az: 2.2, up: 3 }, chars: [{ id: "kultsum", expr: "senyum" }], ...IH,
+          narr: "Menurut kitab sirah, Rasulullah ﷺ menginap di rumah Kultsum bin Al-Hidm, sesepuh Bani Amr bin Auf. Abu Bakar singgah di rumah Khubaib bin Isaf di As-Sunh." }
+      ] },
+      { judul: "Abu Bakar menaungi beliau", beats: [
+        { inside: { scene: "quba", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 520, y: 640, small: false, state: "tenang" },
+            chars: [{ id: "abubakar", x: 820, y: 660, expr: "senyum", on: true, s: 0.85 }, { id: "anshar1", x: 1060, y: 680, expr: "senyum", on: true, s: 0.85 }, { id: "anshar2", x: 1260, y: 690, expr: "kagum", on: true, s: 0.85 }] },
+          ...B3906, narr: "Abu Bakar berdiri menyambut orang-orang, sedangkan Rasulullah ﷺ duduk diam. Kaum Anshar yang datang dan belum pernah melihat beliau memberi salam kepada Abu Bakar." },
+        { inside: { chars: [{ id: "abubakar", x: 640, y: 650, expr: "lembut" }, { id: "anshar1", expr: "kaget" }, { id: "anshar2", expr: "kagum" }],
+            props: [{ id: "selendang", kind: "selendang", x: 540, y: 470, s: 1.1, depan: true }] }, hitung: "Abu Bakar menaungi beliau", ...B3906,
+          narr: "Ketika sinar matahari mengenai Rasulullah ﷺ, Abu Bakar datang dan menaungi beliau dengan selendangnya. Saat itulah orang-orang mengenali Rasulullah ﷺ." }
+      ] }
+    ],
+    penutup: "Selama di Quba, Rasulullah ﷺ mendirikan Masjid Quba. Tonton \"Masjid Quba\"."
+  };
+
+  // ---------- Masjid Quba ----------
+  window.TONTONAN["masjid-quba"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Masjid Quba",
+    tahun: 622,
+    tanggal: TGL_QUBA([{ k: "Turunnya ayat", v: "Surah At-Taubah turun sekitar 9 H; ayat 108 memuji masjid yang didirikan atas dasar takwa.", s: "Catatan penyusun" }]),
+    pengantar: PENGANTAR_M("HR. Bukhari no. 3906, HR. Abu Dawud no. 44, dan HR. Muslim no. 1398"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, ...ANSHAR, sahabat: { nama: "Sahabat" }, kultsum: { nama: "Kultsum bin Al-Hidm" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Di Bani Amr bin Auf", beats: [
+        { cam: { at: [612, -3108], dist: 5, el: 0.5, az: 2.0, up: 3 }, rasul: { at: [606, -3104], state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: [616, -3112], expr: "netral", on: true }, { id: "kultsum", at: [626, -3100], expr: "senyum", on: true }, { id: "anshar1", at: [600, -3120], expr: "senyum", on: true }], ...B3906,
+          narr: "Rasulullah ﷺ tinggal di perkampungan Bani Amr bin Auf, lalu mendirikan masjid yang didasarkan atas takwa dan shalat di dalamnya. Inilah Masjid Quba." },
+        { inside: { scene: "membangun-masjid", label: "Membangun Masjid Quba (rekonstruksi)", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 760, y: 620, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 460, y: 680, expr: "tegas", on: true, s: 0.8 }, { id: "anshar1", x: 1000, y: 690, expr: "senyum", on: true, s: 0.8 }, { id: "sahabat", x: 1240, y: 700, expr: "tegas", on: true, s: 0.8 }],
+            props: [{ id: "b1", kind: "bata", x: 470, y: 720, depan: true }, { id: "b2", kind: "bata", x: 1010, y: 730, depan: true }, { id: "b3", kind: "bata", x: 1250, y: 740, depan: true }] }, ...B3906,
+          narr: "Dindingnya disusun dari batu dan bata, dan para sahabat bekerja bersama. Inilah masjid pertama yang dibangun Rasulullah ﷺ setelah hijrah." },
+        { inside: { chars: [{ id: "abubakar", x: 300, y: 690 }, { id: "anshar1", x: 860, y: 680 }, { id: "sahabat", x: 1080, y: 690 }],
+            props: [{ id: "b1", kind: "bata", x: 310, y: 730, depan: true }, { id: "b2", kind: "bata", x: 870, y: 720, depan: true }, { id: "b3", kind: "bata", x: 1090, y: 730, depan: true }] }, ...B3906,
+          narr: "Menurut Bukhari, beliau tinggal di sana lebih dari sepuluh malam; riwayat lain menyebut empat hari atau empat belas malam." }
+      ] },
+      { judul: "Didirikan atas dasar takwa", beats: [
+        { inside: { props: [] }, ...S_("QS. At-Taubah: 108 (turun sekitar 9 H)", ""), hold: 4000, say: { who: "quran", ayat: "QS. At-Taubah: 108",
+          arab: "لَّمَسْجِدٌ أُسِّسَ عَلَى التَّقْوَىٰ مِنْ أَوَّلِ يَوْمٍ أَحَقُّ أَن تَقُومَ فِيهِ ۚ فِيهِ رِجَالٌ يُحِبُّونَ أَن يَتَطَهَّرُوا",
+          text: "Sungguh, masjid yang didirikan atas dasar takwa sejak hari pertama lebih pantas engkau shalat di dalamnya. Di dalamnya ada orang-orang yang suka menyucikan diri…" } },
+        { ...S_("HR. Abu Dawud no. 44 (Abu Hurairah); dishahihkan Al-Albani", "https://sunnah.com/abudawud:44"),
+          narr: "Abu Hurairah meriwayatkan bahwa ayat ini turun tentang penduduk Quba, yang terbiasa bersuci dengan air." },
+        { inside: null, cam: { at: [610, -3110], dist: 9, el: 0.6, az: 2.0, up: 3 }, ...S_("HR. Muslim no. 1398 (Abu Sa'id Al-Khudri)", "https://sunnah.com/muslim:1398"),
+          narr: "Ulama berbeda pendapat tentang masjid yang dimaksud ayat ini. Dalam riwayat Muslim, Nabi ﷺ menunjuk masjid beliau di Madinah. Sebagian ulama memadukan keduanya." }
+      ] }
+    ],
+    penutup: "Pada hari Jumat, Rasulullah ﷺ meninggalkan Quba menuju pusat Madinah. Tonton \"Jumat Pertama\"."
+  };
+
+  // ---------- Jumat pertama di Bani Salim bin Auf ----------
+  const SHAF = [[412, -2406], [419, -2406], [426, -2406], [412, -2413], [419, -2413], [426, -2413]];
+  window.TONTONAN["jumat-pertama"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Jumat Pertama",
+    tahun: 622,
+    tanggal: { judul: "Jumat, 12 Rabi'ul Awwal 1 H (±27 September 622 M)", rinci: [
+      { k: "Tanggal", v: "Mengikuti Ar-Rahiq: empat hari di Quba, berangkat hari kelima (Jumat). Jika mengikuti riwayat empat belas malam (HR. Bukhari no. 428), Jumat ini sekitar dua pekan setelah tiba di Quba.", s: "Ar-Rahiq Al-Makhtum", url: "https://usul.ai/t/the-sealed-nectar-with-additions/112" },
+      { k: "Kiblat", v: "Saat itu kiblat masih menghadap Baitul Maqdis, di utara Madinah.", s: "HR. Bukhari no. 40", url: "https://sunnah.com/bukhari:40" }] },
+    pengantar: PENGANTAR_M("Sirah Ibnu Hisyam, Ar-Rahiq Al-Makhtum, dan HR. Abu Dawud no. 1069"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, ...ANSHAR, sahabat: { nama: "Sahabat" }, sahabat2: { nama: "Sahabat" } },
+    lampu: [], paths: { berangkat: KE_JUMUAH, berangkatAB: geser(KE_JUMUAH, 4, -4) },
+    babak: [
+      { judul: "Meninggalkan Quba", beats: [
+        { cam: { at: [655, -3160], dist: 5, el: 0.5, az: 2.2, up: 3 }, rasul: { at: KE_JUMUAH[0], state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: geser([KE_JUMUAH[0]], 4, -4)[0], expr: "netral", on: true }], ...IH,
+          narr: "Pada hari Jumat, Rasulullah ﷺ menaiki untanya meninggalkan Quba menuju pusat Madinah." },
+        { rasul: { path: "berangkat", from: 0, to: 1, dur: 13000 }, chars: [{ id: "abubakar", path: "berangkatAB", from: 0, to: 1, dur: 13000 }],
+          cam: { follow: "rasul", dist: 9, el: 0.6, az: "behind", up: 3 }, ...IH,
+          narr: "Waktu Jumat tiba ketika beliau sampai di perkampungan Bani Salim bin Auf, di lembah Ranuna'." }
+      ] },
+      { judul: "Shalat di dasar lembah", beats: [
+        { rasul: { at: [419, -2398] }, chars: [{ id: "abubakar", at: SHAF[0] }, { id: "anshar1", at: SHAF[1], expr: "lembut", on: true }, { id: "anshar2", at: SHAF[2], expr: "lembut", on: true },
+            { id: "anshar3", at: SHAF[3], expr: "lembut", on: true }, { id: "sahabat", at: SHAF[4], expr: "lembut", on: true }, { id: "sahabat2", at: SHAF[5], expr: "lembut", on: true }],
+          cam: { at: [419, -2410], dist: 3.6, el: 0.4, az: 0.35, up: 3 }, hitung: "Sekitar 100 orang", ...RAHIQ,
+          narr: "Beliau mengumpulkan orang-orang dan shalat Jumat bersama mereka di dasar lembah. Menurut Ar-Rahiq, jumlah mereka sekitar seratus orang. Saf menghadap ke utara, ke arah Baitul Maqdis." },
+        { ...IH, narr: "Inilah shalat Jumat pertama yang dipimpin Rasulullah ﷺ sendiri. Di tempat ini kemudian berdiri masjid yang dikenal sebagai Masjid Jumu'ah." },
+        { cam: { at: [419, -2405], dist: 8, el: 0.6, az: 0.35, up: 3 }, ...S_("HR. Abu Dawud no. 1069 (Ka'ab bin Malik); dinilai hasan oleh Al-Albani", "https://sunnah.com/abudawud:1069"),
+          narr: "Sebelum itu kaum muslimin Madinah sudah pernah berkumpul untuk shalat Jumat, dipimpin As'ad bin Zurarah." }
+      ] }
+    ],
+    penutup: "Setelah shalat Jumat, Rasulullah ﷺ melanjutkan perjalanan ke pusat Madinah. Tonton \"Memasuki Madinah\"."
+  };
+
+  // ---------- Memasuki Madinah ----------
+  window.TONTONAN["masuk-madinah"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Memasuki Madinah",
+    tahun: 622,
+    tanggal: { judul: "Jumat, 12 Rabi'ul Awwal 1 H (±27 September 622 M)", rinci: [
+      { k: "Waktu", v: "Setelah shalat Jumat di Bani Salim bin Auf, menurut Ar-Rahiq.", s: "Ar-Rahiq Al-Makhtum", url: "https://usul.ai/t/the-sealed-nectar-with-additions/112" },
+      { k: "Syair Thala'al badru", v: "Riwayatnya lemah (sanad terputus). Ibnul Qayyim menyebut Tsaniyyatul Wada' ada di arah Syam, dan ada ulama yang mengaitkan syair ini dengan kepulangan dari Tabuk.", s: "IslamQA no. 119722", url: "https://islamqa.info/en/answers/119722/the-nasheed-talaa-al-badru-alayna" }] },
+    pengantar: PENGANTAR_M("HR. Bukhari no. 3925, 3911, dan 428 serta Sirah Ibnu Hisyam") + " Syair \"Thala'al badru\" ditampilkan dengan label riwayat lemah.",
+    tokoh: { abubakar: { nama: "Abu Bakar" }, ...ANSHAR, perempuan: { nama: "Penduduk Madinah" }, saadubadah: { nama: "Sa'ad bin Ubadah" }, saadrabi: { nama: "Sa'ad bin Ar-Rabi'" }, abdullahrawahah: { nama: "Abdullah bin Rawahah" } },
+    lampu: [], paths: { kota: KE_KOTA, kotaAB: geser(KE_KOTA, -3, -3) },
+    babak: [
+      { judul: "Kegembiraan penduduk Madinah", beats: [
+        { cam: { at: [425, -2425], dist: 5, el: 0.5, az: 0.4, up: 3 }, rasul: { at: KE_KOTA[0], state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: geser([KE_KOTA[0]], -3, -3)[0], expr: "senyum", on: true },
+            { id: "anshar1", at: [-48, -1090], expr: "senyum", on: true }, { id: "anshar2", at: [-74, -1112], expr: "kagum", on: true }, { id: "perempuan", at: [-40, -1120], expr: "senyum", on: true },
+            { id: "saadubadah", at: [-372, 262], expr: "senyum", on: true }, { id: "saadrabi", at: [-226, 154], expr: "senyum", on: true }, { id: "abdullahrawahah", at: [-208, 128], expr: "senyum", on: true }],
+          ...B428, narr: "Rasulullah ﷺ berangkat dari Bani Salim di atas untanya, dan Abu Bakar membonceng di belakang beliau." },
+        { rasul: { path: "kota", from: 0, to: K1, dur: 14000 }, chars: [{ id: "abubakar", path: "kotaAB", from: 0, to: K1, dur: 14000 }],
+          cam: { follow: "rasul", dist: 14, el: 0.65, az: "behind", up: 3 }, ...B3925,
+          narr: "Al-Bara' bin 'Azib berkata, ia tidak pernah melihat penduduk Madinah bergembira dengan sesuatu seperti kegembiraan mereka dengan kedatangan Rasulullah ﷺ." },
+        { cam: { at: [-58, -1100], dist: 4, el: 0.4, az: 2.5, up: 3 }, chars: [{ id: "perempuan", expr: "kagum" }], ...B3911,
+          narr: "Orang-orang naik ke tempat-tempat tinggi untuk melihat, sambil berseru bahwa Nabi Allah telah datang." },
+        { hitung: "Riwayat lemah", ...LEMAH("Al-Baihaqi, Dala'il An-Nubuwwah (dari Ibnu Aisyah, sanad terputus); IslamQA no. 119722", "https://islamqa.info/en/answers/119722/the-nasheed-talaa-al-badru-alayna"),
+          narr: "Syair \"Thala'al badru 'alaina, min tsaniyyatil wada'\" (bulan purnama terbit di atas kami, dari celah bukit Al-Wada') sangat terkenal dan disebut dinyanyikan saat itu. Riwayatnya lemah, dan ada ulama yang mengaitkannya dengan kepulangan dari Tabuk." }
+      ] },
+      { judul: "\"Biarkan untanya, ia diperintah\"", beats: [
+        { rasul: { path: "kota", from: K1, to: K2, dur: 14000 }, chars: [{ id: "abubakar", path: "kotaAB", from: K1, to: K2, dur: 14000 }],
+          cam: { follow: "rasul", dist: 12, el: 0.65, az: "behind", up: 3 }, ...IH,
+          narr: "Menurut kitab sirah, setiap kabilah Anshar yang dilewati memegang tali kekang unta dan meminta beliau singgah." },
+        { cam: { at: [-376, 252], dist: 3.6, el: 0.4, az: 2.4, up: 3 }, chars: [{ id: "saadubadah", expr: "senyum" }], ...IH,
+          say: { who: "saadubadah", text: "Tinggallah bersama kami, wahai Rasulullah, dengan jumlah, perlengkapan, dan perlindungan kami." } },
+        { ...IH, say: { who: "rasul", text: "Biarkan jalannya, sesungguhnya ia diperintah.", arab: "خَلُّوا سَبِيلَهَا فَإِنَّهَا مَأْمُورَةٌ" } },
+        { rasul: { path: "kota", from: K2, to: K3, dur: 6000 }, chars: [{ id: "abubakar", path: "kotaAB", from: K2, to: K3, dur: 6000 }],
+          cam: { at: [-216, 140], dist: 3.8, el: 0.4, az: 2.4, up: 3 }, ...IH,
+          say: { who: "saadrabi", text: "Tinggallah bersama kami, wahai Rasulullah." } },
+        { chars: [{ id: "abdullahrawahah", expr: "lembut" }], ...IH, narr: "Kepada Bani Al-Harits bin Al-Khazraj dan kabilah-kabilah lain, beliau menjawab dengan lembut hal yang sama." },
+        { rasul: { path: "kota", from: K3, to: 1, dur: 8000 }, chars: [{ id: "abubakar", path: "kotaAB", from: K3, to: 1, dur: 8000 }],
+          cam: { follow: "rasul", dist: 6, el: 0.6, az: "behind", up: 3 }, ...IH,
+          narr: "Unta itu terus berjalan sampai ke perkampungan Bani Malik bin An-Najjar." }
+      ] }
+    ],
+    penutup: "Unta itu berlutut di sebuah tempat menjemur kurma. Tonton \"Unta Berlutut dan Rumah Abu Ayyub\"."
+  };
+
+  // ---------- Unta berlutut di mirbad dan rumah Abu Ayyub ----------
+  window.TONTONAN["unta-abuayyub"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Unta Berlutut dan Rumah Abu Ayyub",
+    tahun: 622,
+    tanggal: { judul: "Rabi'ul Awwal 1 H (±27 September 622 M)", rinci: [
+      { k: "Hari", v: "Hari kedatangan di pusat Madinah, setelah shalat Jumat di Bani Salim menurut Ar-Rahiq.", s: "Ar-Rahiq Al-Makhtum", url: "https://usul.ai/t/the-sealed-nectar-with-additions/112" },
+      { k: "Wali anak yatim", v: "Bukhari 3906 menyebut As'ad bin Zurarah; sebagian riwayat sirah menyebut Mu'adz bin 'Afra'.", s: "HR. Bukhari no. 3906", url: "https://sunnah.com/bukhari:3906" }] },
+    pengantar: PENGANTAR_M("HR. Bukhari no. 3906, 3911, dan 428, HR. Muslim no. 2053c, serta Sirah Ibnu Hisyam"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, abuayyub: { nama: "Abu Ayyub Al-Anshari" }, ummuayyub: { nama: "Istri Abu Ayyub" }, asad: { nama: "As'ad bin Zurarah" },
+      sahlnajjar: { nama: "Sahl" }, suhailnajjar: { nama: "Suhail" }, abdullahsalam: { nama: "Abdullah bin Salam" } },
+    lampu: [[30, -55]], paths: { datang: [[-80, 60], [-40, 38], MIRBAD] },
+    babak: [
+      { judul: "Unta berlutut", beats: [
+        { cam: { at: [-10, 10], dist: 5, el: 0.55, az: 2.6, up: 3 }, rasul: { at: [-80, 60], state: "tenang" }, tanggal: true,
+          chars: [{ id: "abubakar", at: [-84, 63], expr: "senyum", on: true }, { id: "abuayyub", at: [28, -48], expr: "kagum", on: true }, { id: "asad", at: [12, 22], expr: "senyum", on: true },
+            { id: "sahlnajjar", at: [-16, 28], expr: "kagum", on: true }, { id: "suhailnajjar", at: [-8, 32], expr: "senyum", on: true }], ...IH,
+          narr: "Unta itu berjalan di perkampungan Bani Najjar, keluarga ibu Abdul Muthalib." },
+        { rasul: { path: "datang", from: 0, to: 1, dur: 7000 }, cam: { at: [-6, 14], dist: 3.5, el: 0.45, az: 2.6, up: 3 }, ...IH,
+          narr: "Menurut kitab sirah, unta itu berlutut, bangkit, berjalan sebentar, lalu kembali dan berlutut lagi di tempat yang sama." },
+        { inside: { scene: "mirbad", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 760, y: 560, small: false, state: "tenang" },
+            chars: [{ id: "sahlnajjar", x: 1050, y: 700, expr: "kagum", on: true, s: 0.7 }, { id: "suhailnajjar", x: 1170, y: 710, expr: "senyum", on: true, s: 0.7 }, { id: "asad", x: 1330, y: 690, expr: "senyum", on: true, s: 0.85 },
+              { id: "abuayyub", x: 360, y: 690, expr: "kagum", on: true, s: 0.85 }],
+            props: [{ id: "unta", kind: "unta", x: 760, y: 780, s: 1.1, duduk: true, pelana: "#7a3a4a" }] }, ...B3906,
+          say: { who: "rasul", text: "Inilah, insya Allah, tempat tinggal kita.", arab: "هَذَا إِنْ شَاءَ اللَّهُ الْمَنْزِلُ" } },
+        { ...B3906, narr: "Tempat itu adalah mirbad, lahan menjemur kurma, milik Sahl dan Suhail, dua anak yatim yang diasuh As'ad bin Zurarah. Di sinilah kemudian berdiri Masjid Nabawi." }
+      ] },
+      { judul: "\"Ini rumahku dan ini pintuku\"", beats: [
+        { ...B3911, say: { who: "rasul", text: "Rumah keluarga kita yang mana yang paling dekat?", arab: "أَيُّ بُيُوتِ أَهْلِنَا أَقْرَبُ" } },
+        { inside: { chars: [{ id: "abuayyub", x: 480, expr: "senyum" }] }, ...B3911,
+          say: { who: "abuayyub", text: "Saya, wahai Nabi Allah. Ini rumahku dan ini pintuku.", arab: "أَنَا يَا نَبِيَّ اللَّهِ، هَذِهِ دَارِي وَهَذَا بَابِي" } },
+        { ...B3911, say: { who: "rasul", text: "Pergilah, siapkan tempat istirahat untuk kami.", arab: "فَانْطَلِقْ فَهَيِّئْ لَنَا مَقِيلًا" } },
+        { inside: { chars: [{ id: "abuayyub", x: 1500, expr: "senyum" }] }, ...IH, narr: "Menurut kitab sirah, Abu Ayyub lalu membawa pelana beliau masuk ke rumahnya." }
+      ] },
+      { judul: "Rumah dua lantai", beats: [
+        { inside: { scene: "rumah-abuayyub", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 820, y: 720, small: true, state: "tenang" },
+            chars: [{ id: "abuayyub", x: 700, y: 330, expr: "netral", on: true, s: 0.75 }, { id: "ummuayyub", x: 900, y: 335, expr: "netral", on: true, s: 0.75 }] },
+          malam: 1, ...M2053, narr: "Rumah Abu Ayyub bertingkat dua. Rasulullah ﷺ menempati lantai bawah, sedangkan Abu Ayyub dan keluarganya di lantai atas." },
+        { inside: { chars: [{ id: "abuayyub", expr: "kaget" }, { id: "ummuayyub", expr: "khawatir" }] }, ...M2053,
+          say: { who: "abuayyub", text: "Kita berjalan di atas kepala Rasulullah ﷺ!" } },
+        { inside: { chars: [{ id: "abuayyub", x: 360, expr: "khawatir" }, { id: "ummuayyub", x: 480, expr: "khawatir" }] }, ...M2053,
+          narr: "Malam itu mereka menyingkir dan bermalam di satu sudut. Esoknya Abu Ayyub memohon kepada beliau, dan Rasulullah ﷺ menjawab bahwa lantai bawah lebih memudahkan beliau." },
+        { inside: { rasul: { x: 820, y: 360 }, chars: [{ id: "abuayyub", x: 620, y: 690, expr: "lembut" }, { id: "ummuayyub", x: 1000, y: 695, expr: "lembut" }] }, ...M2053,
+          narr: "Abu Ayyub berkata ia tidak akan naik ke atap yang di bawahnya ada Rasulullah ﷺ. Maka beliau pindah ke lantai atas, dan Abu Ayyub ke lantai bawah." },
+        { inside: null, malam: 0, cam: { at: [30, -55], dist: 4, el: 0.5, az: 2.4, up: 3 }, chars: [{ id: "abdullahsalam", at: [44, -40], expr: "kagum", on: true }], ...B3911,
+          narr: "Hari itu juga Abdullah bin Salam, pemuka ilmu kaum Yahudi, bergegas datang dari kebunnya. Ia mendengarkan Rasulullah ﷺ, dan tak lama kemudian masuk Islam." }
+      ] }
+    ],
+    penutup: "Rasulullah ﷺ tinggal di rumah Abu Ayyub beberapa bulan sampai masjid dan bilik-bilik beliau selesai. Tonton \"Membangun Masjid Nabawi\"."
+  };
+
+  // ---------- Membangun Masjid Nabawi ----------
+  const BATA = (id, x, y, n = 1) => ({ id, kind: "bata", x, y, n, depan: true });
+  window.TONTONAN["masjid-nabawi"] = {
+    kota: "madinah", peta: true, malam: 0,
+    judul: "Membangun Masjid Nabawi",
+    tahun: 622,
+    tanggal: { judul: "Rabi'ul Awwal 1 H dan bulan-bulan sesudahnya (622–623 M)", rinci: [
+      { k: "Pembelian lahan", v: "Bukhari 3906: kedua anak yatim menawarkan hibah, lalu Nabi ﷺ membelinya. Bukhari 428: Bani Najjar berkata mereka hanya mengharap harganya dari Allah. Harganya diriwayatkan berbeda-beda.", s: "HR. Bukhari no. 3906 dan 428", url: "https://sunnah.com/bukhari:428" },
+      { k: "Kiblat", v: "Saat dibangun, kiblat masih menghadap Baitul Maqdis di utara; dipindah ke Ka'bah sekitar 16–17 bulan kemudian.", s: "HR. Bukhari no. 40", url: "https://sunnah.com/bukhari:40" }] },
+    pengantar: PENGANTAR_M("HR. Bukhari no. 3906, 428, 446, dan 447"),
+    tokoh: { abubakar: { nama: "Abu Bakar" }, sahlnajjar: { nama: "Sahl" }, suhailnajjar: { nama: "Suhail" }, ammar: { nama: "Ammar bin Yasir" }, anshar1: { nama: "Orang Anshar" }, sahabat: { nama: "Sahabat" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Lahan dua anak yatim", beats: [
+        { cam: { at: [-6, 14], dist: 3.5, el: 0.45, az: 2.6, up: 3 }, rasul: { at: [-12, 10], state: "tenang" }, tanggal: true,
+          chars: [{ id: "sahlnajjar", at: [-2, 18], expr: "senyum", on: true }, { id: "suhailnajjar", at: [4, 14], expr: "senyum", on: true }, { id: "abubakar", at: [-18, 4], expr: "netral", on: true }], ...B3906,
+          narr: "Rasulullah ﷺ memanggil kedua anak yatim itu dan menawar lahan mereka untuk dijadikan masjid." },
+        { ...B3906, say: { who: "sahlnajjar", text: "Kami hibahkan saja untukmu, wahai Rasulullah.", arab: "بَلْ نَهَبُهُ لَكَ يَا رَسُولَ اللَّهِ" } },
+        { ...B3906, narr: "Beliau menolak menerimanya sebagai hibah, lalu membelinya dari mereka. Dalam riwayat Anas, Bani Najjar berkata mereka hanya mengharap harganya dari Allah." },
+        { ...B428, narr: "Di lahan itu ada kuburan orang musyrik, puing-puing, dan pohon kurma. Kuburan itu dibongkar, tanahnya diratakan, dan pohon kurma ditebang. Batang-batangnya dijajarkan sebagai dinding kiblat, yang saat itu menghadap Baitul Maqdis di utara." }
+      ] },
+      { judul: "Mengangkut bata", beats: [
+        { inside: { scene: "membangun-masjid", label: "Membangun Masjid Nabawi (rekonstruksi)", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 640, y: 620, small: true, state: "tenang" },
+            chars: [{ id: "abubakar", x: 420, y: 680, expr: "tegas", on: true, s: 0.8 }, { id: "anshar1", x: 880, y: 690, expr: "senyum", on: true, s: 0.8 }, { id: "sahabat", x: 1080, y: 690, expr: "tegas", on: true, s: 0.8 },
+              { id: "ammar", x: 1300, y: 700, expr: "senyum", on: true, s: 0.8 }],
+            props: [BATA("b1", 430, 720), BATA("b2", 890, 730), BATA("b3", 1090, 730), BATA("b4", 1310, 745, 2), BATA("b0", 650, 700)] }, ...B3906,
+          narr: "Para sahabat mengangkut batu dan bata sambil bersyair, dan Rasulullah ﷺ ikut mengangkut bata bersama mereka." },
+        { ...B3906, hold: 1500, say: { who: "rasul", text: "Inilah beban yang sesungguhnya, bukan beban dagangan Khaibar. Ini lebih baik dan lebih suci, wahai Tuhan kami.", arab: "هَذَا الْحِمَالُ لَا حِمَالَ خَيْبَرْ، هَذَا أَبَرُّ رَبَّنَا وَأَطْهَرْ" } },
+        { inside: { rasul: { x: 560 }, chars: [{ id: "abubakar", x: 300 }, { id: "anshar1", x: 760 }, { id: "sahabat", x: 960 }, { id: "ammar", x: 1160 }],
+            props: [BATA("b1", 310, 720), BATA("b2", 770, 730), BATA("b3", 970, 730), BATA("b4", 1170, 745, 2), BATA("b0", 570, 700)] }, ...B428, hold: 1500,
+          say: { who: "rasul", text: "Ya Allah, tidak ada kebaikan kecuali kebaikan akhirat, maka ampunilah kaum Anshar dan Muhajirin.", arab: "اللَّهُمَّ لَا خَيْرَ إِلَّا خَيْرُ الْآخِرَهْ، فَاغْفِرْ لِلْأَنْصَارِ وَالْمُهَاجِرَهْ" } },
+        { inside: { chars: [{ id: "ammar", x: 1000, expr: "senyum" }, { id: "sahabat", x: 1240 }], props: [BATA("b1", 310, 720), BATA("b2", 770, 730), BATA("b3", 1250, 730), BATA("b4", 1010, 745, 2), BATA("b0", 570, 700)] },
+          hitung: "Ammar: dua bata sekaligus", ...B447, narr: "Abu Sa'id Al-Khudri bercerita: mereka membawa bata satu per satu, sedangkan Ammar bin Yasir membawa dua-dua." },
+        { inside: { rasul: { x: 860 }, chars: [{ id: "ammar", expr: "lembut" }] }, ...B447, narr: "Rasulullah ﷺ melihatnya, lalu menyeka debu dari kepalanya." }
+      ] },
+      { judul: "Masjid yang sederhana", beats: [
+        { inside: null, cam: { at: [-4, 10], dist: 5, el: 0.5, az: 2.6, up: 3 }, chars: [{ id: "sahlnajjar", on: false }, { id: "suhailnajjar", on: false }, { id: "abubakar", on: false }], ...B446,
+          narr: "Pada masa Rasulullah ﷺ, masjid itu dibangun dari bata lumpur, atapnya pelepah kurma, dan tiangnya batang kurma." },
+        { cam: { at: [-4, 10], dist: 12, el: 0.7, az: 2.6, up: 3 }, ...S_("Wikipedia: Al-Masjid an-Nabawi", "https://en.wikipedia.org/wiki/Al-Masjid_an-Nabawi"),
+          narr: "Bangunan pertama berukuran sekitar 30 x 35 meter. Di sisi timurnya kemudian dibangun bilik-bilik keluarga Rasulullah ﷺ." }
+      ] }
+    ],
+    penutup: "Sekitar 16–17 bulan kemudian kiblat dipindahkan ke Ka'bah. Tonton \"Pemindahan Kiblat\"."
+  };
+
+  // ---------- Persaudaraan Muhajirin dan Anshar ----------
+  window.TONTONAN["muakhah"] = {
+    kota: "madinah", peta: false, malam: 0,
+    judul: "Persaudaraan Muhajirin dan Anshar",
+    tahun: 622,
+    tanggal: { judul: "Tahun 1 H (622–623 M)", rinci: [
+      { k: "Waktu", v: "Tidak disebut dalam hadits; urutannya di sini perkiraan.", s: "Catatan penyusun" },
+      { k: "Jumlah", v: "Sembilan puluh orang, separuh Muhajirin dan separuh Anshar, menurut Ibnul Qayyim.", s: "Zad Al-Ma'ad 2/56 (dikutip Ar-Rahiq)", url: "https://usul.ai/t/the-sealed-nectar-with-additions/118" }] },
+    pengantar: PENGANTAR("HR. Bukhari no. 2294, 3780, 3937, 4580, dan 1968") + " Letak rumah Anas tidak tercatat; ruangannya ilustrasi.",
+    tokoh: { abdurrahman: { nama: "Abdurrahman bin Auf" }, saadrabi: { nama: "Sa'ad bin Ar-Rabi'" }, anas: { nama: "Anas bin Malik" }, sahabat2: { nama: "Muhajirin" }, anshar1: { nama: "Anshar" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Dipersaudarakan", beats: [
+        { inside: { scene: "rumah-madinah", label: "Di rumah Anas bin Malik (ilustrasi)", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 800, y: 560, small: true, state: "tenang" },
+            chars: [{ id: "abdurrahman", x: 470, y: 660, expr: "netral", on: true, s: 0.85 }, { id: "sahabat2", x: 300, y: 670, expr: "netral", on: true, s: 0.8 },
+              { id: "saadrabi", x: 1130, y: 660, expr: "senyum", on: true, s: 0.85 }, { id: "anshar1", x: 1300, y: 670, expr: "senyum", on: true, s: 0.8 }, { id: "anas", x: 980, y: 720, expr: "senyum", on: true, s: 0.6 }] },
+          tanggal: true, ...S_("HR. Bukhari no. 2294 (Anas)", "https://sunnah.com/bukhari:2294"),
+          narr: "Kaum Muhajirin tiba dengan meninggalkan rumah, kebun, dan dagangan di Mekah. Rasulullah ﷺ mengikat persaudaraan antara mereka dan kaum Anshar. Anas berkata, ikatan itu dibuat di rumahnya." },
+        { inside: { chars: [{ id: "abdurrahman", x: 640 }, { id: "saadrabi", x: 960 }, { id: "sahabat2", x: 470 }, { id: "anshar1", x: 1130 }] }, hitung: "Sekitar 90 orang, berpasang-pasangan", ...S_("Ibnul Qayyim, Zad Al-Ma'ad (dikutip Ar-Rahiq)", "https://usul.ai/t/the-sealed-nectar-with-additions/118"),
+          narr: "Mereka dipasangkan satu Muhajirin dengan satu Anshar, sehingga yang datang tanpa harta mendapat saudara yang menanggungnya." },
+        { inside: { chars: [{ id: "saadrabi", expr: "senyum" }] }, ...S_("HR. Bukhari no. 3780 (Abdurrahman bin Auf)", "https://sunnah.com/bukhari:3780"),
+          say: { who: "saadrabi", text: "Aku orang Anshar yang paling banyak hartanya. Akan kubagi dua hartaku untukmu.", arab: "إِنِّي أَكْثَرُ الْأَنْصَارِ مَالًا، فَأَقْسِمُ لَكَ نِصْفَ مَالِي" } },
+        { inside: { chars: [{ id: "abdurrahman", expr: "lembut" }] }, ...S_("HR. Bukhari no. 3937 (Anas)", "https://sunnah.com/bukhari:3937"),
+          say: { who: "abdurrahman", text: "Semoga Allah memberkahi keluarga dan hartamu. Tunjukkan saja aku jalan ke pasar." } },
+        { ...S_("QS. Al-Hasyr: 9 (turun kemudian)", ""), hold: 4000, say: { who: "quran", ayat: "QS. Al-Hasyr: 9",
+          arab: "يُحِبُّونَ مَنْ هَاجَرَ إِلَيْهِمْ وَلَا يَجِدُونَ فِي صُدُورِهِمْ حَاجَةً مِّمَّا أُوتُوا وَيُؤْثِرُونَ عَلَىٰ أَنفُسِهِمْ وَلَوْ كَانَ بِهِمْ خَصَاصَةٌ",
+          text: "…mereka mencintai orang yang berhijrah kepada mereka, tidak menginginkan dalam hati apa yang diberikan kepada (Muhajirin), dan mengutamakan (Muhajirin) atas diri mereka sendiri, meskipun mereka juga memerlukan." } },
+        { ...S_("HR. Bukhari no. 4580 (Ibnu Abbas) dan 1968 (Abu Juhaifah)", "https://sunnah.com/bukhari:4580"),
+          narr: "Awalnya mereka saling mewarisi; hukum waris itu kemudian dihapus, sedangkan ikatan tolong-menolong tetap berlaku. Persaudaraan juga diikat dengan sahabat yang datang belakangan, seperti Salman Al-Farisi dan Abu Darda'." }
+      ] }
+    ],
+    penutup: "Persaudaraan ini menjadi dasar masyarakat Madinah. Lihat menu Kekerabatan untuk pasangan-pasangan yang tercatat."
   };
 })();

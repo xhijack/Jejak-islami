@@ -23,7 +23,8 @@
       { id: "kuda", lebar: 8, pts: [[-38, -12], [-160, -70], [-300, -190], [-420, -300], [-560, -380]] },
       { id: "suqlail", lebar: 6, pts: [[117, 188], [175, 190], [235, 190], [300, 196], [360, 230], [420, 270]] },
       { id: "attarin", lebar: 4, pts: [[113, 112], [138, 112]] },
-      { id: "jalan-hira", lebar: 5, pts: [[340, 1000], [700, 1500], [1300, 2150], [2050, 2850], [2850, 3400], [3250, 3650], [3300, 3700], [3420, 3700], [3380, 3760], [3500, 3790], [3460, 3840], [3560, 3870], [3587, 3912]] }
+      { id: "jalan-hira", lebar: 5, pts: [[340, 1000], [700, 1500], [1300, 2150], [2050, 2850], [2850, 3400], [3250, 3650], [3300, 3700], [3420, 3700], [3380, 3760], [3500, 3790], [3460, 3840], [3560, 3870], [3587, 3912]] },
+      { id: "jalan-tsur", lebar: 5, pts: [[-60, -820], [-250, -1250], [-150, -1700], [250, -2200], [600, -2650], [1100, -3050], [1500, -3500], [1800, -4000], [2000, -4350], [2150, -4500], [2300, -4620], [2250, -4720], [2420, -4800], [2380, -4880], [2538, -4952]] }
     ],
 
     tempat: [
@@ -256,19 +257,64 @@
       { id: "quaiqian", nama: "Jabal Qu'aiqi'an", arab: "قعيقعان", jenis: "gunung", e: -390, n: 150, lod: 0, keyakinan: "pasti",
         ket: "Gunung di sisi barat lembah Mekah, berhadapan dengan Abu Qubais.", riwayat: [] },
       { id: "khandamah", nama: "Jabal Khandamah", arab: "الخندمة", jenis: "gunung", e: 700, n: 420, lod: 0, keyakinan: "pasti",
-        ket: "Gunung di timur laut kota, batas utara dan timur Syi'ib Bani Hasyim.", riwayat: [] }
-    ],
+        ket: "Gunung di timur laut kota, batas utara dan timur Syi'ib Bani Hasyim.", riwayat: [] },
 
-    belumDipetakan: [
-      { id: "abubakar", nama: "Rumah Abu Bakar", tokoh: ["abubakar"],
-        ket: "Sumber yang kami temukan tidak menyebut letak rumah Abu Bakar di Mekah, jadi rumah ini belum ditaruh di peta.",
+      // ---------- Hijrah ----------
+      { id: "rumah-abubakar", nama: "Rumah Abu Bakar", arab: "دار أبي بكر الصديق", jenis: "rumah", e: -228, n: -199, lod: 1, keyakinan: "perkiraan",
+        ket: "Rumah Abu Bakar Ash-Shiddiq, tempat Nabi ﷺ datang di tengah hari untuk mengabarkan izin hijrah, dan tempat keduanya berangkat di malam hari. Sumber primer yang kami temukan tidak menyebut letaknya; tradisi setempat menempatkannya di sisi barat daya Masjidil Haram, di kawasan Misfalah. Titik ini perkiraan.",
+        sumberLokasi: "Tradisi setempat (kawasan Misfalah, kini kompleks Makkah Towers); tidak disebut dalam hadits",
         riwayat: [
           { t: [613, 622], judul: "Masjid di halaman rumah", tokoh: ["abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 476 (Aisyah)", url: sn("bukhari", 476),
             isi: "Abu Bakar membangun tempat shalat di halaman rumahnya. Perempuan dan anak-anak musyrik berkerumun mendengar bacaannya karena ia mudah menangis saat membaca Al-Qur'an." },
-          { t: [622, 622], judul: "Berangkat hijrah dari sini", tokoh: ["abubakar", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3905 (Aisyah)", url: sn("bukhari", 3905),
-            isi: "Nabi datang ke rumah Abu Bakar di tengah hari, waktu yang tidak biasa, untuk mengabarkan izin hijrah." }
+          { t: [622, 622], judul: "Kunjungan di tengah hari", tokoh: ["nabi", "abubakar", "aisyah"], derajat: "shahih", sumber: "HR. Bukhari no. 3905 (Aisyah)", url: sn("bukhari", 3905), tontonan: "siang-abubakar",
+            isi: "Nabi ﷺ datang di tengah hari, waktu yang tidak biasa, lalu bersabda, \"Aku telah diizinkan untuk keluar.\" Abu Bakar meminta ikut menemani, dan beliau menjawab, \"Ya.\"" },
+          { t: [622, 622], judul: "Dzatun Nithaqain", tokoh: ["asma", "abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 2979 (Asma' binti Abu Bakar)", url: sn("bukhari", 2979), tontonan: "siang-abubakar",
+            isi: "Tidak ada tali untuk mengikat bekal. Asma' membelah ikat pinggangnya menjadi dua, satu untuk wadah air dan satu untuk kantong makanan, sehingga ia dijuluki pemilik dua ikat pinggang." },
+          { t: [622, 622], judul: "Berangkat lewat pintu belakang", tokoh: ["nabi", "abubakar"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; Ar-Rahiq Al-Makhtum", tontonan: "keluar-menuju-tsur",
+            isi: "Di malam hari Nabi ﷺ datang ke rumah ini. Menurut kitab sirah, keduanya keluar lewat pintu kecil di belakang rumah, lalu berjalan ke selatan menuju Jabal Tsur." },
+          { t: [622, 622], judul: "Abu Jahal mencari Abu Bakar", tokoh: ["abujahal", "asma"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam (Ibnu Ishaq, dari Asma')", tontonan: "tiga-malam",
+            isi: "Abu Jahal datang bersama beberapa orang Quraisy dan bertanya kepada Asma' di mana ayahnya. Ketika Asma' menjawab tidak tahu, Abu Jahal menamparnya. Asma' juga menenangkan kakeknya yang buta, Abu Quhafah, dengan batu-batu yang ditutup kain di tempat penyimpanan uang." }
+        ] },
+      { id: "jalan-tsur", nama: "Jalan ke Jabal Tsur", arab: "طريق جبل ثور", jenis: "jalan", e: 900, n: -2850, lod: 0, keyakinan: "perkiraan",
+        ket: "Jalan dari Misfalah ke selatan menuju Jabal Tsur, berlawanan arah dengan jalan ke Madinah. Kitab sirah menyebut jaraknya sekitar lima mil. Garis jalurnya perkiraan.",
+        riwayat: [
+          { t: [622, 622], judul: "Malam keberangkatan", tokoh: ["nabi", "abubakar"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; Ar-Rahiq Al-Makhtum", tontonan: "keluar-menuju-tsur",
+            isi: "Nabi ﷺ dan Abu Bakar berjalan di malam hari ke selatan, ke Jabal Tsur, agar tidak disangka para pengejar yang mengawasi jalan ke utara." }
+        ] },
+      { id: "jabal-tsur", nama: "Jabal Tsur", arab: "جبل ثور", jenis: "gunung", e: 2552, n: -4976, lod: 0, keyakinan: "pasti",
+        ket: "Gunung setinggi sekitar 750 m di atas permukaan laut, sekitar 5,5 km (garis lurus) di selatan-tenggara Ka'bah. Gua persembunyian Nabi ﷺ dan Abu Bakar saat hijrah berada di gunung ini (HR. Bukhari no. 3905).",
+        sumberLokasi: "Wikipedia: Jabal Thawr", riwayat: [] },
+      { id: "gua-tsur", nama: "Gua Tsur", arab: "غار ثور", jenis: "titik", e: 2538, n: -4952, lod: 0, keyakinan: "kitab",
+        ket: "Gua kecil di dekat puncak Jabal Tsur, tempat Nabi ﷺ dan Abu Bakar bersembunyi tiga malam. Gua yang dikunjungi orang sekarang adalah identifikasi turun-temurun.",
+        sumberLokasi: "HR. Bukhari no. 3905; QS. At-Taubah: 40; identifikasi tradisional",
+        riwayat: [
+          { t: [622, 622], judul: "Tiga malam di gua", tokoh: ["nabi", "abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 3905 (Aisyah)", url: sn("bukhari", 3905), tontonan: "tiga-malam",
+            isi: "Keduanya bersembunyi tiga malam. Abdullah bin Abi Bakar bermalam di sana dan kembali ke Mekah sebelum fajar membawa kabar, sedangkan Amir bin Fuhairah menggembalakan kambing di dekat gua dan membawakan susu." },
+          { t: [622, 622], judul: "\"Jangan bersedih, Allah bersama kita\"", tokoh: ["nabi", "abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 3653 (Anas, dari Abu Bakar)", url: sn("bukhari", 3653), tontonan: "laa-tahzan",
+            isi: "Para pengejar sampai di mulut gua. Abu Bakar berkata, seandainya salah seorang menunduk melihat ke bawah kakinya, tentu ia melihat mereka. Nabi ﷺ bersabda, \"Apa pendapatmu tentang dua orang yang Allah adalah yang ketiganya?\"",
+            ayat: { surah: "At-Taubah", no: "40", arab: "إِذْ يَقُولُ لِصَاحِبِهِ لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا" },
+            catatan: "Surah At-Taubah turun sekitar 9 H; ayat 40 mengenang peristiwa ini." },
+          { t: [622, 622], judul: "Sarang laba-laba dan merpati", tokoh: ["nabi", "abubakar"], derajat: "lemah", sumber: "HR. Ahmad no. 3251 (Ibnu Abbas); Al-Bazzar dan Ath-Thabarani", url: "https://islamqa.info/en/answers/27224", tontonan: "laa-tahzan",
+            isi: "Kisah sarang laba-laba di mulut gua, serta pohon dan sepasang merpati, sangat terkenal.",
+            catatan: "Riwayat laba-laba diperselisihkan (hasan menurut Ibnu Hajar dan Ibnu Katsir, lemah menurut Al-Albani); riwayat pohon dan merpati lebih lemah karena perawinya tidak dikenal." },
+          { t: [622, 622], judul: "Berangkat bersama pemandu", tokoh: ["nabi", "abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 2263 dan 3905 (Aisyah)", url: sn("bukhari", 2263), tontonan: "berangkat-pantai",
+            isi: "Setelah tiga malam, pemandu sewaan dari Bani Ad-Dil datang membawa unta. Ia masih memeluk agama Quraisy, tetapi keduanya memercayainya. Rombongan berangkat lewat jalan pantai." }
+        ] },
+      { id: "aqabah-mina", nama: "Aqabah, Mina", arab: "العقبة", jenis: "titik", e: 4280, n: 246, lod: 1, keyakinan: "kitab",
+        ket: "Celah bukit di ujung Mina arah Mekah, tempat dua Bai'at Aqabah (621 dan 622 M). Masjid Al-Bai'ah kemudian didirikan di tempat ini.",
+        sumberLokasi: "Masjid Al-Bai'ah (didirikan sekitar 761 M); Wikipedia: Second pledge at al-Aqabah",
+        riwayat: [
+          { t: [621, 621], judul: "Bai'at Aqabah pertama", tokoh: ["nabi", "asad", "ubadah"], derajat: "shahih", sumber: "HR. Bukhari no. 3892 (Ubadah bin Ash-Shamit)", url: sn("bukhari", 3892),
+            isi: "Dua belas orang dari Yatsrib berbaiat kepada Nabi ﷺ untuk tidak menyekutukan Allah, tidak mencuri, tidak berzina, dan tidak membunuh anak-anak mereka.",
+            catatan: "Lafaz hadits tidak menyebut baiat yang mana; Ibnu Ishaq meriwayatkan dari Ubadah bahwa Aqabah pertama berisi janji serupa." },
+          { t: [622, 622], judul: "Bai'at Aqabah kedua", tokoh: ["nabi", "abbas", "kaab", "jabir", "nusaibah"], derajat: "shahih", sumber: "HR. Bukhari no. 3889 (Ka'ab bin Malik); Sirah Ibnu Hisyam", url: sn("bukhari", 3889),
+            isi: "Sekitar tujuh puluh lebih laki-laki dan dua perempuan dari Yatsrib berjanji melindungi Nabi ﷺ seperti melindungi keluarga sendiri. Ka'ab bin Malik berkata ia tidak ingin malam Aqabah ditukar dengan Perang Badar.",
+            catatan: "Ibnu Ishaq mencatat 73 laki-laki dan 2 perempuan." }
         ] }
     ],
+
+    // Rumah Abu Bakar kini dipetakan (tempat "rumah-abubakar", titik perkiraan menurut tradisi setempat).
+    belumDipetakan: [],
 
     sumber: [
       { judul: "Al-Furqan: The Location of the House of Khadijah", url: "https://al-furqan.com/the-location-of-the-house-of-khadijah-%D8%B1%D8%B6%D9%8A-%D8%A7%D9%84%D9%84%D9%87-%D8%B9%D9%86%D9%87%D8%A7-and-the-houses-that-surrounded-it" },

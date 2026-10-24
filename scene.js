@@ -211,6 +211,7 @@
       const hit = ray.intersectObject(terrain)[0];
       const gy = hit ? Math.max(hit.point.y, -0.06) : 0;
       const g = new THREE.Group(); g.position.set(x, gy, z);
+      if (l.kecil) g.scale.setScalar(0.6);
       const pillarMat = new THREE.MeshStandardMaterial({ color: gold, emissive: 0x6b4d10, emissiveIntensity: 0.2, metalness: 0.7, roughness: 0.3 });
       const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.06, 1, 10), pillarMat);
       pillar.position.y = 0.5; g.add(pillar);
@@ -219,8 +220,40 @@
       const ring = new THREE.Mesh(new THREE.RingGeometry(0.22, 0.3, 40), ringMat);
       ring.rotation.x = -Math.PI / 2; ring.position.y = 0.04; g.add(ring);
       scene.add(g);
-      markers[id] = { g, pillar, top, ring, ringMat, pillarMat, active: false, h: 0.45, ground: gy };
+      markers[id] = { g, pillar, top, ring, ringMat, pillarMat, active: false, h: 0.45, ground: gy, kecil: !!l.kecil };
     });
+
+    // Rute (misalnya jalur Hijrah): garis emas mengikuti permukaan, titik singgah, dan satu titik sorot
+    const down = new THREE.Vector3(0, -1, 0);
+    const groundAt = (x, z) => { ray.set(new THREE.Vector3(x, 10, z), down); const hit = ray.intersectObject(terrain)[0]; return hit ? Math.max(hit.point.y, -0.06) : 0; };
+    let route = null, routeHi = null;
+    function clearRoute() {
+      if (!route) return;
+      scene.remove(route); route.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); route = null; routeHi = null;
+    }
+    function setRoute(pts, hi) {
+      clearRoute();
+      if (!pts || pts.length < 2) return;
+      const grp = new THREE.Group(), P = [];
+      for (let i = 0; i < pts.length - 1; i++) {
+        const [ax, az] = toXZ(pts[i].lon, pts[i].lat), [bx, bz] = toXZ(pts[i + 1].lon, pts[i + 1].lat);
+        const n = Math.max(2, Math.ceil(Math.hypot(bx - ax, bz - az) / 0.04));
+        for (let k = 0; k < n; k++) { const t = k / n, x = ax + (bx - ax) * t, z = az + (bz - az) * t; P.push(new THREE.Vector3(x, groundAt(x, z) + 0.035, z)); }
+      }
+      const [lx, lz] = toXZ(pts[pts.length - 1].lon, pts[pts.length - 1].lat); P.push(new THREE.Vector3(lx, groundAt(lx, lz) + 0.035, lz));
+      const curve = new THREE.CatmullRomCurve3(P, false, "centripetal");
+      grp.add(new THREE.Mesh(new THREE.TubeGeometry(curve, P.length * 2, 0.022, 6, false), new THREE.MeshBasicMaterial({ color: 0xf2d27a, transparent: true, opacity: 0.92 })));
+      const dotG = new THREE.SphereGeometry(0.04, 12, 8), dotM = new THREE.MeshBasicMaterial({ color: 0xfff1c4 });
+      pts.forEach((p, i) => {
+        const [x, z] = toXZ(p.lon, p.lat), y = groundAt(x, z) + 0.05;
+        const d = new THREE.Mesh(dotG, dotM); d.position.set(x, y, z); grp.add(d);
+        if (i === hi) {
+          const glow = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffe08a, transparent: true, opacity: 0.55, depthWrite: false }));
+          glow.position.set(x, y, z); grp.add(glow); routeHi = { x, y, z, glow };
+        }
+      });
+      scene.add(grp); route = grp;
+    }
 
     // Kamera orbit sederhana
     const st = { az: -0.35, el: 0.95, dist: 30, target: new THREE.Vector3(0, 0, 0) };
@@ -267,6 +300,7 @@
         st.target.y + st.dist * Math.sin(st.el),
         st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
       camera.lookAt(st.target);
+      const near = [];
       for (const id in markers) {
         const m = markers[id];
         const want = m.active ? 1.25 : 0.45;
@@ -286,7 +320,29 @@
           lab.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px)`;
           lab.style.visibility = v.z < 1 ? "visible" : "hidden";
           lab.style.zIndex = String(Math.round((1 - v.z) * 10000));
+          // Tingkat detail label: 0 jauh (nama kota), 1 sedang (jumlah tokoh), 2 dekat (nama tokoh)
+          const d = camera.position.distanceTo(m.g.position);
+          let lod = d < 17 ? 2 : d < 25 ? 1 : 0;
+          if (lod === 2) near.push({ lab, c: Math.hypot(v.x, v.y * 1.2), y: v.y, sel: id === selected });
+          if (lod === 2) lod = 1;
+          lab._lod = lod;
         }
+      }
+      // Nama tokoh hanya untuk satu kota: kota terpilih, atau yang paling dekat ke tengah layar. Kota lain cukup jumlahnya.
+      near.sort((a, b) => (b.sel - a.sel) || a.c - b.c);
+      if (near[0] && (near[0].sel || near[0].c < 0.6)) {
+        const w = near[0]; w.lab._lod = 2; w.lab.style.zIndex = "20000";
+        const f = w.y > 0.2 ? "1" : "0"; if (w.lab.dataset.flip !== f) w.lab.dataset.flip = f; // dekat tepi atas: daftar nama dibalik ke bawah
+      }
+      for (const id in labels) { const lab = labels[id]; const s = String(lab._lod || 0); if (lab.dataset.lod !== s) lab.dataset.lod = s; }
+      const rl = labels["__rute"];
+      if (rl) {
+        if (routeHi) {
+          routeHi.glow.scale.setScalar(1 + 0.35 * Math.sin(t * 3));
+          v.set(routeHi.x, routeHi.y + 0.12, routeHi.z).project(camera);
+          rl.style.transform = `translate(${((v.x * 0.5 + 0.5) * container.clientWidth).toFixed(1)}px, ${((-v.y * 0.5 + 0.5) * container.clientHeight).toFixed(1)}px)`;
+          rl.style.visibility = v.z < 1 ? "visible" : "hidden"; rl.style.zIndex = "25000";
+        } else rl.style.visibility = "hidden";
       }
       renderer.render(scene, camera);
       raf = requestAnimationFrame(frame);
@@ -305,6 +361,8 @@
         }
       },
       overview() { selected = null; goal.target.set(0, 0, 0); goal.dist = 30; goal.el = 0.95; },
+      setRoute,
+      focus(lon, lat, dist) { const [x, z] = toXZ(lon, lat); goal.target.set(x, 0, z); goal.dist = dist || 12; },
       rotate(d) { goal.az += d; },
       press(k, on) { if (on) keys.add(k); else keys.delete(k); },
       zoom(f) { goal.dist = Math.max(6, Math.min(40, goal.dist * f)); },
