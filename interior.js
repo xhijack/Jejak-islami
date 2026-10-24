@@ -96,7 +96,7 @@
     if (!r) return null;
     const sc = r.small ? 0.55 : 1;
     return html`<g style=${{ transform: `translate(${r.x}px, ${r.y}px) scale(${sc})`, transition: "transform 1.6s ease" }}>
-      <circle r="130" fill="url(#g-halo)" class=${`pl-halo${speaking ? " on" : ""}`} opacity=${r.state === "payah" ? 0.55 : 1} />
+      <circle r="130" fill="url(#g-halo)" class=${`pl-halo${speaking ? " on" : ""}`} opacity=${r.state === "payah" || r.state === "sakit" ? 0.5 : 1} />
       ${r.state === "berselimut" && html`<g class="pl-cloth">
         <path d="M-150 -6 Q-168 70 -132 128 L132 128 Q168 70 150 -6 Q0 -40 -150 -6Z" fill="#7a5a3a" stroke="#5a4028" stroke-width="4" />
         <path d="M-90 4 Q-96 70 -80 120 M0 -6 Q-6 64 6 124 M90 4 Q98 70 84 120" stroke="#5a4028" stroke-width="3" fill="none" opacity=".7" /></g>`}
@@ -123,13 +123,14 @@
   const EXPR = {
     netral: { eye: "dot", mouth: "line" }, senyum: { eye: "happy", mouth: "smile" }, lembut: { eye: "closed", mouth: "smile" },
     khawatir: { eye: "dot", mouth: "wavy" }, kaget: { eye: "wide", mouth: "o" }, sedih: { eye: "sad", mouth: "frown" },
-    tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }
+    tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }, sinis: { eye: "half", mouth: "smirk" }
   };
   function Eye({ kind, x }) {
     const st = { fill: "none", stroke: "#2a1d16", "stroke-width": 3.4, "stroke-linecap": "round" };
     if (kind === "dot") return html`<g class="pl-blink" style=${{ transformOrigin: `${x}px -30px` }}><circle cx=${x} cy="-30" r="3.6" fill="#2a1d16" /></g>`;
     if (kind === "wide") return html`<circle cx=${x} cy="-31" r="4.8" fill="#2a1d16" />`;
     if (kind === "happy") return html`<path d=${`M${x - 6} -28 Q${x} -37 ${x + 6} -28`} ...${st} />`;
+    if (kind === "half") return html`<path d=${`M${x - 6} -30 H${x + 6}`} ...${st} />`;
     if (kind === "closed") return html`<path d=${`M${x - 6} -31 Q${x} -24 ${x + 6} -31`} ...${st} />`;
     if (kind === "sad") return html`<path d=${`M${x - 6} -27 Q${x} -32 ${x + 6} -31`} ...${st} transform=${x < 0 ? "" : `scale(-1 1) translate(${-2 * x} 0)`} />`;
     return null;
@@ -143,6 +144,7 @@
     if (kind === "frown") return html`<path d="M-6 -11 Q0 -17 6 -11" ...${st} />`;
     if (kind === "wavy") return html`<path d="M-7 -13 q3.5 -4 7 0 t7 0" ...${st} />`;
     if (kind === "o") return html`<ellipse cx="0" cy="-13" rx="3.6" ry="4.4" fill="#2a1d16" />`;
+    if (kind === "smirk") return html`<path d="M-6 -13 Q2 -13 7 -18" ...${st} />`;
     return null;
   }
   function Chibi({ id, c, talk }) {
@@ -154,9 +156,9 @@
     return html`<g style=${{ transform: `translate(${c.x}px, ${c.y}px) scale(${s})`, opacity: c.on === false ? 0 : 1, transition: "transform 1.4s ease, opacity 1.6s ease" }}>
       <ellipse cx="0" cy="96" rx="50" ry="9" fill="#000" opacity=".22" />
       <g class="pl-bob">
-        ${id === "khadijah" ? html`<g>
-          <path d="M-50 94 Q-54 22 -30 4 L30 4 Q54 22 50 94 Z" fill="#7b2f3a" />
-          <path d="M-48 -30 Q-48 -84 0 -84 Q48 -84 48 -30 L54 36 Q0 50 -54 36 Z" fill="#3d4c5e" />
+        ${(window.SirahFem || {})[id] ? html`<g>
+          <path d="M-50 94 Q-54 22 -30 4 L30 4 Q54 22 50 94 Z" fill=${window.SirahFem[id][0]} />
+          <path d="M-48 -30 Q-48 -84 0 -84 Q48 -84 48 -30 L54 36 Q0 50 -54 36 Z" fill=${window.SirahFem[id][1]} />
           <ellipse cx="0" cy="-26" rx="28" ry="30" fill="#e8c9a6" />
           <path d="M-31 -40 Q0 -66 31 -40" fill="none" stroke="#2f3b4a" stroke-width="6" stroke-linecap="round" />
         </g>` : html`<g>

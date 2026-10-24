@@ -8,13 +8,16 @@
   const EXPR = {
     netral: { eye: "dot", mouth: "line" }, senyum: { eye: "happy", mouth: "smile" }, lembut: { eye: "closed", mouth: "smile" },
     khawatir: { eye: "dot", mouth: "wavy" }, kaget: { eye: "wide", mouth: "o" }, sedih: { eye: "sad", mouth: "frown" },
-    tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }
+    tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }, sinis: { eye: "half", mouth: "smirk" }
   };
+  // Tokoh perempuan: [warna baju, warna kerudung]
+  const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"] };
   const ST = { fill: "none", stroke: "#2a1d16", "stroke-width": 3.4, "stroke-linecap": "round" };
   function Eye({ kind, x }) {
     if (kind === "dot") return html`<g class="pl-blink"><circle cx=${x} cy="-30" r="3.6" fill="#2a1d16" /></g>`;
     if (kind === "wide") return html`<circle cx=${x} cy="-31" r="4.8" fill="#2a1d16" />`;
     if (kind === "happy") return html`<path d=${`M${x - 6} -28 Q${x} -37 ${x + 6} -28`} ...${ST} />`;
+    if (kind === "half") return html`<path d=${`M${x - 6} -30 H${x + 6}`} ...${ST} />`;
     if (kind === "closed") return html`<path d=${`M${x - 6} -31 Q${x} -24 ${x + 6} -31`} ...${ST} />`;
     if (kind === "sad") return x < 0 ? html`<path d=${`M${x - 6} -27 Q${x} -33 ${x + 6} -31`} ...${ST} />` : html`<path d=${`M${x - 6} -31 Q${x} -33 ${x + 6} -27`} ...${ST} />`;
     return null;
@@ -27,6 +30,7 @@
     if (kind === "frown") return html`<path d="M-6 -11 Q0 -17 6 -11" ...${ST} />`;
     if (kind === "wavy") return html`<path d="M-7 -13 q3.5 -4 7 0 t7 0" ...${ST} />`;
     if (kind === "o") return html`<ellipse cx="0" cy="-13" rx="3.6" ry="4.4" fill="#2a1d16" />`;
+    if (kind === "smirk") return html`<path d="M-6 -13 Q2 -13 7 -18" ...${ST} />`;
     return null;
   }
   function Chibi({ id, expr, talk }) {
@@ -35,9 +39,9 @@
     return html`<svg class="st-chibi" viewBox="-60 -92 120 196" aria-hidden="true">
       <ellipse cx="0" cy="96" rx="46" ry="8" fill="#000" opacity=".3" />
       <g class="pl-bob">
-        ${id === "khadijah" ? html`<g>
-          <path d="M-50 94 Q-54 22 -30 4 L30 4 Q54 22 50 94 Z" fill="#7b2f3a" />
-          <path d="M-48 -30 Q-48 -84 0 -84 Q48 -84 48 -30 L54 36 Q0 50 -54 36 Z" fill="#3d4c5e" />
+        ${FEM[id] ? html`<g>
+          <path d="M-50 94 Q-54 22 -30 4 L30 4 Q54 22 50 94 Z" fill=${FEM[id][0]} />
+          <path d="M-48 -30 Q-48 -84 0 -84 Q48 -84 48 -30 L54 36 Q0 50 -54 36 Z" fill=${FEM[id][1]} />
           <ellipse cx="0" cy="-26" rx="28" ry="30" fill="#e8c9a6" />
           <path d="M-31 -40 Q0 -66 31 -40" fill="none" stroke="#2f3b4a" stroke-width="6" stroke-linecap="round" /></g>`
         : html`<g>
@@ -55,7 +59,7 @@
 
   // ---------- Susun keadaan tiap adegan ----------
   function resolve(ev) {
-    const out = []; let s = { rasul: { e: 0, n: 0, state: "tenang" }, chars: {}, jib: { e: 0, n: 0, up: 9, power: 0 }, cam: null, inside: null };
+    const out = []; let s = { rasul: { e: 0, n: 0, state: "tenang" }, chars: {}, jib: { e: 0, n: 0, up: 9, power: 0 }, cam: null, inside: null, malam: ev.malam ?? 1 };
     const endOf = (pts, t) => window.SirahPathAt(pts, t);
     ev.babak.forEach((bk, bi) => bk.beats.forEach((b, k) => {
       const moves = []; s = { ...s, rasul: { ...s.rasul }, chars: { ...s.chars }, jib: { ...s.jib } };
@@ -74,6 +78,7 @@
       });
       if (b.jibril) s.jib = { e: b.jibril.at[0], n: b.jibril.at[1], up: b.jibril.up, power: b.jibril.power };
       if (b.cam) s.cam = b.cam;
+      if (b.malam !== undefined) s.malam = b.malam;
       if (b.inside === null) s.inside = null;
       else if (b.inside) {
         const I = b.inside, prev = s.inside && (!I.scene || I.scene === s.inside.scene) ? s.inside : { scene: I.scene, chars: {}, jibril: { x: 800, y: 300, power: 0 } };
@@ -116,11 +121,11 @@
       put("rasul", f.rasul, true);
       Object.entries(f.chars).forEach(([cid, c]) => put(cid, c, true));
       if (animate) S.glide("jibril", f.jib); else S.actor("jibril", { ...f.jib, vis: true });
-      S.camera(f.cam);
+      S.camera(f.cam); if (S.night) S.night(f.malam);
       moveEnd.current = performance.now() + (animate ? Math.max(0, ...f.moves.map((m) => (reduce ? 300 : m.dur))) : 0);
     }
     useEffect(() => {
-      S.begin({ lamps: ev.lampu, malam: ev.malam });
+      S.begin({ lamps: ev.lampu, malam: frames[0].malam });
       S.actor("jibril", { e: 0, n: 0, up: 9, power: 0, vis: true });
       apply(frames[0], false);
       return () => S.end();

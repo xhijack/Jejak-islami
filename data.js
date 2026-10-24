@@ -132,7 +132,7 @@ window.SIRAH = {
       ayat: [{ surah: "Al-Muddatstsir", no: "1–5", arab: "يَا أَيُّهَا الْمُدَّثِّرُ ﴿١﴾ قُمْ فَأَنذِرْ ﴿٢﴾",
         nuzul: "Turun setelah masa terhentinya wahyu, ketika Nabi berselimut sepulang melihat Jibril.",
         sumber: "HR. Bukhari & Muslim, dari Jabir bin Abdullah", catatan: "Lama masa fatrah diperselisihkan ulama." }] },
-    { id: "dhuha", tahun: 612, h: "11 SH", lok: "makkah", tempat: "Mekah", judul: "Ejekan saat wahyu tertunda",
+    { id: "dhuha", tahun: 612, h: "11 SH", lok: "makkah", tempat: "Mekah", judul: "Ejekan saat wahyu tertunda", tontonan: "wahyu-dhuha",
       narasi: "Nabi sakit sehingga tidak bangun shalat malam selama dua atau tiga malam. Seorang perempuan musyrik mengejek bahwa setannya telah meninggalkan beliau.",
       tokoh: ["nabi"],
       ayat: [{ surah: "Ad-Dhuha", no: "1–3", arab: "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",

@@ -205,4 +205,62 @@
     ],
     penutup: "Wahyu kini turun terus-menerus. Dakwah dimulai secara diam-diam di Mekah. Lihat peristiwa berikutnya di timeline."
   };
+
+  // ---------- Ad-Dhuha 1–3: ejekan saat wahyu tertunda ----------
+  const B4950 = { sumber: "HR. Bukhari no. 4950 (Jundub bin Sufyan)", url: "https://sunnah.com/bukhari:4950" };
+  const B1125 = { sumber: "HR. Bukhari no. 1125 (Jundub bin Abdullah)", url: "https://sunnah.com/bukhari:1125" };
+  const M1797 = { sumber: "HR. Muslim no. 1797 (Jundub bin Abdullah)", url: "https://sunnah.com/muslim:1797a" };
+  const CAM_PINTU = { at: [121, 101], dist: 2.4, el: 0.4, az: -0.94, up: 3 };
+
+  window.TONTONAN["wahyu-dhuha"] = {
+    peta: true,
+    malam: 1,
+    judul: "Ejekan Saat Wahyu Tertunda",
+    tahun: 612,
+    tanggal: {
+      judul: "Awal periode Mekah, ±612 M",
+      rinci: [
+        { k: "Waktu", v: "Tahun, bulan, dan hari tidak disebut dalam riwayat. ±612 M adalah perkiraan.", s: "Perkiraan" },
+        { k: "Lama tertunda", v: "Dua atau tiga malam.", s: "HR. Bukhari no. 4950", url: "https://sunnah.com/bukhari:4950" },
+        { k: "Riwayat lain", v: "Beberapa hari, menurut riwayat Ibnu Abbas.", s: "Tafsir Ibnu Katsir", url: "https://quran.com/93:1/tafsirs/en-tafisr-ibn-kathir" }
+      ]
+    },
+    pengantar: "Rasulullah ﷺ dan malaikat tidak digambarkan; keduanya hanya tampil sebagai nama dan cahaya. Perempuan yang mengejek tidak disebut namanya dalam Shahih Bukhari, jadi tampil sebagai \"seorang perempuan\". Urutan kejadian mengikuti HR. Bukhari no. 4950 dan 1125 serta HR. Muslim no. 1797, dan perlu diverifikasi ustadz.",
+    tokoh: { perempuan: { nama: "Seorang perempuan" } },
+    lampu: [[139, 103]],
+    paths: { datang: [[113, 150], [114, 124], [117, 108]] },
+    babak: [
+      { judul: "Malam-malam yang sunyi", beats: [
+        { cam: { at: [132, 97], dist: 12, el: 0.72, az: -0.94, up: 0 }, rasul: { at: R_RUMAH, state: "sakit" }, tanggal: true,
+          sumber: "Catatan penyusun", narr: "Mekah, pada masa awal kenabian. Waktu persisnya tidak disebut dalam riwayat." },
+        { inside: { scene: "rumah-khadijah", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 760, y: 610, small: false, state: "sakit" } }, ...B4950,
+          narr: "Rasulullah ﷺ sakit, sehingga tidak bangun untuk shalat malam selama dua atau tiga malam." },
+        { ...B1125, narr: "Dalam riwayat lain disebutkan: Jibril terlambat datang kepada beliau." }
+      ] },
+      { judul: "Ejekan", beats: [
+        { inside: null, malam: 0, cam: CAM_PINTU, chars: [{ id: "perempuan", path: "datang", from: 0, to: 1, dur: 5000, expr: "sinis", on: true }], ...B4950,
+          narr: "Lalu datang seorang perempuan." },
+        { ...B4950, hold: 1500,
+          say: { who: "perempuan", text: "Wahai Muhammad, aku berharap setanmu telah meninggalkanmu. Aku tidak melihatnya mendekatimu sejak dua atau tiga malam.",
+            arab: "يَا مُحَمَّدُ، إِنِّي لَأَرْجُو أَنْ يَكُونَ شَيْطَانُكَ قَدْ تَرَكَكَ" } },
+        { sumber: "Catatan penyusun",
+          narr: "Shahih Bukhari tidak menyebut nama perempuan ini. Sebagian ulama menyebut riwayat di luar Shahih yang menamainya Ummu Jamil, istri Abu Lahab. Keterangan ini perlu diverifikasi." },
+        { chars: [{ id: "perempuan", path: "datang", from: 1, to: 0, dur: 5000, on: false }], cam: { at: [125, 98], dist: 4, el: 0.55, az: -0.94, up: 3 }, ...M1797,
+          narr: "Dalam riwayat Muslim, kaum musyrik berkata: \"Muhammad telah ditinggalkan.\"" }
+      ] },
+      { judul: "Demi waktu dhuha", beats: [
+        { cam: { at: [132, 97], dist: 9, el: 0.6, az: -0.6, up: 0 }, rasul: { state: "tenang" }, ...B4950, narr: "Maka Allah menurunkan wahyu." },
+        { inside: { scene: "rumah-khadijah-siang", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 700, y: 600, small: false, state: "tenang" }, jibril: { x: 800, y: 250, power: 0.45 } },
+          ...B4950, hold: 4500,
+          say: { who: "wahyu", ayat: "QS. Ad-Dhuha: 1–3",
+            arab: "وَالضُّحَىٰ ﴿١﴾ وَاللَّيْلِ إِذَا سَجَىٰ ﴿٢﴾ مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ﴿٣﴾",
+            text: "Demi waktu dhuha, dan demi malam apabila telah sunyi, Tuhanmu tidak meninggalkanmu dan tidak (pula) membencimu." } },
+        { inside: { jibril: { x: 800, y: 250, power: 0 } }, sumber: "QS. Ad-Dhuha: 4–11",
+          narr: "Allah tidak meninggalkan Nabi-Nya dan tidak membenci beliau. Ayat-ayat berikutnya berisi kabar gembira dan pengingat akan nikmat Allah kepada beliau." },
+        { inside: null, cam: { at: [180, 300], dist: 30, el: 0.75, az: -0.45, up: 0 }, sumber: "Catatan penyusun",
+          narr: "Jeda wahyu itu bukan tanda ditinggalkan. Wahyu terus turun kepada beliau." }
+      ] }
+    ],
+    penutup: "Ejekan kaum musyrik terhadap Nabi terus berlanjut, dan dakwah segera dilakukan secara terang-terangan. Berikutnya: Asy-Syu'ara 214."
+  };
 })();

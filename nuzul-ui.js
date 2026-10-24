@@ -50,7 +50,7 @@
 
   // Pencarian balik: dari peristiwa/riwayat ke entri ensiklopedia
   window.NUZUL_LOOKUP = {
-    ev(evId, i) { const u = window.NUZUL.urutan.find((x) => x.ev === evId && x.a === i) || (evId === "hira" && i === 0 ? { id: "alaq-1-5" } : evId === "muddatstsir" && i === 0 ? { id: "muddatstsir-1-5" } : null); return u && u.id; },
+    ev(evId, i) { const u = window.NUZUL.urutan.find((x) => x.ev === evId && x.a === i) || (evId === "hira" && i === 0 ? { id: "alaq-1-5" } : evId === "muddatstsir" && i === 0 ? { id: "muddatstsir-1-5" } : evId === "dhuha" && i === 0 ? { id: "dhuha-1-3" } : null); return u && u.id; },
     tempat(pid, judul) { const u = window.NUZUL.urutan.find((x) => x.tempat === pid && x.r === judul) || ((pid === "hira" || pid === "khadijah") && /Wahyu pertama|Selimuti/.test(judul) ? { id: "alaq-1-5" } : null); return u && u.id; }
   };
 

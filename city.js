@@ -781,6 +781,7 @@
       move(id, pts, from, to, dur) { const a = story.actors[id]; if (!a) return; a.goal = null; a.anim = { P: { pts }, from, to, t0: performance.now(), dur }; },
       glide(id, o) { const a = story.actors[id]; if (!a) return; a.anim = null; a.goal = { e: o.e ?? a.e, n: o.n ?? a.n, up: o.up ?? a.up, power: o.power ?? a.power }; },
       camera(c) { story.cam = c; },
+      night(v) { story.nightGoal = v; },
       node(el, o) { if (o) story.nodes.set(el, o); else story.nodes.delete(el); },
       heightAt
     };

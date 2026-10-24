@@ -10,7 +10,7 @@
   const urutan = [
     { id: "alaq-1-5", waktu: "Senin, Ramadhan 610 M" },
     { id: "muddatstsir-1-5", ev: "muddatstsir", a: 0, waktu: "Setelah masa jeda wahyu, ±611 M" },
-    { id: "dhuha-1-3", ev: "dhuha", a: 0 },
+    { id: "dhuha-1-3", ev: "dhuha", a: 0, waktu: "Tidak disebut; awal periode Mekah (±612 M, perkiraan)" },
     { id: "syuara-214", ev: "shafa", a: 0 },
     { id: "masad-1-5", ev: "shafa", a: 1 },
     { id: "abasa-1-10", ev: "abasa", a: 0 },
@@ -168,6 +168,64 @@
         b4925: { t: "HR. Bukhari no. 4925, dari Jabir bin Abdullah (Kitab Tafsir, ayat \"wa tsiyabaka fathahhir\").", url: sn("bukhari", 4925) },
         b3: { t: "HR. Bukhari no. 3, dari Aisyah (Kitab Permulaan Wahyu).", url: sn("bukhari", 3) },
         itqan: { t: "As-Suyuthi, Al-Itqan fi 'Ulum al-Qur'an, pembahasan ayat yang pertama dan terakhir turun." }
+      }
+    },
+    "dhuha-1-3": {
+      judul: "Ad-Dhuha 1–3",
+      sub: "Ejekan saat wahyu tertunda",
+      surah: "Ad-Dhuha", ayatNo: "1–3", tahun: 612,
+      tontonan: "wahyu-dhuha", peta: { tahun: 612, tempat: "khadijah" },
+      lead: [
+        "Ad-Dhuha ayat 1–3 turun ketika wahyu tidak datang beberapa malam. Rasulullah ﷺ sedang sakit sehingga tidak bangun shalat malam selama dua atau tiga malam, lalu seorang perempuan datang mengejek bahwa \"setan\" beliau telah meninggalkannya.[ref:b4950]",
+        "Allah menjawab ejekan itu dengan sumpah demi waktu dhuha dan demi malam yang sunyi: Tuhanmu tidak meninggalkanmu dan tidak membencimu.[ref:b4950][ref:m1797]"
+      ],
+      infobox: [
+        ["Surah", "Ad-Dhuha (الضحى), surah ke-93 dalam mushaf"],
+        ["Ayat", "1–3"],
+        ["Golongan", "Makkiyah"],
+        ["Waktu", "Tidak disebut dalam riwayat; awal periode Mekah (±612 M, perkiraan)"],
+        ["Lama tertunda", "Dua atau tiga malam menurut riwayat Jundub[ref:b4950]"],
+        ["Tempat", "Mekah"],
+        ["Penerima", "Rasulullah ﷺ"],
+        ["Yang mengejek", "Seorang perempuan (tidak disebut namanya dalam Shahih Bukhari)[ref:b4950]; dalam riwayat Muslim: kaum musyrik[ref:m1797]"],
+        ["Riwayat utama", "HR. Bukhari no. 4950, 4951, 1125; HR. Muslim no. 1797 (Jundub bin Abdullah al-Bajali)"]
+      ],
+      ayat: [
+        { no: 1, ar: "وَالضُّحَىٰ", id: "Demi waktu dhuha (ketika matahari naik sepenggalah)," },
+        { no: 2, ar: "وَاللَّيْلِ إِذَا سَجَىٰ", id: "dan demi malam apabila telah sunyi," },
+        { no: 3, ar: "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ", id: "Tuhanmu tidak meninggalkanmu dan tidak (pula) membencimu." }
+      ],
+      bagian: [
+        { id: "sakit", judul: "Beliau sakit, wahyu tidak datang", isi: [
+          "Jundub bin Abdullah al-Bajali meriwayatkan bahwa Rasulullah ﷺ sakit sehingga tidak bangun (untuk shalat malam) selama dua atau tiga malam.[ref:b4950]",
+          "Dalam riwayat lain dari Jundub disebutkan bahwa Jibril terlambat datang kepada beliau.[ref:b1125][ref:m1797]"
+        ] },
+        { id: "ejekan", judul: "Ejekan seorang perempuan", isi: [
+          "Lalu datang seorang perempuan dan berkata, \"Wahai Muhammad, aku berharap setanmu telah meninggalkanmu. Aku tidak melihatnya mendekatimu sejak dua atau tiga malam.\"[ref:b4950] Dalam riwayat lain, seorang perempuan Quraisy berkata, \"Setannya telah meninggalkannya.\"[ref:b1125] Dalam riwayat Muslim, yang berkata adalah kaum musyrik: \"Muhammad telah ditinggalkan.\"[ref:m1797]",
+          "Shahih Bukhari tidak menyebut nama perempuan itu. Sebagian ulama menyebutkan riwayat di luar Shahih yang menamainya Ummu Jamil, istri Abu Lahab. Keterangan ini perlu diverifikasi."
+        ] },
+        { id: "turun", judul: "Turunnya ayat", isi: [
+          "Maka Allah menurunkan: \"Demi waktu dhuha, dan demi malam apabila telah sunyi, Tuhanmu tidak meninggalkanmu dan tidak (pula) membencimu.\"[ref:b4950][ref:b1125]"
+        ] },
+        { id: "riwayat-lain", judul: "Riwayat lain dan perbedaan pendapat", isi: [
+          "Ada riwayat dari Jundub dengan redaksi berbeda: seorang perempuan berkata, \"Wahai Rasulullah, aku melihat sahabatmu (Jibril) terlambat datang kepadamu.\" Lalu turun ayat yang sama.[ref:b4951] Sebagian ulama memahami ada dua perempuan dengan maksud berbeda: yang pertama mengejek, yang kedua merasa iba.",
+          "Lama tertundanya wahyu berbeda menurut riwayat: dua atau tiga malam dalam riwayat Jundub,[ref:b4950] dan \"beberapa hari\" dalam riwayat Ibnu Abbas yang dikutip Ibnu Katsir.[ref:ik] Ada pula kisah anak anjing di bawah ranjang sebagai sebab tertundanya Jibril; kisah ini dinilai lemah oleh para ulama hadits dan tidak dipakai di sini."
+        ] },
+        { id: "kandungan", judul: "Kandungan ayat", isi: [
+          "Ayat ini menenangkan hati Nabi ﷺ: terhentinya wahyu sesaat bukan tanda Allah meninggalkan atau membenci beliau. Sumpah demi terangnya dhuha dan sunyinya malam sering dipahami sebagai gambaran bahwa jeda dan kedatangan wahyu sama-sama dalam kehendak Allah."
+        ] }
+      ],
+      lihatJuga: [
+        { label: "Al-Muddatstsir 1–5", wiki: "muddatstsir-1-5", ket: "wahyu setelah masa jeda" },
+        { label: "Al-Masad 1–5", wiki: "masad-1-5", ket: "tentang Abu Lahab dan istrinya" },
+        { label: "Rumah Khadijah", tempat: "khadijah", ket: "lokasi di peta" }
+      ],
+      rujukan: {
+        b4950: { t: "HR. Bukhari no. 4950, dari Jundub bin Sufyan (Kitab Tafsir, Surah Ad-Dhuha).", url: sn("bukhari", 4950) },
+        b4951: { t: "HR. Bukhari no. 4951, dari Jundub al-Bajali (Kitab Tafsir, Surah Ad-Dhuha).", url: sn("bukhari", 4951) },
+        b1125: { t: "HR. Bukhari no. 1125, dari Jundub bin Abdullah (Kitab Tahajjud).", url: sn("bukhari", 1125) },
+        m1797: { t: "HR. Muslim no. 1797, dari Jundub bin Abdullah al-Bajali (Kitab Jihad).", url: "https://sunnah.com/muslim:1797a" },
+        ik: { t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Surah Ad-Dhuha.", url: "https://quran.com/93:1/tafsirs/en-tafisr-ibn-kathir" }
       }
     }
   };
