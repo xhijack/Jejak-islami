@@ -246,9 +246,10 @@
   const placeActive = (p, y) => p.riwayat.some((r) => inYear(r, y));
   const fmtT = (t) => (!t ? "Sebelum 570 M" : t[0] === t[1] ? `${t[0]} M` : `${t[0]}–${t[1]} M`);
 
-  function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack, walkReq }) {
+  function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack, walkReq, story, onStoryEnd }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
     const [status, setStatus] = useState({ walking: false, detail: 0, cells: 0 });
+    const [ready, setReady] = useState(false);
     const [quality, setQualityS] = useState(() => { try { return localStorage.getItem("jejak-kualitas") !== "ringan"; } catch (e) { return true; } });
     const toggleQuality = () => { const q = !quality; setQualityS(q); api.current && api.current.setQuality(q); try { localStorage.setItem("jejak-kualitas", q ? "tinggi" : "ringan"); } catch (e) {} };
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
@@ -259,6 +260,7 @@
       Object.entries(nodes.current).forEach(([id, n]) => api.current.registerLabel(id, n));
       api.current.setActive(activeIds);
       if (csel) api.current.select(csel);
+      setReady(true);
       return () => api.current.dispose();
     }, []);
     useEffect(() => { api.current && api.current.setActive(activeIds); }, [activeIds]);
@@ -275,7 +277,7 @@
       onPointerUp: () => api.current.press(k, false), onPointerLeave: () => api.current.press(k, false), onPointerCancel: () => api.current.press(k, false)
     });
     const nearP = status.near && K.tempat.find((p) => p.id === status.near.id);
-    return html`<section class=${`map city${walking ? " walking" : ""}`} aria-label="Peta 3D kota Mekah">
+    return html`<section class=${`map city${walking ? " walking" : ""}${story ? " story-on" : ""}`} aria-label="Peta 3D kota Mekah">
       <div class="map-canvas" ref=${box}></div>
       <div class="map-labels">
         ${K.tempat.map((p) => html`<div key=${p.id} ref=${reg(p.id)}
@@ -326,6 +328,7 @@
         <button type="button" class="stat qbtn" onClick=${toggleQuality} title="Mode ringan mematikan bayangan, bebatuan, dan relief tanah">Kualitas: ${quality ? "tinggi" : "ringan"}</button>
         <p class="stat" title="Rumah dibangun detail hanya di sekitar dan di depan kamera">Rumah detail: ${status.detail}</p>
       </div>
+      ${ready && story && window.SirahStory && html`<${window.SirahStory} key=${story} api=${api.current} id=${story} onClose=${onStoryEnd} />`}
     </section>`;
   }
 
@@ -423,8 +426,11 @@
     const [mode, setMode] = useState("wilayah");
     const [csel, setCsel] = useState(null);
     const [walkReq, setWalkReq] = useState(null);
-    const [tonton, setTonton] = useState(null);
-    window.__tonton = (id) => { setPlaying(false); setTonton(id); };
+    const [story, setStory] = useState(null);
+    window.__tonton = (id) => {
+      const ev = window.TONTONAN[id]; if (!ev) return;
+      setPlaying(false); setProfile(null); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
+    };
     const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
     const goto = (e) => { setPlaying(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
@@ -438,7 +444,8 @@
       </header>
       ${city
         ? html`<${CityMap} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
-            onOverview=${() => setCsel(null)} onBack=${() => { setMode("wilayah"); setSel("makkah"); }} walkReq=${walkReq} />`
+            onOverview=${() => setCsel(null)} onBack=${() => { setStory(null); setMode("wilayah"); setSel("makkah"); }} walkReq=${walkReq}
+            story=${story} onStoryEnd=${() => setStory(null)} />`
         : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
@@ -448,7 +455,6 @@
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
             onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
-      ${tonton && window.SirahPlayer && html`<${window.SirahPlayer} id=${tonton} onClose=${() => setTonton(null)} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }

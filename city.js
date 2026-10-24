@@ -23,16 +23,22 @@
   const PEAKS = [[360, -200, 185, 140], [700, 420, 280, 160], [-200, -660, 260, 100], [260, -720, 240, 110], [-160, 860, 300, 120], [900, -150, 260, 120]];
   const RIDGES = [[-460, -180, -330, 470, 170, 130], [520, 180, 860, 640, 150, 120], [-700, 300, -500, 800, 200, 110]];
   const HILLOCKS = [[100, -85, 26, 9], [125, 340, 24, 7]]; // Shafa, Marwah
+  // Jabal Nur (Wikipedia: 21°27′29″U 39°51′40″T) ≈ 3,6 km ke timur dan 3,9 km ke utara Ka'bah; Gua Hira di dekat puncaknya
+  const JN = [3616, 3943], HIRA = [3590, 3915];
+  const FAR = [[1500, 1150, 420, 170], [700, 2650, 480, 200], [2650, 1950, 500, 210], [4350, 3050, 480, 190], [3050, 4750, 560, 240], [4650, 4650, 480, 200],
+    [1750, 3850, 450, 170], [-800, 1800, 480, 170], [2250, 350, 430, 150], [-1200, -200, 450, 150], [4200, 1600, 500, 170], [1200, 4500, 500, 190], [400, -1400, 420, 140]];
 
   function mountainH(e, n) {
     let h = 0;
     for (const [pe, pn, r, ht] of PEAKS) h += ht * Math.exp(-(((e - pe) ** 2 + (n - pn) ** 2) / (r * r)));
     for (const [a, b, c, d, w, ht] of RIDGES) h += ht * Math.exp(-((segDist(e, n, a, b, c, d) / w) ** 2));
+    for (const [pe, pn, r, ht] of FAR) { const dx = e - pe, dy = n - pn; if (dx > 3 * r || dx < -3 * r || dy > 3 * r || dy < -3 * r) continue; h += ht * Math.exp(-(dx * dx + dy * dy) / (r * r)); }
+    const dj = Math.hypot(e - JN[0], n - JN[1]); if (dj < 900) h += 290 * Math.pow(1 - dj / 900, 1.7);
     return h * (0.75 + 0.5 * fbm(e / 90, n / 90));
   }
   function heightAt(e, n) {
     const d = Math.hypot(e, n);
-    let floor = Math.max(0, 0.016 * (0.45 * e + 0.9 * n)) * smooth(30, 120, d);
+    let floor = Math.min(95, Math.max(0, 0.016 * (0.45 * e + 0.9 * n))) * smooth(30, 120, d);
     for (const [he, hn, r, ht] of HILLOCKS) floor += ht * Math.exp(-(((e - he) ** 2 + (n - hn) ** 2) / (r * r)));
     return floor + mountainH(e, n) + fbm(e / 40, n / 40) * 1.5;
   }
@@ -179,9 +185,9 @@
     const scene = new THREE.Scene();
     const FOG_MAP = [80, 170], FOG_WALK = [6, 46], FOG_C_MAP = 0x15122a, FOG_C_WALK = 0xe6b98c;
     scene.fog = new THREE.Fog(FOG_C_MAP, FOG_MAP[0], FOG_MAP[1]);
-    const camera = new THREE.PerspectiveCamera(36, 1, 0.05, 500);
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.05, 700);
 
-    scene.add(new THREE.HemisphereLight(0xe6dcff, 0x4a3524, 0.62));
+    const hemi = new THREE.HemisphereLight(0xe6dcff, 0x4a3524, 0.62); scene.add(hemi);
     // Matahari sore dari barat; bayangan mengikuti area yang sedang dilihat
     const SUN_DIR = new THREE.Vector3(-40, 17, 12).normalize();
     const sun = new THREE.DirectionalLight(0xffd3a0, 1.15); scene.add(sun); scene.add(sun.target);
@@ -231,8 +237,7 @@
     const tmp = new THREE.Color();
     for (let i = 0; i < pos.count; i++) {
       const e = pos.getX(i) * M + OFF_E, n = -pos.getZ(i) * M + OFF_N, h = hA[i], mh = mA[i];
-      const edge = Math.min(1, (HALF - Math.max(Math.abs(e - OFF_E), Math.abs(n - OFF_N))) / 80);
-      pos.setX(i, toX(e)); pos.setZ(i, toZ(n)); pos.setY(i, ((h * VX) / M) * edge - (1 - edge) * 0.8);
+      pos.setX(i, toX(e)); pos.setZ(i, toZ(n)); pos.setY(i, (h * VX) / M);
       const ix = i % ROW, iy = Math.floor(i / ROW);
       const hx = hA[i + (ix < SEG ? 1 : -1)], hy = hA[i + (iy < SEG ? ROW : -ROW)];
       const slope = Math.hypot(hx - h, hy - h) / STEP;
@@ -255,8 +260,41 @@
     const terrainMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, map: groundTex.map, normalMap: groundTex.normal, normalScale: new THREE.Vector2(0.9, 0.9) });
     for (const t of [groundTex.map, groundTex.normal]) t.repeat.set(SIZE / 9, SIZE / 9);
     const terrain = new THREE.Mesh(geo, terrainMat); terrain.receiveShadow = true; scene.add(terrain);
-    const base = new THREE.Mesh(new THREE.BoxGeometry(SIZE / M + 0.6, 0.8, SIZE / M + 0.6), new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
-    base.position.set(toX(OFF_E), -1.2, toZ(OFF_N)); scene.add(base);
+    // Medan jauh (±24 m per titik) sampai Jabal Nur; di bawah medan dekat
+    const FE0 = -1800, FE1 = 5000, FN0 = -1800, FN1 = 5200, FSEG = 280;
+    const fgeo = new THREE.PlaneGeometry((FE1 - FE0) / M, (FN1 - FN0) / M, FSEG, FSEG); fgeo.rotateX(-Math.PI / 2);
+    const fpos = fgeo.attributes.position, fcol = new Float32Array(fpos.count * 3);
+    const NE0 = OFF_E - HALF, NE1 = OFF_E + HALF, NN0 = OFF_N - HALF, NN1 = OFF_N + HALF;
+    for (let i = 0; i < fpos.count; i++) {
+      const e = fpos.getX(i) * M + (FE0 + FE1) / 2, n = -fpos.getZ(i) * M + (FN0 + FN1) / 2;
+      const h = heightAt(e, n), mh = mountainH(e, n);
+      const inside = Math.min(e - NE0, NE1 - e, n - NN0, NN1 - n);       // >0 di dalam area medan dekat
+      const sink = inside > 0 ? smooth(0, 60, inside) * 8 : 0;
+      const edge = Math.min(1, Math.min(e - FE0, FE1 - e, n - FN0, FN1 - n) / 150);
+      fpos.setX(i, toX(e)); fpos.setZ(i, toZ(n)); fpos.setY(i, (((h - sink) * VX) / M) * edge - (1 - edge) * 1.5);
+      const hx = heightAt(e + 24, n), hy = heightAt(e, n + 24), slope = Math.hypot(hx - h, hy - h) / 24, r = fbm(e / 60, n / 60);
+      if (mh < 6) tmp.copy(cSand).lerp(cDust, r * 0.7);
+      else if (mh < 60) tmp.copy(cDust).lerp(cRock, (mh - 6) / 54 + r * 0.2);
+      else tmp.copy(cRock).lerp(cDark, Math.min(1, (mh - 60) / 90 + r * 0.3));
+      tmp.lerp(cDark, smooth(0.3, 0.9, slope) * 0.65);
+      const [rd] = roadDist(e, n); if (rd < 6) tmp.lerp(cRoad, smooth(6, -1, rd) * 0.7);
+      fcol.set([tmp.r, tmp.g, tmp.b], i * 3);
+    }
+    fgeo.setAttribute("color", new THREE.BufferAttribute(fcol, 3)); fgeo.computeVertexNormals();
+    const farMesh = new THREE.Mesh(fgeo, terrainMat); farMesh.receiveShadow = true; scene.add(farMesh);
+    const base = new THREE.Mesh(new THREE.BoxGeometry((FE1 - FE0) / M + 0.6, 1.4, (FN1 - FN0) / M + 0.6), new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
+    base.position.set(toX((FE0 + FE1) / 2), -2.2, toZ((FN0 + FN1) / 2)); scene.add(base);
+
+    // Mulut Gua Hira: celah gelap di antara batu besar, menghadap ke arah Mekah
+    const cave = new THREE.Group();
+    { const gy = Y(HIRA[0], HIRA[1]), ang = Math.atan2(-HIRA[0], HIRA[1]);
+      const dark = new THREE.Mesh(new THREE.BoxGeometry(3 / M, (2 * VX) / M, 2.5 / M), new THREE.MeshBasicMaterial({ color: 0x050403 }));
+      dark.position.set(0, (1 * VX) / M, 0); cave.add(dark);
+      const rm = new THREE.MeshStandardMaterial({ color: 0x4a382b, roughness: 1, flatShading: true });
+      for (const [x, y, z, sc] of [[-3, 1.6, 0.5, 2.6], [3.2, 1.4, 0.2, 2.4], [0, 3.6, -0.6, 3], [-1.8, 3, 1.2, 1.6], [2.4, 3.2, 1, 1.8]]) {
+        const b = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 0), rm); b.scale.set(sc / M, (sc * 0.8 * VX) / M, sc / M); b.position.set(x / M, (y * VX) / M, z / M); b.castShadow = true; cave.add(b);
+      }
+      cave.position.set(toX(HIRA[0]), gy, toZ(HIRA[1])); cave.rotation.y = ang; scene.add(cave); }
 
     // Bebatuan berserakan di lereng dan sesekali di lembah
     const rocks = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ roughness: 0.95, flatShading: true }), 2600);
@@ -278,12 +316,18 @@
 
     // Langit saat jalan kaki: gradasi senja dan cakram matahari
     const sky = new THREE.Mesh(new THREE.SphereGeometry(300, 32, 16), new THREE.ShaderMaterial({
-      side: THREE.BackSide, depthWrite: false, fog: false, uniforms: { sunDir: { value: SUN_DIR } },
+      side: THREE.BackSide, depthWrite: false, fog: false, uniforms: { sunDir: { value: SUN_DIR }, night: { value: 0 }, moonDir: { value: new THREE.Vector3(0.35, 0.55, 0.76).normalize() } },
       vertexShader: "varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
-      fragmentShader: "uniform vec3 sunDir; varying vec3 vDir; void main(){ vec3 d = normalize(vDir); float h = d.y;" +
+      fragmentShader: "uniform vec3 sunDir; uniform float night; uniform vec3 moonDir; varying vec3 vDir;" +
+        " float hsh(vec3 p){ return fract(sin(dot(p, vec3(12.9898,78.233,45.164))) * 43758.5453); }" +
+        " void main(){ vec3 d = normalize(vDir); float h = d.y;" +
         " vec3 top = vec3(0.24,0.36,0.63), hor = vec3(0.90,0.73,0.55); vec3 c = mix(hor, top, pow(clamp(h,0.0,1.0), 0.5));" +
-        " float s = max(dot(d, sunDir), 0.0); c += vec3(1.0,0.85,0.6) * pow(s, 900.0) * 2.0 + vec3(1.0,0.72,0.45) * pow(s, 10.0) * 0.35;" +
-        " if (h < 0.0) c = hor; gl_FragColor = vec4(c, 1.0); }"
+        " float s = max(dot(d, sunDir), 0.0); c += (vec3(1.0,0.85,0.6) * pow(s, 900.0) * 2.0 + vec3(1.0,0.72,0.45) * pow(s, 10.0) * 0.35) * (1.0 - night);" +
+        " vec3 ntop = vec3(0.015,0.03,0.09), nhor = vec3(0.09,0.12,0.24); vec3 nc = mix(nhor, ntop, pow(clamp(h,0.0,1.0), 0.6));" +
+        " vec3 g = floor(d * 260.0); float st = step(0.9975, hsh(g)) * smoothstep(0.02, 0.3, h); nc += vec3(1.0,0.96,0.85) * st * (0.6 + 0.4 * hsh(g + 3.1));" +
+        " float m1 = dot(d, moonDir), m2 = dot(d, normalize(moonDir + vec3(0.012, 0.006, 0.0)));" +
+        " float moon = smoothstep(0.99955, 0.9997, m1) * (1.0 - smoothstep(0.99955, 0.9997, m2)); nc += vec3(1.0,0.95,0.8) * moon * 1.4 + vec3(0.25,0.3,0.45) * pow(max(m1,0.0), 60.0) * 0.25;" +
+        " c = mix(c, nc, night); if (h < 0.0) c = mix(hor, nhor, night); gl_FragColor = vec4(c, 1.0); }"
     }));
     sky.renderOrder = -1; sky.visible = false; scene.add(sky);
 
@@ -488,7 +532,7 @@
     const keys = new Set();
     const el = renderer.domElement;
     // Mode peta: seret kiri = geser. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
-    const clampT = (t) => { t.x = Math.max(-45, Math.min(55, t.x)); t.z = Math.max(-50, Math.min(45, t.z)); };
+    const clampT = (t) => { t.x = Math.max(-85, Math.min(245, t.x)); t.z = Math.max(-255, Math.min(85, t.z)); };
     function panBy(dx, dy) {
       const k = (2 * st.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
       const ca = Math.cos(st.az), sa = Math.sin(st.az), ky = k / Math.max(0.45, Math.sin(st.el));
@@ -496,7 +540,7 @@
       clampT(goal.target); st.target.x = goal.target.x; st.target.z = goal.target.z;
     }
     window.SirahGestures({ THREE, el, camera, st, goal, minD: 2.2, maxD: 90, clamp: clampT, panBy,
-      isWalk: () => walk.on,
+      isWalk: () => walk.on, locked: () => story.on,
       look: (dx, dy) => { walk.yaw += dx * 0.0042; walk.pitch = Math.max(-1.2, Math.min(1.1, walk.pitch - dy * 0.0035)); },
       rotate: (dx, dy) => { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); } });
     const typing = (t) => t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
@@ -569,7 +613,7 @@
     }
 
     function frame(now) {
-      const t = (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const t = (now - t0) / 1000, dtR = Math.min(0.3, (now - last) / 1000), dt = Math.min(0.05, dtR); last = now;
       const run = keys.has("shift") ? 3 : 1;
       if (walk.on) {
         const f = (keys.has("w") || keys.has("arrowup") ? 1 : 0) - (keys.has("s") || keys.has("arrowdown") ? 1 : 0);
@@ -578,7 +622,7 @@
         if (f || sd) {
           const sp = 7 * run * dt, se = Math.sin(walk.yaw), cn = Math.cos(walk.yaw);
           const de = (se * f + cn * sd) * sp, dn = (cn * f - se * sd) * sp;
-          const ne = Math.max(-900, Math.min(1100, walk.e + de)), nn = Math.max(-850, Math.min(1000, walk.n + dn));
+          const ne = Math.max(-1700, Math.min(4900, walk.e + de)), nn = Math.max(-1700, Math.min(5100, walk.n + dn));
           if (!blocked(ne, nn)) { walk.e = ne; walk.n = nn; } else if (!blocked(ne, walk.n)) walk.e = ne; else if (!blocked(walk.e, nn)) walk.n = nn;
         }
         const eyeY = ((heightAt(walk.e, walk.n) + 1.7) * VX) / M;
@@ -592,14 +636,16 @@
         const sp = goal.dist * 0.9 * dt * run;
         goal.target.x += (fx * f + rx * sd) * sp; goal.target.z += (fz * f + rz * sd) * sp;
         goal.az += ((keys.has("e") ? 1 : 0) - (keys.has("q") ? 1 : 0)) * dt * 1.4;
-        goal.target.x = Math.max(-45, Math.min(55, goal.target.x)); goal.target.z = Math.max(-50, Math.min(45, goal.target.z));
-        goal.target.y = Y(goal.target.x * M, -goal.target.z * M) * 0.6;
-        const k = reduce ? 1 : 0.08;
-        st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * (reduce ? 1 : 0.2); st.target.lerp(goal.target, k);
+        if (story.on) storyCamera(now); else { clampT(goal.target); goal.target.y = Y(goal.target.x * M, -goal.target.z * M) * 0.6; }
+        // pelunakan berbasis waktu agar sama cepat di laptop lambat maupun cepat
+        const k = reduce ? 1 : 1 - Math.exp(-dtR * (story.on ? 2.4 : 5));
+        if (story.on) { let da = goal.az - st.az; da = Math.atan2(Math.sin(da), Math.cos(da)); st.az += da * (1 - Math.exp(-dtR * 1.6)); } else st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * (reduce ? 1 : 1 - Math.exp(-dtR * (story.on ? 2.4 : 11))); st.target.lerp(goal.target, k);
         camera.position.set(st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az), st.target.y + st.dist * Math.sin(st.el), st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
         camera.lookAt(st.target);
       }
       camera.updateMatrixWorld();
+      if (!walk.on) { scene.fog.near = st.dist * 2.4; scene.fog.far = st.dist * 6 + 40; }
+      storyFrame(now, dtR);
       if (walk.on) { sky.position.copy(camera.position); updateSun(toX(walk.e), toZ(walk.n), 11); }
       else updateSun(st.target.x, st.target.z, Math.max(6, Math.min(34, st.dist * 0.95)));
       stream(now);
@@ -633,6 +679,112 @@
       raf = requestAnimationFrame(frame);
     }
 
+    // ---------- Mode cerita: aktor, malam, kamera ----------
+    function glowTexture(stops) {
+      const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+      const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); stops.forEach(([o, col]) => gr.addColorStop(o, col)); g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+      return new THREE.CanvasTexture(c);
+    }
+    function raysTexture() {
+      const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d"); g.translate(128, 128);
+      for (let i = 0; i < 18; i++) { g.rotate((Math.PI * 2) / 18); const gr = g.createLinearGradient(0, 0, 0, -128); gr.addColorStop(0, "rgba(255,244,200,.9)"); gr.addColorStop(1, "rgba(255,244,200,0)"); g.fillStyle = gr; g.fillRect(-3, -128, 6, 128); }
+      return new THREE.CanvasTexture(c);
+    }
+    const orb = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture([[0, "rgba(255,250,225,1)"], [0.25, "rgba(255,226,150,.75)"], [1, "rgba(255,210,120,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true }));
+    const jib = new THREE.Group();
+    const jibGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture([[0, "rgba(255,255,255,1)"], [0.2, "rgba(255,246,206,.9)"], [0.55, "rgba(255,226,140,.3)"], [1, "rgba(255,226,140,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true }));
+    const jibRays = new THREE.Sprite(new THREE.SpriteMaterial({ map: raysTexture(), blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true }));
+    jib.add(jibGlow, jibRays);
+    const lampA = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture([[0, "rgba(255,214,140,.9)"], [1, "rgba(255,180,80,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+    const lampB = lampA.clone();
+    for (const o of [orb, jib, lampA, lampB]) { o.visible = false; o.renderOrder = 5; scene.add(o); }
+    const story = { on: false, actors: {}, nodes: new Map(), cam: null, night: 0, nightGoal: 0, lamps: [] };
+    const cDay = { hemi: new THREE.Color(0xe6dcff), ground: new THREE.Color(0x4a3524), sun: new THREE.Color(0xffd3a0), fog: new THREE.Color(FOG_C_MAP) };
+    const cNight = { hemi: new THREE.Color(0x7d90c8), ground: new THREE.Color(0x1a1410), sun: new THREE.Color(0xa8bcff), fog: new THREE.Color(0x141c40) };
+    function samplePath(P, t) {
+      if (!P.len) { P.len = [0]; for (let i = 1; i < P.pts.length; i++) P.len.push(P.len[i - 1] + Math.hypot(P.pts[i][0] - P.pts[i - 1][0], P.pts[i][1] - P.pts[i - 1][1])); }
+      const L = P.len[P.len.length - 1], d = Math.max(0, Math.min(1, t)) * L;
+      let i = 1; while (i < P.len.length - 1 && P.len[i] < d) i++;
+      const a = P.pts[i - 1], b = P.pts[i], seg = P.len[i] - P.len[i - 1] || 1, k = (d - P.len[i - 1]) / seg;
+      return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, (b[0] - a[0]) / seg, (b[1] - a[1]) / seg];
+    }
+    const ease = (k) => (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
+    function actorWorld(a, out) { out.set(toX(a.e), ((heightAt(a.e, a.n) + (a.up || 0)) * VX) / M, toZ(a.n)); return out; }
+    const tv = new THREE.Vector3();
+    function storyCamera() {
+      const c = story.cam; if (!c) return;
+      const a = c.follow && story.actors[c.follow];
+      const e = a ? a.e : c.at[0], n = a ? a.n : c.at[1];
+      goal.target.set(toX(e), ((heightAt(e, n) + (c.up || 3)) * VX) / M, toZ(n));
+      goal.dist = c.dist; goal.el = c.el;
+      if (c.az === "behind" && a && a.dir) goal.az = Math.atan2(-a.dir[0], a.dir[1]);
+      else if (typeof c.az === "number") goal.az = c.az;
+    }
+    function storyFrame(now, dt) {
+      if (Math.abs(story.night - story.nightGoal) > 0.001) {
+        story.night += (story.nightGoal - story.night) * Math.min(1, dt * 1.5);
+        const k = story.night;
+        hemi.color.copy(cDay.hemi).lerp(cNight.hemi, k); hemi.groundColor.copy(cDay.ground).lerp(cNight.ground, k); hemi.intensity = 0.62 - 0.3 * k;
+        sun.color.copy(cDay.sun).lerp(cNight.sun, k); sun.intensity = 1.15 - 0.55 * k;
+        if (!walk.on) scene.fog.color.copy(cDay.fog).lerp(cNight.fog, k);
+        sky.material.uniforms.night.value = k;
+      }
+      sky.visible = walk.on || story.night > 0.02;
+      if (sky.visible) sky.position.copy(camera.position);
+      if (!story.on) return;
+      const camD = camera.position.distanceTo(st.target);
+      for (const id in story.actors) {
+        const a = story.actors[id];
+        if (a.anim) {
+          const k = Math.min(1, (now - a.anim.t0) / a.anim.dur), s = samplePath(a.anim.P, a.anim.from + (a.anim.to - a.anim.from) * ease(k));
+          a.e = s[0]; a.n = s[1]; a.dir = a.anim.to >= a.anim.from ? [s[2], s[3]] : [-s[2], -s[3]];
+          if (k >= 1) a.anim = null;
+        }
+        if (a.goal) { const g = a.goal, kk = Math.min(1, dt * 2.2); a.e += (g.e - a.e) * kk; a.n += (g.n - a.n) * kk; a.up += (g.up - a.up) * kk; a.power += (g.power - a.power) * kk; }
+      }
+      const r = story.actors.rasul;
+      orb.visible = !!(r && r.vis);
+      if (orb.visible) { actorWorld(r, orb.position); orb.position.y += (1.2 * VX) / M; orb.scale.setScalar(Math.max(0.12, camD * 0.075)); }
+      const j = story.actors.jibril;
+      jib.visible = !!(j && j.power > 0.02);
+      if (jib.visible) {
+        actorWorld(j, jib.position);
+        const sz = Math.max(0.25, camD * 0.09) * (0.5 + j.power * 1.1) * (1 + 0.05 * Math.sin(now / 300));
+        jibGlow.scale.setScalar(sz); jibRays.scale.setScalar(sz * 1.3); jibRays.material.rotation = now / 4000; jibRays.material.opacity = j.power; jibGlow.material.opacity = Math.min(1, j.power * 1.2);
+      }
+      story.lamps.forEach((l, i) => { const s = [lampA, lampB][i]; s.visible = story.night > 0.3; s.position.set(toX(l[0]), ((heightAt(l[0], l[1]) + 2) * VX) / M, toZ(l[1])); s.scale.setScalar(Math.max(0.15, camD * 0.03) * (0.9 + 0.1 * Math.sin(now / 130 + i))); });
+      const Wc = container.clientWidth, Hc = container.clientHeight;
+      for (const [node, o] of story.nodes) {
+        const a = story.actors[o.actor];
+        if (!a || (a.vis === false && o.actor !== "jibril")) { node.style.visibility = "hidden"; continue; }
+        actorWorld(a, tv); tv.y += ((o.dy || 0) * VX) / M; tv.project(camera);
+        const vis = tv.z < 1 && tv.z > -1;
+        node.style.visibility = vis ? "visible" : "hidden";
+        if (o.scale) node.style.setProperty("--s", Math.max(0.35, Math.min(1, 2 / camD)).toFixed(3));
+        node.style.transform = `translate(${((tv.x * 0.5 + 0.5) * Wc).toFixed(1)}px, ${((-tv.y * 0.5 + 0.5) * Hc).toFixed(1)}px)`;
+        node.style.zIndex = String(Math.round((1 - tv.z) * 10000));
+      }
+    }
+    const storyApi = {
+      begin({ lamps } = {}) {
+        if (walk.on) stopWalk();
+        story.on = true; story.nightGoal = 1; story.lamps = lamps || []; story.actors = {};
+        for (const id in markers) markers[id].g.visible = false;
+        renderer.domElement.classList.add("story");
+      },
+      end() {
+        story.on = false; story.nightGoal = 0; story.cam = null; story.actors = {}; orb.visible = false; jib.visible = false; lampA.visible = lampB.visible = false;
+        for (const id in markers) markers[id].g.visible = true;
+        renderer.domElement.classList.remove("story");
+      },
+      actor(id, o) { const a = story.actors[id] || (story.actors[id] = { e: 0, n: 0, up: 0, power: 0, vis: true }); Object.assign(a, o); a.anim = null; a.goal = null; },
+      move(id, pts, from, to, dur) { const a = story.actors[id]; if (!a) return; a.goal = null; a.anim = { P: { pts }, from, to, t0: performance.now(), dur }; },
+      glide(id, o) { const a = story.actors[id]; if (!a) return; a.anim = null; a.goal = { e: o.e ?? a.e, n: o.n ?? a.n, up: o.up ?? a.up, power: o.power ?? a.power }; },
+      camera(c) { story.cam = c; },
+      node(el, o) { if (o) story.nodes.set(el, o); else story.nodes.delete(el); },
+      heightAt
+    };
+
     rebuildGrid(); setYear(opts.year || 610);
     renderer.shadowMap.enabled = opts.quality !== false; sun.castShadow = opts.quality !== false; rocks.visible = opts.quality !== false;
     if (opts.quality === false) terrainMat.normalMap = null;
@@ -652,7 +804,7 @@
       overview() { selected = null; if (walk.on) return; goal.target.set(toX(90), 0, toZ(90)); goal.dist = 34; goal.el = 0.82; },
       rotate(d) { if (walk.on) walk.yaw += d; else goal.az += d; },
       zoom(f) { if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * f)); },
-      startWalk, stopWalk,
+      startWalk, stopWalk, story: storyApi,
       setQuality(high) {
         renderer.shadowMap.enabled = high; sun.castShadow = high; rocks.visible = high;
         terrainMat.normalMap = high ? groundTex.normal : null;

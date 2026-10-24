@@ -77,7 +77,7 @@
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hit = new THREE.Vector3();
     const ptrs = new Map(); let drag = null, pinch = null;
     function zoomAt(f, cx, cy) {
-      if (walking()) return;
+      if (walking() || (o.locked && o.locked())) return;
       const old = st.dist, nd = Math.max(o.minD, Math.min(o.maxD, old * f));
       if (Math.abs(nd - old) < 1e-6) return;
       if (cx != null) {
@@ -94,14 +94,16 @@
       st.dist = goal.dist = nd;
     }
     el.addEventListener("contextmenu", (e) => e.preventDefault());
+    const locked = () => !!(o.locked && o.locked());
     el.addEventListener("pointerdown", (e) => {
+      if (locked()) return;
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
       ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; drag = null; }
       else if (ptrs.size === 1) drag = { x: e.clientX, y: e.clientY, rot: e.button === 2 || e.shiftKey || e.ctrlKey };
     });
     el.addEventListener("pointermove", (e) => {
-      if (!ptrs.has(e.pointerId)) return;
+      if (!ptrs.has(e.pointerId) || locked()) return;
       ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (pinch && ptrs.size >= 2) {
         const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;

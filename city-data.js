@@ -22,7 +22,8 @@
       { id: "jalan-misfalah", lebar: 9, pts: [[40, -45], [35, -180], [10, -330], [-30, -520], [-60, -820]] },
       { id: "kuda", lebar: 8, pts: [[-38, -12], [-160, -70], [-300, -190], [-420, -300], [-560, -380]] },
       { id: "suqlail", lebar: 6, pts: [[117, 188], [175, 190], [235, 190], [300, 196], [360, 230], [420, 270]] },
-      { id: "attarin", lebar: 4, pts: [[113, 112], [138, 112]] }
+      { id: "attarin", lebar: 4, pts: [[113, 112], [138, 112]] },
+      { id: "jalan-hira", lebar: 5, pts: [[340, 1000], [700, 1500], [1300, 2150], [2050, 2850], [2850, 3400], [3250, 3650], [3300, 3700], [3420, 3700], [3380, 3760], [3500, 3790], [3460, 3840], [3560, 3870], [3587, 3912]] }
     ],
 
     tempat: [
@@ -222,6 +223,29 @@
             isi: "Al-Azraqi menulis: inilah gang yang menuju rumah Khadijah binti Khuwailid." }
         ] },
 
+      { id: "jalan-hira", nama: "Jalan ke Jabal Nur", arab: "طريق جبل النور", jenis: "jalan", e: 1300, n: 2150, lod: 0, keyakinan: "perkiraan",
+        ket: "Rute dari Mekah ke Jabal Nur melewati Ma'la, lalu mendaki ke Gua Hira. Garis jalurnya perkiraan.",
+        riwayat: [
+          { t: [610, 610], judul: "Membawa bekal ke Gua Hira", tokoh: ["nabi", "khadijah"], derajat: "shahih", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3), tontonan: "wahyu-pertama",
+            isi: "Rasulullah ﷺ membawa bekal dari rumah Khadijah untuk beberapa malam di Gua Hira, lalu kembali lagi mengambil bekal." }
+        ] },
+      { id: "hira", nama: "Gua Hira", arab: "غار حراء", jenis: "titik", e: 3590, n: 3915, lod: 0, keyakinan: "pasti",
+        ket: "Gua kecil di dekat puncak Jabal Nur, tempat Rasulullah ﷺ menyendiri dan menerima wahyu pertama.",
+        sumberLokasi: "Wikipedia: Jabal al-Nour; Muhammad's first revelation",
+        riwayat: [
+          { t: [610, 610], judul: "Wahyu pertama", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3), tontonan: "wahyu-pertama",
+            isi: "Di gua ini malaikat datang dan berkata, \"Bacalah!\" Setelah tiga kali dekapan, turun ayat pertama.",
+            ayat: { surah: "Al-'Alaq", no: "1–3", arab: "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ" } }
+        ] },
+      { id: "jabalnur", nama: "Jabal Nur", arab: "جبل النور", jenis: "gunung", e: 3616, n: 3943, lod: 0, keyakinan: "pasti",
+        ket: "Gunung sekitar 4 km di timur laut Masjidil Haram. Gua Hira berada di dekat puncaknya.", riwayat: [] },
+      { id: "waraqah", nama: "Rumah Waraqah bin Naufal", arab: "دار ورقة", jenis: "rumah", e: 45, n: 245, lod: 2, keyakinan: "perkiraan",
+        ket: "Sumber yang kami temukan tidak mencatat letak rumah Waraqah. Rumah ini hanya ilustrasi untuk tontonan wahyu pertama.",
+        riwayat: [
+          { t: [610, 610], judul: "\"Inilah an-Namus\"", tokoh: ["waraqah", "khadijah", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3), tontonan: "wahyu-pertama",
+            isi: "Khadijah membawa Rasulullah ﷺ kepada Waraqah. Waraqah berkata bahwa yang datang adalah an-Namus yang dahulu Allah turunkan kepada Musa." }
+        ] },
+
       { id: "abuqubais", nama: "Jabal Abu Qubais", arab: "أبو قبيس", jenis: "gunung", e: 360, n: -200, lod: 0, keyakinan: "pasti",
         ket: "Gunung di timur dan tenggara Masjidil Haram. Bukit Shafa berada di kakinya.",
         riwayat: [
@@ -264,6 +288,10 @@
   };
 
   // Tokoh tambahan untuk peta kota
+  if (window.SIRAH && !window.SIRAH.tokoh.waraqah) {
+    window.SIRAH.tokoh.waraqah = { nama: "Waraqah bin Naufal", arab: "ورقة بن نوفل", lahir: 540, wafat: 610, kira: true, gelar: "Sepupu Khadijah",
+      ringkas: "Sepupu Khadijah dari Bani Asad. Di masa jahiliyah ia memeluk Nasrani, menulis kitab dengan aksara Ibrani, dan menyalin Injil. Ia membenarkan wahyu pertama, lalu wafat tidak lama kemudian (HR. Bukhari no. 3)." };
+  }
   if (window.SIRAH && !window.SIRAH.tokoh.abusufyan) {
     window.SIRAH.tokoh.abusufyan = { nama: "Abu Sufyan bin Harb", arab: "أبو سفيان", lahir: 565, wafat: 652, kira: true, gelar: "Pemimpin Bani Umayyah",
       ringkas: "Pemimpin Quraisy yang lama memusuhi dakwah dan memimpin pasukan di Uhud dan Khandaq. Masuk Islam menjelang Fathu Makkah. Ayah Mu'awiyah dan Ummu Habibah, istri Nabi." };
