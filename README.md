@@ -1,11 +1,13 @@
 # Jejak Sirah
 
-Prototipe aplikasi pengetahuan internal Sopwer: peta 3D sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M), lengkap dengan timeline, asbabun nuzul, dan profil tokoh.
+Dibuat oleh Ramdani (ramd4ni@gmail.com). Prototipe aplikasi pengetahuan internal Sopwer: peta 3D sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M), lengkap dengan timeline, asbabun nuzul, dan profil tokoh.
 
 > **Status konten: DRAF.** Narasi, tahun, dan rujukan hadits masih harus diverifikasi ustadz sebelum dipakai.
 
 ## Fitur
 
+- **Navigasi utama** di kepala halaman: Peta wilayah, Kota Mekah, dan Asbabun Nuzul, dengan penanda bagian yang sedang dibuka. Satu catatan "Draf, belum diverifikasi ustadz" dan tombol **Tentang** (pembuat: Ramdani, ramd4ni@gmail.com; daftar semua sumber yang dikumpulkan otomatis dari data aplikasi: hadits per kitab, kitab rujukan, halaman web, data dan teknologi).
+- Kontrol peta dikumpulkan di satu baris kanan bawah (geser, zoom, putar, seluruh peta, bantuan), dengan pengaturan kualitas grafis di menu ⚙ pada peta kota. Asbabun Nuzul dibuka sebagai tampilan baca penuh (detail di kiri, daftar di kanan); setelah tontonan selesai, aplikasi kembali ke Asbabun Nuzul.
 - Peta "meja pasir" 3D (Three.js) dari Jazirah Arab sampai Syam, Irak, Mesir, dan Habasyah.
 - Timeline 570–661 M dengan pita era: sebelum kenabian, Mekah, Madinah, dan empat khalifah. Ada tombol putar otomatis.
 - Klik kota untuk melihat ilustrasi, peristiwa, ayat, asbabun nuzul, dan rujukan.

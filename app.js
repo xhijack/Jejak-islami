@@ -54,6 +54,47 @@
     return html`<svg class="vignette" viewBox="0 0 240 120" role="img" aria-label="Ilustrasi lokasi">${sky}${art}${ground}</svg>`;
   }
 
+
+  // ---------- Kontrol peta (pojok kanan bawah) ----------
+  function Popover({ label, icon, children, cls = "" }) {
+    const [open, setOpen] = useState(false), ref = useRef(null);
+    useEffect(() => {
+      if (!open) return;
+      const off = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+      const k = (e) => { if (e.key === "Escape") setOpen(false); };
+      document.addEventListener("pointerdown", off); window.addEventListener("keydown", k);
+      return () => { document.removeEventListener("pointerdown", off); window.removeEventListener("keydown", k); };
+    }, [open]);
+    return html`<div class=${`pop ${cls}`} ref=${ref}>
+      <button type="button" class="tool" aria-expanded=${open} aria-label=${label} title=${label} onClick=${() => setOpen(!open)}>${icon}</button>
+      ${open && html`<div class="pop-box" role="dialog" aria-label=${label}>${children}</div>`}
+    </div>`;
+  }
+  function MapControls({ api, hold, zoomIn, zoomOut, onOverview, overviewLabel, help, children }) {
+    return html`<div class="map-tools" role="toolbar" aria-label="Kontrol peta">
+      ${children}
+      <div class="tool-group panpad" aria-label="Geser peta">
+        <button type="button" class="u" ...${hold("w")} aria-label="Geser ke atas">▲</button>
+        <button type="button" class="l" ...${hold("a")} aria-label="Geser ke kiri">◀</button>
+        <button type="button" class="r" ...${hold("d")} aria-label="Geser ke kanan">▶</button>
+        <button type="button" class="d" ...${hold("s")} aria-label="Geser ke bawah">▼</button>
+      </div>
+      <div class="tool-group">
+        <button type="button" class="tool" onClick=${() => api.current.zoom(zoomIn)} aria-label="Perbesar" title="Perbesar">+</button>
+        <button type="button" class="tool" onClick=${() => api.current.zoom(zoomOut)} aria-label="Perkecil" title="Perkecil">−</button>
+      </div>
+      <div class="tool-group">
+        <button type="button" class="tool" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri" title="Putar kiri">⟲</button>
+        <button type="button" class="tool" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan" title="Putar kanan">⟳</button>
+      </div>
+      <button type="button" class="tool wide" onClick=${onOverview}>${overviewLabel}</button>
+      <${Popover} label="Cara menggerakkan peta" icon="?" cls="up">
+        <ul class="help-list">${help.map(([k, v]) => html`<li key=${k}><b>${k}</b><span>${v}</span></li>`)}</ul>
+      </${Popover}>
+    </div>`;
+  }
+  const HELP_PETA = [["Seret", "geser peta"], ["Klik kanan atau Shift + seret", "putar dan miringkan"], ["Scroll atau cubit", "zoom ke arah kursor"], ["WASD atau panah", "geser"], ["Q / E", "putar"]];
+
   // ---------- Peta ----------
   function MapView({ year, sel, activeLoks, tokohAt, onSelect, onProfile, onOverview }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
@@ -90,20 +131,8 @@
           </div>`;
         })}
       </div>
-      <div class="map-tools">
-        <div class="panpad" aria-label="Geser peta">
-          <button type="button" class="u" ...${hold("w")} aria-label="Geser ke atas">▲</button>
-          <button type="button" class="l" ...${hold("a")} aria-label="Geser ke kiri">◀</button>
-          <button type="button" class="r" ...${hold("d")} aria-label="Geser ke kanan">▶</button>
-          <button type="button" class="d" ...${hold("s")} aria-label="Geser ke bawah">▼</button>
-        </div>
-        <button type="button" onClick=${() => api.current.zoom(0.8)} aria-label="Perbesar">+</button>
-        <button type="button" onClick=${() => api.current.zoom(1.25)} aria-label="Perkecil">−</button>
-        <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
-        <button type="button" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan">⟳</button>
-        <button type="button" class="wide" onClick=${onOverview}>Seluruh peta</button>
-      </div>
-      <p class="map-hint">Seret untuk menggeser, klik kanan atau Shift+seret untuk memutar, scroll untuk zoom, klik nama kota untuk detail.</p>
+      <${MapControls} api=${api} hold=${hold} zoomIn=${0.8} zoomOut=${1.25} onOverview=${onOverview} overviewLabel="Seluruh peta"
+        help=${[...HELP_PETA, ["Klik nama kota", "lihat peristiwa dan tokohnya"]]} />
     </section>`;
   }
 
@@ -149,12 +178,13 @@
     return html`<aside class="panel" aria-label="Detail">
       ${l ? html`<div class="loc-head">
           <${Vignette} jenis=${l.jenis} />
+          <button type="button" class="link small ph-back" onClick=${() => select(null)}>‹ Seluruh wilayah</button>
           <div class="loc-title"><h2>${l.nama}</h2><span class="loc-ar" lang="ar">${l.arab}</span></div>
           <p class="loc-ket">${l.ket}</p>
           ${sel === "makkah" && html`<button type="button" class="enter-city" onClick=${onEnterCity}>
-            <b>Masuk ke kota Mekah</b><span>Ka'bah, rumah Khadijah, Abu Jahal, Abdul Muthalib, dan lainnya</span></button>`}
+            <b>Buka peta kota Mekah</b><span>Ka'bah, rumah Khadijah, Abu Jahal, Abdul Muthalib, dan lainnya</span></button>`}
         </div>`
-        : html`<div class="loc-head plain"><h2>Tahun ${year} M</h2><p class="loc-ket">${eraFor(year).nama}. ${here.length ? `${here.length} peristiwa tercatat di peta tahun ini. Pilih kota untuk melihat detailnya.` : "Belum ada peristiwa tercatat di tahun ini. Geser timeline atau pilih kota."}</p></div>`}
+        : html`<div class="loc-head plain"><p class="ph-k">Seluruh wilayah</p><h2>Tahun ${year} M</h2><p class="loc-ket">${eraFor(year).nama}. ${here.length ? `${here.length} peristiwa tercatat di peta tahun ini. Pilih kota untuk melihat detailnya.` : "Belum ada peristiwa tercatat di tahun ini. Geser timeline atau pilih kota."}</p></div>`}
 
       <div class="tabs" role="tablist">
         <button role="tab" aria-selected=${tab === "peristiwa"} onClick=${() => setTab("peristiwa")}>Peristiwa${here.length ? ` (${here.length})` : ""}</button>
@@ -177,11 +207,11 @@
             <span><b>${t.nama}</b><small>${hereTokoh.has(id) ? "Terlibat di sini · " : ""}usia ±${year - t.lahir} th</small></span></button></li>`)}
         </ul>`}
       </div>
-      <p class="draft">Prototipe internal Sopwer. Narasi dan rujukan masih draf dan harus diverifikasi ustadz sebelum dipakai.</p>
     </aside>`;
   }
 
   // ---------- Timeline ----------
+  const ERA_SINGKAT = { pra: "Sebelum kenabian", mekah: "Mekah", madinah: "Madinah", abubakar: "Abu Bakar", umar: "Umar", utsman: "Utsman", ali: "Ali" };
   function Timeline({ year, setYear, playing, setPlaying }) {
     const era = eraFor(year);
     const pct = (y) => ((y - Y0) / (Y1 - Y0)) * 100;
@@ -195,11 +225,11 @@
         <div class="tl-meta"><b>${era.nama}</b><span>${hijri(year)}</span></div>
       </div>
       <div class="tl-track">
-        <div class="eras">${D.eras.map((e) => html`<button type="button" key=${e.id}
+        <div class="eras">${D.eras.map((e) => { const w = pct(Math.min(e.sampai, Y1)) - pct(e.dari); return html`<button type="button" key=${e.id}
             class=${`era${e.id === era.id ? " on" : ""}`}
-            style=${{ left: pct(e.dari) + "%", width: pct(Math.min(e.sampai, Y1)) - pct(e.dari) + "%" }}
-            onClick=${() => setYear(EVENT_YEARS.find((y) => y + 0.4 >= e.dari) || Math.ceil(e.dari))} title=${e.nama}>
-            <span>${e.nama}</span></button>`)}</div>
+            style=${{ left: pct(e.dari) + "%", width: w + "%" }}
+            onClick=${() => setYear(EVENT_YEARS.find((y) => y + 0.4 >= e.dari) || Math.ceil(e.dari))} title=${e.nama} aria-label=${e.nama}>
+            ${w >= 4.5 && html`<span>${ERA_SINGKAT[e.id] || e.nama}</span>`}</button>`; })}</div>
         <div class="ticks">${EVENT_YEARS.map((y) => html`<i key=${y} class=${y === year ? "on" : ""} style=${{ left: pct(y) + "%" }}></i>`)}</div>
         <input id="tahun" type="range" min=${Y0} max=${Y1} value=${year} aria-label="Pilih tahun"
           onInput=${(e) => { setPlaying(false); setYear(+e.target.value); }} />
@@ -289,25 +319,22 @@
         </div>`)}
       </div>
       <div class="city-top">
+        <div class="city-title"><b>Kota Mekah</b><span>${walking && status.facing ? `Jalan kaki · menghadap ${status.facing}` : `Keadaan sekitar ${year} M`}</span></div>
         ${walking
-          ? html`<button type="button" class="back" onClick=${() => api.current.stopWalk()}>‹ Keluar jalan kaki</button>`
-          : html`<button type="button" class="back" onClick=${onBack}>‹ Peta wilayah</button>`}
-        <div class="city-title"><b>Kota Mekah</b><span>${walking && status.facing ? `Menghadap ${status.facing}` : `Keadaan sekitar ${year} M`}</span></div>
+          ? html`<button type="button" class="back" onClick=${() => api.current.stopWalk()}>Keluar dari jalan kaki <kbd>Esc</kbd></button>`
+          : html`<ul class="legend" aria-label="Tingkat keyakinan lokasi">
+              ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
+            </ul>`}
       </div>
-      ${!walking && html`<div class="map-tools">
-        <div class="panpad" aria-label="Geser peta">
-          <button type="button" class="u" ...${hold("w")} aria-label="Geser ke atas">▲</button>
-          <button type="button" class="l" ...${hold("a")} aria-label="Geser ke kiri">◀</button>
-          <button type="button" class="r" ...${hold("d")} aria-label="Geser ke kanan">▶</button>
-          <button type="button" class="d" ...${hold("s")} aria-label="Geser ke bawah">▼</button>
-        </div>
-        <button type="button" onClick=${() => api.current.zoom(0.75)} aria-label="Perbesar">+</button>
-        <button type="button" onClick=${() => api.current.zoom(1.33)} aria-label="Perkecil">−</button>
-        <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
-        <button type="button" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan">⟳</button>
-        <button type="button" class="wide" onClick=${onOverview}>Seluruh kota</button>
-        <button type="button" class="wide walk-btn" onClick=${() => api.current.startWalk(csel)}>Jalan kaki${csel ? " di sini" : ""}</button>
-      </div>`}
+      ${!walking && html`<${MapControls} api=${api} hold=${hold} zoomIn=${0.75} zoomOut=${1.33} onOverview=${onOverview} overviewLabel="Seluruh kota"
+        help=${[...HELP_PETA, ["Klik nama tempat", "lihat riwayatnya"], ["Jalan kaki", "jelajahi kota setinggi mata"]]}>
+        <button type="button" class="tool wide primary" onClick=${() => api.current.startWalk(csel)}>Jalan kaki${csel ? " di sini" : ""}</button>
+        <${Popover} label="Pengaturan tampilan" icon="⚙" cls="up">
+          <div class="set-row"><span><b>Kualitas grafis</b><small>Mode ringan mematikan bayangan, bebatuan, dan relief tanah untuk laptop yang lebih lemah.</small></span>
+            <button type="button" class=${`switch${quality ? " on" : ""}`} role="switch" aria-checked=${quality} onClick=${toggleQuality}>${quality ? "Tinggi" : "Ringan"}</button></div>
+          <p class="set-stat">Rumah detail yang sedang dibangun: ${status.detail}</p>
+        </${Popover}>
+      </${MapControls}>`}
       ${walking && html`<div class="walk-hud">
         ${status.kabah && html`<p class="kabah-dir">Ka'bah ${status.kabah.dist} m ke arah ${status.kabah.dir}</p>`}
         ${nearP && html`<button type="button" class="near" onClick=${() => onSelect(nearP.id)}>
@@ -319,16 +346,7 @@
         <button type="button" class="d" ...${hold("s")} aria-label="Mundur">▼</button>
         <button type="button" class="r" ...${hold("e")} aria-label="Belok kanan">⟳</button>
       </div>`}
-      <div class="city-foot">
-        <ul class="legend" aria-label="Tingkat keyakinan lokasi">
-          ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
-        </ul>
-        <p class="hint">${walking
-          ? "W/S atau ▲▼ jalan, A/D geser, Q/E atau ←→ belok, seret untuk melihat, Shift untuk berlari, Esc keluar"
-          : "Seret untuk menggeser, klik kanan atau Shift+seret untuk memutar, scroll untuk zoom, WASD atau panah juga bisa menggeser"}</p>
-        <button type="button" class="stat qbtn" onClick=${toggleQuality} title="Mode ringan mematikan bayangan, bebatuan, dan relief tanah">Kualitas: ${quality ? "tinggi" : "ringan"}</button>
-        <p class="stat" title="Rumah dibangun detail hanya di sekitar dan di depan kamera">Rumah detail: ${status.detail}</p>
-      </div>
+      ${walking && html`<p class="walk-keys">W/S jalan · A/D geser · Q/E belok · seret untuk melihat · Shift berlari</p>`}
       ${ready && story && window.SirahStory && html`<${window.SirahStory} key=${story} api=${api.current} id=${story} onClose=${onStoryEnd} />`}
     </section>`;
   }
@@ -359,7 +377,7 @@
       const kv = K.keyakinan[p.keyakinan];
       return html`<aside class="panel" aria-label="Detail tempat">
         <div class="loc-head plain">
-          <button type="button" class="link small" onClick=${() => setCsel(null)}>‹ Semua tempat di Mekah</button>
+          <button type="button" class="link small ph-back" onClick=${() => setCsel(null)}>‹ Semua tempat di Mekah</button>
           <div class="loc-title flush"><h2>${p.nama}</h2><span class="loc-ar" lang="ar">${p.arab}</span></div>
           <p class=${`kbadge k-${p.keyakinan}`}><i class="kdot"></i><b>${kv.nama}.</b> ${kv.ket}</p>
           <p class="loc-ket">${p.ket}</p>
@@ -371,7 +389,6 @@
               .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} pid=${p.id} />`)
             : html`<p class="empty-p">Belum ada riwayat yang dicatat untuk tempat ini.</p>`}
         </div>
-        <p class="draft">Konten draf. Lokasi dan riwayat perlu diverifikasi ustadz sebelum dipakai.</p>
       </aside>`;
     }
     const list = K.tempat.filter((x) => x.jenis !== "gunung");
@@ -381,8 +398,8 @@
     return html`<aside class="panel" aria-label="Tempat di Mekah">
       <div class="loc-head plain">
         <h2>Kota Mekah</h2>
-        <p class="loc-ket">Ka'bah, rumah para tokoh, dan bukit-bukit di sekitarnya. Warna penanda menunjukkan seberapa yakin lokasinya. Tempat yang punya riwayat di tahun ${year} M ikut menyala.</p>
-        <p class="loc-ket">${K.catatanVisual}</p>
+        <p class="loc-ket">Ka'bah, rumah para tokoh, dan bukit di sekitarnya. Warna penanda menunjukkan seberapa yakin letaknya; tempat yang punya riwayat di tahun ${year} M ikut menyala.</p>
+        <details class="more-info"><summary>Tentang gambar kota ini</summary><p>${K.catatanVisual}</p></details>
         <button type="button" class="walk-here" onClick=${() => onWalk("kabah")}>Mulai jalan kaki dari Ka'bah</button>
       </div>
       <div class="panel-body">
@@ -394,8 +411,109 @@
         </section>
         <section><h3 class="sec">Sumber</h3><ul class="srcs">${K.sumber.map((s) => html`<li key=${s.url}><a href=${s.url} target="_blank" rel="noopener">${s.judul}</a></li>`)}</ul></section>
       </div>
-      <p class="draft">Konten draf. Lokasi dan riwayat perlu diverifikasi ustadz sebelum dipakai.</p>
     </aside>`;
+  }
+
+  // ---------- Tentang dan daftar sumber ----------
+  const KOLEKSI = { bukhari: "Shahih Bukhari", muslim: "Shahih Muslim", tirmidhi: "Jami' At-Tirmidzi", ahmad: "Musnad Ahmad", abudawud: "Sunan Abu Dawud", nasai: "Sunan An-Nasa'i", ibnmajah: "Sunan Ibnu Majah" };
+  const KITAB = [
+    ["Sirah Ibnu Hisyam (dari Ibnu Ishaq)", "urutan peristiwa, tahun, dan kisah yang ditandai \"kitab sirah\""],
+    ["Tafsir Ibnu Katsir", "penjelasan sebab turun beberapa ayat"],
+    ["As-Suyuthi, Al-Itqan fi 'Ulum al-Qur'an", "pembahasan ayat yang pertama dan terakhir turun"],
+    ["Al-Mubarakfuri, Ar-Rahiq al-Makhtum", "perhitungan tanggal wahyu pertama"],
+    ["Al-Azraqi, Akhbar Makkah (melalui kajian yang dikutip)", "letak rumah-rumah di sekitar Ka'bah"]
+  ];
+  const TEKNIS = [
+    ["Urutan turun dan golongan surah: mushaf standar Mesir (Al-Azhar, 1924) melalui paket quran-meta", "https://www.npmjs.com/package/quran-meta"],
+    ["Terjemah ayat disusun mengikuti gaya terjemahan Kementerian Agama RI; teks Arab dan terjemahnya perlu dicek dengan mushaf", ""],
+    ["React 18, htm, dan Three.js r128", "https://threejs.org"],
+    ["Huruf Amiri, Amiri Quran, Literata, dan Instrument Sans dari Google Fonts", "https://fonts.google.com"]
+  ];
+  function collectSources() {
+    const seen = new Map();
+    const walk = (o, depth) => {
+      if (!o || typeof o !== "object" || depth > 9) return;
+      if (Array.isArray(o)) { o.forEach((x) => walk(x, depth + 1)); return; }
+      if (typeof o.url === "string" && /^https?:/.test(o.url) && !seen.has(o.url)) seen.set(o.url, o.s || o.sumber || o.judul || o.t || o.url);
+      if (typeof o.wu === "string" && /^https?:/.test(o.wu) && !seen.has(o.wu)) seen.set(o.wu, o.ws || o.wu);
+      Object.values(o).forEach((v) => { if (v && typeof v === "object") walk(v, depth + 1); });
+    };
+    [window.SIRAH, window.MEKAH, window.NUZUL, window.SURAH, window.TONTONAN].forEach((x) => walk(x, 0));
+    const hadits = {}, lain = {};
+    for (const [url, label] of seen) {
+      const m = url.match(/(?:sunnah\.com|hadithunlocked\.com)\/([a-z]+):(\w+)/);
+      if (m) { (hadits[m[1]] = hadits[m[1]] || new Map()).set(m[2], url); continue; }
+      const host = new URL(url).hostname.replace(/^www\.|^en\./, "");
+      (lain[host] = lain[host] || []).push({ url, label: String(label).replace(/\[ref:\w+\]/g, "") });
+    }
+    const num = (k) => parseInt(k, 10) || 0;
+    return {
+      total: seen.size,
+      hadits: Object.entries(hadits).map(([k, m]) => ({ k, nama: KOLEKSI[k] || k, list: [...m].sort((a, b) => num(a[0]) - num(b[0]) || a[0].localeCompare(b[0])) }))
+        .sort((a, b) => b.list.length - a.list.length),
+      lain: Object.entries(lain).sort((a, b) => b[1].length - a[1].length)
+    };
+  }
+  const HOST = { "wikipedia.org": "Wikipedia", "quran.com": "Quran.com (tafsir)", "okaz.com.sa": "Okaz (surat kabar Saudi)", "al-furqan.com": "Al-Furqan Heritage Foundation" };
+  function About({ onClose }) {
+    const [tab, setTab] = useState("tentang");
+    const src = useMemo(collectSources, []);
+    const nHadits = src.hadits.reduce((a, h) => a + h.list.length, 0);
+    useEffect(() => { const k = (e) => e.key === "Escape" && onClose(); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, []);
+    return html`<div class="overlay" onClick=${onClose}>
+      <div class="profile about" role="dialog" aria-modal="true" aria-label="Tentang Jejak Sirah" onClick=${(e) => e.stopPropagation()}>
+        <button type="button" class="close" onClick=${onClose} aria-label="Tutup">×</button>
+        <h2>Tentang Jejak Sirah</h2>
+        <div class="tabs about-tabs" role="tablist">
+          <button role="tab" aria-selected=${tab === "tentang"} onClick=${() => setTab("tentang")}>Tentang</button>
+          <button role="tab" aria-selected=${tab === "sumber"} onClick=${() => setTab("sumber")}>Sumber (${src.total + KITAB.length})</button>
+        </div>
+        ${tab === "tentang" ? html`<div class="about-body">
+          <p>Jejak Sirah adalah aplikasi pengetahuan untuk karyawan PT Sopwer Teknologi Indonesia: sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M) dalam bentuk peta 3D, timeline, tontonan peristiwa, dan asbabun nuzul.</p>
+          <div class="author"><span class="medal medal-md" aria-hidden="true"><span class="medal-ar">ر</span></span>
+            <div><p class="ph-k">Dibuat oleh</p><b>Ramdani</b><a href="mailto:ramd4ni@gmail.com">ramd4ni@gmail.com</a></div></div>
+          <h3>Isi aplikasi</h3>
+          <ul class="about-list">
+            <li><b>Peta wilayah</b> ${Object.keys(D.lokasi).length} tempat, ${D.peristiwa.length} peristiwa, dan ${Object.keys(D.tokoh).length} tokoh, mengikuti tahun di timeline.</li>
+            <li><b>Kota Mekah</b> ${window.MEKAH.tempat.length} tempat dengan tingkat keyakinan lokasi, jalan kaki, dan ${Object.keys(window.TONTONAN).length} tontonan peristiwa.</li>
+            <li><b>Asbabun Nuzul</b> ${window.NUZUL.urutan.length} kejadian (${Object.keys(window.NUZUL.artikel).length} sudah lengkap) dan 114 surah dengan waktu turunnya.</li>
+          </ul>
+          <h3>Batasan</h3>
+          <p>Isi masih draf. Narasi, tahun, letak tempat, dan dialog tontonan adalah rekonstruksi dari sumber yang tercantum, dan harus diperiksa ustadz sebelum dipakai untuk kajian. Rasulullah ﷺ, para nabi, dan malaikat tidak pernah digambarkan; mereka hanya tampil sebagai nama dan cahaya.</p>
+          <p class="dim">Disusun dengan bantuan AI (Claude). Setiap riwayat diberi label derajat dan tautan ke sumbernya supaya bisa diperiksa.</p>
+          <button type="button" class="nz-btn" onClick=${() => setTab("sumber")}>Lihat semua sumber</button>
+        </div>` : html`<div class="about-body">
+          <p class="dim">Dikumpulkan otomatis dari seluruh data aplikasi: ${nHadits} hadits dan ${src.total - nHadits} halaman lain, ditambah kitab rujukan.</p>
+          <h3>Hadits</h3>
+          ${src.hadits.map((h) => html`<div class="src-group" key=${h.k}><p><b>${h.nama}</b> <span>${h.list.length} hadits</span></p>
+            <div class="src-nums">${h.list.map(([n, url]) => html`<a key=${n} href=${url} target="_blank" rel="noopener">${n}</a>`)}</div></div>`)}
+          <h3>Kitab rujukan</h3>
+          <ul class="about-list">${KITAB.map(([k, v]) => html`<li key=${k}><b>${k}</b> ${v}</li>`)}</ul>
+          <h3>Halaman web</h3>
+          ${src.lain.map(([host, list]) => html`<div class="src-group" key=${host}><p><b>${HOST[host] || host}</b> <span>${list.length} halaman</span></p>
+            <ul class="src-links">${list.map((x) => html`<li key=${x.url}><a href=${x.url} target="_blank" rel="noopener">${x.label}</a></li>`)}</ul></div>`)}
+          <h3>Data dan teknologi</h3>
+          <ul class="about-list">${TEKNIS.map(([k, u]) => html`<li key=${k}>${u ? html`<a href=${u} target="_blank" rel="noopener">${k}</a>` : k}</li>`)}</ul>
+        </div>`}
+      </div>
+    </div>`;
+  }
+
+  // ---------- Catatan draf (satu tempat untuk seluruh aplikasi) ----------
+  function DraftNote() {
+    const [open, setOpen] = useState(false), ref = useRef(null);
+    useEffect(() => {
+      if (!open) return;
+      const off = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+      document.addEventListener("pointerdown", off); return () => document.removeEventListener("pointerdown", off);
+    }, [open]);
+    return html`<div class="draft-note pop" ref=${ref}>
+      <button type="button" class="badge" aria-expanded=${open} onClick=${() => setOpen(!open)}>Draf, belum diverifikasi ustadz</button>
+      ${open && html`<div class="pop-box down" role="dialog" aria-label="Tentang isi aplikasi">
+        <p><b>Prototipe internal Sopwer.</b> Narasi, tahun, letak tempat, dialog tontonan, dan rujukan hadits masih draf.</p>
+        <p>Semua isi harus diperiksa ustadz sebelum dipakai untuk kajian. Setiap riwayat diberi label derajat (shahih, kitab sirah, atau lemah) dan tautan sumbernya.</p>
+      </div>`}
+    </div>`;
   }
 
   // ---------- App ----------
@@ -430,13 +548,23 @@
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
     const [nuzul, setNuzul] = useState(false), [nuzulSel, setNuzulSel] = useState(null);
+    const storyFrom = useRef(null);
+    const [about, setAbout] = useState(false);
     const [nzTab, setNzTab] = useState("kejadian"), [nzSurah, setNzSurah] = useState(null);
     const pickTab = (t) => { setNzTab(t); if (t === "surah") { setNuzulSel(null); setNzSurah(nzSurah || 96); } else if (!nuzulSel) setNuzulSel(window.NUZUL.urutan[0].id); };
     window.__wiki = (id) => { setPlaying(false); setNuzul(true); setNzTab("kejadian"); setNuzulSel(id); };
     const toggleNuzul = () => { if (nuzul) { setNuzul(false); return; } setPlaying(false); setNuzul(true); if (nzTab === "kejadian") setNuzulSel(nuzulSel || window.NUZUL.urutan[0].id); else if (!nzSurah) setNzSurah(96); };
     window.__tonton = (id) => {
       const ev = window.TONTONAN[id]; if (!ev) return;
-      setPlaying(false); setProfile(null); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
+      storyFrom.current = nuzul ? "nuzul" : null;
+      setPlaying(false); setProfile(null); setNuzul(false); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
+    };
+    const endStory = () => { setStory(null); if (storyFrom.current === "nuzul") setNuzul(true); storyFrom.current = null; };
+    const view = nuzul ? "nuzul" : mode;
+    const go = (v) => {
+      setPlaying(false); setStory(null); storyFrom.current = null;
+      if (v === "nuzul") { if (!nuzul) toggleNuzul(); return; }
+      setNuzul(false); setMode(v); if (v === "wilayah" && mode === "mekah") setSel("makkah");
     };
     const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
@@ -446,20 +574,21 @@
 
     return html`<div class=${`app${city ? " in-city" : ""}`}>
       <header class="top">
-        <div class="brand"><h1>Jejak Sirah</h1><p>Sejarah Islam dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
-        <div class="top-act">
-          <button type="button" class=${`hdr-btn${nuzul ? " on" : ""}`} onClick=${toggleNuzul} aria-pressed=${nuzul}>Asbabun Nuzul</button>
-          <span class="badge">Prototipe</span>
-        </div>
+        <div class="brand"><h1>Jejak Sirah</h1><p>570–661 M, dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
+        <nav class="nav" aria-label="Bagian utama">
+          ${[["wilayah", "Peta wilayah", "Jazirah Arab dan sekitarnya"], ["mekah", "Kota Mekah", "Ka'bah, rumah, dan tontonan"], ["nuzul", "Asbabun Nuzul", "Sebab turunnya ayat, per surah"]].map(([v, l, d]) =>
+            html`<button type="button" key=${v} class=${view === v ? "on" : ""} aria-current=${view === v ? "page" : undefined} onClick=${() => go(v)}><b>${l}</b><small>${d}</small></button>`)}
+        </nav>
+        <div class="top-end"><${DraftNote} /><button type="button" class="about-btn" onClick=${() => setAbout(true)}>Tentang</button></div>
       </header>
       ${city
         ? html`<${CityMap} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
-            onOverview=${() => setCsel(null)} onBack=${() => { setStory(null); setMode("wilayah"); setSel("makkah"); }} walkReq=${walkReq}
-            story=${story} onStoryEnd=${() => setStory(null)} />`
+            onOverview=${() => setCsel(null)} onBack=${() => go("wilayah")} walkReq=${walkReq}
+            story=${story} onStoryEnd=${endStory} />`
         : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
-      <${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />
+      ${!nuzul && html`<${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />`}
       ${nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />` : html`<${React.Fragment}>
       ${city
         ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
@@ -469,8 +598,12 @@
       ${nuzul && nuzulSel && !story && window.SirahNuzulDetail && html`<${window.SirahNuzulDetail} id=${nuzulSel} onSelect=${setNuzulSel} onClose=${() => setNuzulSel(null)}
         onWatch=${(id) => window.__tonton(id)} onProfile=${setProfile}
         onMap=${(pt) => { setNuzul(false); setStory(null); setPlaying(false); setYear(pt.tahun); if (pt.tempat) { setMode("mekah"); setCsel(pt.tempat); } else { setMode("wilayah"); setSel(pt.lok); } }} />`}
+      ${nuzul && !nuzulSel && !(nzTab === "surah" && nzSurah) && html`<section class="nz-detail nz-empty">
+        <h2>Pilih dari daftar di kanan</h2>
+        <p>Buka satu kejadian untuk membaca mengapa ayatnya turun dan memutar kejadiannya, atau pilih tab Per surah untuk melihat kapan setiap surah diturunkan.</p></section>`}
       ${nuzul && !nuzulSel && nzTab === "surah" && nzSurah && !story && window.SirahSurahDetail && html`<${window.SirahSurahDetail} no=${nzSurah}
         onSelect=${setNuzulSel} onSurah=${setNzSurah} onClose=${() => setNzSurah(null)} />`}
+      ${about && html`<${About} onClose=${() => setAbout(false)} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }

@@ -126,7 +126,7 @@
       <h3 class="nz-h">Kapan diturunkan</h3>
       <dl class="nz-facts">
         <div><dt>Golongan</dt><dd>${s.mk ? "Makkiyah (turun sebelum Hijrah)" : "Madaniyah (turun setelah Hijrah)"}${s.beda ? "; diperselisihkan ulama" : ""}</dd></div>
-        <div><dt>Urutan turun</dt><dd>Ke-${s.urut} dari 114, setelah ${sebelum ? sebelum.nama : "—"}${sesudah ? ", sebelum " + sesudah.nama : ""}</dd></div>
+        <div><dt>Urutan turun</dt><dd>Ke-${s.urut} dari 114${sebelum ? ", setelah " + sebelum.nama : ", yang pertama turun"}${sesudah ? ", sebelum " + sesudah.nama : ""}</dd></div>
         <div><dt>${s.catatan.length ? "Perkiraan dari urutan turun" : "Perkiraan periode"}</dt><dd>${s.periode.label}, ${s.periode.tahun}</dd></div>
       </dl>
       ${s.catatan.length ? html`<ul class="nz-catat">${s.catatan.map((c, i) => html`<li key=${i}><p>${c.t}</p>
@@ -170,7 +170,6 @@
         })}
         ${!list.length && html`<li class="nz-none">Tidak ada yang cocok dengan "${q}".</li>`}
       </ol>`}
-      <p class="draft">Isi masih draf dan perlu diverifikasi ustadz. Entri "Ringkasan" akan dilengkapi satu per satu.</p>
     </aside>`;
   }
 
