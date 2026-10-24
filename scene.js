@@ -159,17 +159,33 @@
     // Kamera orbit sederhana
     const st = { az: -0.35, el: 0.95, dist: 30, target: new THREE.Vector3(0, 0, 0) };
     const goal = { az: st.az, el: st.el, dist: st.dist, target: st.target.clone() };
+    // Seret kiri = geser peta. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
     let drag = null;
     const el = renderer.domElement;
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; el.setPointerCapture(e.pointerId); });
+    const keys = new Set();
+    const clampT = (t) => { t.x = Math.max(-W / 2, Math.min(W / 2, t.x)); t.z = Math.max(-H / 2, Math.min(H / 2, t.z)); };
+    function panBy(dx, dy) {
+      const k = (2 * st.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
+      const ca = Math.cos(st.az), sa = Math.sin(st.az), ky = k / Math.max(0.45, Math.sin(st.el));
+      goal.target.x += -ca * dx * k - sa * dy * ky; goal.target.z += sa * dx * k - ca * dy * ky;
+      clampT(goal.target); st.target.x = goal.target.x; st.target.z = goal.target.z;
+    }
+    el.addEventListener("contextmenu", (e) => e.preventDefault());
+    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, rot: e.button === 2 || e.shiftKey || e.ctrlKey }; el.setPointerCapture(e.pointerId); });
     el.addEventListener("pointermove", (e) => {
       if (!drag) return;
-      goal.az -= (e.clientX - drag.x) * 0.005;
-      goal.el = Math.max(0.35, Math.min(1.45, goal.el + (e.clientY - drag.y) * 0.004));
-      drag = { x: e.clientX, y: e.clientY };
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+      if (drag.rot) { goal.az -= dx * 0.005; goal.el = Math.max(0.35, Math.min(1.45, goal.el + dy * 0.004)); }
+      else panBy(dx, dy);
     });
     el.addEventListener("pointerup", () => { drag = null; });
     el.addEventListener("wheel", (e) => { e.preventDefault(); goal.dist = Math.max(6, Math.min(40, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+    const typing = (t) => t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
+    const KEYS = ["w", "a", "s", "d", "q", "e", "arrowup", "arrowdown", "arrowleft", "arrowright"];
+    const kd = (e) => { if (typing(e.target)) return; const k = e.key.toLowerCase(); if (KEYS.includes(k)) { keys.add(k); if (k.startsWith("arrow")) e.preventDefault(); } };
+    const ku = (e) => keys.delete(e.key.toLowerCase()), blur = () => keys.clear();
+    window.addEventListener("keydown", kd); window.addEventListener("keyup", ku); window.addEventListener("blur", blur);
+    let lastF = performance.now();
 
     function resize() {
       const w = container.clientWidth, h = container.clientHeight;
@@ -182,7 +198,11 @@
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf, t0 = performance.now(), selected = null;
     function frame(now) {
-      const t = (now - t0) / 1000, k = reduce ? 1 : 0.07;
+      const t = (now - t0) / 1000, k = reduce ? 1 : 0.07, dt = Math.min(0.05, (now - lastF) / 1000); lastF = now;
+      const kx = (keys.has("d") || keys.has("arrowright") ? 1 : 0) - (keys.has("a") || keys.has("arrowleft") ? 1 : 0);
+      const ky = (keys.has("s") || keys.has("arrowdown") ? 1 : 0) - (keys.has("w") || keys.has("arrowup") ? 1 : 0);
+      if (kx || ky) panBy(-kx * 600 * dt, -ky * 600 * dt);
+      goal.az += ((keys.has("e") ? 1 : 0) - (keys.has("q") ? 1 : 0)) * dt * 1.4;
       st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * k;
       st.target.lerp(goal.target, k);
       camera.position.set(
@@ -229,8 +249,12 @@
       },
       overview() { selected = null; goal.target.set(0, 0, 0); goal.dist = 30; goal.el = 0.95; },
       rotate(d) { goal.az += d; },
+      press(k, on) { if (on) keys.add(k); else keys.delete(k); },
       zoom(f) { goal.dist = Math.max(6, Math.min(40, goal.dist * f)); },
-      dispose() { cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); el.remove(); }
+      dispose() {
+        cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); el.remove();
+        window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); window.removeEventListener("blur", blur);
+      }
     };
   }
 

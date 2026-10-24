@@ -58,6 +58,10 @@
   function MapView({ year, sel, activeLoks, tokohAt, onSelect, onProfile, onOverview }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
+    const hold = (k) => ({
+      onPointerDown: (e) => { e.preventDefault(); api.current.press(k, true); },
+      onPointerUp: () => api.current.press(k, false), onPointerLeave: () => api.current.press(k, false), onPointerCancel: () => api.current.press(k, false)
+    });
     useEffect(() => {
       api.current = window.SirahScene.create(box.current, { lokasi: D.lokasi });
       Object.entries(nodes.current).forEach(([id, n]) => api.current.registerLabel(id, n));
@@ -87,13 +91,19 @@
         })}
       </div>
       <div class="map-tools">
+        <div class="panpad" aria-label="Geser peta">
+          <button type="button" class="u" ...${hold("w")} aria-label="Geser ke atas">▲</button>
+          <button type="button" class="l" ...${hold("a")} aria-label="Geser ke kiri">◀</button>
+          <button type="button" class="r" ...${hold("d")} aria-label="Geser ke kanan">▶</button>
+          <button type="button" class="d" ...${hold("s")} aria-label="Geser ke bawah">▼</button>
+        </div>
         <button type="button" onClick=${() => api.current.zoom(0.8)} aria-label="Perbesar">+</button>
         <button type="button" onClick=${() => api.current.zoom(1.25)} aria-label="Perkecil">−</button>
         <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
         <button type="button" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan">⟳</button>
         <button type="button" class="wide" onClick=${onOverview}>Seluruh peta</button>
       </div>
-      <p class="map-hint">Seret untuk memutar, gulir untuk zoom, klik nama kota untuk detail.</p>
+      <p class="map-hint">Seret untuk menggeser, klik kanan atau Shift+seret untuk memutar, scroll untuk zoom, klik nama kota untuk detail.</p>
     </section>`;
   }
 
@@ -279,6 +289,12 @@
         <div class="city-title"><b>Kota Mekah</b><span>${walking && status.facing ? `Menghadap ${status.facing}` : `Keadaan sekitar ${year} M`}</span></div>
       </div>
       ${!walking && html`<div class="map-tools">
+        <div class="panpad" aria-label="Geser peta">
+          <button type="button" class="u" ...${hold("w")} aria-label="Geser ke atas">▲</button>
+          <button type="button" class="l" ...${hold("a")} aria-label="Geser ke kiri">◀</button>
+          <button type="button" class="r" ...${hold("d")} aria-label="Geser ke kanan">▶</button>
+          <button type="button" class="d" ...${hold("s")} aria-label="Geser ke bawah">▼</button>
+        </div>
         <button type="button" onClick=${() => api.current.zoom(0.75)} aria-label="Perbesar">+</button>
         <button type="button" onClick=${() => api.current.zoom(1.33)} aria-label="Perkecil">−</button>
         <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
@@ -303,7 +319,7 @@
         </ul>
         <p class="hint">${walking
           ? "W/S atau ▲▼ jalan, A/D geser, Q/E atau ←→ belok, seret untuk melihat, Shift untuk berlari, Esc keluar"
-          : "Seret untuk memutar, klik kanan atau Shift+seret untuk menggeser, WASD untuk bergerak, Q/E memutar"}</p>
+          : "Seret untuk menggeser, klik kanan atau Shift+seret untuk memutar, scroll untuk zoom, WASD atau panah juga bisa menggeser"}</p>
         <p class="stat" title="Rumah dibangun detail hanya di sekitar dan di depan kamera">Rumah detail: ${status.detail}</p>
       </div>
     </section>`;

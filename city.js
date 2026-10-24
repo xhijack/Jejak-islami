@@ -375,15 +375,21 @@
     const keys = new Set();
     let drag = null; const el = renderer.domElement;
     el.addEventListener("contextmenu", (e) => e.preventDefault());
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, pan: e.button === 2 || e.shiftKey }; el.setPointerCapture(e.pointerId); });
+    // Mode peta: seret kiri = geser. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
+    function panBy(dx, dy) {
+      const k = (2 * st.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
+      const ca = Math.cos(st.az), sa = Math.sin(st.az), ky = k / Math.max(0.45, Math.sin(st.el));
+      goal.target.x += -ca * dx * k - sa * dy * ky; goal.target.z += sa * dx * k - ca * dy * ky;
+      goal.target.x = Math.max(-45, Math.min(55, goal.target.x)); goal.target.z = Math.max(-50, Math.min(45, goal.target.z));
+      st.target.x = goal.target.x; st.target.z = goal.target.z;
+    }
+    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, pan: !(e.button === 2 || e.shiftKey || e.ctrlKey) }; el.setPointerCapture(e.pointerId); });
     el.addEventListener("pointermove", (e) => {
       if (!drag) return;
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
       if (walk.on) { walk.yaw += dx * 0.0042; walk.pitch = Math.max(-1.2, Math.min(1.1, walk.pitch - dy * 0.0035)); return; }
-      if (drag.pan) {
-        const k = goal.dist * 0.0016, ca = Math.cos(st.az), sa = Math.sin(st.az);
-        goal.target.x += (-ca * dx - sa * dy) * k; goal.target.z += (sa * dx - ca * dy) * k;
-      } else { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); }
+      if (drag.pan) panBy(dx, dy);
+      else { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); }
     });
     el.addEventListener("pointerup", () => { drag = null; });
     el.addEventListener("wheel", (e) => { e.preventDefault(); if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
