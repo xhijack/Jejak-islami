@@ -127,6 +127,7 @@
         <p>${a.nuzul}</p>
         <p class="src">${a.sumber}</p>
         ${a.catatan && html`<p class="note">${a.catatan}</p>`}
+        ${window.NUZUL_LOOKUP && window.NUZUL_LOOKUP.ev(e.id, i) && html`<button type="button" class="link wk-open" onClick=${() => window.__wiki(window.NUZUL_LOOKUP.ev(e.id, i))}>Baca artikel asbabun nuzul ›</button>`}
       </div>`)}
       ${!showLoc && (e.sumber || e.catatan) && html`<div class="foot">
         ${e.sumber && html`<p class="src">${e.sumber}</p>`}${e.catatan && html`<p class="note">${e.catatan}</p>`}</div>`}
@@ -332,14 +333,15 @@
     </section>`;
   }
 
-  function Riwayat({ r, year, onProfile, onLihat }) {
+  function Riwayat({ r, year, onProfile, onLihat, pid }) {
     const now = inYear(r, year);
     return html`<article class=${`riwayat${now ? " now" : ""}`}>
       <p class="event-when"><b>${fmtT(r.t)}</b>${now && html`<span class="tag-now">Tahun terpilih</span>`}</p>
       <h3>${r.judul}</h3>
       ${r.tontonan && html`<button type="button" class="watch" onClick=${() => window.__tonton(r.tontonan)}><span aria-hidden="true">▶</span> Tonton peristiwa</button>`}
       <p class="narasi">${r.isi}</p>
-      ${r.ayat && html`<div class="ayat"><p class="ayat-ref">${r.ayat.surah} : ${r.ayat.no}</p><p class="ayat-ar" lang="ar" dir="rtl">${r.ayat.arab}</p></div>`}
+      ${r.ayat && html`<div class="ayat"><p class="ayat-ref">${r.ayat.surah} : ${r.ayat.no}</p><p class="ayat-ar" lang="ar" dir="rtl">${r.ayat.arab}</p>
+        ${pid && window.NUZUL_LOOKUP && window.NUZUL_LOOKUP.tempat(pid, r.judul) && html`<button type="button" class="link wk-open" onClick=${() => window.__wiki(window.NUZUL_LOOKUP.tempat(pid, r.judul))}>Baca artikel asbabun nuzul ›</button>`}</div>`}
       ${r.matan && html`<p class="matan" lang="ar" dir="rtl">${r.matan}</p>`}
       <p class="src-line"><span class=${`deg d-${r.derajat}`}>${K.derajat[r.derajat]}</span>
         ${r.url ? html`<a href=${r.url} target="_blank" rel="noopener">${r.sumber}</a>` : html`<span>${r.sumber}</span>`}</p>
@@ -366,7 +368,7 @@
         </div>
         <div class="panel-body">
           ${p.riwayat.length ? [...p.riwayat].sort((a, b) => inYear(b, year) - inYear(a, year) || (a.t ? a.t[0] : 0) - (b.t ? b.t[0] : 0))
-              .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} />`)
+              .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} pid=${p.id} />`)
             : html`<p class="empty-p">Belum ada riwayat yang dicatat untuk tempat ini.</p>`}
         </div>
         <p class="draft">Konten draf. Lokasi dan riwayat perlu diverifikasi ustadz sebelum dipakai.</p>
@@ -427,6 +429,8 @@
     const [csel, setCsel] = useState(null);
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
+    const [wiki, setWiki] = useState(null);
+    window.__wiki = (id) => { setPlaying(false); setWiki(id); };
     window.__tonton = (id) => {
       const ev = window.TONTONAN[id]; if (!ev) return;
       setPlaying(false); setProfile(null); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
@@ -440,7 +444,10 @@
     return html`<div class=${`app${city ? " in-city" : ""}`}>
       <header class="top">
         <div class="brand"><h1>Jejak Sirah</h1><p>Sejarah Islam dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
-        <span class="badge">Prototipe</span>
+        <div class="top-act">
+          <button type="button" class="hdr-btn" onClick=${() => window.__wiki(window.NUZUL.urutan[0].id)}>Asbabun Nuzul</button>
+          <span class="badge">Prototipe</span>
+        </div>
       </header>
       ${city
         ? html`<${CityMap} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
@@ -455,6 +462,9 @@
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
             onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
+      ${wiki && window.SirahWiki && html`<${window.SirahWiki} entryId=${wiki} onOpen=${setWiki} onClose=${() => setWiki(null)}
+        onWatch=${(id) => { setWiki(null); window.__tonton(id); }} onProfile=${setProfile}
+        onMap=${(pt) => { setWiki(null); setStory(null); setPlaying(false); setYear(pt.tahun); if (pt.tempat) { setMode("mekah"); setCsel(pt.tempat); } else { setMode("wilayah"); setSel(pt.lok); } }} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }

@@ -37,7 +37,7 @@
           { t: [613, 616], judul: "Ancaman Abu Jahal", tokoh: ["abujahal", "nabi"], derajat: "shahih",
             sumber: "HR. Bukhari no. 4958 (Ibnu Abbas); HR. Muslim no. 2797 (Abu Hurairah)", url: sn("bukhari", 4958),
             isi: "Abu Jahal bersumpah akan menginjak leher Nabi bila melihat beliau shalat di dekat Ka'bah. Nabi bersabda, seandainya ia melakukannya, malaikat akan menyambarnya.",
-            ayat: { surah: "Al-'Alaq", no: "9–19", arab: "أَرَأَيْتَ الَّذِي يَنْهَىٰ ۝ عَبْدًا إِذَا صَلَّىٰ" },
+            ayat: { surah: "Al-'Alaq", no: "9–19", arab: "أَرَأَيْتَ الَّذِي يَنْهَىٰ ﴿٩﴾ عَبْدًا إِذَا صَلَّىٰ ﴿١٠﴾" },
             catatan: "Tahun persisnya tidak disebut dalam riwayat." },
           { t: [613, 619], judul: "Isi perut unta di punggung Nabi", tokoh: ["nabi", "abujahal", "fatimah"], derajat: "shahih",
             sumber: "HR. Bukhari no. 240 (Abdullah bin Mas'ud)", url: sn("bukhari", 240),
@@ -206,7 +206,7 @@
         riwayat: [
           { t: null, judul: "Kafilah musim dingin", tokoh: [], derajat: "sirah", sumber: "Tafsir Ibnu Katsir, Surah Quraisy",
             isi: "Quraisy punya dua perjalanan dagang tahunan: ke Yaman pada musim dingin dan ke Syam pada musim panas. Kafilah ke Yaman berangkat ke arah ini.",
-            ayat: { surah: "Quraisy", no: "1–2", arab: "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ" } }
+            ayat: { surah: "Quraisy", no: "1–2", arab: "لِإِيلَافِ قُرَيْشٍ ﴿١﴾ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ﴿٢﴾" } }
         ] },
       { id: "suqlail", nama: "Suq al-Lail", arab: "سوق الليل", jenis: "jalan", e: 205, n: 188, lod: 1, keyakinan: "kitab",
         ket: "Jalan di lembah Bani Hasyim, tempat rumah kelahiran Nabi berada. Kawasan Suq al-Lail sebagian masih ada di timur laut Masjidil Haram.",
