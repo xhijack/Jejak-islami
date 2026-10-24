@@ -235,19 +235,34 @@
   const placeActive = (p, y) => p.riwayat.some((r) => inYear(r, y));
   const fmtT = (t) => (!t ? "Sebelum 570 M" : t[0] === t[1] ? `${t[0]} M` : `${t[0]}–${t[1]} M`);
 
-  function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack }) {
+  function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack, walkReq }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
+    const [status, setStatus] = useState({ walking: false, detail: 0, cells: 0 });
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
     useEffect(() => {
-      api.current = window.MekahScene.create(box.current, { tempat: K.tempat });
+      let lastS = "";
+      api.current = window.MekahScene.create(box.current, { tempat: K.tempat, year,
+        onStatus: (s) => { const j = JSON.stringify(s); if (j !== lastS) { lastS = j; setStatus(s); } } });
       Object.entries(nodes.current).forEach(([id, n]) => api.current.registerLabel(id, n));
       api.current.setActive(activeIds);
       if (csel) api.current.select(csel);
       return () => api.current.dispose();
     }, []);
     useEffect(() => { api.current && api.current.setActive(activeIds); }, [activeIds]);
+    useEffect(() => { api.current && api.current.setYear(year); }, [year]);
     useEffect(() => { if (!api.current) return; csel ? api.current.select(csel) : api.current.overview(); }, [csel]);
-    return html`<section class="map city" aria-label="Peta 3D kota Mekah">
+    useEffect(() => { if (walkReq && api.current) api.current.startWalk(walkReq.id); }, [walkReq]);
+    useEffect(() => {
+      const k = (e) => { if (e.key === "Escape" && status.walking && !document.querySelector(".overlay")) api.current.stopWalk(); };
+      window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k);
+    }, [status.walking]);
+    const walking = status.walking;
+    const hold = (k) => ({
+      onPointerDown: (e) => { e.preventDefault(); api.current.press(k, true); },
+      onPointerUp: () => api.current.press(k, false), onPointerLeave: () => api.current.press(k, false), onPointerCancel: () => api.current.press(k, false)
+    });
+    const nearP = status.near && K.tempat.find((p) => p.id === status.near.id);
+    return html`<section class=${`map city${walking ? " walking" : ""}`} aria-label="Peta 3D kota Mekah">
       <div class="map-canvas" ref=${box}></div>
       <div class="map-labels">
         ${K.tempat.map((p) => html`<div key=${p.id} ref=${reg(p.id)}
@@ -258,19 +273,39 @@
         </div>`)}
       </div>
       <div class="city-top">
-        <button type="button" class="back" onClick=${onBack}>‹ Peta wilayah</button>
-        <div class="city-title"><b>Kota Mekah</b><span>Keadaan sekitar ${year} M</span></div>
+        ${walking
+          ? html`<button type="button" class="back" onClick=${() => api.current.stopWalk()}>‹ Keluar jalan kaki</button>`
+          : html`<button type="button" class="back" onClick=${onBack}>‹ Peta wilayah</button>`}
+        <div class="city-title"><b>Kota Mekah</b><span>${walking && status.facing ? `Menghadap ${status.facing}` : `Keadaan sekitar ${year} M`}</span></div>
       </div>
-      <div class="map-tools">
+      ${!walking && html`<div class="map-tools">
         <button type="button" onClick=${() => api.current.zoom(0.75)} aria-label="Perbesar">+</button>
         <button type="button" onClick=${() => api.current.zoom(1.33)} aria-label="Perkecil">−</button>
         <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
         <button type="button" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan">⟳</button>
         <button type="button" class="wide" onClick=${onOverview}>Seluruh kota</button>
+        <button type="button" class="wide walk-btn" onClick=${() => api.current.startWalk(csel)}>Jalan kaki${csel ? " di sini" : ""}</button>
+      </div>`}
+      ${walking && html`<div class="walk-hud">
+        ${status.kabah && html`<p class="kabah-dir">Ka'bah ${status.kabah.dist} m ke arah ${status.kabah.dir}</p>`}
+        ${nearP && html`<button type="button" class="near" onClick=${() => onSelect(nearP.id)}>
+          <span>Di dekat <b>${nearP.nama}</b>${status.near.dist > 0 ? ` · ${status.near.dist} m` : ""}</span><em>Lihat riwayat</em></button>`}
       </div>
-      <ul class="legend" aria-label="Tingkat keyakinan lokasi">
-        ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
-      </ul>
+      <div class="dpad" aria-label="Tombol gerak">
+        <button type="button" class="u" ...${hold("w")} aria-label="Maju">▲</button>
+        <button type="button" class="l" ...${hold("q")} aria-label="Belok kiri">⟲</button>
+        <button type="button" class="d" ...${hold("s")} aria-label="Mundur">▼</button>
+        <button type="button" class="r" ...${hold("e")} aria-label="Belok kanan">⟳</button>
+      </div>`}
+      <div class="city-foot">
+        <ul class="legend" aria-label="Tingkat keyakinan lokasi">
+          ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
+        </ul>
+        <p class="hint">${walking
+          ? "W/S atau ▲▼ jalan, A/D geser, Q/E atau ←→ belok, seret untuk melihat, Shift untuk berlari, Esc keluar"
+          : "Seret untuk memutar, klik kanan atau Shift+seret untuk menggeser, WASD untuk bergerak, Q/E memutar"}</p>
+        <p class="stat" title="Rumah dibangun detail hanya di sekitar dan di depan kamera">Rumah detail: ${status.detail}</p>
+      </div>
     </section>`;
   }
 
@@ -292,7 +327,7 @@
     </article>`;
   }
 
-  function CityPanel({ year, csel, setCsel, onProfile, activeIds }) {
+  function CityPanel({ year, csel, setCsel, onProfile, activeIds, onWalk }) {
     const p = csel && K.tempat.find((x) => x.id === csel);
     if (p) {
       const kv = K.keyakinan[p.keyakinan];
@@ -303,6 +338,7 @@
           <p class=${`kbadge k-${p.keyakinan}`}><i class="kdot"></i><b>${kv.nama}.</b> ${kv.ket}</p>
           <p class="loc-ket">${p.ket}</p>
           ${p.sumberLokasi && html`<p class="src">Sumber lokasi: ${p.sumberLokasi}</p>`}
+          ${p.jenis !== "gunung" && html`<button type="button" class="walk-here" onClick=${() => onWalk(p.id)}>Jalan kaki ke sini</button>`}
         </div>
         <div class="panel-body">
           ${p.riwayat.length ? [...p.riwayat].sort((a, b) => inYear(b, year) - inYear(a, year) || (a.t ? a.t[0] : 0) - (b.t ? b.t[0] : 0))
@@ -320,6 +356,8 @@
       <div class="loc-head plain">
         <h2>Kota Mekah</h2>
         <p class="loc-ket">Ka'bah, rumah para tokoh, dan bukit-bukit di sekitarnya. Warna penanda menunjukkan seberapa yakin lokasinya. Tempat yang punya riwayat di tahun ${year} M ikut menyala.</p>
+        <p class="loc-ket">${K.catatanVisual}</p>
+        <button type="button" class="walk-here" onClick=${() => onWalk("kabah")}>Mulai jalan kaki dari Ka'bah</button>
       </div>
       <div class="panel-body">
         ${now.length > 0 && html`<section><h3 class="sec">Terkait ${year} M</h3><ul class="plist2">${now.map(row)}</ul></section>`}
@@ -363,6 +401,7 @@
 
     const [mode, setMode] = useState("wilayah");
     const [csel, setCsel] = useState(null);
+    const [walkReq, setWalkReq] = useState(null);
     const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
     const goto = (e) => { setPlaying(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
@@ -376,13 +415,14 @@
       </header>
       ${city
         ? html`<${CityMap} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
-            onOverview=${() => setCsel(null)} onBack=${() => { setMode("wilayah"); setSel("makkah"); }} />`
+            onOverview=${() => setCsel(null)} onBack=${() => { setMode("wilayah"); setSel("makkah"); }} walkReq=${walkReq} />`
         : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
       <${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />
       ${city
-        ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds} />`
+        ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
+            onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
             onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}

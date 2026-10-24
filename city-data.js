@@ -9,6 +9,7 @@
       kitab: { nama: "Menurut kitab sejarah", ket: "Disebut dalam kitab sejarah Mekah (Al-Azraqi, Al-Fakihi, Al-Fasi). Titiknya adalah perkiraan peneliti modern." },
       perkiraan: { nama: "Perkiraan", ket: "Berdasarkan tradisi lokal atau sumber sekunder, belum dapat dipastikan." }
     },
+    catatanVisual: "Bentuk rumah adalah rekonstruksi umum, bukan hasil arkeologi: dinding batu dan bata lumpur, atap datar dari balok kayu dan pelepah, pintu kayu rendah, dan sebagian berhalaman dengan naungan pelepah kurma. Lembah ini tandus tanpa tanaman (QS. Ibrahim: 37), jadi hampir tidak ada pepohonan. Sebelum 630 M, batu-batu tegak di sekitar Ka'bah melambangkan 360 berhala. Mulai 638 M tampak dinding rendah yang dibangun Umar.",
     derajat: {
       shahih: "Hadits shahih",
       sirah: "Kitab sirah/sejarah",
@@ -32,6 +33,9 @@
             sumber: "HR. Bukhari no. 240 (Abdullah bin Mas'ud)", url: sn("bukhari", 240),
             isi: "Saat Nabi sujud di dekat Ka'bah, Abu Jahal dan kawan-kawannya menyuruh orang meletakkan isi perut unta di punggung beliau. Fatimah yang masih kecil datang menyingkirkannya.",
             catatan: "Tahun persisnya tidak disebut dalam riwayat." },
+          { t: [638, 661], judul: "Dinding pertama di sekeliling Ka'bah", tokoh: ["umar"], derajat: "sirah", sumber: "Yaqut al-Hamawi, Mu'jam al-Buldan 5/146 (dikutip IslamQA no. 3748)", url: "https://islamqa.info/en/answers/3748/",
+            isi: "Pada masa Nabi dan Abu Bakar belum ada dinding di sekeliling Ka'bah. Karena rumah-rumah terlalu dekat dan ruang ibadah sempit, Umar membeli rumah-rumah itu, merobohkannya, lalu membangun dinding yang lebih rendah dari tinggi orang dewasa dengan lampu di atasnya.",
+            catatan: "Tahun 17 H (638 M) mengikuti pendapat yang umum dikenal; sumber yang kami kutip tidak menyebut tahunnya." },
           { t: [630, 630], judul: "Berhala dihancurkan", tokoh: ["nabi"], derajat: "shahih",
             sumber: "HR. Bukhari no. 4287 (Abdullah bin Mas'ud)", url: sn("bukhari", 4287),
             isi: "Saat Fathu Makkah ada 360 berhala di sekitar Ka'bah. Nabi menusuknya satu per satu dengan tongkat sambil membaca ayat ini.",
@@ -204,6 +208,7 @@
       { judul: "Wikipedia: Safa and Marwa", url: "https://en.wikipedia.org/wiki/Safa_and_Marwa" },
       { judul: "Wikipedia: Zamzam Well", url: "https://en.wikipedia.org/wiki/Zamzam_Well" },
       { judul: "HadithAnswers: riwayat tetangga Nabi", url: "https://islamqa.org/hanafi/hadithanswers/155428/nabis-sallallahu-alayhi-wa-sallam-neighbours-causing-him-harm/" },
+      { judul: "IslamQA 3748: sejarah Masjidil Haram", url: "https://islamqa.info/en/answers/3748/" },
       { judul: "Sunnah.com: teks dan nomor hadits Bukhari & Muslim", url: "https://sunnah.com/" }
     ]
   };

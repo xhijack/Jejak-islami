@@ -1,6 +1,8 @@
 // Lembah Mekah 3D sekitar masa Nabi. 1 unit = 20 m. x = timur, -z = utara.
+// Rumah dari jauh: kotak sederhana (instanced). Rumah dekat & dalam pandangan: model detail per sel 60 m (streaming).
 (function () {
-  const M = 20, VX = 1.6; // meter per unit, eksagerasi vertikal
+  const M = 20, VX = 1.3; // meter per unit, eksagerasi vertikal
+  const CELL = 60;
   const toX = (e) => e / M, toZ = (n) => -n / M;
 
   function hash(x, y) { const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
@@ -18,7 +20,6 @@
   }
   const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
-  // Gunung: [e, n, radius, tinggi] (meter) dan punggungan [e1, n1, e2, n2, lebar, tinggi]
   const PEAKS = [[360, -200, 185, 140], [700, 420, 280, 160], [-200, -660, 260, 100], [260, -720, 240, 110], [-160, 860, 300, 120], [900, -150, 260, 120]];
   const RIDGES = [[-460, -180, -330, 470, 170, 130], [520, 180, 860, 640, 150, 120], [-700, 300, -500, 800, 200, 110]];
   const HILLOCKS = [[100, -85, 26, 9], [125, 340, 24, 7]]; // Shafa, Marwah
@@ -35,25 +36,129 @@
     for (const [he, hn, r, ht] of HILLOCKS) floor += ht * Math.exp(-(((e - he) ** 2 + (n - hn) ** 2) / (r * r)));
     return floor + mountainH(e, n) + fbm(e / 40, n / 40) * 1.5;
   }
+  const Y = (e, n) => (heightAt(e, n) * VX) / M;
+
+  // ---------- Pembangun geometri gabungan ----------
+  let UNIT = null;
+  function units(THREE) {
+    if (UNIT) return UNIT;
+    const g1 = new THREE.BoxGeometry(1, 1, 1).toNonIndexed(), g2 = new THREE.CylinderGeometry(0.42, 0.5, 1, 9).toNonIndexed();
+    UNIT = { box: { p: g1.attributes.position.array, n: g1.attributes.normal.array }, cyl: { p: g2.attributes.position.array, n: g2.attributes.normal.array } };
+    return UNIT;
+  }
+  function Acc() { return { p: [], n: [], c: [], uv: [] }; }
+  // Tambah satu bagian ke akumulator. Koordinat lokal rumah (meter): x lebar, y naik, z ke depan (pintu).
+  function part(acc, U, sx, sy, sz, ox, oy, oz, ry, color, H) {
+    const { p, n } = U, cr = Math.cos(ry), sr = Math.sin(ry), ct = Math.cos(H.t), st = Math.sin(H.t);
+    const j = 0.94 + hash(ox * 3.1 + H.e, oz * 1.7 + H.n) * 0.1;
+    const r = ((color >> 16) & 255) / 255 * j, g = ((color >> 8) & 255) / 255 * j, b = (color & 255) / 255 * j;
+    for (let i = 0; i < p.length; i += 3) {
+      const px = p[i] * sx, py = p[i + 1] * sy, pz = p[i + 2] * sz;
+      const lx = px * cr + pz * sr + ox, ly = py + oy, lz = -px * sr + pz * cr + oz;
+      const nx0 = n[i] * cr + n[i + 2] * sr, ny0 = n[i + 1], nz0 = -n[i] * sr + n[i + 2] * cr;
+      const we = H.e + lx * ct + lz * st, wz = -H.n - lx * st + lz * ct;
+      acc.p.push(we / M, ((H.g + ly) * VX) / M, wz / M);
+      let wx = nx0 * ct + nz0 * st, wy = ny0 / VX, wzN = -nx0 * st + nz0 * ct;
+      const L = Math.hypot(wx, wy, wzN) || 1; acc.n.push(wx / L, wy / L, wzN / L);
+      acc.c.push(r, g, b);
+      if (Math.abs(ny0) > 0.5) acc.uv.push(lx / 3, lz / 3); else if (Math.abs(nx0) > Math.abs(nz0)) acc.uv.push(lz / 3, ly / 3); else acc.uv.push(lx / 3, ly / 3);
+    }
+  }
+  function toGeometry(THREE, acc) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(acc.p, 3));
+    g.setAttribute("normal", new THREE.Float32BufferAttribute(acc.n, 3));
+    g.setAttribute("color", new THREE.Float32BufferAttribute(acc.c, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(acc.uv, 2));
+    g.computeBoundingSphere();
+    return g;
+  }
+
+  const C = { stone: 0x8c7660, wood: 0x5a3f2c, door: 0x4a3424, dark: 0x2a211b, straw: 0xa8915f, clay: 0x9c6a45 };
+  const shade = (c, k) => (Math.round(((c >> 16) & 255) * k) << 16) | (Math.round(((c >> 8) & 255) * k) << 8) | Math.round((c & 255) * k);
+
+  // Rumah Mekah abad ke-7 (rekonstruksi umum): batu dan bata lumpur, atap datar dari balok kayu dan pelepah,
+  // dinding pembatas atap, pintu kayu rendah, jendela kecil, sebagian punya halaman dengan naungan pelepah kurma ('arisy).
+  function genHouse(acc, U, h) {
+    const W = h.w, L = h.l, Ht = h.h, wall = h.col, pc = shade(wall, 0.88);
+    let s = h.seed; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const B = (sx, sy, sz, ox, oy, oz, col, ry = 0) => part(acc, U.box, sx, sy, sz, ox, oy, oz, ry, col, h);
+    B(W + 0.4, 2, L + 0.4, 0, -0.5, 0, C.stone);                     // fondasi batu (masuk ke tanah di lereng)
+    B(W, Ht, L, 0, Ht / 2, 0, wall);                                   // dinding
+    B(W, 0.45, 0.3, 0, Ht + 0.22, L / 2 - 0.15, pc); B(W, 0.45, 0.3, 0, Ht + 0.22, -L / 2 + 0.15, pc);
+    B(0.3, 0.45, L - 0.6, W / 2 - 0.15, Ht + 0.22, 0, pc); B(0.3, 0.45, L - 0.6, -W / 2 + 0.15, Ht + 0.22, 0, pc);
+    B(W - 0.5, 0.08, L - 0.5, 0, Ht + 0.04, 0, C.straw);               // lapisan pelepah & tanah di atap
+    const nb = Math.max(3, Math.floor(W / 1.1));
+    for (let i = 0; i < nb; i++) {                                     // ujung balok kayu yang menonjol
+      const x = -W / 2 + ((i + 0.5) * W) / nb;
+      B(0.17, 0.17, 0.5, x, Ht - 0.35, L / 2 + 0.2, C.wood); B(0.17, 0.17, 0.5, x, Ht - 0.35, -L / 2 - 0.2, C.wood);
+    }
+    const dx = (r() - 0.5) * Math.max(0, W - 2.6);
+    B(1.05, 1.95, 0.14, dx, 0.98, L / 2 + 0.05, C.door);              // pintu
+    B(1.6, 0.2, 0.32, dx, 2.06, L / 2 + 0.1, C.wood);                 // ambang atas
+    B(1.4, 0.2, 0.6, dx, 0.1, L / 2 + 0.4, C.stone);                  // batu injakan
+    const nw = 1 + Math.floor(r() * 2);
+    for (let i = 0; i < nw; i++) {
+      let x = -W / 2 + 1 + r() * (W - 2); if (Math.abs(x - dx) < 1.2) x = dx + (x < dx ? -1.4 : 1.4);
+      B(0.5, 0.42, 0.08, Math.max(-W / 2 + 0.5, Math.min(W / 2 - 0.5, x)), Ht - 1.15, L / 2 + 0.03, C.dark);
+    }
+    B(0.08, 0.42, 0.5, W / 2 + 0.03, Ht - 1.15, (r() - 0.5) * (L - 2), C.dark);
+    B(0.14, 0.12, 0.8, W / 2 - 0.7, Ht + 0.1, L / 2 + 0.4, C.wood);    // talang air
+    if (h.court) {
+      const Cd = h.court, ch = 1.9;
+      B(0.4, ch, Cd, -W / 2 + 0.2, ch / 2, L / 2 + Cd / 2, wall); B(0.4, ch, Cd, W / 2 - 0.2, ch / 2, L / 2 + Cd / 2, wall);
+      const gw = 1.5, gx = Math.max(-W / 2 + 1.4, Math.min(W / 2 - 1.4, dx + (r() - 0.5) * 2));
+      const left = gx - gw / 2 + W / 2, right = W / 2 - (gx + gw / 2);
+      if (left > 0.2) B(left, ch, 0.4, -W / 2 + left / 2, ch / 2, L / 2 + Cd - 0.2, wall);
+      if (right > 0.2) B(right, ch, 0.4, W / 2 - right / 2, ch / 2, L / 2 + Cd - 0.2, wall);
+      const aw = Math.min(3.8, W - 1.4), ad = Math.min(2.6, Cd - 1), ax = (r() < 0.5 ? -1 : 1) * (W / 2 - 0.6 - aw / 2), az = L / 2 + 0.3 + ad / 2;
+      for (const [px, pz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) B(0.14, 2.3, 0.14, ax + (px * aw) / 2, 1.15, az + (pz * ad) / 2, C.wood);
+      B(aw + 0.4, 0.14, ad + 0.4, ax, 2.36, az, C.straw);              // naungan pelepah kurma
+      part(acc, U.cyl, 0.6, 0.75, 0.6, -ax * 0.6, 0.37, L / 2 + Cd - 1, 0, C.clay, h); // tempayan air
+    } else if (h.jar) part(acc, U.cyl, 0.6, 0.75, 0.6, dx + 1, 0.37, L / 2 + 0.45, 0, C.clay, h);
+    if (h.upper) {                                                      // kamar atas (ghurfah)
+      const uw = W * 0.45, ul = L * 0.5, uh = 2.6, ux = W / 2 - uw / 2 - 0.3, uz = -L / 2 + ul / 2 + 0.3;
+      B(uw, uh, ul, ux, Ht + uh / 2, uz, wall); B(uw + 0.25, 0.35, ul + 0.25, ux, Ht + uh + 0.17, uz, pc);
+      B(0.8, 1.6, 0.1, ux - uw / 4, Ht + 0.8, uz + ul / 2 + 0.05, C.door);
+      for (let i = 0; i < 3; i++) B(0.15, 0.15, 0.4, ux - uw / 2 + ((i + 0.5) * uw) / 3, Ht + uh - 0.3, uz + ul / 2 + 0.15, C.wood);
+    }
+  }
+
+  function plasterTexture(THREE) {
+    const c = document.createElement("canvas"); c.width = c.height = 256;
+    const g = c.getContext("2d");
+    g.fillStyle = "#e2dbcf"; g.fillRect(0, 0, 256, 256);
+    for (let row = 0; row < 8; row++) {
+      const y = row * 32, off = (row % 2) * 22;
+      for (let x = -44 + off, k = 0; x < 256; k++) {
+        const w = 38 + Math.floor(hash(row, k) * 20), v = 236 + Math.floor(hash(k, row) * 16);
+        g.fillStyle = `rgb(${v},${v - 5},${v - 12})`; g.fillRect(x + 0.8, y + 0.8, w - 1.6, 30.4); x += w;
+      }
+    }
+    const img = g.getImageData(0, 0, 256, 256), d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const k = (hash(i, 7) - 0.5) * 16; d[i] += k; d[i + 1] += k; d[i + 2] += k; }
+    g.putImageData(img, 0, 0);
+    const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 4;
+    return t;
+  }
 
   function create(container, opts) {
-    const THREE = window.THREE;
-    const places = opts.tempat;
+    const THREE = window.THREE, U = units(THREE);
+    const places = opts.tempat, onStatus = opts.onStatus || (() => {});
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x15122a, 80, 170);
+    const FOG_MAP = [80, 170], FOG_WALK = [4, 26], FOG_C_MAP = 0x15122a, FOG_C_WALK = 0xb88a6c;
+    scene.fog = new THREE.Fog(FOG_C_MAP, FOG_MAP[0], FOG_MAP[1]);
     const camera = new THREE.PerspectiveCamera(36, 1, 0.05, 400);
 
-    scene.add(new THREE.HemisphereLight(0xd9d2ff, 0x2a1d14, 0.42));
-    const sun = new THREE.DirectionalLight(0xffcf96, 1.05);
-    sun.position.set(-40, 17, 12); scene.add(sun);
+    scene.add(new THREE.HemisphereLight(0xe6dcff, 0x4a3524, 0.62));
+    const sun = new THREE.DirectionalLight(0xffcf96, 1.05); sun.position.set(-40, 17, 12); scene.add(sun);
 
     // Medan
     const SIZE = 2200, SEG = 220, HALF = SIZE / 2, OFF_E = 100, OFF_N = 80;
-    const geo = new THREE.PlaneGeometry(SIZE / M, SIZE / M, SEG, SEG);
-    geo.rotateX(-Math.PI / 2);
+    const geo = new THREE.PlaneGeometry(SIZE / M, SIZE / M, SEG, SEG); geo.rotateX(-Math.PI / 2);
     const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
     const cSand = new THREE.Color(0xa9875a), cDust = new THREE.Color(0x8c6b47), cRock = new THREE.Color(0x5b4334), cDark = new THREE.Color(0x372921);
     const tmp = new THREE.Color();
@@ -61,45 +166,38 @@
       const e = pos.getX(i) * M + OFF_E, n = -pos.getZ(i) * M + OFF_N;
       const mh = mountainH(e, n), h = heightAt(e, n);
       const edge = Math.min(1, (HALF - Math.max(Math.abs(e - OFF_E), Math.abs(n - OFF_N))) / 80);
-      pos.setX(i, toX(e)); pos.setZ(i, toZ(n));
-      pos.setY(i, (h * VX) / M * edge - (1 - edge) * 0.8);
+      pos.setX(i, toX(e)); pos.setZ(i, toZ(n)); pos.setY(i, ((h * VX) / M) * edge - (1 - edge) * 0.8);
       const r = fbm(e / 25, n / 25);
       if (mh < 6) tmp.copy(cSand).lerp(cDust, r * 0.8);
       else if (mh < 60) tmp.copy(cDust).lerp(cRock, (mh - 6) / 54 + r * 0.2);
       else tmp.copy(cRock).lerp(cDark, Math.min(1, (mh - 60) / 90 + r * 0.3));
       col.set([tmp.r, tmp.g, tmp.b], i * 3);
     }
-    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
-    geo.computeVertexNormals();
+    geo.setAttribute("color", new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals();
     scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 })));
-    const base = new THREE.Mesh(new THREE.BoxGeometry(SIZE / M + 0.6, 0.8, SIZE / M + 0.6),
-      new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
+    const base = new THREE.Mesh(new THREE.BoxGeometry(SIZE / M + 0.6, 0.8, SIZE / M + 0.6), new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
     base.position.set(toX(OFF_E), -1.2, toZ(OFF_N)); scene.add(base);
 
-    const Y = (e, n) => (heightAt(e, n) * VX) / M;
+    // Halaman thawaf: sempit sebelum Umar, lebih luas setelah rumah-rumah di sekitarnya dibeli dan dirobohkan
+    const matMataf = new THREE.MeshStandardMaterial({ color: 0xcdb68a, roughness: 0.9 });
+    const mataf1 = new THREE.Mesh(new THREE.CircleGeometry(32 / M, 48), matMataf), mataf2 = new THREE.Mesh(new THREE.CircleGeometry(52 / M, 64), matMataf);
+    for (const m of [mataf1, mataf2]) { m.rotation.x = -Math.PI / 2; m.position.y = 0.012; scene.add(m); }
 
-    // Halaman thawaf
-    const mataf = new THREE.Mesh(new THREE.CircleGeometry(38 / M, 48), new THREE.MeshStandardMaterial({ color: 0xcdb68a, roughness: 0.9 }));
-    mataf.rotation.x = -Math.PI / 2; mataf.position.y = 0.012; scene.add(mataf);
-
-    // Ka'bah (dibangun ulang Quraisy): ±12 x 10 m, tinggi ±9 m. Sudut Hajar Aswad menghadap timur.
-    // rotasi -45°: sisi lokal -x menghadap barat laut (Hijr), sisi lokal -z menghadap timur laut (pintu)
+    // Ka'bah: ±12 x 10 m, tinggi ±9 m (bangunan Quraisy). Pintu ditinggikan (HR. Bukhari 1584).
     const kabah = new THREE.Group(); kabah.rotation.y = -Math.PI / 4;
     const kb = new THREE.Mesh(new THREE.BoxGeometry(12 / M, (9 * VX) / M, 10 / M), new THREE.MeshStandardMaterial({ color: 0x2c2723, roughness: 0.85 }));
     kb.position.y = (4.5 * VX) / M; kabah.add(kb);
-    const door = new THREE.Mesh(new THREE.BoxGeometry(2 / M, 3 / M, 0.2 / M), new THREE.MeshStandardMaterial({ color: 0x8a6a2c, metalness: 0.5, roughness: 0.4 }));
-    door.position.set(2.5 / M, (4.2 * VX) / M, -5.05 / M); kabah.add(door);
-    // Hijr: setengah lingkaran pada sisi pendek
+    const shd = new THREE.Mesh(new THREE.BoxGeometry(12.8 / M, (0.5 * VX) / M, 10.8 / M), new THREE.MeshStandardMaterial({ color: 0x9a8a72, roughness: 0.9 }));
+    shd.position.y = (0.25 * VX) / M; kabah.add(shd);
+    const door = new THREE.Mesh(new THREE.BoxGeometry(2 / M, (3 * VX) / M, 0.25 / M), new THREE.MeshStandardMaterial({ color: 0x8a6a2c, metalness: 0.4, roughness: 0.5 }));
+    door.position.set(2.5 / M, ((2.2 + 1.5) * VX) / M, -5.08 / M); kabah.add(door);
     const hijrMat = new THREE.MeshStandardMaterial({ color: 0xcdb48a, roughness: 0.9 });
-    const SEGS = 16;
-    for (let i = 0; i < SEGS; i++) {
+    for (let i = 0, SEGS = 16; i < SEGS; i++) {
       const a0 = -Math.PI / 2 + (Math.PI * i) / SEGS, a1 = -Math.PI / 2 + (Math.PI * (i + 1)) / SEGS;
       const p0 = [-6 - 8 * Math.cos(a0), 5.2 * Math.sin(a0)], p1 = [-6 - 8 * Math.cos(a1), 5.2 * Math.sin(a1)];
-      const len = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
-      const seg = new THREE.Mesh(new THREE.BoxGeometry((len + 0.3) / M, (1.3 * VX) / M, 0.9 / M), hijrMat);
+      const seg = new THREE.Mesh(new THREE.BoxGeometry((Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) + 0.3) / M, (1.3 * VX) / M, 0.9 / M), hijrMat);
       seg.position.set((p0[0] + p1[0]) / 2 / M, (0.65 * VX) / M, (p0[1] + p1[1]) / 2 / M);
-      seg.rotation.y = -Math.atan2(p1[1] - p0[1], p1[0] - p0[0]);
-      kabah.add(seg);
+      seg.rotation.y = -Math.atan2(p1[1] - p0[1], p1[0] - p0[0]); kabah.add(seg);
     }
     scene.add(kabah);
     const zam = new THREE.Mesh(new THREE.CylinderGeometry(1.6 / M, 1.6 / M, 1.4 / M, 16), new THREE.MeshStandardMaterial({ color: 0xbfa77d }));
@@ -107,142 +205,345 @@
     const maq = new THREE.Mesh(new THREE.BoxGeometry(1.2 / M, 1.4 / M, 1.2 / M), new THREE.MeshStandardMaterial({ color: 0xa99068 }));
     maq.position.set(toX(12), 0.7 / M, toZ(9)); scene.add(maq);
 
-    // Jalan Mas'a (tanah terbuka)
-    const mas = new THREE.Mesh(new THREE.PlaneGeometry(14 / M, 430 / M), new THREE.MeshStandardMaterial({ color: 0xd6bf92, roughness: 1, transparent: true, opacity: 0.55 }));
-    mas.rotation.x = -Math.PI / 2; mas.rotation.z = Math.atan2(25, 425);
-    mas.position.set(toX(112), Y(112, 128) + 0.03, toZ(128)); scene.add(mas);
+    // 360 berhala di sekitar Ka'bah sebelum Fathu Makkah (HR. Bukhari 4287), digambarkan sebagai batu tegak
+    const idols = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), new THREE.MeshStandardMaterial({ roughness: 0.9 }), 360);
+    { const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), p = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0); let s = 11;
+      const rr = () => (s = (s * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 360; i++) {
+        const a = (i / 360) * Math.PI * 2 + rr() * 0.02, rad = 17 + (i % 3) * 4 + rr() * 3;
+        q.setFromAxisAngle(up, rr() * 3); sc.set((0.45 + rr() * 0.5) / M, ((0.8 + rr() * 1.4) * VX) / M, (0.4 + rr() * 0.4) / M);
+        p.set(toX(Math.cos(a) * rad), 0, toZ(Math.sin(a) * rad));
+        idols.setMatrixAt(i, m4.compose(p, q, sc)); idols.setColorAt(i, tmp.setHex(0x6f6a62).lerp(new THREE.Color(0x9a8f7c), rr()));
+      } }
+    scene.add(idols);
 
-    // Rumah-rumah penduduk (instanced)
+    // Dinding pertama sekeliling Ka'bah oleh Umar: lebih rendah dari tinggi orang, dengan lampu di atasnya
+    const umarWall = new THREE.Group();
+    { const wm = new THREE.MeshStandardMaterial({ color: 0xc8b48c, roughness: 0.9 }), lm = new THREE.MeshStandardMaterial({ color: 0xffd27a, emissive: 0xffb84a, emissiveIntensity: 0.8 });
+      const R = 52, N = 64;
+      for (let i = 0; i < N; i++) {
+        const a0 = (i / N) * Math.PI * 2, a1 = ((i + 1) / N) * Math.PI * 2, am = (a0 + a1) / 2;
+        if (i % 16 === 0) continue; // pintu masuk
+        const len = 2 * R * Math.sin(Math.PI / N) + 0.2;
+        const w = new THREE.Mesh(new THREE.BoxGeometry(len / M, (1.4 * VX) / M, 0.6 / M), wm);
+        w.position.set(toX(Math.cos(am) * R), (0.7 * VX) / M, toZ(Math.sin(am) * R)); w.rotation.y = am + Math.PI / 2; umarWall.add(w);
+        if (i % 4 === 2) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.4 / M, (0.5 * VX) / M, 0.4 / M), lm); l.position.copy(w.position); l.position.y += (0.95 * VX) / M; umarWall.add(l); }
+      } }
+    scene.add(umarWall);
+
+    // Jalan Mas'a
+    const mas = new THREE.Mesh(new THREE.PlaneGeometry(14 / M, 430 / M), new THREE.MeshStandardMaterial({ color: 0xd6bf92, roughness: 1, transparent: true, opacity: 0.55 }));
+    mas.rotation.x = -Math.PI / 2; mas.rotation.z = Math.atan2(25, 425); mas.position.set(toX(112), Y(112, 128) + 0.03, toZ(128)); scene.add(mas);
+
+    // ---------- Data rumah ----------
     const named = places.filter((p) => p.jenis === "rumah");
     const masE = (n) => 100 + ((n + 85) / 425) * 25;
     let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const WALLS = [0xc8a679, 0xbba78b, 0xb79a72, 0xd6c9b0, 0xa98a66];
     const houses = [];
-    for (let k = 0; k < 9000 && houses.length < 720; k++) {
-      const e = -560 + rnd() * 1300, n = -520 + rnd() * 1300;
-      const d = Math.hypot(e, n);
-      if (d < 46 || rnd() > Math.exp(-d / 520)) continue;
+    for (let k = 0; k < 12000 && houses.length < 760; k++) {
+      const e = -560 + rnd() * 1300, n = -520 + rnd() * 1300, d = Math.hypot(e, n);
+      if (d < 34 || rnd() > Math.exp(-d / 520)) continue;
       if (n > -95 && n < 350 && Math.abs(e - masE(n)) < 13) continue;
       if (mountainH(e, n) > 28) continue;
       const h0 = heightAt(e, n), sl = Math.abs(heightAt(e + 8, n) - h0) + Math.abs(heightAt(e, n + 8) - h0);
       if (sl > 3.2) continue;
-      if (named.some((p) => Math.hypot(p.e - e, p.n - n) < 22)) continue;
-      if (houses.some((q) => Math.abs(q.e - e) < 10 && Math.abs(q.n - n) < 10)) continue;
-      houses.push({ e, n, w: 6 + rnd() * 5, l: 6 + rnd() * 5, h: 3 + rnd() * 3.5, r: Math.atan2(n, e) + (rnd() - 0.5) * 0.5, c: rnd() });
+      if (named.some((p) => Math.hypot(p.e - e, p.n - n) < 24)) continue;
+      if (Math.hypot(e - 18, n + 8) < 10) continue;
+      if (houses.some((q) => Math.abs(q.e - e) < 12 && Math.abs(q.n - n) < 12)) continue;
+      const w = 6 + rnd() * 5, l = 6 + rnd() * 4, court = rnd() < 0.35 ? 3.5 + rnd() * 2.5 : 0;
+      let t = Math.atan2(-e, n) + (rnd() - 0.5) * 0.6; if (rnd() < 0.3) t += rnd() < 0.5 ? Math.PI / 2 : -Math.PI / 2;
+      houses.push({ e, n, w, l, h: 2.8 + rnd() * 2.4, t, g: h0, col: WALLS[Math.floor(rnd() * WALLS.length)], court, upper: rnd() < 0.22, jar: rnd() < 0.4,
+        seed: 1 + Math.floor(rnd() * 1e6), umar: d < 56 });
     }
+    // Kotak jauh (instanced), ukurannya sama dengan tapak rumah detail agar pergantian tidak mencolok
     const hGeo = new THREE.BoxGeometry(1, 1, 1); hGeo.translate(0, 0.5, 0);
-    const hMat = new THREE.MeshStandardMaterial({ roughness: 0.95 });
-    const inst = new THREE.InstancedMesh(hGeo, hMat, houses.length);
-    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p3 = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0);
-    const hc1 = new THREE.Color(0xc29a68), hc2 = new THREE.Color(0xe2c69c);
-    houses.forEach((hh, i) => {
-      q.setFromAxisAngle(up, -hh.r); s.set(hh.w / M, (hh.h * VX) / M, hh.l / M);
-      p3.set(toX(hh.e), Y(hh.e, hh.n) - 0.02, toZ(hh.n));
-      inst.setMatrixAt(i, m4.compose(p3, q, s));
-      inst.setColorAt(i, tmp.copy(hc1).lerp(hc2, hh.c));
+    const inst = new THREE.InstancedMesh(hGeo, new THREE.MeshStandardMaterial({ roughness: 0.95 }), houses.length);
+    const m4 = new THREE.Matrix4(), qq = new THREE.Quaternion(), s3 = new THREE.Vector3(), p3 = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), ZERO = new THREE.Matrix4().makeScale(0, 0, 0);
+    const baseM = houses.map((hh, i) => {
+      qq.setFromAxisAngle(up, hh.t); s3.set(hh.w / M, (hh.h * VX) / M, hh.l / M); p3.set(toX(hh.e), (hh.g * VX) / M - 0.02, toZ(hh.n));
+      const m = new THREE.Matrix4().compose(p3, qq, s3); inst.setColorAt(i, tmp.setHex(hh.col)); return m;
     });
     scene.add(inst);
 
-    // Rumah bernama dan penanda
+    // Sel streaming
+    const cells = new Map();
+    houses.forEach((hh, i) => {
+      const key = Math.floor(hh.e / CELL) + "," + Math.floor(hh.n / CELL);
+      if (!cells.has(key)) cells.set(key, { key, ids: [], ce: (Math.floor(hh.e / CELL) + 0.5) * CELL, cn: (Math.floor(hh.n / CELL) + 0.5) * CELL });
+      cells.get(key).ids.push(i);
+    });
+    const tex = plasterTexture(THREE);
+    const detailMat = new THREE.MeshStandardMaterial({ vertexColors: true, map: tex, roughness: 0.95 });
+    const built = new Map();
+    let year = 610;
+    const removed = (hh) => hh.umar && year >= 638;
+    const instVisible = new Array(houses.length).fill(true);
+    function refreshInstances() {
+      houses.forEach((hh, i) => {
+        const cellKey = Math.floor(hh.e / CELL) + "," + Math.floor(hh.n / CELL);
+        const show = !removed(hh) && !built.has(cellKey);
+        inst.setMatrixAt(i, show ? baseM[i] : ZERO); instVisible[i] = show;
+      });
+      inst.instanceMatrix.needsUpdate = true;
+    }
+    function buildCell(cell) {
+      const acc = Acc();
+      for (const i of cell.ids) if (!removed(houses[i])) genHouse(acc, U, houses[i]);
+      const mesh = new THREE.Mesh(toGeometry(THREE, acc), detailMat);
+      scene.add(mesh);
+      built.set(cell.key, { mesh, last: performance.now() });
+      for (const i of cell.ids) { inst.setMatrixAt(i, ZERO); }
+      inst.instanceMatrix.needsUpdate = true;
+    }
+    function dropCell(key) {
+      const b = built.get(key); if (!b) return;
+      scene.remove(b.mesh); b.mesh.geometry.dispose(); built.delete(key);
+      for (const i of cells.get(key).ids) if (!removed(houses[i])) inst.setMatrixAt(i, baseM[i]);
+      inst.instanceMatrix.needsUpdate = true;
+    }
+
+    // Rumah bernama: selalu detail, materialnya sendiri agar bisa menyala
     const KCOL = { pasti: 0xd9b45a, kitab: 0x6cc4ae, perkiraan: 0xd08f7c };
-    const markers = {};
-    const ray = new THREE.Raycaster();
-    places.forEach((p) => {
+    const markers = {}, colliders = [];
+    places.forEach((p, idx) => {
       const x = toX(p.e), z = toZ(p.n);
-      let topY, mesh = null, mat = null;
+      let topY, mat = null;
       if (p.jenis === "rumah") {
-        const w = p.besar ? 20 : 14, l = p.besar ? 16 : 12, h = p.besar ? 8 : 6.5;
-        mat = new THREE.MeshStandardMaterial({ color: 0xf2dcae, roughness: 0.8, emissive: KCOL[p.keyakinan], emissiveIntensity: 0 });
-        mesh = new THREE.Mesh(new THREE.BoxGeometry(w / M, (h * VX) / M, l / M), mat);
-        const gy = Y(p.e, p.n);
-        mesh.position.set(x, gy + (h * VX) / M / 2 - 0.02, z); mesh.rotation.y = -Math.atan2(p.n, p.e);
-        scene.add(mesh);
-        const par = new THREE.Mesh(new THREE.BoxGeometry((w + 1) / M, 0.6 / M, (l + 1) / M), new THREE.MeshStandardMaterial({ color: 0xa47e55 }));
-        par.position.copy(mesh.position); par.position.y += (h * VX) / M / 2; par.rotation.copy(mesh.rotation); scene.add(par);
-        topY = gy + (h * VX) / M;
+        const big = p.id === "nadwah";
+        const hh = { e: p.e, n: p.n, w: big ? 24 : p.besar ? 18 : 13, l: big ? 18 : p.besar ? 14 : 11, h: big ? 6 : p.besar ? 4.8 : 4.2,
+          t: Math.atan2(-p.e, p.n), g: heightAt(p.e, p.n), col: 0xd9c6a0, court: p.besar && !big ? 6 : 0, upper: !!p.besar, jar: true, seed: 100 + idx };
+        const acc = Acc(); genHouse(acc, U, hh);
+        mat = new THREE.MeshStandardMaterial({ vertexColors: true, map: tex, roughness: 0.9, emissive: KCOL[p.keyakinan], emissiveIntensity: 0 });
+        scene.add(new THREE.Mesh(toGeometry(THREE, acc), mat));
+        colliders.push(hh);
+        topY = ((hh.g + hh.h) * VX) / M;
       } else if (p.jenis === "kabah") topY = (9 * VX) / M;
       else if (p.jenis === "gunung") topY = Y(p.e, p.n) + 0.3;
       else topY = Y(p.e, p.n) + 0.05;
-      const g = new THREE.Group();
-      const show = p.jenis !== "gunung" && p.jenis !== "kawasan";
+      const g = new THREE.Group(), show = p.jenis !== "gunung" && p.jenis !== "kawasan";
       const pm = new THREE.MeshBasicMaterial({ color: KCOL[p.keyakinan] });
-      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 6), pm);
-      const gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.06, 0), pm);
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 6), pm), gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.06, 0), pm);
       const ringM = new THREE.MeshBasicMaterial({ color: KCOL[p.keyakinan], transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
       const ring = new THREE.Mesh(new THREE.RingGeometry(0.16, 0.22, 36), ringM); ring.rotation.x = -Math.PI / 2;
-      if (show) { g.add(pole, gem); }
+      if (show) g.add(pole, gem);
       if (p.jenis !== "gunung") g.add(ring);
       g.position.set(x, topY, z); scene.add(g);
       ring.position.y = (p.jenis === "rumah" ? -(topY - Y(p.e, p.n)) : 0) + 0.03;
       markers[p.id] = { p, g, pole, gem, ring, ringM, mat, h: 0.35, show, topY };
     });
+    colliders.push({ e: 0, n: 0, w: 12.6, l: 10.6, t: -Math.PI / 4, court: 0 }); // Ka'bah
 
-    // Kamera
+    // Grid tabrakan
+    const GRID = 30, grid = new Map();
+    function rebuildGrid() {
+      grid.clear();
+      const add = (c) => {
+        const r = Math.hypot(c.w, c.l + (c.court || 0)) / 2 + 2;
+        for (let gx = Math.floor((c.e - r) / GRID); gx <= Math.floor((c.e + r) / GRID); gx++)
+          for (let gy = Math.floor((c.n - r) / GRID); gy <= Math.floor((c.n + r) / GRID); gy++) {
+            const k = gx + "," + gy; if (!grid.has(k)) grid.set(k, []); grid.get(k).push(c);
+          }
+      };
+      houses.forEach((hh) => !removed(hh) && add(hh)); colliders.forEach(add);
+    }
+    function blocked(e, n, rad = 1) {
+      const list = grid.get(Math.floor(e / GRID) + "," + Math.floor(n / GRID)); if (!list) return false;
+      for (const c of list) {
+        const dx = e - c.e, dn = n - c.n, ct = Math.cos(c.t), st = Math.sin(c.t);
+        const lx = dx * ct + dn * st, lz = dx * st - dn * ct;
+        if (Math.abs(lx) < c.w / 2 + rad && lz > -c.l / 2 - rad && lz < c.l / 2 + (c.court || 0) + rad) {
+          // halaman: hanya dindingnya yang menghalangi, bagian dalam bisa dimasuki lewat gerbang (disederhanakan: halaman bisa dilalui)
+          if (lz > c.l / 2 + rad && c.court) continue;
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function setYear(y) {
+      const before = year >= 638, beforeIdol = year < 630; year = y;
+      idols.visible = y < 630; umarWall.visible = y >= 638; mataf1.visible = y < 638; mataf2.visible = y >= 638;
+      if (before !== y >= 638 || beforeIdol !== y < 630) { for (const k of [...built.keys()]) dropCell(k); rebuildGrid(); }
+      refreshInstances();
+    }
+
+    // ---------- Kamera: mode peta (orbit) dan mode jalan kaki ----------
     const st = { az: -0.55, el: 0.82, dist: 34, target: new THREE.Vector3(toX(90), 0, toZ(90)) };
     const goal = { az: st.az, el: st.el, dist: st.dist, target: st.target.clone() };
+    const walk = { on: false, e: 0, n: 0, yaw: 0, pitch: -0.05 };
+    const keys = new Set();
     let drag = null; const el = renderer.domElement;
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY }; el.setPointerCapture(e.pointerId); });
+    el.addEventListener("contextmenu", (e) => e.preventDefault());
+    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, pan: e.button === 2 || e.shiftKey }; el.setPointerCapture(e.pointerId); });
     el.addEventListener("pointermove", (e) => {
       if (!drag) return;
-      goal.az -= (e.clientX - drag.x) * 0.005;
-      goal.el = Math.max(0.3, Math.min(1.45, goal.el + (e.clientY - drag.y) * 0.004));
-      drag = { x: e.clientX, y: e.clientY };
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+      if (walk.on) { walk.yaw += dx * 0.0042; walk.pitch = Math.max(-1.2, Math.min(1.1, walk.pitch - dy * 0.0035)); return; }
+      if (drag.pan) {
+        const k = goal.dist * 0.0016, ca = Math.cos(st.az), sa = Math.sin(st.az);
+        goal.target.x += (-ca * dx - sa * dy) * k; goal.target.z += (sa * dx - ca * dy) * k;
+      } else { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); }
     });
     el.addEventListener("pointerup", () => { drag = null; });
-    el.addEventListener("wheel", (e) => { e.preventDefault(); goal.dist = Math.max(2.2, Math.min(90, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+    el.addEventListener("wheel", (e) => { e.preventDefault(); if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+    const typing = (t) => t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
+    const MOVE_KEYS = ["w", "a", "s", "d", "q", "e", "arrowup", "arrowdown", "arrowleft", "arrowright", "shift"];
+    const kd = (e) => { if (typing(e.target)) return; const k = e.key.toLowerCase(); if (MOVE_KEYS.includes(k)) { keys.add(k); if (k.startsWith("arrow")) e.preventDefault(); } };
+    const ku = (e) => keys.delete(e.key.toLowerCase());
+    const blur = () => keys.clear();
+    window.addEventListener("keydown", kd); window.addEventListener("keyup", ku); window.addEventListener("blur", blur);
+
+    function startWalk(id) {
+      const p = id && places.find((x) => x.id === id);
+      let te = p ? p.e : goal.target.x * M, tn = p ? p.n : -goal.target.z * M;
+      if (!p) { te = Math.max(-500, Math.min(700, te)); tn = Math.max(-500, Math.min(750, tn)); }
+      const back = Math.hypot(te, tn) > 1 ? Math.atan2(tn, te) : -Math.PI / 4;
+      let found = null;
+      for (let r = p && p.jenis === "rumah" ? 26 : 30; r < 160 && !found; r += 6)
+        for (let a = 0; a < 12 && !found; a++) {
+          const ang = back + Math.PI + (a % 2 ? 1 : -1) * Math.ceil(a / 2) * 0.35;
+          const e = te + Math.cos(ang) * r, n = tn + Math.sin(ang) * r;
+          if (!blocked(e, n, 3)) found = [e, n];
+        }
+      if (!found) found = [30, -30];
+      walk.e = found[0]; walk.n = found[1]; walk.yaw = Math.atan2(te - walk.e, tn - walk.n); walk.pitch = 0.08; walk.on = true;
+      camera.near = 0.01; camera.updateProjectionMatrix(); scene.fog.near = FOG_WALK[0]; scene.fog.far = FOG_WALK[1]; scene.fog.color.setHex(FOG_C_WALK);
+    }
+    function stopWalk() {
+      if (!walk.on) return;
+      walk.on = false; camera.near = 0.05; camera.updateProjectionMatrix(); scene.fog.near = FOG_MAP[0]; scene.fog.far = FOG_MAP[1]; scene.fog.color.setHex(FOG_C_MAP);
+      goal.target.set(toX(walk.e), Y(walk.e, walk.n), toZ(walk.n)); goal.dist = 9; goal.az = -walk.yaw; goal.el = 0.7;
+      st.target.copy(goal.target); st.dist = 3; st.az = goal.az; st.el = 0.4;
+    }
 
     function resize() { const w = container.clientWidth, h = container.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     const ro = new ResizeObserver(resize); ro.observe(container); resize();
 
     const labels = {}; const v = new THREE.Vector3();
+    const frustum = new THREE.Frustum(), pm4 = new THREE.Matrix4(), sphere = new THREE.Sphere();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let active = new Set(), selected = null, raf, t0 = performance.now();
+    let active = new Set(), selected = null, raf, t0 = performance.now(), last = t0, lastTick = 0;
+    const DIRS = ["utara", "timur laut", "timur", "tenggara", "selatan", "barat daya", "barat", "barat laut"];
+    // sudut kompas: 0 = utara, searah jarum jam
+    const dirName = (ang) => DIRS[((Math.round(ang / (Math.PI / 4)) % 8) + 8) % 8];
+
+    function stream(now) {
+      if (now - lastTick < 200) return; lastTick = now;
+      const fe = walk.on ? walk.e : st.target.x * M, fn = walk.on ? walk.n : -st.target.z * M;
+      const R = walk.on ? 170 : st.dist < 14 ? 150 : 0;
+      pm4.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); frustum.setFromProjectionMatrix(pm4);
+      const want = [];
+      if (R > 0) for (const cell of cells.values()) {
+        const d = Math.hypot(cell.ce - fe, cell.cn - fn); if (d > R + 45) continue;
+        sphere.center.set(toX(cell.ce), Y(cell.ce, cell.cn), toZ(cell.cn)); sphere.radius = 48 / M;
+        if (d < 55 || frustum.intersectsSphere(sphere)) want.push([d, cell]);
+      }
+      const wantKeys = new Set(want.map(([, c]) => c.key));
+      for (const [k, b] of built) { if (wantKeys.has(k)) b.last = now; else if (now - b.last > 1500) dropCell(k); }
+      want.sort((a, b) => a[0] - b[0]);
+      let budget = 2;
+      for (const [, c] of want) { if (budget <= 0) break; if (!built.has(c.key)) { buildCell(c); budget--; } }
+      let detail = 0; for (const k of built.keys()) detail += cells.get(k).ids.length;
+      let near = null;
+      if (walk.on) for (const p of places) {
+        if (p.jenis === "gunung") continue;
+        const d = Math.hypot(p.e - walk.e, p.n - walk.n) - (p.jenis === "kawasan" ? 90 : p.jenis === "rumah" ? 8 : 0);
+        if (d < 45 && (!near || d < near.dist)) near = { id: p.id, dist: Math.max(0, Math.round(d)) };
+      }
+      const kdist = Math.hypot(walk.e, walk.n);
+      onStatus({ walking: walk.on, detail, cells: built.size, near, facing: walk.on ? dirName(walk.yaw) : null,
+        kabah: walk.on ? { dist: Math.round(kdist), dir: dirName(Math.atan2(-walk.e, -walk.n)) } : null });
+    }
+
     function frame(now) {
-      const t = (now - t0) / 1000, k = reduce ? 1 : 0.08;
-      st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * k; st.target.lerp(goal.target, k);
-      camera.position.set(st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az), st.target.y + st.dist * Math.sin(st.el), st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
-      camera.lookAt(st.target);
+      const t = (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const run = keys.has("shift") ? 3 : 1;
+      if (walk.on) {
+        const f = (keys.has("w") || keys.has("arrowup") ? 1 : 0) - (keys.has("s") || keys.has("arrowdown") ? 1 : 0);
+        const sd = (keys.has("d") ? 1 : 0) - (keys.has("a") ? 1 : 0);
+        walk.yaw += ((keys.has("arrowright") || keys.has("e") ? 1 : 0) - (keys.has("arrowleft") || keys.has("q") ? 1 : 0)) * dt * 1.6;
+        if (f || sd) {
+          const sp = 7 * run * dt, se = Math.sin(walk.yaw), cn = Math.cos(walk.yaw);
+          const de = (se * f + cn * sd) * sp, dn = (cn * f - se * sd) * sp;
+          const ne = Math.max(-900, Math.min(1100, walk.e + de)), nn = Math.max(-850, Math.min(1000, walk.n + dn));
+          if (!blocked(ne, nn)) { walk.e = ne; walk.n = nn; } else if (!blocked(ne, walk.n)) walk.e = ne; else if (!blocked(walk.e, nn)) walk.n = nn;
+        }
+        const eyeY = ((heightAt(walk.e, walk.n) + 1.7) * VX) / M;
+        camera.position.set(toX(walk.e), eyeY, toZ(walk.n));
+        const cp = Math.cos(walk.pitch);
+        camera.lookAt(camera.position.x + Math.sin(walk.yaw) * cp, eyeY + Math.sin(walk.pitch), camera.position.z - Math.cos(walk.yaw) * cp);
+      } else {
+        const fx = -Math.sin(st.az), fz = -Math.cos(st.az), rx = Math.cos(st.az), rz = -Math.sin(st.az);
+        const f = (keys.has("w") || keys.has("arrowup") ? 1 : 0) - (keys.has("s") || keys.has("arrowdown") ? 1 : 0);
+        const sd = (keys.has("d") || keys.has("arrowright") ? 1 : 0) - (keys.has("a") || keys.has("arrowleft") ? 1 : 0);
+        const sp = goal.dist * 0.9 * dt * run;
+        goal.target.x += (fx * f + rx * sd) * sp; goal.target.z += (fz * f + rz * sd) * sp;
+        goal.az += ((keys.has("e") ? 1 : 0) - (keys.has("q") ? 1 : 0)) * dt * 1.4;
+        goal.target.x = Math.max(-45, Math.min(55, goal.target.x)); goal.target.z = Math.max(-50, Math.min(45, goal.target.z));
+        goal.target.y = Y(goal.target.x * M, -goal.target.z * M) * 0.6;
+        const k = reduce ? 1 : 0.08;
+        st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * k; st.target.lerp(goal.target, k);
+        camera.position.set(st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az), st.target.y + st.dist * Math.sin(st.el), st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
+        camera.lookAt(st.target);
+      }
+      camera.updateMatrixWorld();
+      stream(now);
+
       const lodMax = st.dist < 9 ? 2 : st.dist < 48 ? 1 : 0;
       const W = container.clientWidth, H = container.clientHeight;
       for (const id in markers) {
         const m = markers[id], act = active.has(id), sel = id === selected;
-        const want = (act || sel ? 0.75 : 0.32) * Math.min(1.6, Math.max(0.5, st.dist / 22));
+        const scl = walk.on ? 0.3 : Math.min(1.6, Math.max(0.5, st.dist / 22));
+        const want = (act || sel ? 0.75 : 0.32) * scl;
         m.h += (want - m.h) * 0.12;
         m.pole.scale.y = m.h; m.pole.position.y = m.h / 2; m.gem.position.y = m.h + 0.03; m.gem.rotation.y = t * (act ? 1.4 : 0.3);
-        const sc = Math.max(0.4, st.dist / 22);
+        const sc = walk.on ? 0.25 : Math.max(0.4, st.dist / 22);
         m.gem.scale.setScalar(sc * (sel ? 1.5 : 1));
         const ph = reduce ? 0.5 : (t * 0.7) % 1;
         m.ring.scale.setScalar(sc * (act || sel ? 1 + ph * (m.p.jenis === "kawasan" ? 6 : 2.2) : 1));
         m.ringM.opacity = act || sel ? (1 - ph) * 0.8 : 0;
-        if (m.mat) m.mat.emissiveIntensity = sel ? 0.6 : act ? 0.3 + 0.15 * Math.sin(t * 3) : 0.05;
+        if (m.mat) m.mat.emissiveIntensity = (walk.on ? 0.3 : 1) * (sel ? 0.25 : act ? 0.14 + 0.06 * Math.sin(t * 3) : 0);
         const lab = labels[id];
         if (lab) {
-          const vis = sel || m.p.lod <= lodMax || (act && m.p.lod <= lodMax + 1);
+          let vis;
+          if (walk.on) { const d = Math.hypot(m.p.e - walk.e, m.p.n - walk.n); vis = m.p.jenis === "gunung" || m.p.jenis === "kawasan" ? d < 900 : d < 320; }
+          else vis = sel || m.p.lod <= lodMax || (act && m.p.lod <= lodMax + 1);
           v.set(m.g.position.x, m.g.position.y + (m.show ? m.h + 0.12 : 0.1), m.g.position.z).project(camera);
           lab.style.transform = `translate(${((v.x * 0.5 + 0.5) * W).toFixed(1)}px, ${((-v.y * 0.5 + 0.5) * H).toFixed(1)}px)`;
-          lab.style.visibility = v.z < 1 && vis ? "visible" : "hidden";
+          lab.style.visibility = v.z < 1 && v.z > -1 && vis ? "visible" : "hidden";
           lab.style.zIndex = String(sel ? 99999 : Math.round((1 - v.z) * 10000));
         }
       }
       renderer.render(scene, camera);
       raf = requestAnimationFrame(frame);
     }
+
+    rebuildGrid(); setYear(opts.year || 610);
     raf = requestAnimationFrame(frame);
 
     return {
       registerLabel(id, node) { if (node) labels[id] = node; else delete labels[id]; },
       setActive(ids) { active = ids; },
+      setYear,
       select(id) {
         selected = id;
         const m = id && markers[id];
-        if (!m) return;
+        if (!m || walk.on) return;
         goal.target.set(m.g.position.x, Math.max(0, m.topY * 0.5), m.g.position.z);
-        const zoomTo = m.p.jenis === "gunung" || m.p.jenis === "kawasan" ? 28 : m.p.lod === 2 ? 5 : 10;
-        goal.dist = Math.min(goal.dist, zoomTo);
+        goal.dist = Math.min(goal.dist, m.p.jenis === "gunung" || m.p.jenis === "kawasan" ? 28 : m.p.lod === 2 ? 5 : 10);
       },
-      overview() { selected = null; goal.target.set(toX(90), 0, toZ(90)); goal.dist = 34; goal.el = 0.82; },
-      rotate(d) { goal.az += d; },
-      zoom(f) { goal.dist = Math.max(2.2, Math.min(90, goal.dist * f)); },
-      dispose() { cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); el.remove(); }
+      overview() { selected = null; if (walk.on) return; goal.target.set(toX(90), 0, toZ(90)); goal.dist = 34; goal.el = 0.82; },
+      rotate(d) { if (walk.on) walk.yaw += d; else goal.az += d; },
+      zoom(f) { if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * f)); },
+      startWalk, stopWalk,
+      press(k, on) { if (on) keys.add(k); else keys.delete(k); },
+      dispose() {
+        cancelAnimationFrame(raf); ro.disconnect();
+        window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); window.removeEventListener("blur", blur);
+        for (const k of [...built.keys()]) dropCell(k);
+        renderer.dispose(); el.remove();
+      }
     };
   }
   window.MekahScene = { create };
