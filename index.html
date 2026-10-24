@@ -347,6 +347,9 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 .st-root { position: absolute; inset: 0; pointer-events: none; }
 .st-root > * { pointer-events: auto; }
 .st-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none !important; }
+.st-layer { z-index: 1; }
+.st-root > .st-date, .st-root > .st-bottom { z-index: 2; }
+.st-root > .st-end { z-index: 4; }
 .st-node { position: absolute; left: 0; top: 0; width: 0; height: 0; visibility: hidden; }
 .st-in { position: absolute; left: 0; bottom: 0; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; transition: opacity 1.2s ease; }
 .st-in.off { opacity: 0; }
@@ -354,10 +357,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; transform: rota
 @keyframes plPop { from { opacity: 0; transform: translate(-50%, 8px) scale(.96); } }
 .st-rasul > p, .st-jibril > p { margin: 0; white-space: nowrap; text-align: center; line-height: 1.15; }
 .st-bubble { white-space: normal; text-align: left; }
+.st-wahyu { bottom: auto; top: 12px; left: 364px; right: 60px; transform: none; width: auto; max-width: 640px; margin: 0 auto; z-index: 3; white-space: normal; text-align: left; animation: plFade .6s ease; }
+.st-wahyu::after { display: none; }
 .st-rasul > .ar { font: 700 26px/1.2 var(--f-ar); color: #fff7d8; text-shadow: 0 0 12px rgba(255, 220, 140, .9), 0 1px 3px rgba(40, 24, 8, .7); }
 .st-rasul > .id { font: 600 15px/1.2 var(--f-text); color: #fff1c4; text-shadow: 0 0 10px rgba(255, 220, 140, .8), 0 1px 3px rgba(40, 24, 8, .7); }
 .st-rasul.gemetar > .ar, .st-rasul.gemetar > .id, .st-rasul.payah > .ar, .st-rasul.payah > .id { animation: plShake .18s linear infinite; }
 .st-rasul.payah, .st-rasul.sakit { opacity: .75; }
+.st-rasul.sujud > .ar, .st-rasul.sujud > .id { transform: translateY(16px) scale(.86); transition: transform .8s ease; }
 .st-rasul.berselimut::after { content: ""; position: absolute; left: 50%; bottom: -22px; width: 150px; height: 34px; margin-left: -75px; border-radius: 18px 18px 8px 8px; background: #7a5a3a; border: 2px solid #5a4028; opacity: .95; z-index: -1; }
 .st-jibril { bottom: auto; top: 26px; }
 .st-jibril .pl-bubble { bottom: calc(100% + 70px); }

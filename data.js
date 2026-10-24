@@ -138,7 +138,7 @@ window.SIRAH = {
       ayat: [{ surah: "Ad-Dhuha", no: "1–3", arab: "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",
         nuzul: "Turun sebagai jawaban atas ejekan itu: Allah tidak meninggalkan Nabi dan tidak membenci beliau.",
         sumber: "HR. Bukhari & Muslim, dari Jundub bin Sufyan", catatan: "Tahun persisnya tidak diketahui; ditempatkan di awal periode Mekah." }] },
-    { id: "shafa", tahun: 613, h: "10 SH", lok: "makkah", tempat: "Bukit Shafa", judul: "Dakwah terang-terangan",
+    { id: "shafa", tahun: 613, h: "10 SH", lok: "makkah", tempat: "Bukit Shafa", judul: "Dakwah terang-terangan", tontonan: "dakwah-shafa",
       narasi: "Nabi naik ke Bukit Shafa dan memanggil kabilah-kabilah Quraisy untuk memperingatkan mereka. Abu Lahab berdiri dan mencela beliau di depan orang banyak.",
       tokoh: ["nabi", "abulahab"],
       ayat: [
@@ -148,7 +148,7 @@ window.SIRAH = {
         { surah: "Al-Masad", no: "1–5", arab: "تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ",
           nuzul: "Turun setelah Abu Lahab berkata kepada Nabi, \"Celakalah engkau, untuk inikah engkau mengumpulkan kami?\"",
           sumber: "HR. Bukhari & Muslim, dari Ibnu Abbas" }] },
-    { id: "abasa", tahun: 614, h: "9 SH", lok: "makkah", tempat: "Mekah", judul: "Teguran dalam Surah 'Abasa",
+    { id: "abasa", tahun: 614, h: "9 SH", lok: "makkah", tempat: "Mekah", judul: "Teguran dalam Surah 'Abasa", tontonan: "abasa",
       narasi: "Ketika Nabi sedang berdakwah kepada pembesar Quraisy, Abdullah bin Ummi Maktum yang tunanetra datang meminta diajari. Nabi bermuka masam dan berpaling kepada para pembesar itu.",
       tokoh: ["nabi", "ibnuummimaktum"],
       ayat: [{ surah: "'Abasa", no: "1–10", arab: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾",

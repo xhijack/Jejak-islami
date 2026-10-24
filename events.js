@@ -263,4 +263,193 @@
     ],
     penutup: "Ejekan kaum musyrik terhadap Nabi terus berlanjut, dan dakwah segera dilakukan secara terang-terangan. Berikutnya: Asy-Syu'ara 214."
   };
+
+  // ---------- Bukit Shafa: Asy-Syu'ara 214 dan Al-Masad 1–5 ----------
+  const B4770 = { sumber: "HR. Bukhari no. 4770 (Ibnu Abbas)", url: "https://sunnah.com/bukhari:4770" };
+  const B4971 = { sumber: "HR. Bukhari no. 4971 (Ibnu Abbas)", url: "https://sunnah.com/bukhari:4971" };
+  const SHAFA = [100, -86];
+  const CAM_SHAFA = { at: [100, -64], dist: 4.4, el: 0.36, az: Math.PI - 0.25, up: 7 };
+  const JIB_SHAFA = [91, -92];
+  const jibAt = (p, power, up = 9) => ({ at: p, up, power });
+
+  window.TONTONAN["dakwah-shafa"] = {
+    peta: true, malam: 0,
+    judul: "Seruan di Bukit Shafa",
+    tahun: 613,
+    tanggal: {
+      judul: "±613 M, awal dakwah terang-terangan",
+      rinci: [
+        { k: "Waktu", v: "Hari dan bulan tidak disebut dalam riwayat. Menurut kitab sirah, peristiwa ini terjadi setelah sekitar tiga tahun dakwah secara diam-diam.", s: "Sirah Ibnu Hisyam" },
+        { k: "Tempat", v: "Bukit Shafa, di sisi timur Masjidil Haram.", s: "HR. Bukhari no. 4971", url: "https://sunnah.com/bukhari:4971" }
+      ]
+    },
+    pengantar: "Rasulullah ﷺ dan malaikat tidak digambarkan; keduanya hanya tampil sebagai nama dan cahaya. Orang-orang Quraisy tampil sebagai karakter sederhana. Urutan kejadian mengikuti HR. Bukhari no. 4770, 4971, dan 2753, dan perlu diverifikasi ustadz.",
+    tokoh: { abulahab: { nama: "Abu Lahab" }, quraisy1: { nama: "Orang Quraisy" }, quraisy2: { nama: "Orang Quraisy" }, quraisy3: { nama: "Orang Quraisy" } },
+    lampu: [],
+    paths: {
+      keShafa: [R_RUMAH, [116, 70], [110, 20], [104, -30], [102, -60], SHAFA],
+      q1: [[60, 30], [78, -20], [92, -58]], q2: [[150, 25], [130, -20], [112, -60]],
+      q3: [[40, -20], [70, -45], [84, -66]], lahab: [[152, 142], [124, 92], [116, 40], [106, -10], [102, -56]],
+      lahabPergi: [[102, -56], [108, -10], [124, 60], [152, 142]]
+    },
+    babak: [
+      { judul: "Perintah memberi peringatan", beats: [
+        { cam: { at: [110, 20], dist: 26, el: 0.78, az: Math.PI - 0.4, up: 0 }, rasul: { at: R_RUMAH, state: "tenang" }, tanggal: true,
+          sumber: "Sirah Ibnu Hisyam", narr: "Sekitar tiga tahun Rasulullah ﷺ berdakwah secara diam-diam kepada orang-orang terdekat." },
+        { cam: { at: [124, 94], dist: 3.2, el: 0.42, az: Math.PI - 0.4, up: 3 }, jibril: jibAt([116, 86], 0.6), ...B4770, narr: "Lalu turun wahyu." },
+        { ...B4770, hold: 3000, say: { who: "wahyu", ayat: "QS. Asy-Syu'ara: 214", arab: "وَأَنذِرْ عَشِيرَتَكَ الْأَقْرَبِينَ",
+          text: "Dan berilah peringatan kepada kerabat-kerabatmu yang terdekat." } }
+      ] },
+      { judul: "Di atas Bukit Shafa", beats: [
+        { jibril: jibAt([116, 86], 0), rasul: { path: "keShafa", from: 0, to: 1, dur: 9000 }, cam: { follow: "rasul", dist: 5, el: 0.5, az: "behind", up: 3 }, ...B4971,
+          narr: "Rasulullah ﷺ berjalan ke Bukit Shafa dan naik ke atasnya." },
+        { cam: { at: [101, -78], dist: 3, el: 0.3, az: Math.PI - 0.25, up: 6 }, ...B4971, say: { who: "rasul", text: "Wahai, bahaya pagi ini!", arab: "يَا صَبَاحَاهْ" } },
+        { ...B4770, say: { who: "rasul", text: "Wahai Bani Fihr! Wahai Bani 'Adi!", arab: "يَا بَنِي فِهْرٍ، يَا بَنِي عَدِيٍّ" } },
+        { cam: CAM_SHAFA, chars: [
+            { id: "quraisy1", path: "q1", from: 0, to: 1, dur: 6000, expr: "netral", on: true },
+            { id: "quraisy2", path: "q2", from: 0, to: 1, dur: 6500, expr: "netral", on: true },
+            { id: "quraisy3", path: "q3", from: 0, to: 1, dur: 5500, expr: "netral", on: true },
+            { id: "abulahab", path: "lahab", from: 0, to: 1, dur: 8000, expr: "tegas", on: true }], ...B4770,
+          narr: "Kabilah-kabilah Quraisy berdatangan. Yang tidak bisa datang mengirim utusan untuk melihat apa yang terjadi. Abu Lahab pun datang." },
+        { ...B4770, say: { who: "rasul", text: "Bagaimana pendapat kalian, jika aku kabarkan bahwa ada pasukan berkuda di lembah ini yang hendak menyerang kalian, apakah kalian akan mempercayaiku?" } },
+        { chars: [{ id: "quraisy2", expr: "senyum" }], ...B4770,
+          say: { who: "quraisy2", text: "Ya. Kami tidak pernah mendapatimu kecuali berkata benar.", arab: "مَا جَرَّبْنَا عَلَيْكَ إِلَّا صِدْقًا" } },
+        { chars: [{ id: "quraisy1", expr: "kaget" }, { id: "quraisy3", expr: "khawatir" }], ...B4770, hold: 1200,
+          say: { who: "rasul", text: "Sesungguhnya aku adalah pemberi peringatan bagi kalian sebelum datangnya azab yang pedih.", arab: "فَإِنِّي نَذِيرٌ لَكُمْ بَيْنَ يَدَيْ عَذَابٍ شَدِيدٍ" } },
+        { sumber: "HR. Bukhari no. 2753 (Abu Hurairah)", url: "https://sunnah.com/bukhari:2753", hold: 1500,
+          narr: "Dalam riwayat Abu Hurairah, beliau berseru: \"Wahai kaum Quraisy, selamatkanlah diri kalian.\" Sampai kepada putrinya: \"Wahai Fatimah, mintalah dari hartaku sesukamu, tetapi aku tidak dapat menolongmu sedikit pun dari Allah.\"" }
+      ] },
+      { judul: "Celaan Abu Lahab", beats: [
+        { chars: [{ id: "abulahab", expr: "sinis" }], cam: { at: [101, -64], dist: 2.6, el: 0.36, az: Math.PI - 0.25, up: 3 }, ...B4770,
+          say: { who: "abulahab", text: "Celakalah engkau sepanjang hari ini! Untuk inikah engkau mengumpulkan kami?", arab: "تَبًّا لَكَ سَائِرَ الْيَوْمِ، أَلِهَذَا جَمَعْتَنَا" } },
+        { chars: [{ id: "abulahab", path: "lahabPergi", from: 0, to: 0.45, dur: 4500, expr: "tegas" }, { id: "quraisy1", expr: "netral" }, { id: "quraisy3", expr: "netral" }],
+          cam: CAM_SHAFA, ...B4971, narr: "Abu Lahab lalu berdiri dan pergi." },
+        { jibril: jibAt(JIB_SHAFA, 0.6, 24), cam: { at: [97, -82], dist: 3.4, el: 0.36, az: Math.PI - 0.25, up: 6 }, ...B4770, narr: "Maka Allah menurunkan wahyu." },
+        { ...B4770, hold: 4500, say: { who: "wahyu", ayat: "QS. Al-Masad: 1–3",
+          arab: "تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ ﴿١﴾ مَا أَغْنَىٰ عَنْهُ مَالُهُ وَمَا كَسَبَ ﴿٢﴾ سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ ﴿٣﴾",
+          text: "Binasalah kedua tangan Abu Lahab, dan benar-benar binasa dia! Tidaklah berguna baginya hartanya dan apa yang dia usahakan. Kelak dia akan masuk ke dalam api yang bergejolak." } },
+        { ...B4770, hold: 3000, say: { who: "wahyu", ayat: "QS. Al-Masad: 4–5",
+          arab: "وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ ﴿٤﴾ فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ ﴿٥﴾",
+          text: "Dan (begitu pula) istrinya, pembawa kayu bakar. Di lehernya ada tali dari sabut." } },
+        { jibril: jibAt(JIB_SHAFA, 0, 24), chars: [{ id: "quraisy1", on: false }, { id: "quraisy2", on: false }, { id: "quraisy3", on: false }, { id: "abulahab", on: false }],
+          cam: { at: [110, 0], dist: 24, el: 0.72, az: Math.PI - 0.4, up: 0 }, sumber: "Tafsir Ibnu Katsir", url: "https://quran.com/111:1/tafsirs/en-tafisr-ibn-kathir",
+          narr: "Kata \"celaka\" yang diucapkan Abu Lahab dijawab dengan kata yang sama. Ia adalah paman Nabi sendiri, dan ia wafat dalam kekafiran setelah Perang Badar." }
+      ] }
+    ],
+    penutup: "Sejak hari itu dakwah dilakukan secara terang-terangan, dan permusuhan Quraisy pun makin keras."
+  };
+
+  // ---------- 'Abasa 1–10 ----------
+  const T3331 = { sumber: "HR. Tirmidzi no. 3331 (Aisyah), hasan gharib", url: "https://sunnah.com/tirmidhi:3331" };
+  const R_ABASA = [30, -34], PEMBESAR = [36, -30];
+  const CAM_ABASA = { at: [33, -32], dist: 2.4, el: 0.36, az: 0.5, up: 3 };
+  window.TONTONAN["abasa"] = {
+    peta: true, malam: 0,
+    judul: "Teguran dalam Surah 'Abasa",
+    tahun: 614,
+    tanggal: {
+      judul: "Periode Mekah, ±614 M",
+      rinci: [
+        { k: "Waktu", v: "Tahun, bulan, dan hari tidak disebut dalam riwayat. ±614 M adalah perkiraan.", s: "Perkiraan" },
+        { k: "Tempat", v: "Tidak disebut. Di peta ini ditampilkan di dekat Ka'bah hanya sebagai ilustrasi.", s: "Catatan penyusun" },
+        { k: "Pembesar Quraisy", v: "Namanya tidak disebut dalam riwayat Tirmidzi; kitab tafsir menyebut nama yang berbeda-beda.", s: "Tafsir Ibnu Katsir", url: "https://quran.com/80:1/tafsirs/en-tafisr-ibn-kathir" }
+      ]
+    },
+    pengantar: "Rasulullah ﷺ dan malaikat tidak digambarkan; keduanya hanya tampil sebagai nama dan cahaya. Pembesar Quraisy tidak disebut namanya dalam riwayat. Urutan kejadian mengikuti HR. Tirmidzi no. 3331 dan Tafsir Ibnu Katsir, dan perlu diverifikasi ustadz.",
+    tokoh: { pembesar: { nama: "Pembesar Quraisy" }, ibnuummimaktum: { nama: "Ibnu Ummi Maktum" } },
+    lampu: [],
+    paths: { datang: [[70, -80], [46, -56], [27, -42]] },
+    babak: [
+      { judul: "Berbicara dengan pembesar Quraisy", beats: [
+        { cam: { at: [20, -20], dist: 14, el: 0.7, az: 0.5, up: 0 }, rasul: { at: R_ABASA, state: "tenang" }, chars: [{ id: "pembesar", at: PEMBESAR, expr: "netral", on: true }], tanggal: true,
+          sumber: "Tafsir Ibnu Katsir", url: "https://quran.com/80:1/tafsirs/en-tafisr-ibn-kathir",
+          narr: "Di Mekah, Rasulullah ﷺ sedang berbicara dengan salah seorang pembesar Quraisy. Beliau sangat berharap orang itu mau menerima Islam." },
+        { cam: CAM_ABASA, ...T3331, narr: "Tempat dan nama pembesar itu tidak disebut dalam riwayat. Di peta ini peristiwanya ditampilkan di dekat Ka'bah sebagai ilustrasi." }
+      ] },
+      { judul: "Datangnya seorang tunanetra", beats: [
+        { chars: [{ id: "ibnuummimaktum", path: "datang", from: 0, to: 1, dur: 6000, expr: "senyum", on: true }], ...T3331,
+          narr: "Datanglah Abdullah bin Ummi Maktum, seorang tunanetra yang sudah lebih dulu masuk Islam." },
+        { ...T3331, say: { who: "ibnuummimaktum", text: "Wahai Rasulullah, bimbinglah aku.", arab: "يَا رَسُولَ اللَّهِ أَرْشِدْنِي" } },
+        { chars: [{ id: "ibnuummimaktum", expr: "netral" }], ...T3331, narr: "Rasulullah ﷺ bermuka masam dan berpaling darinya, lalu menghadap kepada pembesar itu." },
+        { ...T3331, say: { who: "rasul", text: "Apakah menurutmu ada yang salah dengan apa yang aku katakan?", arab: "أَتَرَى بِمَا أَقُولُ بَأْسًا" } },
+        { chars: [{ id: "pembesar", expr: "tegas" }], ...T3331, say: { who: "pembesar", text: "Tidak.", arab: "لَا" } }
+      ] },
+      { judul: "Teguran dari Allah", beats: [
+        { jibril: jibAt([22, -28], 0.55), ...T3331, narr: "Maka turunlah wahyu." },
+        { ...T3331, hold: 4000, say: { who: "wahyu", ayat: "QS. 'Abasa: 1–4",
+          arab: "عَبَسَ وَتَوَلَّىٰ ﴿١﴾ أَن جَاءَهُ الْأَعْمَىٰ ﴿٢﴾ وَمَا يُدْرِيكَ لَعَلَّهُ يَزَّكَّىٰ ﴿٣﴾ أَوْ يَذَّكَّرُ فَتَنفَعَهُ الذِّكْرَىٰ ﴿٤﴾",
+          text: "Dia bermuka masam dan berpaling, karena seorang buta telah datang kepadanya. Dan tahukah engkau, barangkali dia ingin menyucikan dirinya, atau dia ingin mendapatkan pengajaran, sehingga pengajaran itu bermanfaat baginya?" } },
+        { ...T3331, hold: 4000, say: { who: "wahyu", ayat: "QS. 'Abasa: 5–10",
+          arab: "أَمَّا مَنِ اسْتَغْنَىٰ ﴿٥﴾ فَأَنتَ لَهُ تَصَدَّىٰ ﴿٦﴾ وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ ﴿٧﴾ وَأَمَّا مَن جَاءَكَ يَسْعَىٰ ﴿٨﴾ وَهُوَ يَخْشَىٰ ﴿٩﴾ فَأَنتَ عَنْهُ تَلَهَّىٰ ﴿١٠﴾",
+          text: "Adapun orang yang merasa dirinya serba cukup, maka engkau memberi perhatian kepadanya, padahal tidak ada cela atasmu kalau dia tidak menyucikan diri. Adapun orang yang datang kepadamu dengan bersegera, sedang dia takut kepada Allah, engkau malah mengabaikannya." } },
+        { jibril: jibAt([22, -28], 0), chars: [{ id: "pembesar", on: false }], sumber: "Tafsir Ibnu Katsir", url: "https://quran.com/80:1/tafsirs/en-tafisr-ibn-kathir",
+          narr: "Peringatan Al-Qur'an disampaikan sama rata kepada yang mulia dan yang lemah, yang kaya dan yang miskin." },
+        { chars: [{ id: "ibnuummimaktum", expr: "lembut" }], sumber: "HR. Bukhari no. 617 (Ibnu Umar)", url: "https://sunnah.com/bukhari:617",
+          narr: "Ibnu Ummi Maktum tetap dekat dengan Nabi. Di Madinah ia menjadi salah satu muadzin Rasulullah ﷺ bersama Bilal." }
+      ] }
+    ],
+    penutup: "Teguran ini dibacakan sampai sekarang sebagai pelajaran untuk tidak membeda-bedakan orang yang datang mencari ilmu."
+  };
+
+  // ---------- Al-'Alaq 6–19: ancaman Abu Jahal ----------
+  const M2797 = { sumber: "HR. Muslim no. 2797 (Abu Hurairah)", url: "https://sunnah.com/muslim:2797" };
+  const R_SHALAT = [14, -18], MAJELIS = [-22, 26];
+  const CAM_KABAH = { at: [9, 0], dist: 3.6, el: 0.42, az: Math.PI / 2, up: 3 };
+  window.TONTONAN["ancaman-abujahal"] = {
+    peta: true, malam: 0,
+    judul: "Ancaman Abu Jahal di Ka'bah",
+    tahun: 614,
+    malaikat: { ar: "ملائكة", id: "Para malaikat" },
+    tanggal: {
+      judul: "Periode Mekah, ±614 M",
+      rinci: [
+        { k: "Waktu", v: "Tahun, bulan, dan hari tidak disebut dalam riwayat. ±614 M adalah perkiraan, setelah Nabi shalat terang-terangan di Ka'bah.", s: "Perkiraan" },
+        { k: "Tempat", v: "Dekat Ka'bah.", s: "HR. Bukhari no. 4958", url: "https://sunnah.com/bukhari:4958" }
+      ]
+    },
+    pengantar: "Rasulullah ﷺ dan malaikat tidak digambarkan; keduanya hanya tampil sebagai nama dan cahaya. Apa yang dilihat Abu Jahal hanya diceritakan lewat ucapannya. Urutan kejadian mengikuti HR. Muslim no. 2797, HR. Bukhari no. 4958, dan HR. Tirmidzi no. 3349, dan perlu diverifikasi ustadz.",
+    tokoh: { abujahal: { nama: "Abu Jahal" }, quraisy1: { nama: "Orang Quraisy" }, quraisy2: { nama: "Orang Quraisy" } },
+    lampu: [],
+    paths: { dekat: [MAJELIS, [-6, 22], [12, 10], [16, -4], [15, -11]] },
+    babak: [
+      { judul: "Sumpah Abu Jahal", beats: [
+        { cam: { at: [-6, 6], dist: 12, el: 0.66, az: 2.5, up: 0 }, rasul: { at: R_SHALAT, state: "tenang" }, tanggal: true,
+          chars: [{ id: "abujahal", at: MAJELIS, expr: "tegas", on: true }, { id: "quraisy1", at: [-28, 22], expr: "netral", on: true }, { id: "quraisy2", at: [-16, 32], expr: "netral", on: true }],
+          ...M2797, narr: "Di dekat Ka'bah, Abu Jahal duduk bersama orang-orang Quraisy." },
+        { cam: { at: [-21, 27], dist: 2.6, el: 0.4, az: 2.5, up: 3 }, ...M2797,
+          say: { who: "abujahal", text: "Apakah Muhammad menyungkurkan wajahnya (sujud) di hadapan kalian?" } },
+        { ...M2797, say: { who: "quraisy1", text: "Ya." } },
+        { chars: [{ id: "abujahal", expr: "sinis" }], ...M2797,
+          say: { who: "abujahal", text: "Demi Lata dan Uzza, jika aku melihatnya melakukan itu, sungguh akan kuinjak lehernya, atau akan kubenamkan wajahnya ke tanah." } }
+      ] },
+      { judul: "Parit api dan sayap-sayap", beats: [
+        { cam: CAM_KABAH, rasul: { state: "sujud" }, ...M2797, narr: "Rasulullah ﷺ shalat di dekat Ka'bah." },
+        { chars: [{ id: "abujahal", path: "dekat", from: 0, to: 0.85, dur: 6000, expr: "tegas" }], ...M2797,
+          narr: "Abu Jahal mendatangi beliau, bermaksud menginjak leher beliau." },
+        { chars: [{ id: "abujahal", path: "dekat", from: 0.85, to: 0.62, dur: 2200, expr: "kaget" }], jibril: { at: [15, -9], up: 2, power: 0.7 }, ...M2797,
+          narr: "Tiba-tiba ia mundur sambil melindungi diri dengan kedua tangannya." },
+        { jibril: { at: [15, -9], up: 2, power: 0 }, chars: [{ id: "quraisy2", expr: "kaget" }], ...M2797, say: { who: "quraisy2", text: "Ada apa denganmu?" } },
+        { chars: [{ id: "abujahal", expr: "khawatir" }], ...M2797,
+          say: { who: "abujahal", text: "Sesungguhnya antara aku dan dia ada parit dari api, kengerian, dan sayap-sayap.", arab: "إِنَّ بَيْنِي وَبَيْنَهُ لَخَنْدَقًا مِنْ نَارٍ وَهَوْلًا وَأَجْنِحَةً" } },
+        { rasul: { state: "tenang" }, ...M2797,
+          say: { who: "rasul", text: "Seandainya ia mendekatiku, niscaya malaikat akan menyambarnya anggota demi anggota.", arab: "لَوْ دَنَا مِنِّي لَاخْتَطَفَتْهُ الْمَلَائِكَةُ عُضْوًا عُضْوًا" } }
+      ] },
+      { judul: "Turunnya ayat", beats: [
+        { jibril: { at: [20, -24], up: 9, power: 0.6 }, ...M2797, narr: "Maka Allah menurunkan ayat-ayat Surah Al-'Alaq." },
+        { ...M2797, hold: 3000, say: { who: "wahyu", ayat: "QS. Al-'Alaq: 6–10",
+          arab: "كَلَّا إِنَّ الْإِنسَانَ لَيَطْغَىٰ ﴿٦﴾ أَن رَّآهُ اسْتَغْنَىٰ ﴿٧﴾ إِنَّ إِلَىٰ رَبِّكَ الرُّجْعَىٰ ﴿٨﴾ أَرَأَيْتَ الَّذِي يَنْهَىٰ ﴿٩﴾ عَبْدًا إِذَا صَلَّىٰ ﴿١٠﴾",
+          text: "Sekali-kali tidak! Sungguh, manusia benar-benar melampaui batas, apabila melihat dirinya serba cukup. Sungguh, hanya kepada Tuhanmulah tempat kembali. Bagaimana pendapatmu tentang orang yang melarang seorang hamba ketika dia melaksanakan shalat?" } },
+        { ...M2797, hold: 3000, say: { who: "wahyu", ayat: "QS. Al-'Alaq: 11–14",
+          arab: "أَرَأَيْتَ إِن كَانَ عَلَى الْهُدَىٰ ﴿١١﴾ أَوْ أَمَرَ بِالتَّقْوَىٰ ﴿١٢﴾ أَرَأَيْتَ إِن كَذَّبَ وَتَوَلَّىٰ ﴿١٣﴾ أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ ﴿١٤﴾",
+          text: "Bagaimana pendapatmu jika dia berada di atas petunjuk, atau dia menyuruh bertakwa? Bagaimana pendapatmu jika dia mendustakan dan berpaling? Tidakkah dia mengetahui bahwa sesungguhnya Allah melihat?" } },
+        { ...M2797, hold: 3500, say: { who: "wahyu", ayat: "QS. Al-'Alaq: 15–19",
+          arab: "كَلَّا لَئِن لَّمْ يَنتَهِ لَنَسْفَعًا بِالنَّاصِيَةِ ﴿١٥﴾ نَاصِيَةٍ كَاذِبَةٍ خَاطِئَةٍ ﴿١٦﴾ فَلْيَدْعُ نَادِيَهُ ﴿١٧﴾ سَنَدْعُ الزَّبَانِيَةَ ﴿١٨﴾ كَلَّا لَا تُطِعْهُ وَاسْجُدْ وَاقْتَرِب ﴿١٩﴾",
+          text: "Sekali-kali tidak! Jika dia tidak berhenti, niscaya Kami tarik ubun-ubunnya, ubun-ubun orang yang mendustakan dan durhaka. Maka biarlah dia memanggil golongannya, Kami pun akan memanggil Malaikat Zabaniyah. Sekali-kali tidak! Janganlah engkau patuh kepadanya; sujudlah dan dekatkanlah dirimu kepada Allah." } },
+        { jibril: { at: [20, -24], up: 9, power: 0 }, rasul: { state: "sujud" }, cam: { at: [0, 0], dist: 14, el: 0.7, az: Math.PI / 2, up: 0 },
+          sumber: "HR. Tirmidzi no. 3349 (Ibnu Abbas)", url: "https://sunnah.com/tirmidhi:3349",
+          narr: "Dalam riwayat Ibnu Abbas, Abu Jahal membanggakan majelisnya yang paling banyak di Mekah. Ibnu Abbas berkata, seandainya ia memanggil golongannya, malaikat Zabaniyah pasti menyambarnya." }
+      ] }
+    ],
+    penutup: "Ayat terakhir surah ini adalah ayat sajdah: \"sujudlah dan dekatkanlah dirimu kepada Allah.\""
+  };
 })();

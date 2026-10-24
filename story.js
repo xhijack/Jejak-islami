@@ -12,6 +12,10 @@
   };
   // Tokoh perempuan: [warna baju, warna kerudung]
   const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"] };
+  // Tokoh laki-laki: [warna jubah, warna serban, warna janggut]; tanpa entri = tampilan Waraqah
+  const MALE = { abulahab: ["#8a3b22", "#e0d3ae", "#5a3a26"], abujahal: ["#3e2f5a", "#cfc3a0", "#2e2018"], pembesar: ["#2f4f5a", "#e6dcc0", "#3a2a20"],
+    ibnuummimaktum: ["#7a6a50", "#efe8d8", "#4a3a2a"], quraisy1: ["#5c4a3a", "#d9cfb4", "#3a2a20"], quraisy2: ["#4a5a3a", "#e2d8bc", "#5a4636"], quraisy3: ["#6a3a3a", "#e8dcc2", "#2e2018"] };
+  const BLIND = { waraqah: 1, ibnuummimaktum: 1 };
   const ST = { fill: "none", stroke: "#2a1d16", "stroke-width": 3.4, "stroke-linecap": "round" };
   function Eye({ kind, x }) {
     if (kind === "dot") return html`<g class="pl-blink"><circle cx=${x} cy="-30" r="3.6" fill="#2a1d16" /></g>`;
@@ -34,7 +38,7 @@
     return null;
   }
   function Chibi({ id, expr, talk }) {
-    const ex = EXPR[expr] || EXPR.netral, blind = id === "waraqah";
+    const ex = EXPR[expr] || EXPR.netral, blind = !!BLIND[id], m = MALE[id] || ["#6a5440", "#efe8d8", "#f2efe6"];
     const eye = blind ? (expr === "sedih" ? "sad" : expr === "kagum" || expr === "senyum" ? "happy" : "closed") : ex.eye;
     return html`<svg class="st-chibi" viewBox="-60 -92 120 196" aria-hidden="true">
       <ellipse cx="0" cy="96" rx="46" ry="8" fill="#000" opacity=".3" />
@@ -45,12 +49,12 @@
           <ellipse cx="0" cy="-26" rx="28" ry="30" fill="#e8c9a6" />
           <path d="M-31 -40 Q0 -66 31 -40" fill="none" stroke="#2f3b4a" stroke-width="6" stroke-linecap="round" /></g>`
         : html`<g>
-          <path d="M-50 94 Q-54 24 -30 6 L30 6 Q54 24 50 94 Z" fill="#6a5440" />
+          <path d="M-50 94 Q-54 24 -30 6 L30 6 Q54 24 50 94 Z" fill=${m[0]} />
           <path d="M-14 6 L0 40 L14 6" fill="#e9e2d2" />
           <ellipse cx="0" cy="-26" rx="29" ry="30" fill="#e2c09a" />
-          <path d="M-27 -16 Q-30 22 0 32 Q30 22 27 -16 Q16 -4 0 -4 Q-16 -4 -27 -16Z" fill="#f2efe6" />
-          <path d="M-33 -36 Q-34 -72 0 -72 Q34 -72 33 -36 Q16 -48 0 -48 Q-16 -48 -33 -36Z" fill="#efe8d8" />
-          <path d="M40 30 L58 94" stroke="#5a3e28" stroke-width="5" stroke-linecap="round" /></g>`}
+          <path d="M-27 -16 Q-30 22 0 32 Q30 22 27 -16 Q16 -4 0 -4 Q-16 -4 -27 -16Z" fill=${m[2]} />
+          <path d="M-33 -36 Q-34 -72 0 -72 Q34 -72 33 -36 Q16 -48 0 -48 Q-16 -48 -33 -36Z" fill=${m[1]} />
+          ${blind && html`<path d="M40 30 L58 94" stroke="#5a3e28" stroke-width="5" stroke-linecap="round" />`}</g>`}
         <${Eye} kind=${eye} x=${-11} /><${Eye} kind=${eye} x=${11} />
         <g transform=${blind ? "translate(0 4)" : ""}><${Mouth} kind=${ex.mouth} talk=${talk} /></g>
       </g>
@@ -158,7 +162,7 @@
 
     const node = (actor, extra = {}) => (el) => S.node(el, el ? { actor, ...extra } : null);
     const shown = text.slice(0, typed), caret = typed < text.length ? "▍" : "";
-    const bubble = (sp) => who === sp && !st.inside && html`<div class=${`pl-bubble st-bubble${sp === "jibril" ? " light" : sp === "rasul" ? " rasul" : ""}`} key=${"b" + i}>
+    const bubble = (sp) => who === sp && !st.inside && html`<div class=${`pl-bubble st-bubble${sp === "jibril" || sp === "wahyu" ? " light" : sp === "rasul" ? " rasul" : ""}`} key=${"b" + i}>
       <p class="pl-who">${NAMA[sp] || ev.tokoh[sp].nama}${b.say.ayat ? html` <span>${b.say.ayat}</span>` : ""}</p>
       ${b.say.arab && html`<p class="pl-ar" lang="ar" dir="rtl">${b.say.arab}</p>`}
       <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p></div>`;
@@ -172,7 +176,7 @@
         </div>
         <div class="st-node" ref=${node("jibril", { dy: 0 })}>
           <div class=${`st-in st-jibril${st.jib.power > 0.05 ? "" : " off"}`}>${bubble("jibril")}
-            <p class="ar" lang="ar">جبريل</p><p class="id">Jibril</p></div>
+            <p class="ar" lang="ar">${(ev.malaikat || {}).ar || "جبريل"}</p><p class="id">${(ev.malaikat || {}).id || "Jibril"}</p></div>
         </div>
         ${Object.entries(st.chars).map(([cid, c]) => html`<div key=${cid} class="st-node" ref=${node(cid, { dy: 0, scale: true })}>
           <div class=${`st-in st-char${c.on === false ? " off" : ""}`}>${bubble(cid)}<${Chibi} id=${cid} expr=${c.expr} talk=${talk && who === cid} />
@@ -180,6 +184,10 @@
         </div>`)}
       </div>
 
+      ${who === "wahyu" && !st.inside && html`<div class="pl-bubble light st-wahyu" key=${"w" + i} role="status">
+        <p class="pl-who">${NAMA.wahyu}${b.say.ayat ? html` <span>${b.say.ayat}</span>` : ""}</p>
+        ${b.say.arab && html`<p class="pl-ar" lang="ar" dir="rtl">${b.say.arab}</p>`}
+        <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p></div>`}
       ${lastInside.current && window.SirahInterior && html`<${window.SirahInterior} inside=${lastInside.current} show=${!!st.inside} say=${st.inside ? b.say : null}
         talk=${talk} shown=${shown} caret=${caret} tokoh=${ev.tokoh} idx=${i} flash=${!!(st.inside && b.hitung)} />`}
       <div class=${`st-date${b.tanggal ? " hl" : ""}`}>
