@@ -142,6 +142,34 @@
     return t;
   }
 
+  // Tekstur detail pasir/kerikil (abu-abu terang, dikalikan warna medan) dan normal map untuk relief halus
+  function groundTextures(THREE) {
+    const N = 256, hgt = new Float32Array(N * N);
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const u = x / N, v = y / N, tile = (fx, fy, f) => vnoise(((fx * f) % f + f) % f, ((fy * f) % f + f) % f);
+      let hv = 0, a = 0.5, f = 8;
+      for (let o = 0; o < 4; o++) { // noise yang bisa diulang tanpa sambungan
+        const X = u * f, Yv = v * f, xi = Math.floor(X), yi = Math.floor(Yv), xf = X - xi, yf = Yv - yi;
+        const g = (i, j) => hash(((xi + i) % f + f) % f + o * 37, ((yi + j) % f + f) % f);
+        const sx = xf * xf * (3 - 2 * xf), sy = yf * yf * (3 - 2 * yf);
+        hv += a * (g(0, 0) + (g(1, 0) - g(0, 0)) * sx + (g(0, 1) - g(0, 0)) * sy + (g(0, 0) - g(1, 0) - g(0, 1) + g(1, 1)) * sx * sy);
+        a *= 0.5; f *= 2;
+      }
+      hgt[y * N + x] = hv + (hash(x, y) - 0.5) * 0.18; // butiran kerikil
+    }
+    const cm = document.createElement("canvas"), cn = document.createElement("canvas"); cm.width = cm.height = cn.width = cn.height = N;
+    const gm = cm.getContext("2d"), gn = cn.getContext("2d"), im = gm.createImageData(N, N), inn = gn.createImageData(N, N);
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const i = y * N + x, h = hgt[i], hx = hgt[y * N + ((x + 1) % N)] - hgt[y * N + ((x - 1 + N) % N)], hy = hgt[((y + 1) % N) * N + x] - hgt[((y - 1 + N) % N) * N + x];
+      const v = 200 + h * 55; im.data.set([v, v - 3, v - 8, 255], i * 4);
+      let nx = -hx * 2.2, ny = -hy * 2.2, nz = 1; const L = Math.hypot(nx, ny, nz); nx /= L; ny /= L; nz /= L;
+      inn.data.set([(nx * 0.5 + 0.5) * 255, (ny * 0.5 + 0.5) * 255, (nz * 0.5 + 0.5) * 255, 255], i * 4);
+    }
+    gm.putImageData(im, 0, 0); gn.putImageData(inn, 0, 0);
+    const mk = (c) => { const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; return t; };
+    return { map: mk(cm), normal: mk(cn) };
+  }
+
   function create(container, opts) {
     const THREE = window.THREE, U = units(THREE);
     const places = opts.tempat, onStatus = opts.onStatus || (() => {});
@@ -149,39 +177,120 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
     const scene = new THREE.Scene();
-    const FOG_MAP = [80, 170], FOG_WALK = [4, 26], FOG_C_MAP = 0x15122a, FOG_C_WALK = 0xb88a6c;
+    const FOG_MAP = [80, 170], FOG_WALK = [6, 46], FOG_C_MAP = 0x15122a, FOG_C_WALK = 0xe6b98c;
     scene.fog = new THREE.Fog(FOG_C_MAP, FOG_MAP[0], FOG_MAP[1]);
-    const camera = new THREE.PerspectiveCamera(36, 1, 0.05, 400);
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.05, 500);
 
     scene.add(new THREE.HemisphereLight(0xe6dcff, 0x4a3524, 0.62));
-    const sun = new THREE.DirectionalLight(0xffcf96, 1.05); sun.position.set(-40, 17, 12); scene.add(sun);
+    // Matahari sore dari barat; bayangan mengikuti area yang sedang dilihat
+    const SUN_DIR = new THREE.Vector3(-40, 17, 12).normalize();
+    const sun = new THREE.DirectionalLight(0xffd3a0, 1.15); scene.add(sun); scene.add(sun.target);
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+    const shCam = sun.shadow.camera; shCam.near = 1; shCam.far = 200;
+    let shHalf = 0;
+    function updateSun(fx, fz, half) {
+      sun.target.position.set(fx, 0, fz); sun.position.set(fx + SUN_DIR.x * 80, SUN_DIR.y * 80, fz + SUN_DIR.z * 80);
+      sun.target.updateMatrixWorld();
+      if (Math.abs(half - shHalf) > 0.5) { shHalf = half; shCam.left = -half; shCam.right = half; shCam.top = half; shCam.bottom = -half; shCam.updateProjectionMatrix(); }
+    }
 
-    // Medan
-    const SIZE = 2200, SEG = 220, HALF = SIZE / 2, OFF_E = 100, OFF_N = 80;
+    // Jalan: jalur bersejarah dari data + gang rekonstruksi yang menyebar dari Ka'bah
+    const roads = (opts.jalan || []).map((r) => ({ id: r.id, pts: r.pts, w: r.lebar || 8 }));
+    { let s2 = 3; const rr = () => (s2 = (s2 * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 10; i++) {
+        let a = (i / 10) * Math.PI * 2 + rr() * 0.3; const pts = [];
+        for (let r = 34; r < 380; r += 30) { a += (rr() - 0.5) * 0.35; pts.push([Math.cos(a) * r, Math.sin(a) * r]); }
+        roads.push({ id: "gang" + i, pts, w: 5, generic: true });
+      } }
+    const WADI = [[330, 1000], [220, 640], [130, 340], [50, 130], [-5, 0], [-35, -160], [-60, -460], [-85, -860]];
+    const segs = [];
+    for (const r of roads) for (let k = 0; k < r.pts.length - 1; k++) {
+      const [a, b] = r.pts[k], [c, d] = r.pts[k + 1];
+      segs.push({ a, b, c, d, w: r.w, g: !!r.generic, x0: Math.min(a, c) - 20, x1: Math.max(a, c) + 20, y0: Math.min(b, d) - 20, y1: Math.max(b, d) + 20 });
+    }
+    function roadDist(e, n) {
+      let best = 1e9, gen = true;
+      for (const s of segs) {
+        if (e < s.x0 || e > s.x1 || n < s.y0 || n > s.y1) continue;
+        const dd = segDist(e, n, s.a, s.b, s.c, s.d) - s.w / 2;
+        if (dd < best) { best = dd; gen = s.g; }
+      }
+      return [best, gen];
+    }
+    function wadiDist(e, n) { let b = 1e9; for (let k = 0; k < WADI.length - 1; k++) b = Math.min(b, segDist(e, n, ...WADI[k], ...WADI[k + 1])); return b; }
+
+    // Medan (±6,7 m per titik)
+    const SIZE = 2200, SEG = 330, HALF = SIZE / 2, OFF_E = 100, OFF_N = 80, ROW = SEG + 1, STEP = SIZE / SEG;
     const geo = new THREE.PlaneGeometry(SIZE / M, SIZE / M, SEG, SEG); geo.rotateX(-Math.PI / 2);
     const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
-    const cSand = new THREE.Color(0xa9875a), cDust = new THREE.Color(0x8c6b47), cRock = new THREE.Color(0x5b4334), cDark = new THREE.Color(0x372921);
+    const hA = new Float32Array(pos.count), mA = new Float32Array(pos.count);
+    for (let i = 0; i < pos.count; i++) { const e = pos.getX(i) * M + OFF_E, n = -pos.getZ(i) * M + OFF_N; hA[i] = heightAt(e, n); mA[i] = mountainH(e, n); }
+    const cSand = new THREE.Color(0xb08f62), cDust = new THREE.Color(0x92714c), cRock = new THREE.Color(0x5e4536), cDark = new THREE.Color(0x3a2b22),
+      cWadi = new THREE.Color(0xcdb388), cRoad = new THREE.Color(0xbfa27a), cGang = new THREE.Color(0xa88a63);
     const tmp = new THREE.Color();
     for (let i = 0; i < pos.count; i++) {
-      const e = pos.getX(i) * M + OFF_E, n = -pos.getZ(i) * M + OFF_N;
-      const mh = mountainH(e, n), h = heightAt(e, n);
+      const e = pos.getX(i) * M + OFF_E, n = -pos.getZ(i) * M + OFF_N, h = hA[i], mh = mA[i];
       const edge = Math.min(1, (HALF - Math.max(Math.abs(e - OFF_E), Math.abs(n - OFF_N))) / 80);
       pos.setX(i, toX(e)); pos.setZ(i, toZ(n)); pos.setY(i, ((h * VX) / M) * edge - (1 - edge) * 0.8);
-      const r = fbm(e / 25, n / 25);
-      if (mh < 6) tmp.copy(cSand).lerp(cDust, r * 0.8);
+      const ix = i % ROW, iy = Math.floor(i / ROW);
+      const hx = hA[i + (ix < SEG ? 1 : -1)], hy = hA[i + (iy < SEG ? ROW : -ROW)];
+      const slope = Math.hypot(hx - h, hy - h) / STEP;
+      const r = fbm(e / 25, n / 25), r2 = fbm(e / 7, n / 7);
+      if (mh < 6) tmp.copy(cSand).lerp(cDust, r * 0.7);
       else if (mh < 60) tmp.copy(cDust).lerp(cRock, (mh - 6) / 54 + r * 0.2);
       else tmp.copy(cRock).lerp(cDark, Math.min(1, (mh - 60) / 90 + r * 0.3));
+      tmp.lerp(cDark, smooth(0.3, 0.9, slope) * 0.65);                       // tebing curam: batu gelap
+      if (mh < 14) {                                                          // dasar Wadi Ibrahim: pasir halus bekas aliran banjir
+        const wt = smooth(48, 8, wadiDist(e, n)) * (1 - mh / 14);
+        tmp.lerp(cWadi, wt * (0.55 + 0.25 * r2));
+      }
+      const [rd, gen] = roadDist(e, n);                                       // jalan tanah yang terinjak
+      if (rd < 4) tmp.lerp(gen ? cGang : cRoad, smooth(4, -1, rd) * (gen ? 0.35 * smooth(380, 200, Math.hypot(e, n)) : 0.75) * (0.85 + 0.3 * r2));
+      tmp.multiplyScalar(0.94 + 0.12 * r2);
       col.set([tmp.r, tmp.g, tmp.b], i * 3);
     }
     geo.setAttribute("color", new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals();
-    scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 })));
+    const groundTex = groundTextures(THREE);
+    const terrainMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, map: groundTex.map, normalMap: groundTex.normal, normalScale: new THREE.Vector2(0.9, 0.9) });
+    for (const t of [groundTex.map, groundTex.normal]) t.repeat.set(SIZE / 9, SIZE / 9);
+    const terrain = new THREE.Mesh(geo, terrainMat); terrain.receiveShadow = true; scene.add(terrain);
     const base = new THREE.Mesh(new THREE.BoxGeometry(SIZE / M + 0.6, 0.8, SIZE / M + 0.6), new THREE.MeshStandardMaterial({ color: 0x1a2550, roughness: 0.6, metalness: 0.3 }));
     base.position.set(toX(OFF_E), -1.2, toZ(OFF_N)); scene.add(base);
+
+    // Bebatuan berserakan di lereng dan sesekali di lembah
+    const rocks = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ roughness: 0.95, flatShading: true }), 2600);
+    { let s3 = 5; const rr = () => (s3 = (s3 * 16807) % 2147483647) / 2147483647;
+      const m = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), p = new THREE.Vector3(), eu = new THREE.Euler();
+      const rc1 = new THREE.Color(0x3e2f26), rc2 = new THREE.Color(0x6e5643); let n = 0;
+      for (let k = 0; k < 40000 && n < 2600; k++) {
+        const e = -900 + rr() * 2000, nn = -850 + rr() * 1850, mh = mountainH(e, nn), d = Math.hypot(e, nn);
+        const pr = mh > 12 ? 0.55 : mh > 4 ? 0.12 : 0.012;
+        if (rr() > pr || d < 70 || roadDist(e, nn)[0] < 3) continue;
+        const sz = (mh > 12 ? 0.8 + rr() * 3.2 : 0.3 + rr() * 0.9);
+        eu.set(rr() * 3, rr() * 3, rr() * 3); q.setFromEuler(eu);
+        sc.set((sz * (0.7 + rr() * 0.6)) / M, (sz * 0.55 * VX) / M, (sz * (0.7 + rr() * 0.6)) / M);
+        p.set(toX(e), Y(e, nn) - (sz * 0.15 * VX) / M, toZ(nn));
+        rocks.setMatrixAt(n, m.compose(p, q, sc)); rocks.setColorAt(n, tmp.copy(rc1).lerp(rc2, rr())); n++;
+      }
+      rocks.count = n; }
+    rocks.castShadow = true; rocks.receiveShadow = true; scene.add(rocks);
+
+    // Langit saat jalan kaki: gradasi senja dan cakram matahari
+    const sky = new THREE.Mesh(new THREE.SphereGeometry(300, 32, 16), new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false, fog: false, uniforms: { sunDir: { value: SUN_DIR } },
+      vertexShader: "varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: "uniform vec3 sunDir; varying vec3 vDir; void main(){ vec3 d = normalize(vDir); float h = d.y;" +
+        " vec3 top = vec3(0.24,0.36,0.63), hor = vec3(0.90,0.73,0.55); vec3 c = mix(hor, top, pow(clamp(h,0.0,1.0), 0.5));" +
+        " float s = max(dot(d, sunDir), 0.0); c += vec3(1.0,0.85,0.6) * pow(s, 900.0) * 2.0 + vec3(1.0,0.72,0.45) * pow(s, 10.0) * 0.35;" +
+        " if (h < 0.0) c = hor; gl_FragColor = vec4(c, 1.0); }"
+    }));
+    sky.renderOrder = -1; sky.visible = false; scene.add(sky);
 
     // Halaman thawaf: sempit sebelum Umar, lebih luas setelah rumah-rumah di sekitarnya dibeli dan dirobohkan
     const matMataf = new THREE.MeshStandardMaterial({ color: 0xcdb68a, roughness: 0.9 });
     const mataf1 = new THREE.Mesh(new THREE.CircleGeometry(32 / M, 48), matMataf), mataf2 = new THREE.Mesh(new THREE.CircleGeometry(52 / M, 64), matMataf);
-    for (const m of [mataf1, mataf2]) { m.rotation.x = -Math.PI / 2; m.position.y = 0.012; scene.add(m); }
+    for (const m of [mataf1, mataf2]) { m.rotation.x = -Math.PI / 2; m.position.y = 0.012; m.receiveShadow = true; scene.add(m); }
 
     // Ka'bah: ±12 x 10 m, tinggi ±9 m (bangunan Quraisy). Pintu ditinggikan (HR. Bukhari 1584).
     const kabah = new THREE.Group(); kabah.rotation.y = -Math.PI / 4;
@@ -199,6 +308,7 @@
       seg.position.set((p0[0] + p1[0]) / 2 / M, (0.65 * VX) / M, (p0[1] + p1[1]) / 2 / M);
       seg.rotation.y = -Math.atan2(p1[1] - p0[1], p1[0] - p0[0]); kabah.add(seg);
     }
+    kabah.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     scene.add(kabah);
     const zam = new THREE.Mesh(new THREE.CylinderGeometry(1.6 / M, 1.6 / M, 1.4 / M, 16), new THREE.MeshStandardMaterial({ color: 0xbfa77d }));
     zam.position.set(toX(18), 0.7 / M, toZ(-8)); scene.add(zam);
@@ -215,7 +325,7 @@
         p.set(toX(Math.cos(a) * rad), 0, toZ(Math.sin(a) * rad));
         idols.setMatrixAt(i, m4.compose(p, q, sc)); idols.setColorAt(i, tmp.setHex(0x6f6a62).lerp(new THREE.Color(0x9a8f7c), rr()));
       } }
-    scene.add(idols);
+    idols.castShadow = true; scene.add(idols);
 
     // Dinding pertama sekeliling Ka'bah oleh Umar: lebih rendah dari tinggi orang, dengan lampu di atasnya
     const umarWall = new THREE.Group();
@@ -229,6 +339,7 @@
         w.position.set(toX(Math.cos(am) * R), (0.7 * VX) / M, toZ(Math.sin(am) * R)); w.rotation.y = am + Math.PI / 2; umarWall.add(w);
         if (i % 4 === 2) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.4 / M, (0.5 * VX) / M, 0.4 / M), lm); l.position.copy(w.position); l.position.y += (0.95 * VX) / M; umarWall.add(l); }
       } }
+    umarWall.traverse((o) => { if (o.isMesh) o.castShadow = true; });
     scene.add(umarWall);
 
     // Jalan Mas'a
@@ -252,6 +363,7 @@
       if (Math.hypot(e - 18, n + 8) < 10) continue;
       if (houses.some((q) => Math.abs(q.e - e) < 12 && Math.abs(q.n - n) < 12)) continue;
       const w = 6 + rnd() * 5, l = 6 + rnd() * 4, court = rnd() < 0.35 ? 3.5 + rnd() * 2.5 : 0;
+      if (roadDist(e, n)[0] < Math.hypot(w, l + court) / 2 + 1) continue;
       let t = Math.atan2(-e, n) + (rnd() - 0.5) * 0.6; if (rnd() < 0.3) t += rnd() < 0.5 ? Math.PI / 2 : -Math.PI / 2;
       houses.push({ e, n, w, l, h: 2.8 + rnd() * 2.4, t, g: h0, col: WALLS[Math.floor(rnd() * WALLS.length)], court, upper: rnd() < 0.22, jar: rnd() < 0.4,
         seed: 1 + Math.floor(rnd() * 1e6), umar: d < 56 });
@@ -264,7 +376,7 @@
       qq.setFromAxisAngle(up, hh.t); s3.set(hh.w / M, (hh.h * VX) / M, hh.l / M); p3.set(toX(hh.e), (hh.g * VX) / M - 0.02, toZ(hh.n));
       const m = new THREE.Matrix4().compose(p3, qq, s3); inst.setColorAt(i, tmp.setHex(hh.col)); return m;
     });
-    scene.add(inst);
+    inst.castShadow = true; inst.receiveShadow = true; scene.add(inst);
 
     // Sel streaming
     const cells = new Map();
@@ -291,7 +403,7 @@
       const acc = Acc();
       for (const i of cell.ids) if (!removed(houses[i])) genHouse(acc, U, houses[i]);
       const mesh = new THREE.Mesh(toGeometry(THREE, acc), detailMat);
-      scene.add(mesh);
+      mesh.castShadow = true; mesh.receiveShadow = true; scene.add(mesh);
       built.set(cell.key, { mesh, last: performance.now() });
       for (const i of cell.ids) { inst.setMatrixAt(i, ZERO); }
       inst.instanceMatrix.needsUpdate = true;
@@ -315,19 +427,20 @@
           t: Math.atan2(-p.e, p.n), g: heightAt(p.e, p.n), col: 0xd9c6a0, court: p.besar && !big ? 6 : 0, upper: !!p.besar, jar: true, seed: 100 + idx };
         const acc = Acc(); genHouse(acc, U, hh);
         mat = new THREE.MeshStandardMaterial({ vertexColors: true, map: tex, roughness: 0.9, emissive: KCOL[p.keyakinan], emissiveIntensity: 0 });
-        scene.add(new THREE.Mesh(toGeometry(THREE, acc), mat));
+        const nm = new THREE.Mesh(toGeometry(THREE, acc), mat); nm.castShadow = true; nm.receiveShadow = true; scene.add(nm);
         colliders.push(hh);
         topY = ((hh.g + hh.h) * VX) / M;
       } else if (p.jenis === "kabah") topY = (9 * VX) / M;
       else if (p.jenis === "gunung") topY = Y(p.e, p.n) + 0.3;
       else topY = Y(p.e, p.n) + 0.05;
-      const g = new THREE.Group(), show = p.jenis !== "gunung" && p.jenis !== "kawasan";
+      const flat = p.jenis === "gunung" || p.jenis === "jalan";
+      const g = new THREE.Group(), show = !flat && p.jenis !== "kawasan";
       const pm = new THREE.MeshBasicMaterial({ color: KCOL[p.keyakinan] });
       const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 6), pm), gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.06, 0), pm);
       const ringM = new THREE.MeshBasicMaterial({ color: KCOL[p.keyakinan], transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
       const ring = new THREE.Mesh(new THREE.RingGeometry(0.16, 0.22, 36), ringM); ring.rotation.x = -Math.PI / 2;
       if (show) g.add(pole, gem);
-      if (p.jenis !== "gunung") g.add(ring);
+      if (!flat) g.add(ring);
       g.position.set(x, topY, z); scene.add(g);
       ring.position.y = (p.jenis === "rumah" ? -(topY - Y(p.e, p.n)) : 0) + 0.03;
       markers[p.id] = { p, g, pole, gem, ring, ringM, mat, h: 0.35, show, topY };
@@ -414,11 +527,11 @@
         }
       if (!found) found = [30, -30];
       walk.e = found[0]; walk.n = found[1]; walk.yaw = Math.atan2(te - walk.e, tn - walk.n); walk.pitch = 0.08; walk.on = true;
-      camera.near = 0.01; camera.updateProjectionMatrix(); scene.fog.near = FOG_WALK[0]; scene.fog.far = FOG_WALK[1]; scene.fog.color.setHex(FOG_C_WALK);
+      camera.near = 0.01; camera.updateProjectionMatrix(); scene.fog.near = FOG_WALK[0]; scene.fog.far = FOG_WALK[1]; scene.fog.color.setHex(FOG_C_WALK); sky.visible = true;
     }
     function stopWalk() {
       if (!walk.on) return;
-      walk.on = false; camera.near = 0.05; camera.updateProjectionMatrix(); scene.fog.near = FOG_MAP[0]; scene.fog.far = FOG_MAP[1]; scene.fog.color.setHex(FOG_C_MAP);
+      walk.on = false; camera.near = 0.05; camera.updateProjectionMatrix(); scene.fog.near = FOG_MAP[0]; scene.fog.far = FOG_MAP[1]; scene.fog.color.setHex(FOG_C_MAP); sky.visible = false;
       goal.target.set(toX(walk.e), Y(walk.e, walk.n), toZ(walk.n)); goal.dist = 9; goal.az = -walk.yaw; goal.el = 0.7;
       st.target.copy(goal.target); st.dist = 3; st.az = goal.az; st.el = 0.4;
     }
@@ -453,7 +566,7 @@
       let detail = 0; for (const k of built.keys()) detail += cells.get(k).ids.length;
       let near = null;
       if (walk.on) for (const p of places) {
-        if (p.jenis === "gunung") continue;
+        if (p.jenis === "gunung" || p.jenis === "jalan") continue;
         const d = Math.hypot(p.e - walk.e, p.n - walk.n) - (p.jenis === "kawasan" ? 90 : p.jenis === "rumah" ? 8 : 0);
         if (d < 45 && (!near || d < near.dist)) near = { id: p.id, dist: Math.max(0, Math.round(d)) };
       }
@@ -494,6 +607,8 @@
         camera.lookAt(st.target);
       }
       camera.updateMatrixWorld();
+      if (walk.on) { sky.position.copy(camera.position); updateSun(toX(walk.e), toZ(walk.n), 11); }
+      else updateSun(st.target.x, st.target.z, Math.max(6, Math.min(34, st.dist * 0.95)));
       stream(now);
 
       const lodMax = st.dist < 9 ? 2 : st.dist < 48 ? 1 : 0;
@@ -513,7 +628,7 @@
         const lab = labels[id];
         if (lab) {
           let vis;
-          if (walk.on) { const d = Math.hypot(m.p.e - walk.e, m.p.n - walk.n); vis = m.p.jenis === "gunung" || m.p.jenis === "kawasan" ? d < 900 : d < 320; }
+          if (walk.on) { const d = Math.hypot(m.p.e - walk.e, m.p.n - walk.n); vis = m.p.jenis === "gunung" || m.p.jenis === "kawasan" ? d < 900 : m.p.jenis === "jalan" ? d < 200 : d < 320; }
           else vis = sel || m.p.lod <= lodMax || (act && m.p.lod <= lodMax + 1);
           v.set(m.g.position.x, m.g.position.y + (m.show ? m.h + 0.12 : 0.1), m.g.position.z).project(camera);
           lab.style.transform = `translate(${((v.x * 0.5 + 0.5) * W).toFixed(1)}px, ${((-v.y * 0.5 + 0.5) * H).toFixed(1)}px)`;
@@ -526,6 +641,8 @@
     }
 
     rebuildGrid(); setYear(opts.year || 610);
+    renderer.shadowMap.enabled = opts.quality !== false; sun.castShadow = opts.quality !== false; rocks.visible = opts.quality !== false;
+    if (opts.quality === false) terrainMat.normalMap = null;
     raf = requestAnimationFrame(frame);
 
     return {
@@ -543,6 +660,11 @@
       rotate(d) { if (walk.on) walk.yaw += d; else goal.az += d; },
       zoom(f) { if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * f)); },
       startWalk, stopWalk,
+      setQuality(high) {
+        renderer.shadowMap.enabled = high; sun.castShadow = high; rocks.visible = high;
+        terrainMat.normalMap = high ? groundTex.normal : null;
+        scene.traverse((o) => { if (o.material) o.material.needsUpdate = true; });
+      },
       press(k, on) { if (on) keys.add(k); else keys.delete(k); },
       dispose() {
         cancelAnimationFrame(raf); ro.disconnect();

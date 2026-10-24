@@ -9,12 +9,21 @@
       kitab: { nama: "Menurut kitab sejarah", ket: "Disebut dalam kitab sejarah Mekah (Al-Azraqi, Al-Fakihi, Al-Fasi). Titiknya adalah perkiraan peneliti modern." },
       perkiraan: { nama: "Perkiraan", ket: "Berdasarkan tradisi lokal atau sumber sekunder, belum dapat dipastikan." }
     },
-    catatanVisual: "Bentuk rumah adalah rekonstruksi umum, bukan hasil arkeologi: dinding batu dan bata lumpur, atap datar dari balok kayu dan pelepah, pintu kayu rendah, dan sebagian berhalaman dengan naungan pelepah kurma. Lembah ini tandus tanpa tanaman (QS. Ibrahim: 37), jadi hampir tidak ada pepohonan. Sebelum 630 M, batu-batu tegak di sekitar Ka'bah melambangkan 360 berhala. Mulai 638 M tampak dinding rendah yang dibangun Umar.",
+    catatanVisual: "Bentuk rumah adalah rekonstruksi umum, bukan hasil arkeologi: dinding batu dan bata lumpur, atap datar dari balok kayu dan pelepah, pintu kayu rendah, dan sebagian berhalaman dengan naungan pelepah kurma. Lembah ini tandus tanpa tanaman (QS. Ibrahim: 37), jadi hampir tidak ada pepohonan. Sebelum 630 M, batu-batu tegak di sekitar Ka'bah melambangkan 360 berhala. Mulai 638 M tampak dinding rendah yang dibangun Umar. Jalan bernama mengikuti arah dari sumber, tapi garisnya perkiraan; gang-gang lain adalah rekonstruksi.",
     derajat: {
       shahih: "Hadits shahih",
       sirah: "Kitab sirah/sejarah",
       lemah: "Riwayat lemah"
     },
+
+    // Jalur jalan (meter dari Ka'bah). Geometri jalur adalah perkiraan; nama dan arahnya dari sumber.
+    jalan: [
+      { id: "jalan-mala", lebar: 10, pts: [[125, 345], [170, 470], [230, 620], [300, 800], [340, 1000]] },
+      { id: "jalan-misfalah", lebar: 9, pts: [[40, -45], [35, -180], [10, -330], [-30, -520], [-60, -820]] },
+      { id: "kuda", lebar: 8, pts: [[-38, -12], [-160, -70], [-300, -190], [-420, -300], [-560, -380]] },
+      { id: "suqlail", lebar: 6, pts: [[117, 188], [175, 190], [235, 190], [300, 196], [360, 230], [420, 270]] },
+      { id: "attarin", lebar: 4, pts: [[113, 112], [138, 112]] }
+    ],
 
     tempat: [
       { id: "kabah", nama: "Ka'bah", arab: "الكعبة", jenis: "kabah", e: 0, n: 0, lod: 0, keyakinan: "pasti",
@@ -170,6 +179,47 @@
         riwayat: [
           { t: [617, 619], judul: "Pemboikotan Bani Hasyim", tokoh: ["nabi", "abuthalib", "khadijah"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat; Ibnu Qayyim, Zadul Ma'ad",
             isi: "Bani Hasyim dan Bani Muthalib dikurung di lembah ini selama sekitar tiga tahun. Ibnu Qayyim menyebut mulainya pada malam awal Muharram tahun ke-7 kenabian. Abu Lahab tidak ikut, ia berpihak kepada Quraisy." }
+        ] },
+
+      { id: "jalan-mala", nama: "Jalan ke Ma'la dan Kada'", arab: "طريق المعلاة", jenis: "jalan", e: 250, n: 680, lod: 0, keyakinan: "perkiraan",
+        ket: "Jalan di Mekah bagian atas, mengikuti Wadi Ibrahim ke arah timur laut menuju Ma'la, lalu ke Mina dan Arafah. Kada' (tsaniyyah atas) umumnya diidentifikasi di kawasan Al-Hajun dekat pemakaman Ma'la, di luar batas peta ini.",
+        sumberLokasi: "Arah dari hadits dan sejarah Mekah; garis jalurnya perkiraan",
+        riwayat: [
+          { t: [630, 630], judul: "Masuk Mekah dari Kada'", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 1578 (Aisyah)", url: sn("bukhari", 1578),
+            isi: "Pada tahun Fathu Makkah, Nabi masuk dari Kada' di bagian atas Mekah dan keluar dari Kuda.",
+            matan: "دَخَلَ عَامَ الْفَتْحِ مِنْ كَدَاءٍ وَخَرَجَ مِنْ كُدًا" },
+          { t: null, judul: "Masuk dari jalan atas, keluar dari jalan bawah", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 1575 (Ibnu Umar)", url: sn("bukhari", 1575),
+            isi: "Ibnu Umar meriwayatkan Nabi masuk Mekah melalui tsaniyyah atas dan keluar melalui tsaniyyah bawah." },
+          { t: [619, 619], judul: "Pemakaman Ma'la", tokoh: ["khadijah", "abuthalib"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat; WikiShia",
+            isi: "Khadijah dan Abu Thalib dimakamkan di pemakaman Ma'la (Al-Hajun), di ujung jalan ini." }
+        ] },
+      { id: "kuda", nama: "Jalan ke Kuda", arab: "كُدى", jenis: "jalan", e: -330, n: -215, lod: 0, keyakinan: "perkiraan",
+        ket: "Jalan keluar di Mekah bagian bawah. Kuda (tsaniyyah bawah) adalah jalur Nabi keluar dari Mekah. Arah garis di peta ini perkiraan.",
+        sumberLokasi: "HR. Bukhari 1575 dan 1578; garis jalurnya perkiraan",
+        riwayat: [
+          { t: [630, 630], judul: "Keluar lewat Kuda", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 1578 (Aisyah); no. 1575 (Ibnu Umar)", url: sn("bukhari", 1578),
+            isi: "Setelah masuk dari Kada' di bagian atas, Nabi keluar dari Mekah melalui Kuda, jalan di bagian bawah kota." }
+        ] },
+      { id: "jalan-misfalah", nama: "Jalan Misfalah ke Yaman", arab: "المسفلة", jenis: "jalan", e: 5, n: -360, lod: 0, keyakinan: "perkiraan",
+        ket: "Jalan ke selatan melewati Misfalah, Mekah bagian bawah, menuju Yaman. Garis jalurnya perkiraan.",
+        riwayat: [
+          { t: null, judul: "Kafilah musim dingin", tokoh: [], derajat: "sirah", sumber: "Tafsir Ibnu Katsir, Surah Quraisy",
+            isi: "Quraisy punya dua perjalanan dagang tahunan: ke Yaman pada musim dingin dan ke Syam pada musim panas. Kafilah ke Yaman berangkat ke arah ini.",
+            ayat: { surah: "Quraisy", no: "1–2", arab: "لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ" } }
+        ] },
+      { id: "suqlail", nama: "Suq al-Lail", arab: "سوق الليل", jenis: "jalan", e: 205, n: 188, lod: 1, keyakinan: "kitab",
+        ket: "Jalan di lembah Bani Hasyim, tempat rumah kelahiran Nabi berada. Kawasan Suq al-Lail sebagian masih ada di timur laut Masjidil Haram.",
+        sumberLokasi: "Al-Azraqi; Al-Fakihi (dirangkum Encyclopedia of Muhammad); Okaz 2026",
+        riwayat: [
+          { t: [570, 570], judul: "Jalan menuju rumah kelahiran Nabi", tokoh: ["nabi"], derajat: "sirah", lihat: "maulid", sumber: "Al-Azraqi; Al-Fakihi",
+            isi: "Rumah kelahiran Nabi berada di gang yang dahulu disebut Zuqaq al-Maulid, di kawasan Suq al-Lail." }
+        ] },
+      { id: "attarin", nama: "Gang Al-'Attarin", arab: "زقاق العطارين", jenis: "jalan", e: 125, n: 116, lod: 2, keyakinan: "kitab",
+        ket: "Gang para penjual minyak wangi yang menuju rumah Khadijah, kemudian disebut Zuqaq al-Hajar.",
+        sumberLokasi: "Al-Azraqi, Akhbar Makkah (dikaji Al-Furqan, 2014)",
+        riwayat: [
+          { t: [595, 622], judul: "Gang menuju rumah Khadijah", tokoh: ["khadijah"], derajat: "sirah", lihat: "khadijah", sumber: "Al-Azraqi, Akhbar Makkah",
+            isi: "Al-Azraqi menulis: inilah gang yang menuju rumah Khadijah binti Khuwailid." }
         ] },
 
       { id: "abuqubais", nama: "Jabal Abu Qubais", arab: "أبو قبيس", jenis: "gunung", e: 360, n: -200, lod: 0, keyakinan: "pasti",

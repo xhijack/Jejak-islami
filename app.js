@@ -248,10 +248,12 @@
   function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack, walkReq }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
     const [status, setStatus] = useState({ walking: false, detail: 0, cells: 0 });
+    const [quality, setQualityS] = useState(() => { try { return localStorage.getItem("jejak-kualitas") !== "ringan"; } catch (e) { return true; } });
+    const toggleQuality = () => { const q = !quality; setQualityS(q); api.current && api.current.setQuality(q); try { localStorage.setItem("jejak-kualitas", q ? "tinggi" : "ringan"); } catch (e) {} };
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
     useEffect(() => {
       let lastS = "";
-      api.current = window.MekahScene.create(box.current, { tempat: K.tempat, year,
+      api.current = window.MekahScene.create(box.current, { tempat: K.tempat, jalan: K.jalan, year, quality,
         onStatus: (s) => { const j = JSON.stringify(s); if (j !== lastS) { lastS = j; setStatus(s); } } });
       Object.entries(nodes.current).forEach(([id, n]) => api.current.registerLabel(id, n));
       api.current.setActive(activeIds);
@@ -320,6 +322,7 @@
         <p class="hint">${walking
           ? "W/S atau ▲▼ jalan, A/D geser, Q/E atau ←→ belok, seret untuk melihat, Shift untuk berlari, Esc keluar"
           : "Seret untuk menggeser, klik kanan atau Shift+seret untuk memutar, scroll untuk zoom, WASD atau panah juga bisa menggeser"}</p>
+        <button type="button" class="stat qbtn" onClick=${toggleQuality} title="Mode ringan mematikan bayangan, bebatuan, dan relief tanah">Kualitas: ${quality ? "tinggi" : "ringan"}</button>
         <p class="stat" title="Rumah dibangun detail hanya di sekitar dan di depan kamera">Rumah detail: ${status.detail}</p>
       </div>
     </section>`;
