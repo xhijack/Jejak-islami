@@ -486,26 +486,19 @@
     const goal = { az: st.az, el: st.el, dist: st.dist, target: st.target.clone() };
     const walk = { on: false, e: 0, n: 0, yaw: 0, pitch: -0.05 };
     const keys = new Set();
-    let drag = null; const el = renderer.domElement;
-    el.addEventListener("contextmenu", (e) => e.preventDefault());
+    const el = renderer.domElement;
     // Mode peta: seret kiri = geser. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
+    const clampT = (t) => { t.x = Math.max(-45, Math.min(55, t.x)); t.z = Math.max(-50, Math.min(45, t.z)); };
     function panBy(dx, dy) {
       const k = (2 * st.dist * Math.tan((camera.fov * Math.PI) / 360)) / Math.max(1, container.clientHeight);
       const ca = Math.cos(st.az), sa = Math.sin(st.az), ky = k / Math.max(0.45, Math.sin(st.el));
       goal.target.x += -ca * dx * k - sa * dy * ky; goal.target.z += sa * dx * k - ca * dy * ky;
-      goal.target.x = Math.max(-45, Math.min(55, goal.target.x)); goal.target.z = Math.max(-50, Math.min(45, goal.target.z));
-      st.target.x = goal.target.x; st.target.z = goal.target.z;
+      clampT(goal.target); st.target.x = goal.target.x; st.target.z = goal.target.z;
     }
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, pan: !(e.button === 2 || e.shiftKey || e.ctrlKey) }; el.setPointerCapture(e.pointerId); });
-    el.addEventListener("pointermove", (e) => {
-      if (!drag) return;
-      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
-      if (walk.on) { walk.yaw += dx * 0.0042; walk.pitch = Math.max(-1.2, Math.min(1.1, walk.pitch - dy * 0.0035)); return; }
-      if (drag.pan) panBy(dx, dy);
-      else { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); }
-    });
-    el.addEventListener("pointerup", () => { drag = null; });
-    el.addEventListener("wheel", (e) => { e.preventDefault(); if (!walk.on) goal.dist = Math.max(2.2, Math.min(90, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+    window.SirahGestures({ THREE, el, camera, st, goal, minD: 2.2, maxD: 90, clamp: clampT, panBy,
+      isWalk: () => walk.on,
+      look: (dx, dy) => { walk.yaw += dx * 0.0042; walk.pitch = Math.max(-1.2, Math.min(1.1, walk.pitch - dy * 0.0035)); },
+      rotate: (dx, dy) => { goal.az -= dx * 0.005; goal.el = Math.max(0.25, Math.min(1.45, goal.el + dy * 0.004)); } });
     const typing = (t) => t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
     const MOVE_KEYS = ["w", "a", "s", "d", "q", "e", "arrowup", "arrowdown", "arrowleft", "arrowright", "shift"];
     const kd = (e) => { if (typing(e.target)) return; const k = e.key.toLowerCase(); if (MOVE_KEYS.includes(k)) { keys.add(k); if (k.startsWith("arrow")) e.preventDefault(); } };
@@ -602,7 +595,7 @@
         goal.target.x = Math.max(-45, Math.min(55, goal.target.x)); goal.target.z = Math.max(-50, Math.min(45, goal.target.z));
         goal.target.y = Y(goal.target.x * M, -goal.target.z * M) * 0.6;
         const k = reduce ? 1 : 0.08;
-        st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * k; st.target.lerp(goal.target, k);
+        st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * (reduce ? 1 : 0.2); st.target.lerp(goal.target, k);
         camera.position.set(st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az), st.target.y + st.dist * Math.sin(st.el), st.target.z + st.dist * Math.cos(st.el) * Math.cos(st.az));
         camera.lookAt(st.target);
       }

@@ -68,6 +68,70 @@
   const SAND_LO = [0.86, 0.74, 0.55], SAND_MID = [0.76, 0.6, 0.4], ROCK = [0.5, 0.37, 0.27], PEAK = [0.36, 0.27, 0.22];
   const SEA_SH = [0.13, 0.27, 0.44], SEA_DP = [0.07, 0.13, 0.27];
 
+
+  // Gerakan bersama untuk kedua peta: seret (geser/putar), pinch trackpad (ctrl+wheel), gesture Safari,
+  // pinch dua jari di layar sentuh, dan scroll. Zoom langsung tanpa jeda dan mengarah ke titik di bawah kursor.
+  function installGestures(o) {
+    const { THREE, el, camera, st, goal } = o;
+    const walking = () => !!(o.isWalk && o.isWalk());
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hit = new THREE.Vector3();
+    const ptrs = new Map(); let drag = null, pinch = null;
+    function zoomAt(f, cx, cy) {
+      if (walking()) return;
+      const old = st.dist, nd = Math.max(o.minD, Math.min(o.maxD, old * f));
+      if (Math.abs(nd - old) < 1e-6) return;
+      if (cx != null) {
+        const r = el.getBoundingClientRect();
+        ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+        camera.updateMatrixWorld(); ray.setFromCamera(ndc, camera);
+        plane.constant = -st.target.y;
+        if (ray.ray.intersectPlane(plane, hit)) {
+          const k = 1 - nd / old;
+          st.target.x += (hit.x - st.target.x) * k; st.target.z += (hit.z - st.target.z) * k;
+          o.clamp(st.target); goal.target.x = st.target.x; goal.target.z = st.target.z;
+        }
+      }
+      st.dist = goal.dist = nd;
+    }
+    el.addEventListener("contextmenu", (e) => e.preventDefault());
+    el.addEventListener("pointerdown", (e) => {
+      try { el.setPointerCapture(e.pointerId); } catch (err) {}
+      ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; drag = null; }
+      else if (ptrs.size === 1) drag = { x: e.clientX, y: e.clientY, rot: e.button === 2 || e.shiftKey || e.ctrlKey };
+    });
+    el.addEventListener("pointermove", (e) => {
+      if (!ptrs.has(e.pointerId)) return;
+      ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && ptrs.size >= 2) {
+        const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        if (walking()) o.look(mx - pinch.x, my - pinch.y);
+        else { if (d > 0 && pinch.d > 0) zoomAt(pinch.d / d, mx, my); o.panBy(mx - pinch.x, my - pinch.y); }
+        pinch.d = d; pinch.x = mx; pinch.y = my; return;
+      }
+      if (!drag) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+      if (walking()) o.look(dx, dy); else if (drag.rot) o.rotate(dx, dy); else o.panBy(dx, dy);
+    });
+    const up = (e) => {
+      ptrs.delete(e.pointerId);
+      if (ptrs.size < 2) pinch = null;
+      if (ptrs.size === 0) drag = null; else if (ptrs.size === 1) { const [a] = [...ptrs.values()]; drag = { x: a.x, y: a.y, rot: false }; }
+    };
+    el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
+    el.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
+      const k = e.ctrlKey ? 0.012 : 0.0016; // ctrlKey = pinch trackpad di Chrome/Edge/Firefox
+      zoomAt(Math.exp(Math.max(-0.6, Math.min(0.6, dy * k))), e.clientX, e.clientY);
+    }, { passive: false });
+    let gs = 1; // Safari macOS mengirim pinch sebagai gesture event
+    el.addEventListener("gesturestart", (e) => { e.preventDefault(); gs = e.scale || 1; });
+    el.addEventListener("gesturechange", (e) => { e.preventDefault(); const s = e.scale || 1; zoomAt(gs / s, e.clientX, e.clientY); gs = s; });
+    el.addEventListener("gestureend", (e) => e.preventDefault());
+    return { zoomAt };
+  }
+
   function create(container, opts) {
     const THREE = window.THREE;
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -160,7 +224,6 @@
     const st = { az: -0.35, el: 0.95, dist: 30, target: new THREE.Vector3(0, 0, 0) };
     const goal = { az: st.az, el: st.el, dist: st.dist, target: st.target.clone() };
     // Seret kiri = geser peta. Klik kanan / Shift / Ctrl + seret = putar & miringkan.
-    let drag = null;
     const el = renderer.domElement;
     const keys = new Set();
     const clampT = (t) => { t.x = Math.max(-W / 2, Math.min(W / 2, t.x)); t.z = Math.max(-H / 2, Math.min(H / 2, t.z)); };
@@ -170,16 +233,8 @@
       goal.target.x += -ca * dx * k - sa * dy * ky; goal.target.z += sa * dx * k - ca * dy * ky;
       clampT(goal.target); st.target.x = goal.target.x; st.target.z = goal.target.z;
     }
-    el.addEventListener("contextmenu", (e) => e.preventDefault());
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, rot: e.button === 2 || e.shiftKey || e.ctrlKey }; el.setPointerCapture(e.pointerId); });
-    el.addEventListener("pointermove", (e) => {
-      if (!drag) return;
-      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
-      if (drag.rot) { goal.az -= dx * 0.005; goal.el = Math.max(0.35, Math.min(1.45, goal.el + dy * 0.004)); }
-      else panBy(dx, dy);
-    });
-    el.addEventListener("pointerup", () => { drag = null; });
-    el.addEventListener("wheel", (e) => { e.preventDefault(); goal.dist = Math.max(6, Math.min(40, goal.dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+    installGestures({ THREE, el, camera, st, goal, minD: 6, maxD: 40, clamp: clampT, panBy,
+      rotate: (dx, dy) => { goal.az -= dx * 0.005; goal.el = Math.max(0.35, Math.min(1.45, goal.el + dy * 0.004)); } });
     const typing = (t) => t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable);
     const KEYS = ["w", "a", "s", "d", "q", "e", "arrowup", "arrowdown", "arrowleft", "arrowright"];
     const kd = (e) => { if (typing(e.target)) return; const k = e.key.toLowerCase(); if (KEYS.includes(k)) { keys.add(k); if (k.startsWith("arrow")) e.preventDefault(); } };
@@ -203,7 +258,7 @@
       const ky = (keys.has("s") || keys.has("arrowdown") ? 1 : 0) - (keys.has("w") || keys.has("arrowup") ? 1 : 0);
       if (kx || ky) panBy(-kx * 600 * dt, -ky * 600 * dt);
       goal.az += ((keys.has("e") ? 1 : 0) - (keys.has("q") ? 1 : 0)) * dt * 1.4;
-      st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * k;
+      st.az += (goal.az - st.az) * k; st.el += (goal.el - st.el) * k; st.dist += (goal.dist - st.dist) * (reduce ? 1 : 0.2);
       st.target.lerp(goal.target, k);
       camera.position.set(
         st.target.x + st.dist * Math.cos(st.el) * Math.sin(st.az),
@@ -259,4 +314,5 @@
   }
 
   window.SirahScene = { create };
+  window.SirahGestures = installGestures;
 })();
