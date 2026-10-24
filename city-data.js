@@ -1,0 +1,216 @@
+// Mekah sekitar masa Nabi ﷺ. Posisi dalam meter dari Ka'bah: e = timur (+), n = utara (+).
+// keyakinan: "pasti" | "kitab" | "perkiraan". derajat riwayat: "shahih" | "sirah" | "lemah".
+// DRAF: wajib diverifikasi ustadz sebelum dipakai.
+(function () {
+  const sn = (k, n) => `https://sunnah.com/${k}:${n}`;
+  window.MEKAH = {
+    keyakinan: {
+      pasti: { nama: "Lokasi pasti", ket: "Situs masih ada dan posisinya tidak diperselisihkan." },
+      kitab: { nama: "Menurut kitab sejarah", ket: "Disebut dalam kitab sejarah Mekah (Al-Azraqi, Al-Fakihi, Al-Fasi). Titiknya adalah perkiraan peneliti modern." },
+      perkiraan: { nama: "Perkiraan", ket: "Berdasarkan tradisi lokal atau sumber sekunder, belum dapat dipastikan." }
+    },
+    derajat: {
+      shahih: "Hadits shahih",
+      sirah: "Kitab sirah/sejarah",
+      lemah: "Riwayat lemah"
+    },
+
+    tempat: [
+      { id: "kabah", nama: "Ka'bah", arab: "الكعبة", jenis: "kabah", e: 0, n: 0, lod: 0, keyakinan: "pasti",
+        ket: "Bangunan suci yang didirikan Ibrahim dan Ismail. Sekitar 605 M Quraisy membangunnya ulang dengan ukuran lebih kecil dari fondasi Ibrahim. Saat itu belum ada masjid berdinding; rumah-rumah penduduk mengelilingi halaman thawaf. Warna kiswahnya pada masa itu belum tentu hitam seperti sekarang.",
+        riwayat: [
+          { t: [576, 578], judul: "Majelis Abdul Muthalib", tokoh: ["abdulmuthalib", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam (dari Ibnu Ishaq)",
+            isi: "Abdul Muthalib biasa duduk di atas hamparan di bayangan Ka'bah, dikelilingi anak-anaknya. Muhammad kecil datang dan duduk di hamparan itu, dan sang kakek membiarkannya." },
+          { t: [605, 605], judul: "Peletakan Hajar Aswad", tokoh: ["nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Saat renovasi Ka'bah, kabilah-kabilah berselisih siapa yang meletakkan Hajar Aswad. Nabi meletakkannya di atas kain yang diangkat bersama oleh para kepala kabilah." },
+          { t: [613, 616], judul: "Ancaman Abu Jahal", tokoh: ["abujahal", "nabi"], derajat: "shahih",
+            sumber: "HR. Bukhari no. 4958 (Ibnu Abbas); HR. Muslim no. 2797 (Abu Hurairah)", url: sn("bukhari", 4958),
+            isi: "Abu Jahal bersumpah akan menginjak leher Nabi bila melihat beliau shalat di dekat Ka'bah. Nabi bersabda, seandainya ia melakukannya, malaikat akan menyambarnya.",
+            ayat: { surah: "Al-'Alaq", no: "9–19", arab: "أَرَأَيْتَ الَّذِي يَنْهَىٰ ۝ عَبْدًا إِذَا صَلَّىٰ" },
+            catatan: "Tahun persisnya tidak disebut dalam riwayat." },
+          { t: [613, 619], judul: "Isi perut unta di punggung Nabi", tokoh: ["nabi", "abujahal", "fatimah"], derajat: "shahih",
+            sumber: "HR. Bukhari no. 240 (Abdullah bin Mas'ud)", url: sn("bukhari", 240),
+            isi: "Saat Nabi sujud di dekat Ka'bah, Abu Jahal dan kawan-kawannya menyuruh orang meletakkan isi perut unta di punggung beliau. Fatimah yang masih kecil datang menyingkirkannya.",
+            catatan: "Tahun persisnya tidak disebut dalam riwayat." },
+          { t: [630, 630], judul: "Berhala dihancurkan", tokoh: ["nabi"], derajat: "shahih",
+            sumber: "HR. Bukhari no. 4287 (Abdullah bin Mas'ud)", url: sn("bukhari", 4287),
+            isi: "Saat Fathu Makkah ada 360 berhala di sekitar Ka'bah. Nabi menusuknya satu per satu dengan tongkat sambil membaca ayat ini.",
+            ayat: { surah: "Al-Isra'", no: "81", arab: "جَاءَ الْحَقُّ وَزَهَقَ الْبَاطِلُ" } }
+        ] },
+
+      { id: "hijr", nama: "Hijr Ismail", arab: "الحِجر", jenis: "titik", e: -9, n: 9, lod: 2, keyakinan: "pasti",
+        ket: "Dinding rendah setengah lingkaran di sisi barat laut Ka'bah. Area di dalamnya termasuk bagian Ka'bah.",
+        riwayat: [
+          { t: null, judul: "Bagian dari Ka'bah", tokoh: ["aisyah", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 1584 (Aisyah)", url: sn("bukhari", 1584),
+            isi: "Aisyah bertanya apakah dinding melengkung itu termasuk Ka'bah. Nabi menjawab ya; Quraisy tidak memasukkannya ke dalam bangunan karena kekurangan biaya." },
+          { t: [621, 621], judul: "Membuktikan Isra'", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3886 (Jabir bin Abdullah)", url: sn("bukhari", 3886),
+            isi: "Ketika Quraisy mendustakan kisah Isra', Nabi berdiri di Hijr. Allah menampakkan Baitul Maqdis di hadapan beliau sehingga beliau bisa menjelaskan tanda-tandanya." }
+        ] },
+
+      { id: "zamzam", nama: "Sumur Zamzam", arab: "زمزم", jenis: "titik", e: 18, n: -8, lod: 2, keyakinan: "pasti",
+        ket: "Sumur sekitar 20 m di timur Ka'bah.",
+        riwayat: [
+          { t: null, judul: "Asal mula Zamzam", tokoh: [], derajat: "shahih", sumber: "HR. Bukhari no. 3364 (Ibnu Abbas)", url: sn("bukhari", 3364),
+            isi: "Air memancar untuk Hajar dan Ismail kecil yang kehausan di lembah tak berpenghuni." },
+          { t: null, judul: "Digali ulang Abdul Muthalib", tokoh: ["abdulmuthalib"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Sumur ini tertimbun sejak masa kabilah Jurhum. Abdul Muthalib menggalinya kembali setelah mendapat petunjuk dalam mimpi, sebelum Nabi lahir." }
+        ] },
+
+      { id: "maqam", nama: "Maqam Ibrahim", arab: "مقام إبراهيم", jenis: "titik", e: 12, n: 9, lod: 2, keyakinan: "pasti",
+        ket: "Batu tempat Nabi Ibrahim berdiri saat membangun Ka'bah, di depan sisi pintu Ka'bah.",
+        riwayat: [
+          { t: null, judul: "Usul Umar", tokoh: ["umar", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 402 (Anas, dari Umar)", url: sn("bukhari", 402),
+            isi: "Umar berkata kepada Nabi, \"Seandainya kita jadikan Maqam Ibrahim tempat shalat.\" Lalu turun ayat ini.",
+            ayat: { surah: "Al-Baqarah", no: "125", arab: "وَاتَّخِذُوا مِن مَّقَامِ إِبْرَاهِيمَ مُصَلًّى" } }
+        ] },
+
+      { id: "shafa", nama: "Bukit Shafa", arab: "الصفا", jenis: "bukit", e: 100, n: -85, lod: 1, keyakinan: "pasti",
+        ket: "Bukit kecil sekitar 130 m di tenggara Ka'bah, di kaki Jabal Abu Qubais. Titik awal sa'i.",
+        riwayat: [
+          { t: [613, 613], judul: "Seruan di atas Shafa", tokoh: ["nabi", "abulahab"], derajat: "shahih", sumber: "HR. Bukhari no. 4770 (Ibnu Abbas)", url: sn("bukhari", 4770),
+            isi: "Nabi naik ke Shafa dan memanggil kabilah-kabilah Quraisy untuk memperingatkan mereka. Abu Lahab mencela beliau, lalu turun Surah Al-Masad.",
+            ayat: { surah: "Asy-Syu'ara'", no: "214", arab: "وَأَنذِرْ عَشِيرَتَكَ الْأَقْرَبِينَ" } },
+          { t: [630, 630], judul: "Doa di Shafa saat Fathu Makkah", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Muslim no. 1780 (Abu Hurairah)", url: sn("muslim", 1780),
+            isi: "Setelah thawaf, Nabi naik ke Shafa hingga dapat memandang Ka'bah, lalu mengangkat tangan berzikir dan berdoa." }
+        ] },
+
+      { id: "marwah", nama: "Bukit Marwah", arab: "المروة", jenis: "bukit", e: 125, n: 340, lod: 1, keyakinan: "pasti",
+        ket: "Bukit kecil sekitar 300 m di timur laut Ka'bah. Jarak Shafa–Marwah sekitar 450 m. Pada masa Nabi, jalur di antaranya adalah jalan terbuka di tengah permukiman.",
+        riwayat: [
+          { t: null, judul: "Lari kecil Hajar", tokoh: [], derajat: "shahih", sumber: "HR. Bukhari no. 3364 (Ibnu Abbas)", url: sn("bukhari", 3364),
+            isi: "Hajar berlari bolak-balik tujuh kali antara Shafa dan Marwah mencari air untuk Ismail. Inilah asal ibadah sa'i." }
+        ] },
+
+      { id: "nadwah", nama: "Darun Nadwah", arab: "دار الندوة", jenis: "rumah", besar: true, e: -40, n: 48, lod: 1, keyakinan: "kitab",
+        ket: "Balai musyawarah Quraisy yang didirikan Qusay bin Kilab, di sisi barat laut Ka'bah dengan pintu menghadap Ka'bah. Kafilah dagang Mekah berangkat dan pulang dari sini. Kemudian dibeli Mu'awiyah, dan pada akhir abad ke-3 H digabungkan ke Masjidil Haram.",
+        sumberLokasi: "Al-Azraqi, Akhbar Makkah; WikiShia",
+        riwayat: [
+          { t: [622, 622], judul: "Rencana membunuh Nabi", tokoh: ["abujahal", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; tafsir Ibnu Katsir",
+            isi: "Para pemuka Quraisy bermusyawarah di sini. Atas usul Abu Jahal, mereka sepakat mengirim pemuda dari tiap kabilah untuk membunuh Nabi bersama-sama. Malam itu Nabi berangkat hijrah.",
+            ayat: { surah: "Al-Anfal", no: "30", arab: "وَإِذْ يَمْكُرُ بِكَ الَّذِينَ كَفَرُوا" } }
+        ] },
+
+      { id: "arqam", nama: "Darul Arqam", arab: "دار الأرقم", jenis: "rumah", e: 122, n: -58, lod: 1, keyakinan: "kitab",
+        ket: "Rumah Al-Arqam bin Abil Arqam dari Bani Makhzum, di sisi utara Bukit Shafa. Kemudian dibeli Al-Khaizuran, ibu Harun Ar-Rasyid, sehingga dikenal sebagai Darul Khaizuran.",
+        sumberLokasi: "Al-Azraqi, Akhbar Makkah (dikutip Dr. Abdulwahab Abu Sulaiman); IslamicLandmarks",
+        riwayat: [
+          { t: [613, 616], judul: "Pusat dakwah sembunyi-sembunyi", tokoh: ["nabi", "hamzah", "umar"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Nabi dan para sahabat berkumpul di rumah ini untuk shalat dan belajar tanpa diketahui Quraisy. Hamzah dan Umar disebut menyatakan keislaman pada masa ini." }
+        ] },
+
+      { id: "khadijah", nama: "Rumah Khadijah", arab: "دار خديجة", jenis: "rumah", besar: true, e: 150, n: 110, lod: 1, keyakinan: "kitab",
+        ket: "Rumah Nabi di Mekah, di sisi timur laut Masjidil Haram, di gang Al-'Attarin (kemudian disebut Zuqaq al-Hajar) dekat Marwah. Mu'awiyah kemudian membelinya dan menjadikannya masjid. Kini menjadi area terbuka di sisi timur masjid, dekat Bab as-Salam.",
+        sumberLokasi: "Al-Azraqi; Al-Fakihi; Al-Fasi, Syifa'ul Gharam (dikaji Al-Furqan, 2014)",
+        riwayat: [
+          { t: [595, 622], judul: "Rumah keluarga Nabi", tokoh: ["nabi", "khadijah", "fatimah"], derajat: "sirah", sumber: "Al-Azraqi, Akhbar Makkah; Al-Fakihi, Akhbar Makkah",
+            isi: "Nabi tinggal di sini sejak menikah dengan Khadijah sampai hijrah. Anak-anak beliau dari Khadijah lahir di rumah ini, termasuk Fatimah." },
+          { t: [610, 610], judul: "\"Selimuti aku\"", tokoh: ["nabi", "khadijah"], derajat: "shahih", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3),
+            isi: "Sepulang dari Gua Hira dalam keadaan gemetar, Nabi menemui Khadijah dan berkata, \"Selimuti aku.\" Khadijah menenangkan beliau dan membawanya kepada Waraqah bin Naufal." },
+          { t: [619, 619], judul: "Khadijah wafat", tokoh: ["khadijah", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Khadijah wafat pada Tahun Kesedihan, tidak lama setelah pemboikotan berakhir." }
+        ] },
+
+      { id: "abusufyan", nama: "Rumah Abu Sufyan", arab: "دار أبي سفيان", jenis: "rumah", besar: true, e: 174, n: 90, lod: 2, keyakinan: "kitab",
+        ket: "Rumah pemimpin Bani Umayyah, bersebelahan dengan rumah Khadijah. Mu'awiyah kemudian membuat pintu yang menghubungkan kedua rumah itu.",
+        sumberLokasi: "Al-Fakihi, Akhbar Makkah (dikaji Al-Furqan, 2014)",
+        riwayat: [
+          { t: [630, 630], judul: "\"Siapa masuk rumah Abu Sufyan, ia aman\"", tokoh: ["abusufyan", "nabi"], derajat: "shahih", sumber: "HR. Muslim no. 1780 (Abu Hurairah)", url: sn("muslim", 1780),
+            isi: "Saat Fathu Makkah, Nabi menjamin keamanan bagi siapa yang masuk ke rumah Abu Sufyan, meletakkan senjata, atau menutup pintu rumahnya.",
+            matan: "مَنْ دَخَلَ دَارَ أَبِي سُفْيَانَ فَهُوَ آمِنٌ" }
+        ] },
+
+      { id: "abulahab", nama: "Rumah Abu Lahab", arab: "دار أبي لهب", jenis: "rumah", e: 152, n: 142, lod: 2, keyakinan: "perkiraan",
+        ket: "Abu Lahab bertetangga dengan rumah Khadijah. Sisi persisnya tidak tercatat, jadi titik ini hanya menandai bahwa rumahnya bersebelahan.",
+        sumberLokasi: "Al-Azraqi, Akhbar Makkah (dikutip Dr. Abdulwahab Abu Sulaiman)",
+        riwayat: [
+          { t: [610, 622], judul: "Tetangga yang memusuhi", tokoh: ["abulahab", "nabi"], derajat: "sirah", sumber: "Al-Azraqi, Akhbar Makkah",
+            isi: "Al-Azraqi mencatat batu pernah dilempar dari rumah Abu Lahab ke arah rumah Khadijah." },
+          { t: [610, 622], judul: "Riwayat \"dua tetangga terburuk\"", tokoh: ["abulahab", "nabi"], derajat: "lemah", sumber: "Ibnu Sa'd, Ath-Thabaqat al-Kubra 1/157",
+            isi: "Ada riwayat bahwa Abu Lahab dan Uqbah bin Abi Mu'aith membuang kotoran di depan pintu rumah Nabi.",
+            catatan: "Sanadnya dinilai sangat lemah (HadithAnswers), jadi jangan dijadikan pegangan." }
+        ] },
+
+      { id: "abujahal", nama: "Rumah Abu Jahal", arab: "دار أبي جهل", jenis: "rumah", e: 150, n: 25, lod: 1, keyakinan: "perkiraan",
+        ket: "Abu Jahal (Amr bin Hisyam) dari Bani Makhzum. Pemandu lokal Mekah menunjuk area di luar Mas'a sekarang sebagai perkiraan lokasi rumahnya. Kami belum menemukan sumber klasik yang memastikannya.",
+        sumberLokasi: "IslamicLandmarks (mengutip pemandu lokal; Ar-Rahiq al-Makhtum)",
+        riwayat: [
+          { t: [613, 619], judul: "Memusuhi Nabi di dekat Ka'bah", tokoh: ["abujahal", "nabi"], derajat: "shahih", lihat: "kabah",
+            sumber: "HR. Bukhari no. 4958 dan no. 240", url: sn("bukhari", 4958),
+            isi: "Ancaman menginjak leher Nabi dan peristiwa isi perut unta terjadi di dekat Ka'bah. Lihat detailnya di Ka'bah." },
+          { t: [624, 624], judul: "Tewas di Badar", tokoh: ["abujahal"], derajat: "shahih", sumber: "HR. Bukhari no. 3962 (Anas bin Malik)", url: sn("bukhari", 3962),
+            isi: "Abu Jahal tewas dalam Perang Badar pada tahun 2 H. Ibnu Mas'ud menemukannya dalam keadaan sekarat." }
+        ] },
+
+      { id: "maulid", nama: "Tempat lahir Nabi ﷺ", arab: "المولد", jenis: "rumah", e: 235, n: 205, lod: 1, keyakinan: "kitab",
+        ket: "Di Suq al-Lail, Syi'ib Bani Hasyim. Rumah ini milik Abdul Muthalib lalu diberikan kepada Abdullah, ayah Nabi. Kemudian dibeli Muhammad bin Yusuf (saudara Al-Hajjaj) sehingga disebut Dar Ibnu Yusuf, lalu dijadikan masjid oleh Al-Khaizuran. Kini berdiri Perpustakaan Makkah Al-Mukarramah di atasnya.",
+        sumberLokasi: "Al-Azraqi; Al-Fakihi; Al-Fasi, Syifa'ul Gharam (dirangkum Encyclopedia of Muhammad)",
+        riwayat: [
+          { t: [570, 570], judul: "Kelahiran Nabi ﷺ", tokoh: ["nabi", "aminah", "abdulmuthalib"], derajat: "sirah", sumber: "Al-Azraqi; Al-Fakihi; Al-Fasi",
+            isi: "Mayoritas sejarawan Mekah menyebut Nabi lahir di rumah ini, di gang yang dahulu disebut Zuqaq al-Maulid.",
+            catatan: "Sebagian ulama berpendapat titik pastinya tidak bisa ditentukan lagi karena tidak dijaga sejak awal Islam." }
+        ] },
+
+      { id: "abdulmuthalib", nama: "Kediaman Abdul Muthalib", arab: "دار عبد المطلب", jenis: "rumah", besar: true, e: 300, n: 170, lod: 1, keyakinan: "perkiraan",
+        ket: "Abdul Muthalib adalah pemilik Syi'ib Bani Hasyim dan membagikannya kepada anak-anaknya menjelang wafat. Rumah tempat Nabi lahir adalah bagian dari tanahnya. Letak rumah pribadinya di dalam syi'ib tidak tercatat pasti.",
+        sumberLokasi: "Yaqut al-Hamawi, Mu'jam al-Buldan (via WikiShia)",
+        riwayat: [
+          { t: [576, 578], judul: "Mengasuh cucunya", tokoh: ["abdulmuthalib", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Setelah Aminah wafat, Nabi yang berusia 6 tahun diasuh kakeknya sampai sang kakek wafat dua tahun kemudian." },
+          { t: [576, 578], judul: "Majelis di bayangan Ka'bah", tokoh: ["abdulmuthalib", "nabi"], derajat: "sirah", lihat: "kabah", sumber: "Sirah Ibnu Hisyam",
+            isi: "Abdul Muthalib menerima orang di hamparan di bayangan Ka'bah. Lihat di Ka'bah." }
+        ] },
+
+      { id: "syiib", nama: "Syi'ib Bani Hasyim", arab: "شعب أبي طالب", jenis: "kawasan", e: 330, n: 230, lod: 0, keyakinan: "kitab",
+        ket: "Lembah permukiman Bani Hasyim, juga disebut Syi'ib Abi Thalib. Terletak di antara Jabal Abu Qubais di selatan dan Jabal Khandamah di utara dan timur, menghadap Masjidil Haram. Kini hanya tersisa sebagian kecil di kawasan Suq al-Lail.",
+        sumberLokasi: "Okaz, 2026 (Dr. Hamad Al-Balawi); WikiShia",
+        riwayat: [
+          { t: [617, 619], judul: "Pemboikotan Bani Hasyim", tokoh: ["nabi", "abuthalib", "khadijah"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat; Ibnu Qayyim, Zadul Ma'ad",
+            isi: "Bani Hasyim dan Bani Muthalib dikurung di lembah ini selama sekitar tiga tahun. Ibnu Qayyim menyebut mulainya pada malam awal Muharram tahun ke-7 kenabian. Abu Lahab tidak ikut, ia berpihak kepada Quraisy." }
+        ] },
+
+      { id: "abuqubais", nama: "Jabal Abu Qubais", arab: "أبو قبيس", jenis: "gunung", e: 360, n: -200, lod: 0, keyakinan: "pasti",
+        ket: "Gunung di timur dan tenggara Masjidil Haram. Bukit Shafa berada di kakinya.",
+        riwayat: [
+          { t: [619, 619], judul: "Tawaran malaikat penjaga gunung", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3231 (Aisyah)", url: sn("bukhari", 3231),
+            isi: "Sepulang dari Thaif, malaikat penjaga gunung menawarkan untuk menimpakan Al-Akhsyabain kepada penduduk Mekah. Nabi menolak dan berharap dari keturunan mereka lahir orang yang menyembah Allah.",
+            catatan: "Al-Akhsyabain ditafsirkan sebagai Abu Qubais dan gunung di seberangnya." }
+        ] },
+      { id: "quaiqian", nama: "Jabal Qu'aiqi'an", arab: "قعيقعان", jenis: "gunung", e: -390, n: 150, lod: 0, keyakinan: "pasti",
+        ket: "Gunung di sisi barat lembah Mekah, berhadapan dengan Abu Qubais.", riwayat: [] },
+      { id: "khandamah", nama: "Jabal Khandamah", arab: "الخندمة", jenis: "gunung", e: 700, n: 420, lod: 0, keyakinan: "pasti",
+        ket: "Gunung di timur laut kota, batas utara dan timur Syi'ib Bani Hasyim.", riwayat: [] }
+    ],
+
+    belumDipetakan: [
+      { id: "abubakar", nama: "Rumah Abu Bakar", tokoh: ["abubakar"],
+        ket: "Sumber yang kami temukan tidak menyebut letak rumah Abu Bakar di Mekah, jadi rumah ini belum ditaruh di peta.",
+        riwayat: [
+          { t: [613, 622], judul: "Masjid di halaman rumah", tokoh: ["abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 476 (Aisyah)", url: sn("bukhari", 476),
+            isi: "Abu Bakar membangun tempat shalat di halaman rumahnya. Perempuan dan anak-anak musyrik berkerumun mendengar bacaannya karena ia mudah menangis saat membaca Al-Qur'an." },
+          { t: [622, 622], judul: "Berangkat hijrah dari sini", tokoh: ["abubakar", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3905 (Aisyah)", url: sn("bukhari", 3905),
+            isi: "Nabi datang ke rumah Abu Bakar di tengah hari, waktu yang tidak biasa, untuk mengabarkan izin hijrah." }
+        ] }
+    ],
+
+    sumber: [
+      { judul: "Al-Furqan: The Location of the House of Khadijah", url: "https://al-furqan.com/the-location-of-the-house-of-khadijah-%D8%B1%D8%B6%D9%8A-%D8%A7%D9%84%D9%84%D9%87-%D8%B9%D9%86%D9%87%D8%A7-and-the-houses-that-surrounded-it" },
+      { judul: "Okaz: kajian Al-Azraqi oleh Dr. Abdulwahab Abu Sulaiman (2009)", url: "https://www.okaz.com.sa/article/239541" },
+      { judul: "Okaz: Syi'ib Abi Thalib (2026)", url: "https://www.okaz.com.sa/local/na/2236902" },
+      { judul: "Encyclopedia of Muhammad: Birthplace of Prophet Muhammad", url: "https://muhammadencyclopedia.com/article/birthplace-of-prophet-muhammad" },
+      { judul: "WikiShia: Dar al-Nadwa", url: "https://en.wikishia.net/view/Dar_al-Nadwa" },
+      { judul: "WikiShia: Shi'b Abi Talib", url: "https://en.wikishia.net/view/Shi%27b_Abi_Talib" },
+      { judul: "IslamicLandmarks: rumah Abu Jahal", url: "https://www.islamiclandmarks.com/?p=650" },
+      { judul: "IslamicLandmarks: Darul Arqam", url: "https://www.islamiclandmarks.com/?p=693" },
+      { judul: "Wikipedia: Safa and Marwa", url: "https://en.wikipedia.org/wiki/Safa_and_Marwa" },
+      { judul: "Wikipedia: Zamzam Well", url: "https://en.wikipedia.org/wiki/Zamzam_Well" },
+      { judul: "HadithAnswers: riwayat tetangga Nabi", url: "https://islamqa.org/hanafi/hadithanswers/155428/nabis-sallallahu-alayhi-wa-sallam-neighbours-causing-him-harm/" },
+      { judul: "Sunnah.com: teks dan nomor hadits Bukhari & Muslim", url: "https://sunnah.com/" }
+    ]
+  };
+
+  // Tokoh tambahan untuk peta kota
+  if (window.SIRAH && !window.SIRAH.tokoh.abusufyan) {
+    window.SIRAH.tokoh.abusufyan = { nama: "Abu Sufyan bin Harb", arab: "أبو سفيان", lahir: 565, wafat: 652, kira: true, gelar: "Pemimpin Bani Umayyah",
+      ringkas: "Pemimpin Quraisy yang lama memusuhi dakwah dan memimpin pasukan di Uhud dan Khandaq. Masuk Islam menjelang Fathu Makkah. Ayah Mu'awiyah dan Ummu Habibah, istri Nabi." };
+  }
+})();

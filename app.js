@@ -123,7 +123,7 @@
   }
 
   // ---------- Panel kanan ----------
-  function Panel({ year, sel, eventsYear, onProfile, setYear, select }) {
+  function Panel({ year, sel, eventsYear, onProfile, setYear, select, onEnterCity }) {
     const [tab, setTab] = useState("peristiwa");
     const l = sel && D.lokasi[sel];
     const here = sel ? eventsYear.filter((e) => e.lok === sel) : eventsYear;
@@ -139,6 +139,8 @@
           <${Vignette} jenis=${l.jenis} />
           <div class="loc-title"><h2>${l.nama}</h2><span class="loc-ar" lang="ar">${l.arab}</span></div>
           <p class="loc-ket">${l.ket}</p>
+          ${sel === "makkah" && html`<button type="button" class="enter-city" onClick=${onEnterCity}>
+            <b>Masuk ke kota Mekah</b><span>Ka'bah, rumah Khadijah, Abu Jahal, Abdul Muthalib, dan lainnya</span></button>`}
         </div>`
         : html`<div class="loc-head plain"><h2>Tahun ${year} M</h2><p class="loc-ket">${eraFor(year).nama}. ${here.length ? `${here.length} peristiwa tercatat di peta tahun ini. Pilih kota untuk melihat detailnya.` : "Belum ada peristiwa tercatat di tahun ini. Geser timeline atau pilih kota."}</p></div>`}
 
@@ -201,9 +203,11 @@
   }
 
   // ---------- Profil ----------
-  function Profile({ id, year, onClose, onGoto }) {
+  function Profile({ id, year, onClose, onGoto, onGotoCity }) {
     const t = D.tokoh[id];
     const evs = D.peristiwa.filter((e) => e.tokoh.includes(id));
+    const cityRefs = window.MEKAH.tempat.flatMap((p) => p.riwayat.filter((r) => r.tokoh.includes(id) && !r.lihat).map((r) => ({ p, r })))
+      .sort((a, b) => (a.r.t ? a.r.t[0] : 0) - (b.r.t ? b.r.t[0] : 0));
     const status = year < t.lahir ? `Belum lahir pada ${year} M.` : year > t.wafat ? `Telah wafat pada ${year} M.` : `Pada ${year} M berusia ±${year - t.lahir} tahun.`;
     useEffect(() => { const k = (e) => e.key === "Escape" && onClose(); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, []);
     return html`<div class="overlay" onClick=${onClose}>
@@ -218,8 +222,116 @@
         <h3>Peristiwa di peta</h3>
         <ol class="plist">${evs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => onGoto(e)}>
           <span class="py">${e.tahun}</span><span><b>${e.judul}</b><small>${D.lokasi[e.lok].nama}</small></span></button></li>`)}</ol>
+        ${cityRefs.length > 0 && html`<h3>Jejak di kota Mekah</h3>
+          <ol class="plist">${cityRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r)}>
+            <span class="py">${r.t ? r.t[0] : "–"}</span><span><b>${r.judul}</b><small>${p.nama}</small></span></button></li>`)}</ol>`}
       </div>
     </div>`;
+  }
+
+  // ---------- Kota Mekah ----------
+  const K = window.MEKAH;
+  const inYear = (r, y) => r.t && y >= r.t[0] && y <= r.t[1];
+  const placeActive = (p, y) => p.riwayat.some((r) => inYear(r, y));
+  const fmtT = (t) => (!t ? "Sebelum 570 M" : t[0] === t[1] ? `${t[0]} M` : `${t[0]}–${t[1]} M`);
+
+  function CityMap({ year, csel, activeIds, onSelect, onOverview, onBack }) {
+    const box = useRef(null), api = useRef(null), nodes = useRef({});
+    const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
+    useEffect(() => {
+      api.current = window.MekahScene.create(box.current, { tempat: K.tempat });
+      Object.entries(nodes.current).forEach(([id, n]) => api.current.registerLabel(id, n));
+      api.current.setActive(activeIds);
+      if (csel) api.current.select(csel);
+      return () => api.current.dispose();
+    }, []);
+    useEffect(() => { api.current && api.current.setActive(activeIds); }, [activeIds]);
+    useEffect(() => { if (!api.current) return; csel ? api.current.select(csel) : api.current.overview(); }, [csel]);
+    return html`<section class="map city" aria-label="Peta 3D kota Mekah">
+      <div class="map-canvas" ref=${box}></div>
+      <div class="map-labels">
+        ${K.tempat.map((p) => html`<div key=${p.id} ref=${reg(p.id)}
+            class=${`pin k-${p.keyakinan} j-${p.jenis}${activeIds.has(p.id) ? " is-active" : ""}${csel === p.id ? " is-sel" : ""}`}>
+          <div class="pin-wrap"><button type="button" class="pin-btn" onClick=${() => onSelect(p.id)} aria-pressed=${csel === p.id}>
+            <i class="kdot"></i><span class="pin-name">${p.nama}</span>
+          </button></div>
+        </div>`)}
+      </div>
+      <div class="city-top">
+        <button type="button" class="back" onClick=${onBack}>‹ Peta wilayah</button>
+        <div class="city-title"><b>Kota Mekah</b><span>Keadaan sekitar ${year} M</span></div>
+      </div>
+      <div class="map-tools">
+        <button type="button" onClick=${() => api.current.zoom(0.75)} aria-label="Perbesar">+</button>
+        <button type="button" onClick=${() => api.current.zoom(1.33)} aria-label="Perkecil">−</button>
+        <button type="button" onClick=${() => api.current.rotate(-0.4)} aria-label="Putar kiri">⟲</button>
+        <button type="button" onClick=${() => api.current.rotate(0.4)} aria-label="Putar kanan">⟳</button>
+        <button type="button" class="wide" onClick=${onOverview}>Seluruh kota</button>
+      </div>
+      <ul class="legend" aria-label="Tingkat keyakinan lokasi">
+        ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
+      </ul>
+    </section>`;
+  }
+
+  function Riwayat({ r, year, onProfile, onLihat }) {
+    const now = inYear(r, year);
+    return html`<article class=${`riwayat${now ? " now" : ""}`}>
+      <p class="event-when"><b>${fmtT(r.t)}</b>${now && html`<span class="tag-now">Tahun terpilih</span>`}</p>
+      <h3>${r.judul}</h3>
+      <p class="narasi">${r.isi}</p>
+      ${r.ayat && html`<div class="ayat"><p class="ayat-ref">${r.ayat.surah} : ${r.ayat.no}</p><p class="ayat-ar" lang="ar" dir="rtl">${r.ayat.arab}</p></div>`}
+      ${r.matan && html`<p class="matan" lang="ar" dir="rtl">${r.matan}</p>`}
+      <p class="src-line"><span class=${`deg d-${r.derajat}`}>${K.derajat[r.derajat]}</span>
+        ${r.url ? html`<a href=${r.url} target="_blank" rel="noopener">${r.sumber}</a>` : html`<span>${r.sumber}</span>`}</p>
+      ${r.catatan && html`<p class="note">${r.catatan}</p>`}
+      ${(r.tokoh.length > 0 || r.lihat) && html`<div class="chips">
+        ${r.tokoh.map((t) => html`<button type="button" key=${t} class="chip" onClick=${() => onProfile(t)}><${Medal} id=${t} size="xs" /><span>${D.tokoh[t].nama}</span></button>`)}
+        ${r.lihat && html`<button type="button" class="chip go" onClick=${() => onLihat(r.lihat)}>Buka ${K.tempat.find((p) => p.id === r.lihat).nama}</button>`}
+      </div>`}
+    </article>`;
+  }
+
+  function CityPanel({ year, csel, setCsel, onProfile, activeIds }) {
+    const p = csel && K.tempat.find((x) => x.id === csel);
+    if (p) {
+      const kv = K.keyakinan[p.keyakinan];
+      return html`<aside class="panel" aria-label="Detail tempat">
+        <div class="loc-head plain">
+          <button type="button" class="link small" onClick=${() => setCsel(null)}>‹ Semua tempat di Mekah</button>
+          <div class="loc-title flush"><h2>${p.nama}</h2><span class="loc-ar" lang="ar">${p.arab}</span></div>
+          <p class=${`kbadge k-${p.keyakinan}`}><i class="kdot"></i><b>${kv.nama}.</b> ${kv.ket}</p>
+          <p class="loc-ket">${p.ket}</p>
+          ${p.sumberLokasi && html`<p class="src">Sumber lokasi: ${p.sumberLokasi}</p>`}
+        </div>
+        <div class="panel-body">
+          ${p.riwayat.length ? [...p.riwayat].sort((a, b) => inYear(b, year) - inYear(a, year) || (a.t ? a.t[0] : 0) - (b.t ? b.t[0] : 0))
+              .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} />`)
+            : html`<p class="empty-p">Belum ada riwayat yang dicatat untuk tempat ini.</p>`}
+        </div>
+        <p class="draft">Konten draf. Lokasi dan riwayat perlu diverifikasi ustadz sebelum dipakai.</p>
+      </aside>`;
+    }
+    const list = K.tempat.filter((x) => x.jenis !== "gunung");
+    const now = list.filter((x) => activeIds.has(x.id)), rest = list.filter((x) => !activeIds.has(x.id));
+    const row = (x) => html`<li key=${x.id}><button type="button" class=${`prow k-${x.keyakinan}`} onClick=${() => setCsel(x.id)}>
+      <i class="kdot"></i><span><b>${x.nama}</b><small>${K.keyakinan[x.keyakinan].nama} · ${x.riwayat.length} riwayat</small></span></button></li>`;
+    return html`<aside class="panel" aria-label="Tempat di Mekah">
+      <div class="loc-head plain">
+        <h2>Kota Mekah</h2>
+        <p class="loc-ket">Ka'bah, rumah para tokoh, dan bukit-bukit di sekitarnya. Warna penanda menunjukkan seberapa yakin lokasinya. Tempat yang punya riwayat di tahun ${year} M ikut menyala.</p>
+      </div>
+      <div class="panel-body">
+        ${now.length > 0 && html`<section><h3 class="sec">Terkait ${year} M</h3><ul class="plist2">${now.map(row)}</ul></section>`}
+        <section><h3 class="sec">${now.length ? "Tempat lain" : "Semua tempat"}</h3><ul class="plist2">${rest.map(row)}</ul></section>
+        <section><h3 class="sec">Belum bisa dipetakan</h3>
+          ${K.belumDipetakan.map((b) => html`<div class="unmapped" key=${b.id}><p><b>${b.nama}.</b> ${b.ket}</p>
+            ${b.riwayat.map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} />`)}</div>`)}
+        </section>
+        <section><h3 class="sec">Sumber</h3><ul class="srcs">${K.sumber.map((s) => html`<li key=${s.url}><a href=${s.url} target="_blank" rel="noopener">${s.judul}</a></li>`)}</ul></section>
+      </div>
+      <p class="draft">Konten draf. Lokasi dan riwayat perlu diverifikasi ustadz sebelum dipakai.</p>
+    </aside>`;
   }
 
   // ---------- App ----------
@@ -249,19 +361,31 @@
       return () => clearTimeout(t);
     }, [playing, year]);
 
-    const goto = (e) => { setPlaying(false); setYear(e.tahun); setSel(e.lok); setProfile(null); };
+    const [mode, setMode] = useState("wilayah");
+    const [csel, setCsel] = useState(null);
+    const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
-    return html`<div class="app">
+    const goto = (e) => { setPlaying(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
+    const gotoCity = (pid, r) => { setPlaying(false); if (r && r.t) setYear(r.t[0]); setMode("mekah"); setCsel(pid); setProfile(null); };
+    const city = mode === "mekah";
+
+    return html`<div class=${`app${city ? " in-city" : ""}`}>
       <header class="top">
         <div class="brand"><h1>Jejak Sirah</h1><p>Sejarah Islam dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
         <span class="badge">Prototipe</span>
       </header>
-      <${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
-        onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
-        onOverview=${() => setSel(null)} />
+      ${city
+        ? html`<${CityMap} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
+            onOverview=${() => setCsel(null)} onBack=${() => { setMode("wilayah"); setSel("makkah"); }} />`
+        : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt}
+            onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
+            onOverview=${() => setSel(null)} />`}
       <${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />
-      <${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel} />
-      ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} />`}
+      ${city
+        ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds} />`
+        : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
+            onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
+      ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }
 

@@ -11,6 +11,7 @@ Prototipe aplikasi pengetahuan internal Sopwer: peta 3D sejarah Islam dari Tahun
 - Klik kota untuk melihat ilustrasi, peristiwa, ayat, asbabun nuzul, dan rujukan.
 - Tokoh ditampilkan sebagai medali kaligrafi nama, tanpa wajah. Klik untuk membuka profil dan usia di tahun terpilih.
 - Tab "Tokoh yang hidup" untuk tahun yang dipilih.
+- **Mode kota Mekah**: lembah Mekah 3D dengan Ka'bah, Hijr Ismail, Zamzam, Maqam Ibrahim, Shafa–Marwah, Darun Nadwah, Darul Arqam, rumah Khadijah, Abu Sufyan, Abu Lahab, Abu Jahal, tempat lahir Nabi, dan Syi'ib Bani Hasyim. Tiap titik diberi tingkat keyakinan lokasi (pasti / menurut kitab sejarah / perkiraan), dan tiap riwayat diberi derajat (hadits shahih / kitab sirah / lemah) beserta rujukannya.
 
 ## Struktur
 
@@ -18,6 +19,8 @@ Prototipe aplikasi pengetahuan internal Sopwer: peta 3D sejarah Islam dari Tahun
 | --- | --- |
 | `index.html` | Halaman, gaya, dan pemuatan library (React 18 UMD, htm, Three.js r128) |
 | `data.js` | Data lokasi, tokoh, era, dan peristiwa (`window.SIRAH`) |
+| `city-data.js` | Data tempat di kota Mekah, riwayat, dan daftar sumber (`window.MEKAH`) |
+| `city.js` | Scene 3D lembah Mekah (`window.MekahScene`) |
 | `scene.js` | Medan 3D, penanda kota, kamera orbit (`window.SirahScene`) |
 | `app.js` | UI React: peta, panel detail, timeline, profil |
 
