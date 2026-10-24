@@ -144,10 +144,10 @@
   const HELP_PETA = [["Seret", "geser peta"], ["Klik kanan atau Shift + seret", "putar dan miringkan"], ["Scroll atau cubit", "zoom ke arah kursor"], ["WASD atau panah", "geser"], ["Q / E", "putar"]];
 
   // ---------- Peta ----------
-  function MapView({ year, sel, activeLoks, tokohAt, wargaAt, onSelect, onProfile, onOverview, rute, ruteHi, focusReq }) {
+  function MapView({ year, sel, activeLoks, tokohAt, wargaAt, onSelect, onProfile, onOverview, rute, ruteHi, focusReq, ruteNama, jejak, jejakLok, jejakBar }) {
     const box = useRef(null), api = useRef(null), nodes = useRef({});
     const [buka, setBuka] = useState(null); // kota yang daftar warganya dibuka lewat tombol jumlah
-    useEffect(() => { setBuka(null); }, [year]);
+    useEffect(() => { setBuka(jejak && jejakLok ? jejakLok : null); }, [year, jejak, jejakLok]);
     const reg = (id) => (n) => { if (n) nodes.current[id] = n; else delete nodes.current[id]; api.current && api.current.registerLabel(id, n); };
     const hold = (k) => ({
       onPointerDown: (e) => { e.preventDefault(); api.current.press(k, true); },
@@ -169,9 +169,10 @@
       <div class="map-canvas" ref=${box}></div>
       <div class="map-labels">
         ${Object.entries(D.lokasi).map(([id, l]) => {
-          const act = activeLoks.has(id), tk = tokohAt[id] || [], wg = (wargaAt && wargaAt[id]) || [];
+          const act = activeLoks.has(id), tk = tokohAt[id] || [], wg0 = (wargaAt && wargaAt[id]) || [];
+          const wg = jejak && wg0.includes(jejak) ? [jejak, ...wg0.filter((x) => x !== jejak)] : wg0;
           const open = buka === id;
-          return html`<div key=${id} class=${`pin i-${ikonLokasi(l)}${act ? " is-active" : ""}${sel === id ? " is-sel" : ""}${l.kecil ? " kecil" : ""}${open ? " wg-open" : ""}`} ref=${reg(id)}>
+          return html`<div key=${id} class=${`pin i-${ikonLokasi(l)}${act ? " is-active" : ""}${sel === id ? " is-sel" : ""}${l.kecil ? " kecil" : ""}${open ? " wg-open" : ""}${jejakLok === id ? " jejak" : ""}`} ref=${reg(id)}>
            <div class="pin-wrap">
             <div class="pin-row">
               <button type="button" class="pin-btn" onClick=${() => onSelect(id)} aria-pressed=${sel === id} title=${IKON_NAMA[ikonLokasi(l)]}>
@@ -182,7 +183,7 @@
             </div>
             ${wg.length > 0 && html`<div class="pin-warga" aria-label=${`Tokoh yang tinggal di ${l.nama} pada ${year} M`}>
               <div class="wg-names"><p class="wg-head">Tinggal di ${l.nama}, ${year} M${open && html`<button type="button" class="wg-x" aria-label="Tutup" onClick=${(e) => { e.stopPropagation(); setBuka(null); }}>×</button>`}</p>
-                ${wg.slice(0, 8).map((t) => html`<button type="button" key=${t} class="wg-name" onClick=${(e) => { e.stopPropagation(); onProfile(t); }}>${D.tokoh[t].nama}</button>`)}
+                ${wg.slice(0, 8).map((t) => html`<button type="button" key=${t} class=${`wg-name${t === jejak ? " on" : ""}`} onClick=${(e) => { e.stopPropagation(); onProfile(t); }}>${D.tokoh[t].nama}</button>`)}
                 ${wg.length > 8 && html`<button type="button" class="wg-name more-w" onClick=${(e) => { e.stopPropagation(); setBuka(null); onSelect(id); }}>+${wg.length - 8} lainnya di panel</button>`}</div>
             </div>`}
             ${act && tk.length > 0 && html`<div class="pin-medals">
@@ -192,9 +193,9 @@
            </div>
           </div>`;
         })}
-        ${rute && html`<div class="pin rute-pin" ref=${reg("__rute")}><div class="pin-wrap"><span class="rute-lbl">${ruteHi && ruteHi.label ? ruteHi.label : "Rute Hijrah"}</span></div></div>`}
+        ${rute && html`<div class="pin rute-pin" ref=${reg("__rute")}><div class="pin-wrap"><span class="rute-lbl">${ruteHi && ruteHi.label ? ruteHi.label : ruteNama || "Rute Hijrah"}</span></div></div>`}
       </div>
-      ${rute && html`<p class="rute-note"><i></i>Rute Hijrah (perkiraan, mengikuti daftar singgahan Ibnu Ishaq)</p>`}
+      ${jejakBar ? html`<div class="map-jejak">${jejakBar}</div>` : rute && html`<p class="rute-note"><i></i>${ruteNama || "Rute Hijrah (perkiraan, mengikuti daftar singgahan Ibnu Ishaq)"}</p>`}
       <${MapControls} api=${api} hold=${hold} zoomIn=${0.8} zoomOut=${1.25} onOverview=${onOverview} overviewLabel="Seluruh peta"
         help=${[...HELP_PETA, ["Klik nama kota", "lihat peristiwa dan tokohnya"], ["Klik angka di label", "lihat nama tokoh yang tinggal di sana"]]}
         legenda=${["kabah", "masjid", "kubah", "kota", "mahkota", "benteng", "kurma", "pedang", "kemah"]} />
@@ -353,19 +354,20 @@
         <ol class="tinggal">${t.tinggal.map((r, i) => { const now = year >= r[1] && year <= r[2]; return html`<li key=${i} class=${now ? "now" : ""}>
           <span class="py">${r[1] === r[2] ? r[1] : `${r[1]}–${r[2]}`}</span>
           <span class="tg"><b>${namaTempat(r)}</b>${r[0] && r[3] ? html`<small>${r[3]}</small>` : !r[0] && r[3] && r[3].includes(";") ? html`<small>${r[3].split(";").slice(1).join(";").trim()}</small>` : ""}</span>
-          ${r[0] && onGotoLok && html`<button type="button" class="link small" onClick=${() => onGotoLok(r[0], Math.max(570, Math.min(661, Math.max(r[1], t.lahir))))}>Lihat di peta</button>`}
+          ${r[0] && onGotoLok && html`<span class="tg-go"><button type="button" class="link small" onClick=${() => onGotoLok(r[0], Math.max(570, Math.min(661, Math.max(r[1], t.lahir))), id)}>Lihat di peta</button>
+            ${KOTA_LOK[r[0]] && onGotoCity && (KOTA_LOK[r[0]] === "mekah" || window.MadinahScene) && html`<button type="button" class="link small" onClick=${() => onGotoCity(null, { t: [Math.max(570, Math.min(661, Math.max(r[1], t.lahir, KOTA_LOK[r[0]] === "madinah" ? 622 : 0)))] }, KOTA_LOK[r[0]], id)}>Peta kota</button>`}</span>`}
         </li>`; })}</ol>`}
       ${rumah.length > 0 && html`<h3>Rumah di peta kota Mekah</h3>
-        <div class="chips">${rumah.map(({ p, ket }) => html`<button type="button" key=${p.id} class="chip go" onClick=${() => onGotoCity(p.id)}>${p.nama}${ket ? html` <small>(${ket})</small>` : ""}</button>`)}</div>`}
+        <div class="chips">${rumah.map(({ p, ket }) => html`<button type="button" key=${p.id} class="chip go" onClick=${() => onGotoCity(p.id, null, "mekah", id)}>${p.nama}${ket ? html` <small>(${ket})</small>` : ""}</button>`)}</div>`}
       <h3>Kejadian yang melibatkannya</h3>
-      ${evs.length ? html`<ol class="plist">${evs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => onGoto(e)}>
+      ${evs.length ? html`<ol class="plist">${evs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => onGoto(e, id)}>
         <span class="py">${e.tahun}</span><span><b>${e.judul}</b><small>${e.tempat || D.lokasi[e.lok].nama}</small></span></button></li>`)}</ol>`
         : html`<p class="dim">Belum ada kejadian di peta yang mencatat tokoh ini.</p>`}
       ${cityRefs.length > 0 && html`<h3>Jejak di kota Mekah</h3>
-        <ol class="plist">${cityRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r, "mekah")}>
+        <ol class="plist">${cityRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r, "mekah", id)}>
           <span class="py">${r.t ? r.t[0] : "–"}</span><span><b>${r.judul}</b><small>${p.nama}</small></span></button></li>`)}</ol>`}
       ${madRefs.length > 0 && html`<h3>Jejak di kota Madinah</h3>
-        <ol class="plist">${madRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r, "madinah")}>
+        <ol class="plist">${madRefs.map(({ p, r }, i) => html`<li key=${i}><button type="button" onClick=${() => onGotoCity(p.id, r, "madinah", id)}>
           <span class="py">${r.t ? r.t[0] : "–"}</span><span><b>${r.judul}</b><small>${p.nama}</small></span></button></li>`)}</ol>`}
       ${hjRefs.length > 0 && html`<h3>Dalam kisah Hijrah</h3>
         <ol class="plist">${hjRefs.map((e) => html`<li key=${e.id}><button type="button" onClick=${() => window.__buka && window.__buka("hijrah", e.id)}>
@@ -422,13 +424,60 @@
   const kotaData = (kota) => (window.KOTA && window.KOTA[kota] ? window.KOTA[kota].data() : window.MEKAH);
   const kotaInfo = (kota) => (window.KOTA && window.KOTA[kota]) || { nama: "Mekah", pusat: "kabah", mulai: "Mulai jalan kaki dari Ka'bah", ket: "" };
   const adaPada = (p, y) => !p.ada || (y >= p.ada[0] && y <= p.ada[1]);
+  // ---------- Jejak tokoh: dari profil ke peta tanpa kehilangan jejak ----------
+  const KOTA_LOK = { makkah: "mekah", madinah: "madinah" };
+  const RUMAH_ALIAS = { "rumah-fatimah": ["fatimah", "ali"], "rumah-abubakar-sunh": ["abubakar"], "rumah-abubakar": ["abubakar"], "masyrabah-mariyah": ["mariyah"], khadijah: ["khadijah", "nabi"], maulid: ["nabi"] };
+  function jejakKota(id, kota) {
+    const K = kotaData(kota), t = D.tokoh[id];
+    if (!K || !t) return { rumah: [], terkait: [], pernah: false };
+    const rumah = [];
+    const tambah = (p, ket) => { if (p && !rumah.some((r) => r.p.id === p.id)) rumah.push({ p, ket: ket || "" }); };
+    if (kota === "mekah") (t.rumah || []).forEach(([pid, ket]) => tambah(K.tempat.find((x) => x.id === pid), ket));
+    K.tempat.forEach((p) => { if (p.jenis === "rumah" && (p.id === id || p.id === "rumah-" + id || (RUMAH_ALIAS[p.id] || []).includes(id))) tambah(p, p.keyakinan === "perkiraan" ? "letak perkiraan" : ""); });
+    const terkait = K.tempat.map((p) => ({ p, rs: (p.riwayat || []).filter((r) => (r.tokoh || []).includes(id)) })).filter((x) => x.rs.length && !rumah.some((r) => r.p.id === x.p.id));
+    const lok = kota === "madinah" ? "madinah" : "makkah";
+    return { rumah, terkait, pernah: (t.tinggal || []).some((r) => r[0] === lok) };
+  }
+  // Rangkaian tempat tinggal seorang tokoh sebagai rute di peta wilayah
+  function jejakRute(id, year) {
+    const t = D.tokoh[id]; if (!t) return null;
+    const pts = [];
+    (t.tinggal || []).forEach((r) => { const l = r[0] && D.lokasi[r[0]]; if (!l) return; if (pts.length && pts[pts.length - 1].lok === r[0]) { pts[pts.length - 1].sampai = r[2]; return; } pts.push({ lat: l.lat, lon: l.lon, nama: l.nama, lok: r[0], dari: r[1], sampai: r[2] }); });
+    let i = pts.findIndex((p) => year >= p.dari && year <= p.sampai);
+    if (i < 0) i = year < (pts[0] || {}).dari ? 0 : pts.length - 1;
+    return { pts, i };
+  }
+  function JejakBar({ id, year, kota, onClose, onProfile, onKota, onSelect, onLok }) {
+    const t = D.tokoh[id]; if (!t) return null;
+    const M = Medal, now = D.tinggalPada ? D.tinggalPada(t, year) : null, hidup = alive(t, year);
+    const head = html`<div class="jk-head"><${M} id=${id} size="xs" /><span>${kota ? `Jejak ${t.nama} di ${kotaInfo(kota).nama}` : `Mengikuti jejak ${t.nama}`}</span>
+      <button type="button" class="link small" onClick=${() => onProfile(id)}>Profil</button>
+      <button type="button" class="wg-x" aria-label="Berhenti mengikuti" title="Berhenti mengikuti" onClick=${onClose}>×</button></div>`;
+    if (kota) {
+      const j = jejakKota(id, kota), nm = t.nama.split(" ")[0];
+      return html`<div class="jejak-bar">${head}
+        ${j.rumah.length > 0 ? html`<div class="jk-row"><small>Rumah</small>${j.rumah.map(({ p, ket }) => html`<button type="button" key=${p.id} class="chip go" onClick=${() => onSelect(p.id)}><${Ikon} n="rumah" />${p.nama}${ket && html` <em>(${ket})</em>`}</button>`)}</div>`
+          : html`<p class="jk-note">${j.pernah ? `Letak rumah ${nm} di ${kotaInfo(kota).nama} tidak tercatat dalam sumber yang kami gunakan.` : `${nm} tidak tercatat tinggal di ${kotaInfo(kota).nama}.`}</p>`}
+        ${j.terkait.length > 0 ? html`<div class="jk-row"><small>Tercatat di</small>${j.terkait.map(({ p, rs }) => html`<button type="button" key=${p.id} class="chip go" onClick=${() => onSelect(p.id)} title=${rs.map((r) => r.judul).join("; ")}>${p.nama} <em>${rs[0].t ? rs[0].t[0] + " M" : ""}</em></button>`)}</div>`
+          : !j.rumah.length && html`<p class="jk-note">Belum ada tempat di peta kota ini yang mencatat ${nm}.</p>`}
+      </div>`;
+    }
+    const lok = now && now[0], kk = KOTA_LOK[lok];
+    return html`<div class="jejak-bar">${head}
+      <p class="jk-note">${!hidup ? (year < t.lahir ? `Belum lahir pada ${year} M.` : `Telah wafat pada ${year} M.`) : lok ? `Pada ${year} M tinggal di ${D.lokasi[lok].nama}${now[3] ? ": " + now[3] : "."}` : `Tempat tinggalnya pada ${year} M tidak ada di peta.`}</p>
+      ${kk && hidup && html`<button type="button" class="jk-go" onClick=${() => onKota(kk)}><${Ikon} n=${kk === "mekah" ? "kabah" : "masjid"} /> Masuk peta kota ${kotaInfo(kk).nama} dan lihat tempat ${t.nama.split(" ")[0]}</button>`}
+      <div class="jk-row"><small>Tempat tinggal</small>${(t.tinggal || []).filter((r) => r[0] && D.lokasi[r[0]]).map((r, i) => html`<button type="button" key=${i} class=${`chip${now === r ? " on" : ""}`} onClick=${() => onLok(r[0], Math.max(Y0, Math.min(Y1, Math.max(r[1], t.lahir))))}>${D.lokasi[r[0]].nama} <em>${r[1]}–${r[2]}</em></button>`)}</div>
+    </div>`;
+  }
   const namaPada = (p, y) => { const l = (p.namaLama || []).find((x) => x.t && y >= x.t[0] && y <= x.t[1]); return l ? `${l.nama} (kemudian ${p.nama})` : p.nama; };
   const inYear = (r, y) => r.t && y >= r.t[0] && y <= r.t[1];
   const placeActive = (p, y) => (p.riwayat || []).some((r) => inYear(r, y));
   const fmtT = (t) => (!t ? "Sebelum 570 M" : t[0] === t[1] ? `${t[0]} M` : `${t[0]}–${t[1]} M`);
 
-  function CityMap({ kota = "mekah", onKota, year, csel, activeIds, onSelect, onOverview, onBack, walkReq, story, onStoryEnd }) {
+  function CityMap({ kota = "mekah", onKota, year, csel, activeIds: aktif0, onSelect, onOverview, onBack, walkReq, story, onStoryEnd, jejak, jejakBar }) {
     const K = kotaData(kota), info = kotaInfo(kota);
+    const jejakIds = useMemo(() => { if (!jejak) return new Set(); const j = jejakKota(jejak, kota); return new Set([...j.rumah.map((r) => r.p.id), ...j.terkait.map((x) => x.p.id)]); }, [jejak, kota]);
+    const activeIds = useMemo(() => (jejakIds.size ? new Set([...aktif0, ...jejakIds]) : aktif0), [aktif0, jejakIds]);
     const box = useRef(null), api = useRef(null), nodes = useRef({});
     const [status, setStatus] = useState({ walking: false, detail: 0, cells: 0 });
     const [ready, setReady] = useState(false);
@@ -464,9 +513,9 @@
       <div class="map-canvas" ref=${box}></div>
       <div class="map-labels">
         ${K.tempat.map((p) => html`<div key=${p.id} ref=${reg(p.id)}
-            class=${`pin k-${p.keyakinan} j-${p.jenis}${activeIds.has(p.id) ? " is-active" : ""}${csel === p.id ? " is-sel" : ""}`}>
+            class=${`pin k-${p.keyakinan} j-${p.jenis}${activeIds.has(p.id) ? " is-active" : ""}${csel === p.id ? " is-sel" : ""}${jejakIds.has(p.id) ? " jejak" : ""}`}>
           <div class="pin-wrap"><button type="button" class="pin-btn" onClick=${() => onSelect(p.id)} aria-pressed=${csel === p.id} title=${IKON_NAMA[ikonTempat(p)]}>
-            <${Ikon} n=${ikonTempat(p)} cls="pin-ikon" /><span class="pin-name">${p.nama}</span>
+            <${Ikon} n=${ikonTempat(p)} cls="pin-ikon" /><span class="pin-name">${p.nama}</span>${jejakIds.has(p.id) && html`<${Medal} id=${jejak} size="xs" />`}
           </button></div>
         </div>`)}
       </div>
@@ -479,6 +528,7 @@
           : html`<ul class="legend" aria-label="Tingkat keyakinan lokasi">
               ${Object.entries(K.keyakinan).map(([k, v]) => html`<li key=${k} class=${`k-${k}`} title=${v.ket}><i class="kdot"></i>${v.nama}</li>`)}
             </ul>`}
+        ${!walking && !story && jejakBar}
       </div>
       ${!walking && html`<${MapControls} api=${api} hold=${hold} zoomIn=${0.75} zoomOut=${1.33} onOverview=${onOverview} overviewLabel="Seluruh kota"
         help=${[...HELP_PETA, ["Klik nama tempat", "lihat riwayatnya"], ["Jalan kaki", "jelajahi kota setinggi mata"], ["Warna ikon", "seberapa yakin letaknya; bentuknya menunjukkan jenis tempat"]]}
@@ -507,9 +557,9 @@
     </section>`;
   }
 
-  function Riwayat({ r, year, onProfile, onLihat, pid, K = window.MEKAH }) {
-    const now = inYear(r, year);
-    return html`<article class=${`riwayat${now ? " now" : ""}`}>
+  function Riwayat({ r, year, onProfile, onLihat, pid, K = window.MEKAH, jejak }) {
+    const now = inYear(r, year), jk = jejak && (r.tokoh || []).includes(jejak);
+    return html`<article class=${`riwayat${now ? " now" : ""}${jk ? " jejak" : ""}`}>
       <p class="event-when"><b>${fmtT(r.t)}</b>${now && html`<span class="tag-now">Tahun terpilih</span>`}</p>
       <h3>${r.judul}</h3>
       ${r.tontonan && html`<button type="button" class="watch" onClick=${() => window.__tonton(r.tontonan)}><span aria-hidden="true">▶</span> Tonton peristiwa</button>`}
@@ -527,7 +577,7 @@
     </article>`;
   }
 
-  function CityPanel({ kota = "mekah", year, csel, setCsel, onProfile, activeIds, onWalk }) {
+  function CityPanel({ kota = "mekah", year, csel, setCsel, onProfile, activeIds, onWalk, jejak }) {
     const K = kotaData(kota), info = kotaInfo(kota);
     const p = csel && K.tempat.find((x) => x.id === csel);
     if (p) {
@@ -543,8 +593,9 @@
           ${p.jenis !== "gunung" && html`<button type="button" class="walk-here" onClick=${() => onWalk(p.id)}>Jalan kaki ke sini</button>`}
         </div>
         <div class="panel-body">
-          ${p.riwayat.length ? [...p.riwayat].sort((a, b) => inYear(b, year) - inYear(a, year) || (a.t ? a.t[0] : 0) - (b.t ? b.t[0] : 0))
-              .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} pid=${p.id} K=${K} />`)
+          ${jejak && D.tokoh[jejak] && html`<p class="jk-pnote"><${Medal} id=${jejak} size="xs" />${p.riwayat.some((r) => (r.tokoh || []).includes(jejak)) ? `Riwayat yang melibatkan ${D.tokoh[jejak].nama} ditandai dan ditaruh paling atas.` : `Tidak ada riwayat ${D.tokoh[jejak].nama} di tempat ini.`}</p>`}
+          ${p.riwayat.length ? [...p.riwayat].sort((a, b) => (jejak ? ((b.tokoh || []).includes(jejak) - (a.tokoh || []).includes(jejak)) : 0) || inYear(b, year) - inYear(a, year) || (a.t ? a.t[0] : 0) - (b.t ? b.t[0] : 0))
+              .map((r, i) => html`<${Riwayat} key=${i} r=${r} year=${year} onProfile=${onProfile} onLihat=${setCsel} pid=${p.id} K=${K} jejak=${jejak} />`)
             : html`<p class="empty-p">Belum ada riwayat yang dicatat untuk tempat ini.</p>`}
         </div>
       </aside>`;
@@ -704,16 +755,20 @@
     let h = "";
     try { h = decodeURIComponent((window.location.hash || "").replace(/^#\/?/, "")); } catch (e) { h = ""; }
     const [path, q] = h.split("?"), seg = (path || "").split("/").filter(Boolean);
-    const t = +new URLSearchParams(q || "").get("tahun");
-    return { view: URL_VIEW[seg[0]] || null, seg: seg.slice(1), tahun: t >= Y0 && t <= Y1 ? t : null };
+    const qs = new URLSearchParams(q || ""), t = +qs.get("tahun"), jk = qs.get("jejak");
+    return { view: URL_VIEW[seg[0]] || null, seg: seg.slice(1), tahun: t >= Y0 && t <= Y1 ? t : null, jejak: jk && D.tokoh[jk] ? jk : null };
   }
-  const tulisHash = (view, seg, tahun) => "#/" + [VIEW_URL[view], ...seg.filter((x) => x != null && x !== "")].map((x) => encodeURIComponent(x)).join("/") + (tahun ? "?tahun=" + tahun : "");
+  const tulisHash = (view, seg, tahun, jejak) => {
+    const q = [tahun ? "tahun=" + tahun : "", jejak ? "jejak=" + encodeURIComponent(jejak) : ""].filter(Boolean).join("&");
+    return "#/" + [VIEW_URL[view], ...seg.filter((x) => x != null && x !== "")].map((x) => encodeURIComponent(x)).join("/") + (q ? "?" + q : "");
+  };
   // Terjemahkan alamat menjadi keadaan awal aplikasi
   function dariHash(h) {
     const r = {}, [a, b, c] = h.seg;
     if (!h.view) return r;
     r.view = h.view;
     if (h.tahun) r.year = h.tahun;
+    if (h.view === "wilayah" || h.view === "kota") r.jejak = h.jejak;
     if (h.view === "wilayah") r.sel = a && D.lokasi[a] ? a : null;
     if (h.view === "kota") { r.kota = a === "madinah" && window.MADINAH ? "madinah" : "mekah"; const K0 = kotaData(r.kota); r.csel = b && K0.tempat.some((p) => p.id === b) ? b : null; }
     if (h.view === "hijrah" && window.HIJRAH) r.hjSel = a && window.HIJRAH.episode.some((e) => e.id === a) ? a : null;
@@ -737,6 +792,7 @@
     const [kota, setKota] = useState(H0.kota || "mekah");
     const [csel, setCsel] = useState(H0.csel || null);
     const [krRute, setKrRute] = useState(H0.krRute || null);
+    const [jejak, setJejak] = useState(H0.jejak || null);
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
     const storyFrom = useRef(null);
@@ -774,8 +830,8 @@
 
     // Alamat mengikuti halaman yang dibuka; tombol kembali di peramban ikut bekerja
     const hashKini = (() => {
-      if (view === "wilayah") return tulisHash(view, [sel], year);
-      if (view === "kota") return tulisHash(view, [kota, csel], year);
+      if (view === "wilayah") return tulisHash(view, [sel], year, jejak);
+      if (view === "kota") return tulisHash(view, [kota, csel], year, jejak);
       if (view === "hijrah") return tulisHash(view, [hjSel]);
       if (view === "perang") return tulisHash(view, [prSel, sim ? "simulasi" : null]);
       if (view === "tokoh") return tulisHash(view, [tokohSel]);
@@ -807,6 +863,7 @@
         if ("prSel" in r) { setPrSel(r.prSel); setSim(r.sim || null); }
         if (r.tokohSel) setTokohSel(r.tokohSel);
         if ("krRute" in r) setKrRute(r.krRute);
+        if ("jejak" in r) setJejak(r.jejak || null);
         if (r.nzTab) { setNzTab(r.nzTab); setNuzulSel(r.nuzulSel || null); if (r.nzSurah) setNzSurah(r.nzSurah); }
         setView(r.view);
       };
@@ -834,15 +891,22 @@
       setPlaying(false); setProfile(null); setSim(null); setYear(ev.tahun); setKota(ev.kota || "mekah"); setCsel(null); setView("kota"); setStory(id);
     };
     const endStory = () => { setStory(null); if (storyFrom.current) setView(storyFrom.current); storyFrom.current = null; };
-    const gotoLok = (lok, y) => { reset(); setView("wilayah"); setYear(y); setSel(lok); };
-    const goto = (e) => { reset(); setView("wilayah"); setYear(e.tahun); setSel(e.lok); };
-    const gotoCity = (pid, r, k) => bukaKota(k || "mekah", pid, r && r.t ? r.t[0] : null);
+    const gotoLok = (lok, y, id) => { reset(); setView("wilayah"); setYear(y); setSel(lok); setRuteHi(null); if (id) setJejak(id); };
+    const goto = (e, id) => { reset(); setView("wilayah"); setYear(e.tahun); setSel(e.lok); if (id) setJejak(id); };
+    const gotoCity = (pid, r, k, id) => { bukaKota(k || "mekah", pid, r && r.t ? r.t[0] : null); if (id) setJejak(id); };
+    const jejakNow = jejak && D.tokoh[jejak] && D.tinggalPada ? D.tinggalPada(D.tokoh[jejak], year) : null;
+    const jejakLok = jejakNow && alive(D.tokoh[jejak], year) ? jejakNow[0] : null;
+    const jr = useMemo(() => (jejak ? jejakRute(jejak, year) : null), [jejak, year]);
+    const jejakBar = jejak && D.tokoh[jejak] ? html`<${JejakBar} id=${jejak} year=${year} kota=${view === "kota" ? kota : null} onClose=${() => setJejak(null)} onProfile=${setProfile}
+      onKota=${(k) => bukaKota(k, null, k === "madinah" ? Math.max(622, year) : year)} onSelect=${(pid) => { setPlaying(false); setCsel(pid); }} onLok=${(lok, y) => { setYear(y); setSel(lok); }} />` : null;
     const activeIds = useMemo(() => new Set(kotaData(kota).tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year, kota]);
 
     // Hijrah dan perang ke peta
-    const ruteTampil = window.HIJRAH && view === "wilayah" && (year === 622 || ruteHi) ? window.HIJRAH.rute : null;
+    const ruteJejak = view === "wilayah" && jr && jr.pts.length > 1 ? jr.pts : null;
+    const ruteTampil = ruteJejak || (window.HIJRAH && view === "wilayah" && (year === 622 || ruteHi) ? window.HIJRAH.rute : null);
+    const ruteHiTampil = ruteJejak ? { i: jr.i, label: `${D.tokoh[jejak].nama.split(" ")[0]}, ${year} M` } : ruteHi;
     const lihatHijrah = (e) => {
-      const t = e.tempat || {};
+      const t = e.tempat || {}; setJejak(null);
       if (t.kota && (t.kota === "mekah" || window.MadinahScene)) { bukaKota(t.kota, t.id, e.tahun); return; }
       reset(); setYear(e.tahun); setSel(null); setView("wilayah");
       const i = window.SirahHijrahRute ? window.SirahHijrahRute(e) : -1;
@@ -850,8 +914,8 @@
       const pt = t.lat != null ? t : window.HIJRAH.rute[Math.max(0, i)];
       setFocusReq({ lon: pt.lon, lat: pt.lat, dist: 11, k: Date.now() });
     };
-    const lihatRute = () => { reset(); setYear(622); setSel(null); setView("wilayah"); setRuteHi({ i: -1, label: "" }); setFocusReq({ lon: 39.4, lat: 22.9, dist: 16, k: Date.now() }); };
-    const lihatPerang = (p) => { reset(); setYear(p.tahun); setView("wilayah"); setSel(p.lokPeta || null); if (!p.lokPeta && p.tempat) setFocusReq({ lon: p.tempat.lon, lat: p.tempat.lat, dist: 12, k: Date.now() }); };
+    const lihatRute = () => { reset(); setJejak(null); setYear(622); setSel(null); setView("wilayah"); setRuteHi({ i: -1, label: "" }); setFocusReq({ lon: 39.4, lat: 22.9, dist: 16, k: Date.now() }); };
+    const lihatPerang = (p) => { reset(); setJejak(null); setYear(p.tahun); setView("wilayah"); setSel(p.lokPeta || null); if (!p.lokPeta && p.tempat) setFocusReq({ lon: p.tempat.lon, lat: p.tempat.lat, dist: 12, k: Date.now() }); };
 
     const reader = (() => {
       if (view === "kerabat" && window.SirahKerabat) return html`<${window.SirahKerabat} rute=${krRute} onRute=${(r) => setKrRute((o) => (JSON.stringify(o) === JSON.stringify(r) ? o : r))}
@@ -890,13 +954,14 @@
       ${city
         ? html`<${CityMap} key=${"peta-" + kota} kota=${kota} onKota=${(k) => { setCsel(null); setKota(k); }} year=${year} csel=${csel} activeIds=${activeIds} onSelect=${(id) => { setPlaying(false); setCsel(id); }}
             onOverview=${() => setCsel(null)} onBack=${() => go("wilayah")} walkReq=${walkReq}
-            story=${story} onStoryEnd=${endStory} />`
+            story=${story} onStoryEnd=${endStory} jejak=${jejak} jejakBar=${jejakBar} />`
         : html`<${MapView} year=${year} sel=${sel} activeLoks=${activeLoks} tokohAt=${tokohAt} wargaAt=${wargaAt}
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
-            onOverview=${() => { setSel(null); setRuteHi(null); }} rute=${ruteTampil} ruteHi=${ruteHi} focusReq=${focusReq} />`}
+            onOverview=${() => { setSel(null); setRuteHi(null); }} rute=${ruteTampil} ruteHi=${ruteHiTampil} focusReq=${focusReq}
+            ruteNama=${ruteJejak ? "Jejak tempat tinggal " + D.tokoh[jejak].nama : null} jejak=${jejak} jejakLok=${jejakLok} jejakBar=${jejakBar} />`}
       ${(view === "wilayah" || city) && html`<${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />`}
       ${reader || (city
-        ? html`<${CityPanel} key=${"panel-" + kota} kota=${kota} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
+        ? html`<${CityPanel} key=${"panel-" + kota} kota=${kota} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds} jejak=${jejak}
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
             onEnterCity=${(k) => bukaKota(k || "mekah", null)} onPerang=${(id) => window.__buka("perang", id)} />`)}

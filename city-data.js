@@ -47,6 +47,8 @@
           { t: [638, 661], judul: "Dinding pertama di sekeliling Ka'bah", tokoh: ["umar"], derajat: "sirah", sumber: "Yaqut al-Hamawi, Mu'jam al-Buldan 5/146 (dikutip IslamQA no. 3748)", url: "https://islamqa.info/en/answers/3748/",
             isi: "Pada masa Nabi dan Abu Bakar belum ada dinding di sekeliling Ka'bah. Karena rumah-rumah terlalu dekat dan ruang ibadah sempit, Umar membeli rumah-rumah itu, merobohkannya, lalu membangun dinding yang lebih rendah dari tinggi orang dewasa dengan lampu di atasnya.",
             catatan: "Tahun 17 H (638 M) mengikuti pendapat yang umum dikenal; sumber yang kami kutip tidak menyebut tahunnya." },
+          { t: [630, 630], judul: "Adzan Bilal di atas Ka'bah", tokoh: ["bilal", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; Ibnu Sa'd, Ath-Thabaqat",
+            isi: "Pada hari Fathu Makkah, Nabi ﷺ memerintahkan Bilal naik ke atas Ka'bah dan mengumandangkan adzan. Bekas budak yang dulu disiksa di Mekah itu kini menyerukan adzan dari tempat tertinggi di kota itu." },
           { t: [630, 630], judul: "Berhala dihancurkan", tokoh: ["nabi"], derajat: "shahih",
             sumber: "HR. Bukhari no. 4287 (Abdullah bin Mas'ud)", url: sn("bukhari", 4287),
             isi: "Saat Fathu Makkah ada 360 berhala di sekitar Ka'bah. Nabi menusuknya satu per satu dengan tongkat sambil membaca ayat ini.",
@@ -264,6 +266,9 @@
         ket: "Rumah Abu Bakar Ash-Shiddiq, tempat Nabi ﷺ datang di tengah hari untuk mengabarkan izin hijrah, dan tempat keduanya berangkat di malam hari. Sumber primer yang kami temukan tidak menyebut letaknya; tradisi setempat menempatkannya di sisi barat daya Masjidil Haram, di kawasan Misfalah. Titik ini perkiraan.",
         sumberLokasi: "Tradisi setempat (kawasan Misfalah, kini kompleks Makkah Towers); tidak disebut dalam hadits",
         riwayat: [
+          { t: [613, 616], judul: "Bilal dimerdekakan Abu Bakar", tokoh: ["abubakar", "bilal", "umayyah"], derajat: "shahih", sumber: "HR. Bukhari no. 3754 (Jabir bin Abdullah, dari Umar); HR. Ibnu Majah no. 150 (Ibnu Mas'ud, hasan)", url: sn("bukhari", 3754),
+            isi: "Bilal termasuk tujuh orang pertama yang menampakkan keislamannya. Ia disiksa dan diarak anak-anak di lorong-lorong Mekah, tetapi terus mengucapkan \"Ahad, Ahad\" (HR. Ibnu Majah 150). Abu Bakar lalu memerdekakannya; Umar kelak berkata, \"Abu Bakar adalah pemimpin kami, dan ia telah memerdekakan pemimpin kami,\" yakni Bilal (HR. Bukhari 3754).",
+            catatan: "Hadits tidak menyebut di mana Bilal dimerdekakan. Riwayat ini ditautkan ke rumah Abu Bakar karena dialah yang memerdekakannya; letak rumah Bilal dan tuannya, Umayyah bin Khalaf, tidak tercatat." },
           { t: [613, 622], judul: "Masjid di halaman rumah", tokoh: ["abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 476 (Aisyah)", url: sn("bukhari", 476),
             isi: "Abu Bakar membangun tempat shalat di halaman rumahnya. Perempuan dan anak-anak musyrik berkerumun mendengar bacaannya karena ia mudah menangis saat membaca Al-Qur'an." },
           { t: [622, 622], judul: "Kunjungan di tengah hari", tokoh: ["nabi", "abubakar", "aisyah"], derajat: "shahih", sumber: "HR. Bukhari no. 3905 (Aisyah)", url: sn("bukhari", 3905), tontonan: "siang-abubakar",

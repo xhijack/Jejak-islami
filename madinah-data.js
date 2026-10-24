@@ -84,6 +84,9 @@
         ket: "Masjid yang dibangun Nabi ﷺ bersama para sahabat tak lama setelah tiba di Madinah, di tanah tempat unta beliau berlutut. Sisi timurnya tidak pernah digeser karena berbatasan langsung dengan bilik istri-istri Nabi, sehingga setiap perluasan mengarah ke barat, utara, dan selatan.",
         sumberLokasi: "Ukuran tiap tahap: Wikipedia, Prophet's Mosque. Letak denah relatif terhadap Raudhah adalah rekonstruksi kami.",
         riwayat: [
+          { t: [623, 632], judul: "Bilal, muadzin Masjid Nabawi", tokoh: ["bilal", "umar", "nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 604 (Ibnu Umar)", url: sn("bukhari", 604),
+            isi: "Setelah tiba di Madinah, kaum muslimin bermusyawarah bagaimana memanggil orang untuk shalat. Ada yang mengusulkan lonceng atau terompet; Umar mengusulkan seseorang yang menyerukan panggilan. Nabi ﷺ bersabda, \"Wahai Bilal, berdirilah dan serukanlah shalat.\" Sejak itu Bilal menjadi muadzin di masjid ini.",
+            catatan: "Letak rumah Bilal di Madinah tidak tercatat dalam sumber yang kami gunakan." },
           { t: [622, 622], judul: "Dibangun bergotong royong", tokoh: ["nabi", "abubakar"], derajat: "shahih", sumber: "HR. Bukhari no. 428 (Anas bin Malik)", url: sn("bukhari", 428),
             isi: "Nabi ﷺ meminta Bani Najjar menyebutkan harga kebun mereka, tetapi mereka hanya mengharap balasan dari Allah. Kuburan lama orang musyrik dibongkar, reruntuhan diratakan, dan pohon kurma ditebang. Batang-batang kurma disusun menjadi dinding kiblat. Nabi ikut mengangkut batu sambil bersyair bersama para sahabat, memohon ampunan bagi Anshar dan Muhajirin." },
           { t: [622, 650], judul: "Dari pelepah kurma ke batu berukir", tokoh: ["abubakar", "umar", "utsman"], derajat: "shahih", sumber: "HR. Bukhari no. 446 (Abdullah bin Umar)", url: sn("bukhari", 446),
