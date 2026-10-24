@@ -429,8 +429,9 @@
     const [csel, setCsel] = useState(null);
     const [walkReq, setWalkReq] = useState(null);
     const [story, setStory] = useState(null);
-    const [wiki, setWiki] = useState(null);
-    window.__wiki = (id) => { setPlaying(false); setWiki(id); };
+    const [nuzul, setNuzul] = useState(false), [nuzulSel, setNuzulSel] = useState(null);
+    window.__wiki = (id) => { setPlaying(false); setNuzul(true); setNuzulSel(id); };
+    const toggleNuzul = () => { if (nuzul) { setNuzul(false); return; } setPlaying(false); setNuzul(true); setNuzulSel(nuzulSel || window.NUZUL.urutan[0].id); };
     window.__tonton = (id) => {
       const ev = window.TONTONAN[id]; if (!ev) return;
       setPlaying(false); setProfile(null); setYear(ev.tahun); setMode("mekah"); setCsel(null); setStory(id);
@@ -445,7 +446,7 @@
       <header class="top">
         <div class="brand"><h1>Jejak Sirah</h1><p>Sejarah Islam dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
         <div class="top-act">
-          <button type="button" class="hdr-btn" onClick=${() => window.__wiki(window.NUZUL.urutan[0].id)}>Asbabun Nuzul</button>
+          <button type="button" class=${`hdr-btn${nuzul ? " on" : ""}`} onClick=${toggleNuzul} aria-pressed=${nuzul}>Asbabun Nuzul</button>
           <span class="badge">Prototipe</span>
         </div>
       </header>
@@ -457,14 +458,15 @@
             onSelect=${(id) => { setPlaying(false); setSel(id); }} onProfile=${setProfile}
             onOverview=${() => setSel(null)} />`}
       <${Timeline} year=${year} setYear=${setYear} playing=${playing} setPlaying=${setPlaying} />
+      ${nuzul && window.SirahNuzulList ? html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} />` : html`<${React.Fragment}>
       ${city
         ? html`<${CityPanel} year=${year} csel=${csel} setCsel=${setCsel} onProfile=${setProfile} activeIds=${activeIds}
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
-            onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
-      ${wiki && window.SirahWiki && html`<${window.SirahWiki} entryId=${wiki} onOpen=${setWiki} onClose=${() => setWiki(null)}
-        onWatch=${(id) => { setWiki(null); window.__tonton(id); }} onProfile=${setProfile}
-        onMap=${(pt) => { setWiki(null); setStory(null); setPlaying(false); setYear(pt.tahun); if (pt.tempat) { setMode("mekah"); setCsel(pt.tempat); } else { setMode("wilayah"); setSel(pt.lok); } }} />`}
+            onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}</${React.Fragment}>`}
+      ${nuzul && nuzulSel && !story && window.SirahNuzulDetail && html`<${window.SirahNuzulDetail} id=${nuzulSel} onSelect=${setNuzulSel} onClose=${() => setNuzulSel(null)}
+        onWatch=${(id) => window.__tonton(id)} onProfile=${setProfile}
+        onMap=${(pt) => { setNuzul(false); setStory(null); setPlaying(false); setYear(pt.tahun); if (pt.tempat) { setMode("mekah"); setCsel(pt.tempat); } else { setMode("wilayah"); setSel(pt.lok); } }} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }
