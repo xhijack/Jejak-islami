@@ -55,7 +55,7 @@
 
   // ---------- Susun keadaan tiap adegan ----------
   function resolve(ev) {
-    const out = []; let s = { rasul: { e: 0, n: 0, state: "tenang" }, chars: {}, jib: { e: 0, n: 0, up: 9, power: 0 }, cam: null };
+    const out = []; let s = { rasul: { e: 0, n: 0, state: "tenang" }, chars: {}, jib: { e: 0, n: 0, up: 9, power: 0 }, cam: null, inside: null };
     const endOf = (pts, to) => (to >= 1 ? pts[pts.length - 1] : pts[0]);
     ev.babak.forEach((bk, bi) => bk.beats.forEach((b, k) => {
       const moves = []; s = { ...s, rasul: { ...s.rasul }, chars: { ...s.chars }, jib: { ...s.jib } };
@@ -74,6 +74,13 @@
       });
       if (b.jibril) s.jib = { e: b.jibril.at[0], n: b.jibril.at[1], up: b.jibril.up, power: b.jibril.power };
       if (b.cam) s.cam = b.cam;
+      if (b.inside === null) s.inside = null;
+      else if (b.inside) {
+        const I = b.inside, prev = s.inside && (!I.scene || I.scene === s.inside.scene) ? s.inside : { scene: I.scene, chars: {}, jibril: { x: 800, y: 300, power: 0 } };
+        const nx = { ...prev, cam: I.cam || prev.cam, rasul: I.rasul ? { ...prev.rasul, ...I.rasul } : prev.rasul, jibril: I.jibril ? { ...prev.jibril, ...I.jibril } : prev.jibril, chars: { ...prev.chars } };
+        (I.chars || []).forEach((c) => { nx.chars[c.id] = { on: true, ...nx.chars[c.id], ...c }; });
+        s.inside = nx;
+      }
       out.push({ ...s, beat: b, moves, babak: bi, babakJudul: bk.judul, first: k === 0 });
     }));
     return out;
@@ -138,12 +145,13 @@
 
     const node = (actor, extra = {}) => (el) => S.node(el, el ? { actor, ...extra } : null);
     const shown = text.slice(0, typed), caret = typed < text.length ? "▍" : "";
-    const bubble = (sp) => who === sp && html`<div class=${`pl-bubble st-bubble${sp === "jibril" ? " light" : sp === "rasul" ? " rasul" : ""}`} key=${"b" + i}>
+    const bubble = (sp) => who === sp && !st.inside && html`<div class=${`pl-bubble st-bubble${sp === "jibril" ? " light" : sp === "rasul" ? " rasul" : ""}`} key=${"b" + i}>
       <p class="pl-who">${NAMA[sp] || ev.tokoh[sp].nama}${b.say.ayat ? html` <span>${b.say.ayat}</span>` : ""}</p>
       ${b.say.arab && html`<p class="pl-ar" lang="ar" dir="rtl">${b.say.arab}</p>`}
       <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p></div>`;
 
-    return html`<div class="st-root">
+    const lastInside = useRef(null); if (st.inside) lastInside.current = st.inside;
+    return html`<div class=${`st-root${st.inside ? " is-inside" : ""}`}>
       <div class="st-layer" aria-hidden=${false}>
         <div class="st-node" ref=${node("rasul", { dy: 3 })}>
           <div class=${`st-in st-rasul ${st.rasul.state}`}>${bubble("rasul")}
@@ -159,6 +167,8 @@
         </div>`)}
       </div>
 
+      ${lastInside.current && window.SirahInterior && html`<${window.SirahInterior} inside=${lastInside.current} show=${!!st.inside} say=${st.inside ? b.say : null}
+        talk=${talk} shown=${shown} caret=${caret} tokoh=${ev.tokoh} idx=${i} flash=${!!(st.inside && b.hitung)} />`}
       <div class=${`st-date${b.tanggal ? " hl" : ""}`}>
         <p class="st-k">Peristiwa · ${ev.tahun} M</p>
         <h3>${ev.judul}</h3>
@@ -169,7 +179,7 @@
       <button type="button" class="close st-close" onClick=${onClose} aria-label="Tutup tontonan">×</button>
       ${st.first && html`<p class="pl-babak st-babak" key=${"bk" + st.babak}>Babak ${st.babak + 1}: ${st.babakJudul}</p>`}
       ${b.hitung && html`<p class="pl-count" key=${"c" + i}>${b.hitung}</p>`}
-      ${b.hitung && html`<div class="st-flash" key=${"f" + i}></div>`}
+      ${b.hitung && !st.inside && html`<div class="st-flash" key=${"f" + i}></div>`}
       ${done && html`<div class="pl-end st-end"><h3>Selesai</h3><p>${ev.penutup}</p>
         <div class="pl-end-btns"><button type="button" onClick=${toggle}>Putar ulang</button><button type="button" onClick=${onClose}>Jelajahi peta</button></div></div>`}
 
