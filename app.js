@@ -469,7 +469,7 @@
           <button role="tab" aria-selected=${tab === "sumber"} onClick=${() => setTab("sumber")}>Sumber (${src.total + KITAB.length})</button>
         </div>
         ${tab === "tentang" ? html`<div class="about-body">
-          <p>Jejak Sirah adalah aplikasi pengetahuan untuk karyawan PT Sopwer Teknologi Indonesia: sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M) dalam bentuk peta 3D, timeline, tontonan peristiwa, dan asbabun nuzul.</p>
+          <p>Jejak Sirah adalah aplikasi pengetahuan sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M) dalam bentuk peta 3D, timeline, tontonan peristiwa, dan asbabun nuzul.</p>
           <div class="author"><span class="medal medal-md" aria-hidden="true"><span class="medal-ar">ر</span></span>
             <div><p class="ph-k">Dibuat oleh</p><b>Ramdani</b><a href="mailto:ramd4ni@gmail.com">ramd4ni@gmail.com</a></div></div>
           <h3>Isi aplikasi</h3>
@@ -510,7 +510,7 @@
     return html`<div class="draft-note pop" ref=${ref}>
       <button type="button" class="badge" aria-expanded=${open} onClick=${() => setOpen(!open)}>Draf, belum diverifikasi ustadz</button>
       ${open && html`<div class="pop-box down" role="dialog" aria-label="Tentang isi aplikasi">
-        <p><b>Prototipe internal Sopwer.</b> Narasi, tahun, letak tempat, dialog tontonan, dan rujukan hadits masih draf.</p>
+        <p><b>Prototipe.</b> Narasi, tahun, letak tempat, dialog tontonan, dan rujukan hadits masih draf.</p>
         <p>Semua isi harus diperiksa ustadz sebelum dipakai untuk kajian. Setiap riwayat diberi label derajat (shahih, kitab sirah, atau lemah) dan tautan sumbernya.</p>
       </div>`}
     </div>`;

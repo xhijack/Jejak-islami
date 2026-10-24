@@ -95,9 +95,9 @@
             isi: "Hajar berlari bolak-balik tujuh kali antara Shafa dan Marwah mencari air untuk Ismail. Inilah asal ibadah sa'i." }
         ] },
 
-      { id: "nadwah", nama: "Darun Nadwah", arab: "دار الندوة", jenis: "rumah", besar: true, e: -40, n: 48, lod: 1, keyakinan: "kitab",
-        ket: "Balai musyawarah Quraisy yang didirikan Qusay bin Kilab, di sisi barat laut Ka'bah dengan pintu menghadap Ka'bah. Kafilah dagang Mekah berangkat dan pulang dari sini. Kemudian dibeli Mu'awiyah, dan pada akhir abad ke-3 H digabungkan ke Masjidil Haram.",
-        sumberLokasi: "Al-Azraqi, Akhbar Makkah; WikiShia",
+      { id: "nadwah", nama: "Darun Nadwah", arab: "دار الندوة", jenis: "rumah", besar: true, e: -40, n: 48, lod: 1, keyakinan: "perkiraan",
+        ket: "Balai musyawarah Quraisy yang didirikan Qusay bin Kilab di dekat Ka'bah, dengan pintu menghadap Masjidil Haram. Para pemuka Quraisy memutuskan urusan bersama di sini. Hakim bin Hizam kemudian membelinya, lalu di masa Mu'awiyah menjualnya seharga seratus ribu dirham dan menyedekahkan hasilnya. Titik di peta ini perkiraan.",
+        sumberLokasi: "Ibnu Katsir, Al-Bidayah wan Nihayah; Ibnu Al-Atsir, Usd al-Ghabah (melalui Darul Iftaa AskImam)",
         riwayat: [
           { t: [622, 622], judul: "Rencana membunuh Nabi", tontonan: "makar-nadwah", tokoh: ["abujahal", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; tafsir Ibnu Katsir",
             isi: "Para pemuka Quraisy bermusyawarah di sini. Atas usul Abu Jahal, mereka sepakat mengirim pemuda dari tiap kabilah untuk membunuh Nabi bersama-sama. Malam itu Nabi berangkat hijrah.",
@@ -165,8 +165,8 @@
         ] },
 
       { id: "abdulmuthalib", nama: "Kediaman Abdul Muthalib", arab: "دار عبد المطلب", jenis: "rumah", besar: true, e: 300, n: 170, lod: 1, keyakinan: "perkiraan",
-        ket: "Abdul Muthalib adalah pemilik Syi'ib Bani Hasyim dan membagikannya kepada anak-anaknya menjelang wafat. Rumah tempat Nabi lahir adalah bagian dari tanahnya. Letak rumah pribadinya di dalam syi'ib tidak tercatat pasti.",
-        sumberLokasi: "Yaqut al-Hamawi, Mu'jam al-Buldan (via WikiShia)",
+        ket: "Abdul Muthalib, kakek Nabi, adalah pemuka Bani Hasyim. Letak rumahnya tidak tercatat pasti; di peta ini diletakkan di kawasan Syi'ib Bani Hasyim sebagai perkiraan.",
+        sumberLokasi: "Perkiraan, mengikuti letak Syi'ib Bani Hasyim",
         riwayat: [
           { t: [576, 578], judul: "Mengasuh cucunya", tokoh: ["abdulmuthalib", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
             isi: "Setelah Aminah wafat, Nabi yang berusia 6 tahun diasuh kakeknya sampai sang kakek wafat dua tahun kemudian." },
@@ -176,7 +176,7 @@
 
       { id: "syiib", nama: "Syi'ib Bani Hasyim", arab: "شعب أبي طالب", jenis: "kawasan", e: 330, n: 230, lod: 0, keyakinan: "kitab",
         ket: "Lembah permukiman Bani Hasyim, juga disebut Syi'ib Abi Thalib. Terletak di antara Jabal Abu Qubais di selatan dan Jabal Khandamah di utara dan timur, menghadap Masjidil Haram. Kini hanya tersisa sebagian kecil di kawasan Suq al-Lail.",
-        sumberLokasi: "Okaz, 2026 (Dr. Hamad Al-Balawi); WikiShia",
+        sumberLokasi: "Okaz, 2026 (Dr. Hamad Al-Balawi)",
         riwayat: [
           { t: [617, 619], judul: "Pemboikotan Bani Hasyim", tokoh: ["nabi", "abuthalib", "khadijah"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat; Ibnu Qayyim, Zadul Ma'ad",
             isi: "Bani Hasyim dan Bani Muthalib dikurung di lembah ini selama sekitar tiga tahun. Ibnu Qayyim menyebut mulainya pada malam awal Muharram tahun ke-7 kenabian. Abu Lahab tidak ikut, ia berpihak kepada Quraisy." }
@@ -191,7 +191,7 @@
             matan: "دَخَلَ عَامَ الْفَتْحِ مِنْ كَدَاءٍ وَخَرَجَ مِنْ كُدًا" },
           { t: null, judul: "Masuk dari jalan atas, keluar dari jalan bawah", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 1575 (Ibnu Umar)", url: sn("bukhari", 1575),
             isi: "Ibnu Umar meriwayatkan Nabi masuk Mekah melalui tsaniyyah atas dan keluar melalui tsaniyyah bawah." },
-          { t: [619, 619], judul: "Pemakaman Ma'la", tokoh: ["khadijah", "abuthalib"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat; WikiShia",
+          { t: [619, 619], judul: "Pemakaman Ma'la", tokoh: ["khadijah", "abuthalib"], derajat: "sirah", sumber: "Ibnu Sa'd, Ath-Thabaqat",
             isi: "Khadijah dan Abu Thalib dimakamkan di pemakaman Ma'la (Al-Hajun), di ujung jalan ini." }
         ] },
       { id: "kuda", nama: "Jalan ke Kuda", arab: "كُدى", jenis: "jalan", e: -330, n: -215, lod: 0, keyakinan: "perkiraan",
@@ -275,8 +275,7 @@
       { judul: "Okaz: kajian Al-Azraqi oleh Dr. Abdulwahab Abu Sulaiman (2009)", url: "https://www.okaz.com.sa/article/239541" },
       { judul: "Okaz: Syi'ib Abi Thalib (2026)", url: "https://www.okaz.com.sa/local/na/2236902" },
       { judul: "Encyclopedia of Muhammad: Birthplace of Prophet Muhammad", url: "https://muhammadencyclopedia.com/article/birthplace-of-prophet-muhammad" },
-      { judul: "WikiShia: Dar al-Nadwa", url: "https://en.wikishia.net/view/Dar_al-Nadwa" },
-      { judul: "WikiShia: Shi'b Abi Talib", url: "https://en.wikishia.net/view/Shi%27b_Abi_Talib" },
+      { judul: "Darul Iftaa AskImam: peran Darun Nadwah di masa Nabi", url: "https://islamqa.org/hanafi/askimam/6019/what-was-the-role-of-dar-an-nadwah/" },
       { judul: "IslamicLandmarks: rumah Abu Jahal", url: "https://www.islamiclandmarks.com/?p=650" },
       { judul: "IslamicLandmarks: Darul Arqam", url: "https://www.islamiclandmarks.com/?p=693" },
       { judul: "Wikipedia: Safa and Marwa", url: "https://en.wikipedia.org/wiki/Safa_and_Marwa" },

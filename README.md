@@ -1,6 +1,6 @@
 # Jejak Sirah
 
-Dibuat oleh Ramdani (ramd4ni@gmail.com). Prototipe aplikasi pengetahuan internal Sopwer: peta 3D sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M), lengkap dengan timeline, asbabun nuzul, dan profil tokoh.
+Dibuat oleh Ramdani (ramd4ni@gmail.com). Prototipe aplikasi pengetahuan: peta 3D sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M), lengkap dengan timeline, asbabun nuzul, dan profil tokoh.
 
 > **Status konten: DRAF.** Narasi, tahun, dan rujukan hadits masih harus diverifikasi ustadz sebelum dipakai.
 
