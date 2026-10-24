@@ -117,7 +117,7 @@
         riwayat: [
           { t: [595, 622], judul: "Rumah keluarga Nabi", tokoh: ["nabi", "khadijah", "fatimah"], derajat: "sirah", sumber: "Al-Azraqi, Akhbar Makkah; Al-Fakihi, Akhbar Makkah",
             isi: "Nabi tinggal di sini sejak menikah dengan Khadijah sampai hijrah. Anak-anak beliau dari Khadijah lahir di rumah ini, termasuk Fatimah." },
-          { t: [610, 610], judul: "\"Selimuti aku\"", tokoh: ["nabi", "khadijah"], derajat: "shahih", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3),
+          { t: [610, 610], judul: "\"Selimuti aku\"", tokoh: ["nabi", "khadijah"], derajat: "shahih", tontonan: "wahyu-pertama", sumber: "HR. Bukhari no. 3 (Aisyah)", url: sn("bukhari", 3),
             isi: "Sepulang dari Gua Hira dalam keadaan gemetar, Nabi menemui Khadijah dan berkata, \"Selimuti aku.\" Khadijah menenangkan beliau dan membawanya kepada Waraqah bin Naufal." },
           { t: [619, 619], judul: "Khadijah wafat", tokoh: ["khadijah", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam",
             isi: "Khadijah wafat pada Tahun Kesedihan, tidak lama setelah pemboikotan berakhir." }

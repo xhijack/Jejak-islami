@@ -114,6 +114,7 @@
         <p class="event-when"><b>${e.tahun} M</b> <span>${e.h}</span> ${showLoc ? html`<span>· ${D.lokasi[e.lok].nama}</span>` : html`<span>· ${e.tempat}</span>`}</p>
         <h3>${showLoc ? html`<button type="button" class="link" onClick=${() => onGoto(e)}>${e.judul}</button>` : e.judul}</h3>
       </header>
+      ${e.tontonan && html`<button type="button" class="watch" onClick=${() => window.__tonton(e.tontonan)}><span aria-hidden="true">▶</span> Tonton peristiwa</button>`}
       ${!showLoc && html`<p class="narasi">${e.narasi}</p>`}
       <div class="chips">
         ${e.tokoh.map((t) => html`<button type="button" key=${t} class="chip" onClick=${() => onProfile(t)}>
@@ -333,6 +334,7 @@
     return html`<article class=${`riwayat${now ? " now" : ""}`}>
       <p class="event-when"><b>${fmtT(r.t)}</b>${now && html`<span class="tag-now">Tahun terpilih</span>`}</p>
       <h3>${r.judul}</h3>
+      ${r.tontonan && html`<button type="button" class="watch" onClick=${() => window.__tonton(r.tontonan)}><span aria-hidden="true">▶</span> Tonton peristiwa</button>`}
       <p class="narasi">${r.isi}</p>
       ${r.ayat && html`<div class="ayat"><p class="ayat-ref">${r.ayat.surah} : ${r.ayat.no}</p><p class="ayat-ar" lang="ar" dir="rtl">${r.ayat.arab}</p></div>`}
       ${r.matan && html`<p class="matan" lang="ar" dir="rtl">${r.matan}</p>`}
@@ -421,6 +423,8 @@
     const [mode, setMode] = useState("wilayah");
     const [csel, setCsel] = useState(null);
     const [walkReq, setWalkReq] = useState(null);
+    const [tonton, setTonton] = useState(null);
+    window.__tonton = (id) => { setPlaying(false); setTonton(id); };
     const activeIds = useMemo(() => new Set(window.MEKAH.tempat.filter((p) => placeActive(p, year)).map((p) => p.id)), [year]);
 
     const goto = (e) => { setPlaying(false); setMode("wilayah"); setYear(e.tahun); setSel(e.lok); setProfile(null); };
@@ -444,6 +448,7 @@
             onWalk=${(id) => { setPlaying(false); setWalkReq({ id, k: Date.now() }); }} />`
         : html`<${Panel} year=${year} sel=${sel} eventsYear=${eventsYear} onProfile=${setProfile} setYear=${setYear} select=${setSel}
             onEnterCity=${() => { setPlaying(false); setMode("mekah"); setCsel(null); }} />`}
+      ${tonton && window.SirahPlayer && html`<${window.SirahPlayer} id=${tonton} onClose=${() => setTonton(null)} />`}
       ${profile && html`<${Profile} id=${profile} year=${year} onClose=${() => setProfile(null)} onGoto=${goto} onGotoCity=${gotoCity} />`}
     </div>`;
   }

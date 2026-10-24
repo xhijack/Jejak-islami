@@ -120,7 +120,7 @@ window.SIRAH = {
     { id: "hajaraswad", tahun: 605, h: "18 SH", lok: "makkah", tempat: "Ka'bah", judul: "Peletakan kembali Hajar Aswad",
       narasi: "Saat Ka'bah direnovasi, kabilah Quraisy berselisih tentang siapa yang berhak meletakkan Hajar Aswad. Nabi meletakkannya di atas kain dan meminta setiap kepala kabilah ikut mengangkatnya, sehingga perselisihan selesai.",
       tokoh: ["nabi"], ayat: [] },
-    { id: "hira", tahun: 610, h: "13 SH", lok: "makkah", tempat: "Gua Hira, Jabal Nur", judul: "Wahyu pertama",
+    { id: "hira", tahun: 610, tontonan: "wahyu-pertama", h: "13 SH", lok: "makkah", tempat: "Gua Hira, Jabal Nur", judul: "Wahyu pertama",
       narasi: "Di bulan Ramadhan, saat Nabi menyendiri di Gua Hira, Jibril datang dan memerintahkan beliau membaca. Nabi pulang dalam keadaan gemetar. Khadijah menenangkan beliau, lalu membawanya kepada Waraqah bin Naufal, yang membenarkan bahwa itu adalah wahyu.",
       tokoh: ["nabi", "khadijah", "abubakar", "ali"],
       ayat: [{ surah: "Al-'Alaq", no: "1–5", arab: "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ",
