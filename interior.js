@@ -77,6 +77,69 @@
       <polyline points="1240,290 1000,420 1080,470 760,560 840,610 460,700 300,770" fill="none" stroke="#5a4a52" stroke-width="3" stroke-dasharray="8 10" />
       <${Lights} x0=${0} x1=${380} y0=${800} y1=${890} n=${30} seed=${3} />
     </g>`;
+    if (kind === "baitul-maqdis") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-malam)" /><${Stars} /><${Moon} x=${1320} y=${150} />
+      <path d="M0 600 L260 520 L520 560 L800 500 L1080 550 L1340 505 L1600 560 L1600 900 L0 900Z" fill="#161c3a" />
+      <rect x="140" y="560" width="1320" height="340" fill="#3a3326" />
+      ${Array.from({ length: 16 }, (_, i) => html`<rect key=${i} x=${140 + i * 82.5} y="560" width="80" height="40" fill="#4a4131" stroke="#2d281e" stroke-width="2" />`)}
+      ${[300, 470, 1130, 1300].map((x, i) => html`<g key=${i}><rect x=${x} y=${430 - (i % 2) * 40} width="34" height=${170 + (i % 2) * 40} fill="#5a503d" /><rect x=${x - 8} y=${420 - (i % 2) * 40} width="50" height="14" fill="#6a5f49" /></g>`)}
+      <rect x="0" y="760" width=${W} height="140" fill="#2c271d" />
+      ${Array.from({ length: 9 }, (_, i) => html`<rect key=${i} x=${120 + i * 160} y=${780 + (i % 3) * 18} width=${60 + (i % 4) * 14} height="22" rx="4" fill="#3d3628" />`)}
+    </g>`;
+    if (kind === "langit") return html`<g>
+      <rect width=${W} height=${H} fill="#050818" /><${Stars} />
+      <g transform="translate(0 340)"><${Stars} /></g>
+      ${[0, 1, 2, 3, 4, 5, 6].map((i) => html`<ellipse key=${i} cx="800" cy=${980 - i * 40} rx=${1500 - i * 150} ry=${560 - i * 62} fill="none" stroke="#f2d27a" stroke-opacity=${0.07 + i * 0.035} stroke-width="3" />`)}
+      <circle cx="800" cy="120" r="320" fill="url(#g-halo)" opacity=".35" />
+    </g>`;
+    if (kind === "masjid-madinah") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-siang)" />
+      <rect x="0" y="560" width=${W} height="340" fill="#cdb48a" />
+      <rect x="0" y="150" width=${W} height="70" fill="#6b5a3a" />
+      ${Array.from({ length: 40 }, (_, i) => html`<path key=${i} d=${`M${i * 42} 150 l40 70`} stroke="#8a7448" stroke-width="5" />`)}
+      ${[180, 520, 860, 1200, 1500].map((x, i) => html`<g key=${i}><rect x=${x} y="220" width="34" height="400" fill="#7a5a36" />${[0, 1, 2, 3, 4, 5, 6, 7].map((k) => html`<path key=${k} d=${`M${x} ${250 + k * 46} h34`} stroke="#5a4026" stroke-width="3" />`)}</g>`)}
+      <rect x="0" y="600" width=${W} height="60" fill="#b39468" />
+      <g transform="translate(1380 120)"><rect x="-120" y="-34" width="240" height="56" rx="10" fill="#0b1430" opacity=".75" /><text x="0" y="2" text-anchor="middle" fill="#f2d27a" style=${{ font: "600 26px sans-serif" }}>arah kiblat ↔</text></g>
+    </g>`;
+    if (kind === "badar") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-fajar)" />
+      <circle cx="1240" cy="760" r="300" fill="url(#g-matahari)" class="pl-dawn" />
+      <path d="M0 620 Q300 540 600 600 T1200 580 T1600 600 L1600 900 L0 900Z" fill="#7a5a3e" />
+      <path d="M0 720 Q400 660 800 700 T1600 690 L1600 900 L0 900Z" fill="#a07a50" />
+      <g transform="translate(330 560)"><path d="M-170 0 L0 -110 L170 0 Z" fill="#6b5a2e" /><path d="M-170 0 L0 -110 L170 0" fill="none" stroke="#4a3e1e" stroke-width="6" />${Array.from({ length: 9 }, (_, i) => html`<path key=${i} d=${`M${-150 + i * 37} -6 l20 -60`} stroke="#8a7a3e" stroke-width="5" />`)}<rect x="-150" y="0" width="10" height="150" fill="#4a3e1e" /><rect x="140" y="0" width="10" height="150" fill="#4a3e1e" /></g>
+      <ellipse cx="1180" cy="780" rx="70" ry="18" fill="#4a3a2a" /><ellipse cx="1180" cy="776" rx="50" ry="10" fill="#2a3a4a" />
+    </g>`;
+    if (kind === "uhud") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-siang)" />
+      <path d="M200 620 L520 260 L700 330 L900 180 L1120 300 L1300 240 L1560 620 Z" fill="#8a4a32" />
+      <path d="M520 260 L700 330 L900 180 L1120 300 L1300 240" fill="none" stroke="#6a3422" stroke-width="8" />
+      <path d="M0 660 Q160 560 320 660 Z" fill="#9a6a44" />
+      <rect x="0" y="640" width=${W} height="260" fill="#c09a6a" />
+      ${Array.from({ length: 12 }, (_, i) => html`<ellipse key=${i} cx=${80 + i * 135} cy=${700 + (i % 3) * 50} rx="30" ry="8" fill="#a07a50" />`)}
+    </g>`;
+    if (kind === "khandaq") return html`<g>
+      <rect width=${W} height=${H} fill="#9aa4ae" />
+      <path d="M0 520 L300 360 L560 470 L820 330 L1100 450 L1400 360 L1600 440 L1600 900 L0 900Z" fill="#6a6258" />
+      <rect x="0" y="560" width=${W} height="340" fill="#a8946e" />
+      <path d="M0 690 L1600 650 L1600 730 L0 770 Z" fill="#4a3a28" />
+      <path d="M0 690 L1600 650" stroke="#7a6446" stroke-width="6" />
+      ${Array.from({ length: 14 }, (_, i) => html`<ellipse key=${i} cx=${60 + i * 118} cy=${640 - i * 2} rx="34" ry="12" fill="#8a7654" />`)}
+      ${Array.from({ length: 30 }, (_, i) => html`<path key=${i} d=${`M${(i * 61) % 1600} ${(i * 37) % 500} l-40 22`} stroke="#e8edf2" stroke-opacity=".35" stroke-width="2" />`)}
+    </g>`;
+    if (kind === "padang-malam") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-malam)" /><${Stars} /><${Moon} x=${1240} y=${160} />
+      <path d="M0 640 Q300 580 600 620 T1200 600 T1600 620 L1600 900 L0 900Z" fill="#1e2244" />
+      <path d="M0 740 Q500 690 900 720 T1600 710 L1600 900 L0 900Z" fill="#2a2a4a" />
+      ${[[1080, 690], [1260, 700], [1430, 686]].map(([x, y], i) => html`<g key=${i} transform=${`translate(${x} ${y}) scale(.9)`} fill="#14162e"><ellipse cx="0" cy="0" rx="60" ry="26" /><path d="M-30 -10 q10 -40 30 -30 q20 -14 30 22" /><path d="M48 -8 q30 -30 36 -70 l14 0 q-4 50 -34 84z" /><rect x="-44" y="10" width="8" height="54" /><rect x="-20" y="10" width="8" height="54" /><rect x="20" y="10" width="8" height="54" /><rect x="40" y="10" width="8" height="54" /></g>`)}
+    </g>`;
+    if (kind === "padang-siang") return html`<g>
+      <rect width=${W} height=${H} fill="url(#g-siang)" />
+      <path d="M0 600 Q300 540 600 580 T1200 560 T1600 580 L1600 900 L0 900Z" fill="#c8a678" />
+      <path d="M0 720 Q500 670 900 700 T1600 690 L1600 900 L0 900Z" fill="#d6b88a" />
+      <path d="M560 900 L760 600 L840 600 L1040 900Z" fill="#c09a6a" opacity=".6" />
+    </g>`;
+    if (kind === "rumah-madinah") return html`<g><${Interior} alt=${true} siang=${true} />
+      <ellipse cx="1220" cy="700" rx="90" ry="26" fill="#6a4a3a" /><ellipse cx="420" cy="700" rx="80" ry="24" fill="#5a4a3a" /></g>`;
     if (kind === "rumah-khadijah") return html`<g><${Interior} /><${Lamp} x=${1380} y=${380} />
       <ellipse cx="1220" cy="700" rx="90" ry="26" fill="#7a4b3a" /><ellipse cx="420" cy="700" rx="80" ry="24" fill="#6a4a3a" /></g>`;
     if (kind === "rumah-khadijah-siang") return html`<g><${Interior} siang=${true} />
@@ -107,6 +170,16 @@
     </g>`;
   }
 
+  // ---------- Para nabi dan nama lain: hanya tulisan bercahaya ----------
+  function Label({ l }) {
+    return html`<g style=${{ transform: `translate(${l.x}px, ${l.y}px)`, transition: "transform 1.4s ease" }} class="pl-scene">
+      <circle r="110" fill="url(#g-halo)" opacity=".55" />
+      ${l.ar && html`<text y="-10" text-anchor="middle" class="pl-r-ar" style=${{ fontSize: "40px" }}>${l.ar}</text>`}
+      <text y="30" text-anchor="middle" class="pl-r-id" style=${{ fontSize: "24px" }}>${l.id}</text>
+      ${l.ket && html`<text y="62" text-anchor="middle" class="pl-r-id" style=${{ fontSize: "18px", opacity: 0.75 }}>${l.ket}</text>`}
+    </g>`;
+  }
+
   // ---------- Jibril: cahaya dengan nama ----------
   function Jibril({ j }) {
     if (!j) return null;
@@ -114,8 +187,8 @@
     return html`<g style=${{ transform: `translate(${j.x}px, ${j.y}px)`, opacity: p > 0 ? 1 : 0, transition: "transform 1.3s ease, opacity 1.2s ease" }}>
       <circle r=${150 + p * 230} fill="url(#g-jibril)" style=${{ transition: "r 1.2s ease" }} class="pl-jlight" />
       <g class="pl-rays" opacity=${0.25 + p * 0.45}>${Array.from({ length: 16 }, (_, i) => html`<rect key=${i} x="-3" y=${-(190 + p * 200)} width="6" height=${90 + p * 80} rx="3" fill="#fff3c4" transform=${`rotate(${i * 22.5})`} />`)}</g>
-      <text y="-12" text-anchor="middle" class="pl-j-ar">جبريل</text>
-      <text y="30" text-anchor="middle" class="pl-j-id">Jibril</text>
+      <text y="-12" text-anchor="middle" class="pl-j-ar">${j.ar || "جبريل"}</text>
+      <text y="30" text-anchor="middle" class="pl-j-id">${j.nama || "Jibril"}</text>
     </g>`;
   }
 
@@ -150,9 +223,9 @@
   function Chibi({ id, c, talk }) {
     if (!c) return null;
     const ex = EXPR[c.expr] || EXPR.netral;
-    const blind = id === "waraqah";
+    const blind = id === "waraqah" || id === "ibnuummimaktum", m = (window.SirahMale || {})[id] || ["#6a5440", "#efe8d8", "#f2efe6"];
     const eye = blind ? (c.expr === "sedih" ? "sad" : c.expr === "kagum" || c.expr === "senyum" ? "happy" : "closed") : ex.eye;
-    const s = id === "waraqah" ? 1.9 : 2;
+    const s = (id === "waraqah" ? 1.9 : 2) * (c.s || 1);
     return html`<g style=${{ transform: `translate(${c.x}px, ${c.y}px) scale(${s})`, opacity: c.on === false ? 0 : 1, transition: "transform 1.4s ease, opacity 1.6s ease" }}>
       <ellipse cx="0" cy="96" rx="50" ry="9" fill="#000" opacity=".22" />
       <g class="pl-bob">
@@ -162,13 +235,13 @@
           <ellipse cx="0" cy="-26" rx="28" ry="30" fill="#e8c9a6" />
           <path d="M-31 -40 Q0 -66 31 -40" fill="none" stroke="#2f3b4a" stroke-width="6" stroke-linecap="round" />
         </g>` : html`<g>
-          <path d="M-50 94 Q-54 24 -30 6 L30 6 Q54 24 50 94 Z" fill="#6a5440" />
+          <path d="M-50 94 Q-54 24 -30 6 L30 6 Q54 24 50 94 Z" fill=${m[0]} />
           <path d="M-14 6 L0 40 L14 6" fill="#e9e2d2" />
           <ellipse cx="0" cy="-26" rx="29" ry="30" fill="#e2c09a" />
-          <path d="M-27 -16 Q-30 22 0 32 Q30 22 27 -16 Q16 -4 0 -4 Q-16 -4 -27 -16Z" fill="#f2efe6" />
-          <path d="M-33 -36 Q-34 -72 0 -72 Q34 -72 33 -36 Q16 -48 0 -48 Q-16 -48 -33 -36Z" fill="#efe8d8" />
-          <path d="M-33 -36 L-38 -8" stroke="#efe8d8" stroke-width="7" stroke-linecap="round" /><path d="M33 -36 L38 -8" stroke="#efe8d8" stroke-width="7" stroke-linecap="round" />
-          <path d="M40 30 L58 94" stroke="#5a3e28" stroke-width="5" stroke-linecap="round" />
+          <path d="M-27 -16 Q-30 22 0 32 Q30 22 27 -16 Q16 -4 0 -4 Q-16 -4 -27 -16Z" fill=${m[2]} />
+          <path d="M-33 -36 Q-34 -72 0 -72 Q34 -72 33 -36 Q16 -48 0 -48 Q-16 -48 -33 -36Z" fill=${m[1]} />
+          <path d="M-33 -36 L-38 -8" stroke=${m[1]} stroke-width="7" stroke-linecap="round" /><path d="M33 -36 L38 -8" stroke=${m[1]} stroke-width="7" stroke-linecap="round" />
+          ${blind && html`<path d="M40 30 L58 94" stroke="#5a3e28" stroke-width="5" stroke-linecap="round" />`}
         </g>`}
         <${Eye} kind=${eye} x=${-11} /><${Eye} kind=${eye} x=${11} />
         <g transform=${id === "waraqah" ? "translate(0 4)" : ""}><${Mouth} kind=${ex.mouth} talk=${talk} /></g>
@@ -211,6 +284,7 @@
             <g style=${{ transform: `translate(${W / 2 - cam.x * cam.s}px, ${H / 2 - cam.y * cam.s}px) scale(${cam.s})`, transformOrigin: "0 0", transition: reduce ? "none" : "transform 1.6s ease" }}>
               <${Scene} kind=${st.scene} />
               ${Object.entries(st.chars || {}).map(([cid, c]) => html`<${Chibi} key=${cid} id=${cid} c=${c} talk=${talk && who === cid} />`)}
+              ${(st.labels || []).map((l) => html`<${Label} key=${l.id} l=${l} />`)}
               <${Rasul} r=${st.rasul} speaking=${who === "rasul"} />
               <${Jibril} j=${st.jibril} />
             </g>
@@ -224,7 +298,7 @@
             <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p>
           </div>
         </div>`}
-        <p class="in-label">${{ "hira-dalam": "Di dalam Gua Hira", "rumah-khadijah": "Di dalam rumah Khadijah", "rumah-khadijah-siang": "Di dalam rumah Khadijah", "rumah-waraqah": "Di rumah Waraqah bin Naufal" }[st.scene] || ""}</p>
+        <p class="in-label">${st.label || { "hira-dalam": "Di dalam Gua Hira", "rumah-khadijah": "Di dalam rumah Khadijah", "rumah-khadijah-siang": "Di dalam rumah Khadijah", "baitul-maqdis": "Baitul Maqdis (rekonstruksi, abad ke-7)", "langit": "Mi'raj", "masjid-madinah": "Masjid di Madinah", "badar": "Lembah Badar", "uhud": "Gunung Uhud", "khandaq": "Parit (Khandaq), utara Madinah", "padang-malam": "Perjalanan malam", "padang-siang": "Di perjalanan", "rumah-madinah": "Sebuah rumah di Madinah", "rumah-waraqah": "Di rumah Waraqah bin Naufal" }[st.scene] || ""}</p>
       </div>
     </div>`;
   }

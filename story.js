@@ -11,9 +11,10 @@
     tegas: { eye: "dot", mouth: "short" }, kagum: { eye: "happy", mouth: "o" }, sinis: { eye: "half", mouth: "smirk" }
   };
   // Tokoh perempuan: [warna baju, warna kerudung]
-  const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"] };
+  const FEM = window.SirahFem = { khadijah: ["#7b2f3a", "#3d4c5e"], perempuan: ["#5d5a2e", "#6e3b26"], aisyah: ["#3f5f4f", "#7a3a4a"], ummuruman: ["#5a4a6a", "#3a3a4a"] };
   // Tokoh laki-laki: [warna jubah, warna serban, warna janggut]; tanpa entri = tampilan Waraqah
-  const MALE = { abulahab: ["#8a3b22", "#e0d3ae", "#5a3a26"], abujahal: ["#3e2f5a", "#cfc3a0", "#2e2018"], pembesar: ["#2f4f5a", "#e6dcc0", "#3a2a20"],
+  const MALE = window.SirahMale = { abubakar: ["#6b5a3a", "#f0e9d8", "#cbb9a0"], umar: ["#3a4a5a", "#e8dcc0", "#2a1d16"], ali: ["#2f5a4a", "#e8dcc0", "#3a2a20"],
+    safwan: ["#5a4a2a", "#e0d4b4", "#3a2a20"], sahabat: ["#4f5f4a", "#e6dcc4", "#3a2a20"], sahabat2: ["#6a4a3a", "#e2d6ba", "#2e2018"], sahabat3: ["#3a4a6a", "#ece2c8", "#4a3a2a"], kabar: ["#5a5a3a", "#e6dcc0", "#3a2a20"], abulahab: ["#8a3b22", "#e0d3ae", "#5a3a26"], abujahal: ["#3e2f5a", "#cfc3a0", "#2e2018"], pembesar: ["#2f4f5a", "#e6dcc0", "#3a2a20"],
     ibnuummimaktum: ["#7a6a50", "#efe8d8", "#4a3a2a"], quraisy1: ["#5c4a3a", "#d9cfb4", "#3a2a20"], quraisy2: ["#4a5a3a", "#e2d8bc", "#5a4636"], quraisy3: ["#6a3a3a", "#e8dcc2", "#2e2018"] };
   const BLIND = { waraqah: 1, ibnuummimaktum: 1 };
   const ST = { fill: "none", stroke: "#2a1d16", "stroke-width": 3.4, "stroke-linecap": "round" };
@@ -86,7 +87,7 @@
       if (b.inside === null) s.inside = null;
       else if (b.inside) {
         const I = b.inside, prev = s.inside && (!I.scene || I.scene === s.inside.scene) ? s.inside : { scene: I.scene, chars: {}, jibril: { x: 800, y: 300, power: 0 } };
-        const nx = { ...prev, cam: I.cam || prev.cam, rasul: I.rasul ? { ...prev.rasul, ...I.rasul } : prev.rasul, jibril: I.jibril ? { ...prev.jibril, ...I.jibril } : prev.jibril, chars: { ...prev.chars } };
+        const nx = { ...prev, label: I.label !== undefined ? I.label : prev.label, labels: I.labels !== undefined ? I.labels : prev.labels, cam: I.cam || prev.cam, rasul: I.rasul ? { ...prev.rasul, ...I.rasul } : prev.rasul, jibril: I.jibril ? { ...prev.jibril, ...I.jibril } : prev.jibril, chars: { ...prev.chars } };
         (I.chars || []).forEach((c) => { nx.chars[c.id] = { on: true, ...nx.chars[c.id], ...c }; });
         s.inside = nx;
       }
@@ -168,7 +169,7 @@
       <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p></div>`;
 
     const lastInside = useRef(null); if (st.inside) lastInside.current = st.inside;
-    return html`<div class=${`st-root${st.inside ? " is-inside" : ""}`}>
+    return html`<div class=${`st-root${st.inside ? " is-inside" : ""}${ev.peta === false ? " stage-only" : ""}`}>
       <div class="st-layer" aria-hidden=${false}>
         <div class="st-node" ref=${node("rasul", { dy: 3 })}>
           <div class=${`st-in st-rasul ${st.rasul.state}`}>${bubble("rasul")}

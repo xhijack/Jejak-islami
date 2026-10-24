@@ -452,4 +452,429 @@
     ],
     penutup: "Ayat terakhir surah ini adalah ayat sajdah: \"sujudlah dan dekatkanlah dirimu kepada Allah.\""
   };
+
+  // ======================================================================
+  // Kejadian 8–17. Kejadian di luar Mekah memakai mode panggung (peta: false).
+  // ======================================================================
+  const S_ = (sumber, url) => ({ sumber, url });
+  const PENGANTAR = (r) => `Rasulullah ﷺ, para nabi, dan malaikat tidak digambarkan; mereka hanya tampil sebagai nama dan cahaya. Tokoh lain tampil sebagai karakter sederhana. Urutan kejadian mengikuti ${r}, dan perlu diverifikasi ustadz.`;
+  const W_ = (power = 0.45) => ({ x: 800, y: 240, power });
+  const LBL = (id, ar, x, y, ket) => ({ id, ar, x, y, ket });
+  const MALAIKAT = { ar: "ملائكة", nama: "Para malaikat" };
+
+  // ---------- 8. Isra' Mi'raj ----------
+  const B3887 = S_("HR. Bukhari no. 3887 (Malik bin Sha'sha'ah)", "https://sunnah.com/bukhari:3887");
+  const B3886 = S_("HR. Bukhari no. 3886 (Jabir bin Abdullah)", "https://sunnah.com/bukhari:3886");
+  const HIJR = [-9, 9];
+  const CAM_HIJR = { at: [-6, 8], dist: 3, el: 0.42, az: 2.3, up: 3 };
+  const LANGIT = (n, labels, narr, extra = {}) => ({ inside: { label: `Mi'raj: ${n}`, labels }, ...B3887, narr, ...extra });
+  window.TONTONAN["isra-miraj"] = {
+    peta: true, malam: 1,
+    judul: "Isra' Mi'raj",
+    tahun: 621,
+    tanggal: {
+      judul: "Suatu malam, ±1 tahun sebelum Hijrah",
+      rinci: [
+        { k: "Tanggal", v: "Tidak disebut dalam hadits shahih. Pendapat yang masyhur: 27 Rajab. Ibnu Sa'd mencatat tanggal lain, dan sebagian peneliti menilai 27 Rajab tidak bersandar pada riwayat yang kuat.", s: "Wikipedia: Isra' and Mi'raj", url: "https://en.wikipedia.org/wiki/Isra%27_and_Mi%27raj" },
+        { k: "Tempat berangkat", v: "Al-Hathim atau Al-Hijr di sisi Ka'bah.", s: "HR. Bukhari no. 3887", url: "https://sunnah.com/bukhari:3887" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Bukhari no. 3887 dan 3886 serta HR. Muslim no. 162") + " Buraq hanya disebut dalam narasi.",
+    tokoh: { quraisy1: { nama: "Orang Quraisy" }, quraisy2: { nama: "Orang Quraisy" }, quraisy3: { nama: "Orang Quraisy" } },
+    lampu: [],
+    paths: {},
+    babak: [
+      { judul: "Malam di sisi Ka'bah", beats: [
+        { cam: { at: [0, 0], dist: 12, el: 0.62, az: 2.3, up: 0 }, rasul: { at: HIJR, state: "tenang" }, tanggal: true, ...B3887,
+          narr: "Suatu malam, sekitar satu tahun sebelum Hijrah, Rasulullah ﷺ sedang berbaring di Al-Hijr, di sisi Ka'bah." },
+        { cam: CAM_HIJR, jibril: { at: [-4, 14], up: 4, power: 0.8 }, ...B3887,
+          narr: "Malaikat datang. Dada beliau dibelah, hati beliau dicuci dalam bejana emas berisi iman, lalu dikembalikan." },
+        { ...B3887, narr: "Lalu didatangkan Buraq, hewan putih yang lebih kecil dari bagal dan lebih besar dari keledai. Langkahnya sejauh pandangan mata." },
+        { cam: { at: [-9, 60], dist: 16, el: 0.12, az: 0, up: 40 }, jibril: { at: [-9, 420], up: 260, power: 1 }, ...B3887, hold: 1200,
+          narr: "Malam itu juga beliau diperjalankan menuju Masjidil Aqsha di Baitul Maqdis." }
+      ] },
+      { judul: "Di Baitul Maqdis", beats: [
+        { inside: { scene: "baitul-maqdis", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 760, y: 620, small: false, state: "tenang" }, jibril: { x: 1120, y: 380, power: 0.5 } },
+          ...S_("HR. Muslim no. 162 (Anas)", "https://sunnah.com/muslim:162a"),
+          narr: "Di Baitul Maqdis beliau shalat dua rakaat, menurut riwayat Muslim. Gambar tempat ini hanya rekonstruksi; pada masa itu belum ada bangunan masjid seperti sekarang." }
+      ] },
+      { judul: "Naik ke tujuh langit", beats: [
+        { inside: { scene: "langit", cam: { x: 800, y: 470, s: 1 }, label: "Mi'raj: langit pertama", rasul: { x: 800, y: 700, small: true, state: "tenang" }, jibril: { x: 1080, y: 640, power: 0.55 },
+            labels: [LBL("adam", "آدم", 800, 320, "langit pertama")] }, ...B3887,
+          narr: "Jibril membawa beliau naik. Di setiap langit pintu dibukakan. Di langit pertama beliau bertemu Adam, yang menyambut: \"Selamat datang, anak yang shalih dan nabi yang shalih.\"" },
+        LANGIT("langit kedua", [LBL("yahya", "يحيى", 600, 320, "langit kedua"), LBL("isa", "عيسى", 1000, 320, "langit kedua")], "Di langit kedua beliau bertemu Yahya dan Isa, dua saudara sepupu."),
+        LANGIT("langit ketiga sampai kelima", [LBL("yusuf", "يوسف", 420, 340, "langit ketiga"), LBL("idris", "إدريس", 800, 300, "langit keempat"), LBL("harun", "هارون", 1180, 340, "langit kelima")],
+          "Di langit ketiga beliau bertemu Yusuf, di langit keempat Idris, dan di langit kelima Harun."),
+        LANGIT("langit keenam", [LBL("musa", "موسى", 800, 320, "langit keenam")], "Di langit keenam beliau bertemu Musa. Ketika beliau melewatinya, Musa menangis karena umat nabi sesudahnya lebih banyak masuk surga daripada umatnya."),
+        LANGIT("langit ketujuh", [LBL("ibrahim", "إبراهيم", 800, 320, "langit ketujuh")], "Di langit ketujuh beliau bertemu Ibrahim, yang menyambut: \"Selamat datang, anak yang shalih dan nabi yang shalih.\""),
+        { inside: { label: "Sidratul Muntaha", labels: [], jibril: { x: 800, y: 300, power: 1 } }, ...B3887,
+          narr: "Beliau dinaikkan ke Sidratul Muntaha dan diperlihatkan Baitul Ma'mur. Beliau ditawari khamar, susu, dan madu, lalu memilih susu. Jibril berkata: itulah fitrah." }
+      ] },
+      { judul: "Lima puluh menjadi lima", beats: [
+        { inside: { label: "Kewajiban shalat", jibril: { x: 800, y: 300, power: 0.4 }, labels: [LBL("musa", "موسى", 1200, 360, "")] }, ...B3887,
+          narr: "Allah mewajibkan lima puluh shalat sehari. Musa menyarankan beliau kembali memohon keringanan, karena umatnya tidak akan sanggup." },
+        { ...B3887, narr: "Beliau kembali beberapa kali, dan kewajiban itu dikurangi sedikit demi sedikit hingga menjadi lima." },
+        { ...B3887, say: { who: "rasul", text: "Aku telah meminta kepada Tuhanku hingga aku malu. Tetapi aku ridha dan menerima.", arab: "سَأَلْتُ رَبِّي حَتَّى اسْتَحْيَيْتُ، وَلَكِنِّي أَرْضَى وَأُسَلِّمُ" } },
+        { inside: { labels: [] }, ...B3887, hold: 1500, narr: "Lalu terdengar seruan: \"Aku telah menetapkan kewajiban-Ku dan meringankan hamba-hamba-Ku.\"" }
+      ] },
+      { judul: "Pagi di Mekah", beats: [
+        { inside: null, malam: 0, jibril: { at: [-4, 14], up: 4, power: 0 }, cam: CAM_HIJR, rasul: { at: HIJR },
+          chars: [{ id: "quraisy1", at: [-2, 18], expr: "sinis", on: true }, { id: "quraisy2", at: [4, 13], expr: "tegas", on: true }, { id: "quraisy3", at: [-15, 18], expr: "sinis", on: true }], ...B3886,
+          narr: "Pagi harinya beliau menceritakan perjalanan itu. Kaum Quraisy mendustakannya." },
+        { chars: [{ id: "quraisy1", expr: "kaget" }, { id: "quraisy2", expr: "kaget" }, { id: "quraisy3", expr: "khawatir" }], ...B3886,
+          say: { who: "rasul", text: "Ketika Quraisy mendustakanku, aku berdiri di Al-Hijr. Allah menampakkan Baitul Maqdis kepadaku, dan aku menceritakan tanda-tandanya sambil melihatnya.", arab: "فَجَلَا اللَّهُ لِي بَيْتَ الْمَقْدِسِ" } },
+        { ...S_("QS. Al-Isra': 1", ""), hold: 4500, say: { who: "wahyu", ayat: "QS. Al-Isra': 1",
+          arab: "سُبْحَانَ الَّذِي أَسْرَىٰ بِعَبْدِهِ لَيْلًا مِّنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الْأَقْصَى",
+          text: "Mahasuci (Allah) yang telah memperjalankan hamba-Nya pada malam hari dari Masjidil Haram ke Masjidil Aqsha yang telah Kami berkahi sekelilingnya, agar Kami perlihatkan kepadanya sebagian tanda-tanda (kebesaran) Kami." } }
+      ] }
+    ],
+    penutup: "Sejak malam itu shalat lima waktu diwajibkan. Sekitar setahun kemudian Rasulullah ﷺ hijrah ke Madinah."
+  };
+
+  // ---------- 9. Al-Baqarah 144: pemindahan kiblat ----------
+  const B4486 = S_("HR. Bukhari no. 4486 (Al-Bara' bin 'Azib)", "https://sunnah.com/bukhari:4486");
+  window.TONTONAN["kiblat"] = {
+    peta: false, malam: 0,
+    judul: "Pemindahan Kiblat",
+    tahun: 624,
+    tanggal: {
+      judul: "16 atau 17 bulan setelah Hijrah",
+      rinci: [
+        { k: "Lama menghadap Baitul Maqdis", v: "16 atau 17 bulan setelah tiba di Madinah.", s: "HR. Bukhari no. 4486", url: "https://sunnah.com/bukhari:4486" },
+        { k: "Bulan", v: "Rajab atau Sya'ban 2 H (±624 M) menurut kitab sirah.", s: "Wikipedia: Qibla", url: "https://en.wikipedia.org/wiki/Qibla" },
+        { k: "Shalat", v: "Shalat pertama menghadap Ka'bah adalah shalat Ashar.", s: "HR. Bukhari no. 4486", url: "https://sunnah.com/bukhari:4486" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Bukhari no. 4486 dan 403") + " Kejadian ini di Madinah, jadi ditampilkan sebagai panggung, bukan di peta Mekah.",
+    tokoh: { sahabat: { nama: "Sahabat" }, sahabat2: { nama: "Jamaah" }, sahabat3: { nama: "Jamaah" }, kabar: { nama: "Seorang sahabat" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Menghadap Baitul Maqdis", beats: [
+        { inside: { scene: "masjid-madinah", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 800, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "sahabat", x: 440, y: 650, expr: "netral", on: true }, { id: "sahabat2", x: 1160, y: 650, expr: "netral", on: true }] }, tanggal: true, ...B4486,
+          narr: "Setelah Hijrah, selama 16 atau 17 bulan Rasulullah ﷺ dan para sahabat shalat menghadap Baitul Maqdis, di arah utara Madinah." },
+        { ...S_("QS. Al-Baqarah: 144", ""), narr: "Beliau ingin kiblatnya diarahkan ke Ka'bah, dan sering menengadahkan wajah ke langit." },
+        { inside: { jibril: W_() }, ...B4486, narr: "Lalu turun wahyu." },
+        { ...B4486, hold: 4000, say: { who: "wahyu", ayat: "QS. Al-Baqarah: 144",
+          arab: "قَدْ نَرَىٰ تَقَلُّبَ وَجْهِكَ فِي السَّمَاءِ ۖ فَلَنُوَلِّيَنَّكَ قِبْلَةً تَرْضَاهَا ۚ فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ",
+          text: "Kami melihat wajahmu sering menengadah ke langit, maka akan Kami palingkan engkau ke kiblat yang engkau senangi. Maka hadapkanlah wajahmu ke arah Masjidil Haram." } },
+        { inside: { jibril: W_(0), chars: [{ id: "sahabat", expr: "senyum" }, { id: "sahabat2", expr: "senyum" }] }, ...B4486,
+          narr: "Shalat pertama yang beliau kerjakan menghadap Ka'bah adalah shalat Ashar, bersama sebagian sahabat." }
+      ] },
+      { judul: "Berputar dalam ruku'", beats: [
+        { inside: { scene: "masjid-madinah", label: "Masjid lain di Madinah", cam: { x: 800, y: 470, s: 1 }, rasul: { x: -600, y: 600 },
+            chars: [{ id: "sahabat2", x: 560, y: 650, expr: "netral", on: true }, { id: "sahabat3", x: 900, y: 650, expr: "netral", on: true }, { id: "kabar", x: 1300, y: 650, expr: "tegas", on: true }] }, ...B4486,
+          narr: "Seorang laki-laki yang ikut shalat bersama Nabi melewati jamaah sebuah masjid yang sedang ruku', masih menghadap Baitul Maqdis." },
+        { ...B4486, say: { who: "kabar", text: "Aku bersaksi demi Allah, aku telah shalat bersama Nabi menghadap Mekah.", arab: "أَشْهَدُ بِاللَّهِ لَقَدْ صَلَّيْتُ مَعَ النَّبِيِّ قِبَلَ مَكَّةَ" } },
+        { inside: { chars: [{ id: "sahabat2", expr: "kaget" }, { id: "sahabat3", expr: "kaget" }] }, ...B4486,
+          narr: "Mereka pun berputar menghadap Ka'bah dalam keadaan masih ruku'. Tempat ini kemudian dikenal sebagai Masjid Al-Qiblatain, \"masjid dua kiblat\"." },
+        { ...S_("HR. Bukhari no. 403 (Ibnu Umar)", "https://sunnah.com/bukhari:403"),
+          narr: "Jamaah di Quba baru menerima kabar ini keesokan harinya, saat shalat Subuh, lalu mereka juga berputar ke arah Ka'bah." },
+        { inside: { chars: [{ id: "sahabat2", expr: "lembut" }, { id: "sahabat3", expr: "lembut" }] }, ...B4486,
+          narr: "Orang-orang bertanya tentang shalat para sahabat yang wafat sebelum kiblat berpindah. Allah menurunkan ayat 143: \"Allah tidak akan menyia-nyiakan imanmu.\"" }
+      ] }
+    ],
+    penutup: "Sejak itu kaum muslimin di mana pun shalat menghadap Ka'bah di Masjidil Haram."
+  };
+
+  // ---------- 11. Al-Anfal 9: Perang Badar ----------
+  const M1763 = S_("HR. Muslim no. 1763 (Umar bin Khattab)", "https://sunnah.com/muslim:1763");
+  window.TONTONAN["badar"] = {
+    peta: false, malam: 0,
+    judul: "Doa di Lembah Badar",
+    tahun: 624,
+    tanggal: {
+      judul: "17 Ramadhan 2 H (±624 M)",
+      rinci: [
+        { k: "Tanggal", v: "17 Ramadhan 2 H, hari Jumat, menurut kitab sirah.", s: "Sirah Ibnu Hisyam" },
+        { k: "Jumlah pasukan", v: "Kaum musyrikin 1.000 orang; kaum muslimin 319 orang.", s: "HR. Muslim no. 1763", url: "https://sunnah.com/muslim:1763" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Muslim no. 1763") + " Pertempuran tidak digambarkan.",
+    tokoh: { abubakar: { nama: "Abu Bakar" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Menghadap kiblat", beats: [
+        { inside: { scene: "badar", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 560, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "abubakar", x: 980, y: 650, expr: "khawatir", on: true }] }, tanggal: true, ...M1763,
+          narr: "Hari Badar. Rasulullah ﷺ melihat kaum musyrikin berjumlah seribu orang, sedangkan para sahabat 319 orang." },
+        { ...M1763, narr: "Beliau menghadap kiblat, menengadahkan kedua tangan, dan terus berdoa." },
+        { ...M1763, say: { who: "rasul", text: "Ya Allah, penuhilah untukku apa yang Engkau janjikan kepadaku. Ya Allah, berikanlah apa yang Engkau janjikan kepadaku.", arab: "اللَّهُمَّ أَنْجِزْ لِي مَا وَعَدْتَنِي" } },
+        { ...M1763, say: { who: "rasul", text: "Ya Allah, jika pasukan kecil kaum muslimin ini binasa, Engkau tidak akan disembah di muka bumi.", arab: "اللَّهُمَّ إِنْ تُهْلِكْ هَذِهِ الْعِصَابَةَ مِنْ أَهْلِ الْإِسْلَامِ لَا تُعْبَدْ فِي الْأَرْضِ" } },
+        { ...M1763, narr: "Beliau berdoa begitu lama hingga selendangnya jatuh dari bahu." },
+        { inside: { chars: [{ id: "abubakar", x: 700, expr: "lembut" }] }, ...M1763,
+          narr: "Abu Bakar datang, memakaikan selendang itu kembali, dan memeluk beliau dari belakang." },
+        { ...M1763, say: { who: "abubakar", text: "Wahai Nabi Allah, cukuplah permohonanmu kepada Tuhanmu. Sungguh Dia akan memenuhi apa yang Dia janjikan kepadamu.", arab: "سَيُنْجِزُ لَكَ مَا وَعَدَكَ" } }
+      ] },
+      { judul: "Seribu malaikat", beats: [
+        { inside: { jibril: { x: 1150, y: 240, power: 1, ...MALAIKAT }, chars: [{ id: "abubakar", x: 980, expr: "kagum" }] }, ...M1763, narr: "Maka Allah menurunkan wahyu." },
+        { ...M1763, hold: 3500, say: { who: "wahyu", ayat: "QS. Al-Anfal: 9",
+          arab: "إِذْ تَسْتَغِيثُونَ رَبَّكُمْ فَاسْتَجَابَ لَكُمْ أَنِّي مُمِدُّكُم بِأَلْفٍ مِّنَ الْمَلَائِكَةِ مُرْدِفِينَ",
+          text: "(Ingatlah) ketika kamu memohon pertolongan kepada Tuhanmu, lalu Dia mengabulkan bagimu, \"Sungguh, Aku akan mendatangkan bala bantuan kepadamu dengan seribu malaikat yang datang berturut-turut.\"" } },
+        { ...M1763, narr: "Seorang sahabat Anshar mendengar suara cambuk dan seruan penunggang kuda, \"Majulah, Haizum!\" Nabi ﷺ bersabda, \"Itu adalah bantuan dari langit ketiga.\"" },
+        { inside: { jibril: { x: 1150, y: 240, power: 0, ...MALAIKAT }, chars: [{ id: "abubakar", expr: "senyum" }] }, ...M1763,
+          narr: "Hari itu tujuh puluh orang musyrikin terbunuh, termasuk Abu Jahal, dan tujuh puluh lainnya tertawan." }
+      ] }
+    ],
+    penutup: "Badar adalah kemenangan besar pertama kaum muslimin. Surah Al-Anfal turun berkenaan dengan perang ini."
+  };
+
+  // ---------- 12. Al-Anfal 30: makar Quraisy di malam Hijrah ----------
+  const A3251 = S_("HR. Ahmad no. 3251 (Ibnu Abbas), sanad hasan menurut Ibnu Hajar", "https://hadithunlocked.com/ahmad:3251");
+  const CAM_NADWAH = { at: [-24, 32], dist: 3, el: 0.42, az: 2.4, up: 3 };
+  window.TONTONAN["makar-nadwah"] = {
+    peta: true, malam: 1,
+    judul: "Makar Quraisy di Malam Hijrah",
+    tahun: 622,
+    tanggal: {
+      judul: "Malam Hijrah, 622 M",
+      rinci: [
+        { k: "Waktu", v: "Akhir Shafar atau awal Rabi'ul Awwal, tahun pertama Hijrah, menurut kitab sirah.", s: "Sirah Ibnu Hisyam" },
+        { k: "Tempat musyawarah", v: "Darun Nadwah menurut kitab sirah; riwayat Ahmad hanya menyebut \"di Mekah\".", s: "HR. Ahmad no. 3251", url: "https://hadithunlocked.com/ahmad:3251" },
+        { k: "Turunnya ayat", v: "Al-Anfal turun di Madinah setelah Perang Badar (2 H); ayat 30 mengenang malam ini.", s: "Catatan penyusun" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Ahmad no. 3251, HR. Bukhari no. 3905, dan Sirah Ibnu Hisyam") + " Usul Abu Jahal berasal dari kitab sirah.",
+    tokoh: { abujahal: { nama: "Abu Jahal" }, quraisy1: { nama: "Orang Quraisy" }, quraisy2: { nama: "Orang Quraisy" }, quraisy3: { nama: "Orang Quraisy" }, ali: { nama: "Ali bin Abi Thalib" } },
+    lampu: [[139, 103], [-38, 50]],
+    paths: {
+      jaga1: [[-30, 28], [20, 60], [100, 104], [110, 100]], jaga2: [[-16, 34], [30, 80], [104, 112], [118, 110]], jaga3: [[-26, 38], [10, 90], [110, 120], [132, 110]],
+      keluar: [R_RUMAH, [126, 70], [110, 20], [80, -60], [40, -200], [0, -360], [-40, -520]]
+    },
+    babak: [
+      { judul: "Musyawarah di malam hari", beats: [
+        { cam: CAM_NADWAH, rasul: { at: R_RUMAH, state: "tenang" }, tanggal: true,
+          chars: [{ id: "abujahal", at: [-22, 30], expr: "tegas", on: true }, { id: "quraisy1", at: [-30, 28], expr: "netral", on: true }, { id: "quraisy2", at: [-16, 34], expr: "netral", on: true }, { id: "quraisy3", at: [-26, 38], expr: "netral", on: true }],
+          ...A3251, narr: "Mekah, 622 M. Kaum Quraisy bermusyawarah pada suatu malam untuk menghadapi Rasulullah ﷺ. Menurut kitab sirah, tempatnya di Darun Nadwah." },
+        { ...A3251, say: { who: "quraisy1", text: "Jika pagi tiba, ikatlah dia." } },
+        { ...A3251, say: { who: "quraisy2", text: "Bunuhlah dia." } },
+        { ...A3251, say: { who: "quraisy3", text: "Usirlah dia." } },
+        { chars: [{ id: "abujahal", expr: "sinis" }], ...S_("Sirah Ibnu Hisyam (kitab sirah)", ""),
+          say: { who: "abujahal", text: "Kita ambil dari setiap kabilah seorang pemuda yang kuat. Mereka menyerangnya bersama-sama, sehingga darahnya terbagi ke semua kabilah." } }
+      ] },
+      { judul: "Ali di tempat tidur Nabi", beats: [
+        { cam: { at: [126, 94], dist: 3, el: 0.45, az: -0.94, up: 3 }, ...A3251, narr: "Allah memberi tahu Nabi ﷺ rencana itu." },
+        { inside: { scene: "rumah-khadijah", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 560, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "ali", x: 1020, y: 650, expr: "tegas", on: true }] }, ...A3251,
+          narr: "Malam itu Ali bin Abi Thalib tidur di tempat tidur beliau." },
+        { inside: { chars: [{ id: "ali", expr: "lembut" }] }, ...A3251, narr: "Ali berbaring di tempat tidur itu, sementara Rasulullah ﷺ bersiap keluar." }
+      ] },
+      { judul: "Keluar menuju gua", beats: [
+        { inside: null, cam: { at: [118, 100], dist: 4, el: 0.55, az: -0.94, up: 3 },
+          chars: [{ id: "quraisy1", path: "jaga1", from: 0, to: 1, dur: 7000, expr: "tegas" }, { id: "quraisy2", path: "jaga2", from: 0, to: 1, dur: 7500, expr: "tegas" },
+            { id: "quraisy3", path: "jaga3", from: 0, to: 1, dur: 7000, expr: "tegas" }, { id: "abujahal", on: false }], ...A3251,
+          narr: "Kaum musyrikin berjaga semalaman di sekitar rumah, mengira yang berbaring di dalam adalah Nabi." },
+        { rasul: { path: "keluar", from: 0, to: 1, dur: 20000 }, cam: { follow: "rasul", dist: 14, el: 0.75, az: "behind", up: 3 }, ...S_("HR. Bukhari no. 3905 (Aisyah)", "https://sunnah.com/bukhari:3905"),
+          narr: "Rasulullah ﷺ keluar. Bersama Abu Bakar, beliau menuju Gua Tsur, sekitar 4 km di selatan Mekah, dan bersembunyi di sana tiga malam." }
+      ] },
+      { judul: "Pagi harinya", beats: [
+        { malam: 0, cam: { at: [116, 102], dist: 3, el: 0.45, az: -0.94, up: 3 }, chars: [{ id: "ali", at: [120, 96], expr: "tegas", on: true },
+            { id: "quraisy1", expr: "kaget" }, { id: "quraisy2", expr: "kaget" }, { id: "quraisy3", expr: "kaget" }], ...A3251,
+          narr: "Pagi harinya mereka menyerbu dan mendapati Ali. Allah menggagalkan tipu daya mereka." },
+        { ...A3251, say: { who: "quraisy2", text: "Di mana sahabatmu?" } },
+        { ...A3251, say: { who: "ali", text: "Aku tidak tahu." } },
+        { ...A3251, narr: "Mereka mengikuti jejak sampai ke gunung. Di mulut gua mereka melihat sarang laba-laba dan berkata, \"Seandainya ia masuk ke sini, tentu tidak ada sarang laba-laba di mulutnya.\"" },
+        { ...S_("QS. Al-Anfal: 30 (turun setelah Badar)", ""), hold: 4500, say: { who: "wahyu", ayat: "QS. Al-Anfal: 30",
+          arab: "وَإِذْ يَمْكُرُ بِكَ الَّذِينَ كَفَرُوا لِيُثْبِتُوكَ أَوْ يَقْتُلُوكَ أَوْ يُخْرِجُوكَ ۚ وَيَمْكُرُونَ وَيَمْكُرُ اللَّهُ ۖ وَاللَّهُ خَيْرُ الْمَاكِرِينَ",
+          text: "Dan (ingatlah) ketika orang-orang kafir memikirkan tipu daya terhadapmu untuk menahanmu, atau membunuhmu, atau mengusirmu. Mereka membuat tipu daya, dan Allah membalas tipu daya mereka. Allah sebaik-baik pembalas tipu daya." } }
+      ] }
+    ],
+    penutup: "Setelah tiga malam di Gua Tsur, Rasulullah ﷺ dan Abu Bakar melanjutkan perjalanan ke Madinah."
+  };
+
+  // ---------- 13–14. Ali 'Imran 128 dan 144: Perang Uhud ----------
+  const M1791 = S_("HR. Muslim no. 1791 (Anas)", "https://sunnah.com/muslim:1791");
+  const IK144 = S_("Tafsir Ibnu Katsir, Ali 'Imran 144", "https://quran.com/3:144/tafsirs/en-tafisr-ibn-kathir");
+  const B1242 = S_("HR. Bukhari no. 1242 (Ibnu Abbas)", "https://sunnah.com/bukhari:1242");
+  window.TONTONAN["uhud"] = {
+    peta: false, malam: 0,
+    judul: "Luka dan Kabar Palsu di Uhud",
+    tahun: 625,
+    tanggal: {
+      judul: "Syawal 3 H (±625 M)",
+      rinci: [
+        { k: "Waktu", v: "Syawal 3 H menurut kitab sirah.", s: "Sirah Ibnu Hisyam" },
+        { k: "Dua sebab Ali 'Imran 128", v: "Luka Nabi di Uhud (Muslim 1791) dan doa beliau dalam shalat Subuh (Bukhari 4069).", s: "HR. Bukhari no. 4069", url: "https://sunnah.com/bukhari:4069" },
+        { k: "Ali 'Imran 144", v: "Sebab turunnya dari Tafsir Ibnu Katsir; ayat ini dibacakan Abu Bakar saat Nabi wafat, 11 H.", s: "HR. Bukhari no. 1242", url: "https://sunnah.com/bukhari:1242" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Muslim no. 1791, HR. Bukhari no. 4069, 1241, 1242, dan Tafsir Ibnu Katsir") + " Pertempuran tidak digambarkan.",
+    tokoh: { sahabat: { nama: "Sahabat" }, sahabat2: { nama: "Sahabat" }, abubakar: { nama: "Abu Bakar" }, umar: { nama: "Umar bin Khattab" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Di kaki Gunung Uhud", beats: [
+        { inside: { scene: "uhud", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 640, y: 620, small: false, state: "tenang" },
+            chars: [{ id: "sahabat", x: 1000, y: 660, expr: "tegas", on: true }] }, tanggal: true, ...S_("Sirah Ibnu Hisyam", ""),
+          narr: "Syawal 3 H. Pasukan Quraisy datang untuk membalas kekalahan di Badar, dan pertempuran terjadi di kaki Gunung Uhud." },
+        { inside: { rasul: { state: "payah" }, chars: [{ id: "sahabat", expr: "khawatir" }] }, ...M1791,
+          narr: "Kaum muslimin terdesak dan sebagian gugur. Gigi seri Rasulullah ﷺ patah dan kepala beliau terluka. Beliau mengusap darah dari wajahnya." },
+        { ...M1791, say: { who: "rasul", text: "Bagaimana mungkin beruntung suatu kaum yang melukai nabi mereka dan mematahkan giginya, padahal ia menyeru mereka kepada Allah?", arab: "كَيْفَ يُفْلِحُ قَوْمٌ شَجُّوا نَبِيَّهُمْ وَكَسَرُوا رَبَاعِيَتَهُ" } },
+        { inside: { jibril: W_() }, ...M1791, hold: 3000, say: { who: "wahyu", ayat: "QS. Ali 'Imran: 128",
+          arab: "لَيْسَ لَكَ مِنَ الْأَمْرِ شَيْءٌ أَوْ يَتُوبَ عَلَيْهِمْ أَوْ يُعَذِّبَهُمْ فَإِنَّهُمْ ظَالِمُونَ",
+          text: "Itu bukan menjadi urusanmu, apakah Allah menerima tobat mereka atau mengazab mereka, karena sesungguhnya mereka orang-orang zalim." } },
+        { inside: { jibril: W_(0), rasul: { state: "tenang" } }, ...S_("HR. Bukhari no. 4069 (Ibnu Umar)", "https://sunnah.com/bukhari:4069"),
+          narr: "Dalam riwayat Ibnu Umar, ayat ini turun ketika beliau mendoakan laknat atas beberapa orang dalam shalat Subuh, setelah bangkit dari ruku'." }
+      ] },
+      { judul: "\"Muhammad telah terbunuh\"", beats: [
+        { inside: { chars: [{ id: "sahabat", expr: "kaget" }, { id: "sahabat2", x: 1280, y: 660, expr: "sedih", on: true }] }, ...IK144,
+          narr: "Terdengar teriakan bahwa Muhammad telah terbunuh. Ibnu Qami'ah, yang melukai beliau, juga mengaku telah membunuhnya. Sebagian kaum muslimin mempercayainya, dan semangat mereka runtuh." },
+        { inside: { jibril: W_() }, ...IK144, hold: 4000, say: { who: "wahyu", ayat: "QS. Ali 'Imran: 144",
+          arab: "وَمَا مُحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ ۚ أَفَإِن مَّاتَ أَوْ قُتِلَ انقَلَبْتُمْ عَلَىٰ أَعْقَابِكُمْ",
+          text: "Dan Muhammad hanyalah seorang rasul; sebelumnya telah berlalu beberapa rasul. Apakah jika dia wafat atau dibunuh kamu berbalik ke belakang? Barang siapa berbalik ke belakang, ia tidak akan merugikan Allah sedikit pun." } },
+        { inside: { jibril: W_(0), chars: [{ id: "sahabat", expr: "tegas" }, { id: "sahabat2", expr: "tegas" }] }, ...IK144,
+          narr: "Iman tidak boleh bergantung pada hadirnya seseorang, sekalipun ia Rasulullah ﷺ." }
+      ] },
+      { judul: "Tujuh tahun kemudian", beats: [
+        { inside: { scene: "rumah-madinah", label: "Madinah, 11 H", cam: { x: 800, y: 470, s: 1 }, rasul: { x: -600, y: 600 },
+            chars: [{ id: "umar", x: 1120, y: 650, expr: "kaget", on: true }, { id: "abubakar", x: 620, y: 650, expr: "sedih", on: true }] }, ...S_("HR. Bukhari no. 1241 (Aisyah)", "https://sunnah.com/bukhari:1241"),
+          narr: "Rabi'ul Awwal 11 H, Rasulullah ﷺ wafat. Abu Bakar datang, membuka wajah beliau, menciumnya, dan menangis: \"Allah tidak akan menghimpun dua kematian atasmu.\"" },
+        { ...B1242, narr: "Di luar, Umar sedang berbicara kepada orang-orang. Abu Bakar memintanya duduk, tetapi ia menolak." },
+        { inside: { chars: [{ id: "abubakar", expr: "tegas" }] }, ...B1242,
+          say: { who: "abubakar", text: "Barang siapa menyembah Muhammad, sesungguhnya Muhammad telah wafat. Barang siapa menyembah Allah, sesungguhnya Allah Maha Hidup dan tidak akan mati.", arab: "مَنْ كَانَ يَعْبُدُ مُحَمَّدًا فَإِنَّ مُحَمَّدًا قَدْ مَاتَ" } },
+        { ...B1242, say: { who: "abubakar", text: "\"Dan Muhammad hanyalah seorang rasul; sebelumnya telah berlalu beberapa rasul...\"", arab: "وَمَا مُحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ" } },
+        { inside: { chars: [{ id: "umar", expr: "sedih" }] }, ...B1242, narr: "Orang-orang seakan-akan baru mengetahui ayat itu, dan mereka pun membacanya." }
+      ] }
+    ],
+    penutup: "Ayat yang turun di Uhud menjadi peneguh umat ketika Rasulullah ﷺ benar-benar wafat."
+  };
+
+  // ---------- 15. Al-Ahzab 10: Perang Khandaq ----------
+  const B4103 = S_("HR. Bukhari no. 4103 (Aisyah)", "https://sunnah.com/bukhari:4103");
+  const B4099 = S_("HR. Bukhari no. 4099 (Anas)", "https://sunnah.com/bukhari:4099");
+  window.TONTONAN["khandaq"] = {
+    peta: false, malam: 0,
+    judul: "Parit di Utara Madinah",
+    tahun: 627,
+    tanggal: {
+      judul: "Syawal 5 H (±627 M)",
+      rinci: [
+        { k: "Tahun", v: "Syawal 5 H menurut Ibnu Ishaq; Musa bin Uqbah menyebut 4 H.", s: "Sirah Ibnu Hisyam" },
+        { k: "Ayat", v: "Aisyah: ayat \"ketika mereka datang dari atas dan dari bawahmu\" terjadi pada hari Khandaq.", s: "HR. Bukhari no. 4103", url: "https://sunnah.com/bukhari:4103" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Bukhari no. 4099 dan 4103 serta Sirah Ibnu Hisyam"),
+    tokoh: { sahabat: { nama: "Kaum Muhajirin" }, sahabat2: { nama: "Kaum Anshar" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Menggali parit", beats: [
+        { inside: { scene: "khandaq", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 600, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "sahabat", x: 920, y: 640, expr: "tegas", on: true }, { id: "sahabat2", x: 1220, y: 650, expr: "tegas", on: true }] }, tanggal: true, ...S_("Sirah Ibnu Hisyam", ""),
+          narr: "Quraisy dan kabilah-kabilah sekutunya bergerak menuju Madinah. Kaum muslimin menggali parit di sisi utara kota yang terbuka." },
+        { ...B4099, narr: "Di pagi yang dingin, kaum Muhajirin dan Anshar menggali dan mengangkat tanah. Rasulullah ﷺ ikut bersama mereka." },
+        { ...B4099, say: { who: "rasul", text: "Ya Allah, sesungguhnya kehidupan (sejati) adalah kehidupan akhirat. Maka ampunilah kaum Anshar dan Muhajirin.", arab: "اللَّهُمَّ إِنَّ الْعَيْشَ عَيْشُ الْآخِرَهْ، فَاغْفِرْ لِلْأَنْصَارِ وَالْمُهَاجِرَهْ" } },
+        { inside: { chars: [{ id: "sahabat", expr: "senyum" }, { id: "sahabat2", expr: "senyum" }] }, ...B4099,
+          say: { who: "sahabat2", text: "Kamilah yang telah berbaiat kepada Muhammad untuk berjihad selama kami hidup.", arab: "نَحْنُ الَّذِينَ بَايَعُوا مُحَمَّدَا، عَلَى الْجِهَادِ مَا بَقِينَا أَبَدَا" } }
+      ] },
+      { judul: "Dikepung dari atas dan bawah", beats: [
+        { inside: { chars: [{ id: "sahabat", expr: "khawatir" }, { id: "sahabat2", expr: "khawatir" }] }, ...S_("Sirah Ibnu Hisyam", ""),
+          narr: "Pasukan sekutu datang dari atas dan dari bawah lembah, dan mengepung Madinah sekitar sebulan." },
+        { inside: { jibril: W_() }, ...B4103, hold: 3500, say: { who: "wahyu", ayat: "QS. Al-Ahzab: 10",
+          arab: "إِذْ جَاءُوكُم مِّن فَوْقِكُمْ وَمِنْ أَسْفَلَ مِنكُمْ وَإِذْ زَاغَتِ الْأَبْصَارُ وَبَلَغَتِ الْقُلُوبُ الْحَنَاجِرَ وَتَظُنُّونَ بِاللَّهِ الظُّنُونَا",
+          text: "(Yaitu) ketika mereka datang kepadamu dari atas dan dari bawahmu, dan ketika penglihatanmu terpana dan hatimu naik sampai ke tenggorokan, dan kamu berprasangka yang bukan-bukan terhadap Allah." } },
+        { inside: { jibril: W_(0) }, ...B4103, narr: "Aisyah berkata tentang ayat ini: \"Itu terjadi pada hari Khandaq.\"" },
+        { inside: { chars: [{ id: "sahabat", expr: "lembut" }, { id: "sahabat2", expr: "lembut" }] }, ...S_("QS. Al-Ahzab: 9", ""),
+          narr: "Akhirnya Allah mengirim angin kencang dan pasukan yang tidak terlihat, sehingga pasukan sekutu pulang tanpa hasil." }
+      ] }
+    ],
+    penutup: "Setelah Khandaq, Quraisy tidak lagi menyerang Madinah."
+  };
+
+  // ---------- 16. An-Nur 11–20: Haditsul Ifki ----------
+  const B4750 = S_("HR. Bukhari no. 4750 (Aisyah)", "https://sunnah.com/bukhari:4750");
+  window.TONTONAN["ifki"] = {
+    peta: false, malam: 0,
+    judul: "Haditsul Ifki",
+    tahun: 627,
+    tanggal: {
+      judul: "Sepulang sebuah ekspedisi, 5 atau 6 H",
+      rinci: [
+        { k: "Ekspedisi", v: "Hadits tidak menyebut namanya. Kitab sirah menyebut ekspedisi Bani Mushthaliq; tahunnya diperselisihkan (5 atau 6 H).", s: "Sirah Ibnu Hisyam" },
+        { k: "Lama wahyu tertunda", v: "Sekitar sebulan.", s: "HR. Bukhari no. 4750", url: "https://sunnah.com/bukhari:4750" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Bukhari no. 4750"),
+    tokoh: { aisyah: { nama: "Aisyah" }, safwan: { nama: "Shafwan bin Al-Mu'aththal" }, abubakar: { nama: "Abu Bakar" }, ummuruman: { nama: "Ummu Ruman (ibu Aisyah)" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Kalung yang hilang", beats: [
+        { inside: { scene: "padang-malam", cam: { x: 800, y: 470, s: 1 }, rasul: { x: -600, y: 600 },
+            chars: [{ id: "aisyah", x: 760, y: 650, expr: "netral", on: true }] }, tanggal: true, ...B4750,
+          narr: "Aisyah ikut bersama Rasulullah ﷺ dalam sebuah ekspedisi. Di perjalanan pulang, saat rombongan berhenti malam hari, ia keluar sebentar untuk suatu keperluan." },
+        { inside: { chars: [{ id: "aisyah", expr: "khawatir" }] }, ...B4750, narr: "Kalungnya putus. Ia kembali mencarinya, sehingga tertinggal." },
+        { inside: { chars: [{ id: "aisyah", expr: "sedih" }] }, ...B4750,
+          narr: "Orang-orang yang mengangkat sekedupnya mengira ia ada di dalam, karena tubuhnya ringan. Rombongan pun berangkat. Ia duduk di tempat itu menunggu, hingga tertidur." },
+        { inside: { scene: "padang-siang", cam: { x: 800, y: 470, s: 1 }, rasul: { x: -600, y: 600 },
+            chars: [{ id: "aisyah", x: 620, y: 650, expr: "sedih", on: true }, { id: "safwan", x: 1100, y: 650, expr: "kaget", on: true }] }, ...B4750,
+          narr: "Pagi hari, Shafwan bin Al-Mu'aththal, yang berjalan di belakang pasukan, menemukannya." },
+        { ...B4750, say: { who: "safwan", text: "Inna lillahi wa inna ilaihi raji'un.", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ" } },
+        { inside: { chars: [{ id: "safwan", expr: "tegas" }] }, ...B4750,
+          narr: "Ia menundukkan untanya, Aisyah naik, dan Shafwan menuntunnya sampai menyusul pasukan di siang terik. Keduanya tidak berbicara sepatah kata pun." }
+      ] },
+      { judul: "Fitnah menyebar", beats: [
+        { inside: { scene: "rumah-madinah", label: "Madinah", cam: { x: 800, y: 470, s: 1 }, rasul: { x: -600, y: 600 },
+            chars: [{ id: "aisyah", x: 800, y: 650, expr: "sedih", on: true }] }, ...B4750,
+          narr: "Sekelompok orang menyebarkan tuduhan dusta. Pemimpinnya adalah Abdullah bin Ubay bin Salul. Aisyah jatuh sakit sebulan, tanpa mengetahui apa yang beredar." },
+        { ...B4750, narr: "Ia baru mengetahuinya dari Ummu Misthah. Sakitnya bertambah, dan ia pulang ke rumah orang tuanya. Ia menangis dua malam dan satu hari." },
+        { ...B4750, narr: "Wahyu tidak turun. Nabi ﷺ bertanya kepada Usamah bin Zaid, Barirah, dan Zainab binti Jahsy; semuanya berkata hanya mengetahui kebaikan tentang Aisyah." }
+      ] },
+      { judul: "Kesabaran yang indah", beats: [
+        { inside: { scene: "rumah-madinah", label: "Di rumah Abu Bakar", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 470, y: 600, small: false, state: "tenang" },
+            chars: [{ id: "aisyah", x: 830, y: 650, expr: "sedih", on: true }, { id: "abubakar", x: 1130, y: 650, expr: "khawatir", on: true }, { id: "ummuruman", x: 1380, y: 650, expr: "khawatir", on: true }] }, ...B4750,
+          say: { who: "rasul", text: "Wahai Aisyah, jika engkau bersih, Allah akan membersihkanmu. Jika engkau melakukan dosa, mohonlah ampun kepada Allah dan bertobatlah." } },
+        { ...B4750, narr: "Kedua orang tuanya tidak sanggup menjawab." },
+        { inside: { chars: [{ id: "aisyah", expr: "tegas" }] }, ...B4750,
+          say: { who: "aisyah", text: "Aku tidak menemukan perumpamaan untukku dan kalian kecuali ucapan ayah Nabi Yusuf: \"Maka kesabaran yang indah, dan Allah tempat memohon pertolongan atas apa yang kalian ceritakan.\"", arab: "فَصَبْرٌ جَمِيلٌ وَاللَّهُ الْمُسْتَعَانُ عَلَى مَا تَصِفُونَ" } },
+        { inside: { jibril: W_() }, ...B4750, narr: "Sebelum beliau beranjak, wahyu turun. Keringat bercucuran dari beliau seperti mutiara, padahal hari itu dingin." },
+        { inside: { jibril: W_(0), chars: [{ id: "aisyah", expr: "kaget" }, { id: "abubakar", expr: "kagum" }, { id: "ummuruman", expr: "kagum" }] }, ...B4750,
+          say: { who: "rasul", text: "Wahai Aisyah, adapun Allah, Dia telah membersihkanmu.", arab: "يَا عَائِشَةُ، أَمَّا اللَّهُ فَقَدْ بَرَّأَكِ" } },
+        { inside: { chars: [{ id: "ummuruman", expr: "senyum" }] }, ...B4750, say: { who: "ummuruman", text: "Berdirilah kepada beliau." } },
+        { inside: { chars: [{ id: "aisyah", expr: "lembut" }] }, ...B4750,
+          say: { who: "aisyah", text: "Demi Allah, aku tidak akan berdiri kepadanya, dan aku tidak memuji kecuali Allah." } },
+        { ...B4750, hold: 3500, say: { who: "wahyu", ayat: "QS. An-Nur: 11–12",
+          arab: "إِنَّ الَّذِينَ جَاءُوا بِالْإِفْكِ عُصْبَةٌ مِّنكُمْ ۚ لَا تَحْسَبُوهُ شَرًّا لَّكُم ۖ بَلْ هُوَ خَيْرٌ لَّكُمْ",
+          text: "Sesungguhnya orang-orang yang membawa berita bohong itu adalah dari golongan kamu juga. Janganlah kamu mengira berita itu buruk bagi kamu, bahkan itu baik bagi kamu... Mengapa orang-orang mukmin tidak berbaik sangka dan berkata, \"Ini adalah berita bohong yang nyata\"?" } },
+        { inside: { chars: [{ id: "abubakar", expr: "lembut" }] }, ...B4750,
+          narr: "Abu Bakar sempat bersumpah berhenti menafkahi kerabatnya, Misthah, yang ikut menyebarkan fitnah. Lalu turun ayat 22 tentang memaafkan, dan ia kembali menafkahinya." }
+      ] }
+    ],
+    penutup: "Allah menurunkan sepuluh ayat untuk membersihkan nama Aisyah, sekaligus pelajaran untuk berbaik sangka dan tidak menyebarkan kabar tanpa bukti."
+  };
+
+  // ---------- 17. Al-Fath 1: sepulang dari Hudaibiyah ----------
+  const B4177 = S_("HR. Bukhari no. 4177 (Aslam, dari Umar)", "https://sunnah.com/bukhari:4177");
+  window.TONTONAN["fath"] = {
+    peta: false, malam: 0,
+    judul: "Kemenangan yang Nyata",
+    tahun: 628,
+    tanggal: {
+      judul: "Dzulqa'dah 6 H (±628 M), malam hari",
+      rinci: [
+        { k: "Bulan", v: "Umrah Hudaibiyah terjadi di bulan Dzulqa'dah.", s: "HR. Bukhari no. 1778", url: "https://sunnah.com/bukhari:1778" },
+        { k: "Waktu turun", v: "Malam hari, dalam perjalanan pulang.", s: "HR. Bukhari no. 4177", url: "https://sunnah.com/bukhari:4177" }
+      ]
+    },
+    pengantar: PENGANTAR("HR. Bukhari no. 4177 dan 4172"),
+    tokoh: { umar: { nama: "Umar bin Khattab" } },
+    lampu: [], paths: {},
+    babak: [
+      { judul: "Tiga pertanyaan Umar", beats: [
+        { inside: { scene: "padang-malam", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 520, y: 610, small: false, state: "tenang" },
+            chars: [{ id: "umar", x: 900, y: 650, expr: "netral", on: true }] }, tanggal: true, ...B4177,
+          narr: "Setelah Perjanjian Hudaibiyah, rombongan kaum muslimin pulang ke Madinah. Suatu malam Umar bin Khattab berjalan bersama Rasulullah ﷺ." },
+        { ...B4177, narr: "Umar bertanya tentang sesuatu, tetapi beliau tidak menjawab. Ia bertanya lagi, tidak dijawab. Ketiga kalinya, tetap tidak dijawab." },
+        { inside: { chars: [{ id: "umar", x: 1250, expr: "khawatir" }] }, ...B4177,
+          say: { who: "umar", text: "Celakalah engkau, Umar. Engkau telah mendesak Rasulullah tiga kali, dan beliau tidak menjawabmu." } },
+        { ...B4177, narr: "Ia memacu untanya ke depan rombongan, khawatir turun ayat Al-Qur'an tentang dirinya." }
+      ] },
+      { judul: "Surah yang paling dicintai", beats: [
+        { inside: { chars: [{ id: "umar", x: 900, expr: "kaget" }] }, ...B4177, narr: "Tak lama kemudian seseorang memanggilnya. Umar datang dan mengucapkan salam." },
+        { ...B4177, say: { who: "rasul", text: "Malam ini telah turun kepadaku sebuah surah yang lebih aku cintai daripada apa pun yang disinari matahari.", arab: "لَقَدْ أُنْزِلَتْ عَلَيَّ اللَّيْلَةَ سُورَةٌ لَهِيَ أَحَبُّ إِلَيَّ مِمَّا طَلَعَتْ عَلَيْهِ الشَّمْسُ" } },
+        { inside: { jibril: W_(), chars: [{ id: "umar", expr: "kagum" }] }, ...B4177, hold: 3000,
+          say: { who: "wahyu", ayat: "QS. Al-Fath: 1", arab: "إِنَّا فَتَحْنَا لَكَ فَتْحًا مُّبِينًا", text: "Sungguh, Kami telah memberikan kepadamu kemenangan yang nyata." } },
+        { inside: { jibril: W_(0), chars: [{ id: "umar", expr: "senyum" }] }, ...S_("HR. Bukhari no. 4172 (Anas)", "https://sunnah.com/bukhari:4172"),
+          narr: "Anas berkata: kemenangan itu adalah Perjanjian Hudaibiyah. Dua tahun kemudian, perjanjian ini membuka jalan bagi Fathu Makkah." }
+      ] }
+    ],
+    penutup: "Yang tampak sebagai kekalahan di Hudaibiyah, Allah sebut sebagai kemenangan yang nyata."
+  };
 })();

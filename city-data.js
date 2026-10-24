@@ -99,7 +99,7 @@
         ket: "Balai musyawarah Quraisy yang didirikan Qusay bin Kilab, di sisi barat laut Ka'bah dengan pintu menghadap Ka'bah. Kafilah dagang Mekah berangkat dan pulang dari sini. Kemudian dibeli Mu'awiyah, dan pada akhir abad ke-3 H digabungkan ke Masjidil Haram.",
         sumberLokasi: "Al-Azraqi, Akhbar Makkah; WikiShia",
         riwayat: [
-          { t: [622, 622], judul: "Rencana membunuh Nabi", tokoh: ["abujahal", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; tafsir Ibnu Katsir",
+          { t: [622, 622], judul: "Rencana membunuh Nabi", tontonan: "makar-nadwah", tokoh: ["abujahal", "nabi"], derajat: "sirah", sumber: "Sirah Ibnu Hisyam; tafsir Ibnu Katsir",
             isi: "Para pemuka Quraisy bermusyawarah di sini. Atas usul Abu Jahal, mereka sepakat mengirim pemuda dari tiap kabilah untuk membunuh Nabi bersama-sama. Malam itu Nabi berangkat hijrah.",
             ayat: { surah: "Al-Anfal", no: "30", arab: "وَإِذْ يَمْكُرُ بِكَ الَّذِينَ كَفَرُوا" } }
         ] },
