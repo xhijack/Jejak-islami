@@ -479,7 +479,8 @@
             <li><b>Asbabun Nuzul</b> ${window.NUZUL.urutan.length} kejadian (${Object.keys(window.NUZUL.artikel).length} sudah lengkap) dan 114 surah dengan waktu turunnya.</li>
           </ul>
           <h3>Batasan</h3>
-          <p>Isi masih draf. Narasi, tahun, letak tempat, dan dialog tontonan adalah rekonstruksi dari sumber yang tercantum, dan harus diperiksa ustadz sebelum dipakai untuk kajian. Rasulullah ﷺ, para nabi, dan malaikat tidak pernah digambarkan; mereka hanya tampil sebagai nama dan cahaya.</p>
+          <p>Narasi, tahun, letak tempat, dan dialog tontonan adalah rekonstruksi dari sumber yang tercantum. Rasulullah ﷺ, para nabi, dan malaikat tidak pernah digambarkan; mereka hanya tampil sebagai nama dan cahaya.</p>
+          <p class="disclaimer"><b>Disklaimer.</b> Informasi di aplikasi ini bersifat edukatif dan masih draf. Mohon validasi setiap informasi kepada ustadz atau langsung ke sumber aslinya sebelum dikutip, diajarkan, atau disebarkan. Kami tidak bertanggung jawab atas apa pun yang mengatasnamakan aplikasi ini atau pembuatnya.</p>
           <p class="dim">Disusun dengan bantuan AI (Claude). Setiap riwayat diberi label derajat dan tautan ke sumbernya supaya bisa diperiksa.</p>
           <button type="button" class="nz-btn" onClick=${() => setTab("sumber")}>Lihat semua sumber</button>
         </div>` : html`<div class="about-body">
@@ -510,8 +511,8 @@
     return html`<div class="draft-note pop" ref=${ref}>
       <button type="button" class="badge" aria-expanded=${open} onClick=${() => setOpen(!open)}>Draf, belum diverifikasi ustadz</button>
       ${open && html`<div class="pop-box down" role="dialog" aria-label="Tentang isi aplikasi">
-        <p><b>Prototipe.</b> Narasi, tahun, letak tempat, dialog tontonan, dan rujukan hadits masih draf.</p>
-        <p>Semua isi harus diperiksa ustadz sebelum dipakai untuk kajian. Setiap riwayat diberi label derajat (shahih, kitab sirah, atau lemah) dan tautan sumbernya.</p>
+        <p>Narasi, tahun, letak tempat, dialog tontonan, dan rujukan hadits masih draf. Setiap riwayat diberi label derajat (shahih, kitab sirah, atau lemah) dan tautan sumbernya.</p>
+        <p class="disclaimer"><b>Disklaimer.</b> Informasi di aplikasi ini bersifat edukatif dan masih draf. Mohon validasi setiap informasi kepada ustadz atau langsung ke sumber aslinya sebelum dikutip, diajarkan, atau disebarkan. Kami tidak bertanggung jawab atas apa pun yang mengatasnamakan aplikasi ini atau pembuatnya.</p>
       </div>`}
     </div>`;
   }

@@ -3,6 +3,8 @@
 Dibuat oleh Ramdani (ramd4ni@gmail.com). Prototipe aplikasi pengetahuan: peta 3D sejarah Islam dari Tahun Gajah (570 M) sampai akhir Khulafaur Rasyidin (661 M), lengkap dengan timeline, asbabun nuzul, dan profil tokoh.
 
 > **Status konten: DRAF.** Narasi, tahun, dan rujukan hadits masih harus diverifikasi ustadz sebelum dipakai.
+>
+> **Disklaimer.** Informasi di aplikasi ini bersifat edukatif dan masih draf. Mohon validasi setiap informasi kepada ustadz atau langsung ke sumber aslinya sebelum dikutip, diajarkan, atau disebarkan. Kami tidak bertanggung jawab atas apa pun yang mengatasnamakan aplikasi ini atau pembuatnya.
 
 ## Fitur
 
