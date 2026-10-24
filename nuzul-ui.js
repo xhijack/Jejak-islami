@@ -8,7 +8,7 @@
     const D = window.SIRAH, K = window.MEKAH, N = window.NUZUL;
     return N.urutan.map((u, i) => {
       const no = i + 1;
-      if (N.artikel[u.id]) { const a = N.artikel[u.id]; return { id: u.id, no, full: true, judul: a.judul, tahun: a.tahun, sub: a.sub, art: a }; }
+      if (N.artikel[u.id]) { const a = N.artikel[u.id]; return { id: u.id, no, full: true, judul: a.judul, tahun: a.tahun, sub: a.sub, art: a, u }; }
       if (u.ev) {
         const e = D.peristiwa.find((x) => x.id === u.ev), ay = e && e.ayat[u.a]; if (!ay) return null;
         return { id: u.id, no, full: false, judul: `${ay.surah} ${ay.no}`, tahun: e.tahun, sub: e.judul, kind: "ev", e, ay, u };
@@ -27,30 +27,30 @@
       return {
         judul: en.judul, sub: e.judul, ringkas: true, tontonan: e.tontonan, peta: { tahun: e.tahun, lok: e.lok },
         lead: [`${ay.surah} ayat ${ay.no} berkaitan dengan peristiwa "${e.judul}" di ${e.tempat}, sekitar ${e.tahun} M (${e.h}).[ref:s1]`],
-        infobox: [["Surah", ay.surah], ["Ayat", ay.no], ["Peristiwa", e.judul], ["Waktu", `${e.tahun} M (${e.h})`], ["Tempat", e.tempat], ["Tokoh", e.tokoh.map(nama).join(", ")]],
+        infobox: [["Surah", ay.surah], ["Ayat", ay.no], ["Peristiwa", e.judul], ["Waktu", en.u.waktu ? en.u.waktu + (en.u.ws ? "[ref:w]" : "") : `${e.tahun} M (${e.h})`], ["Tempat", e.tempat], ["Tokoh", e.tokoh.map(nama).join(", ")]],
         ayat: [{ no: ay.no, ar: ay.arab }],
         bagian: [
           { id: "nuzul", judul: "Asbabun nuzul", isi: [ay.nuzul + "[ref:s1]"] },
           { id: "peristiwa", judul: "Peristiwa", isi: [e.narasi] },
           ...(notes.length ? [{ id: "catatan", judul: "Catatan", isi: notes }] : [])
         ],
-        lihatJuga: [], rujukan: { s1: { t: ay.sumber } }
+        lihatJuga: [], rujukan: { s1: { t: ay.sumber }, ...(en.u.ws ? { w: { t: en.u.ws, url: en.u.wu } } : {}) }
       };
     }
     const p = en.p, r = en.r, notes = [r.catatan, en.u.catatan].filter(Boolean);
     return {
       judul: en.judul, sub: r.judul, ringkas: true, tontonan: r.tontonan, peta: { tahun: r.t ? r.t[0] : 610, tempat: p.id },
       lead: [`${r.ayat.surah} ayat ${r.ayat.no} berkaitan dengan peristiwa "${r.judul}" di ${p.nama}${r.t ? `, sekitar ${r.t[0]} M` : ""}.[ref:s1]`],
-      infobox: [["Surah", r.ayat.surah], ["Ayat", r.ayat.no], ["Peristiwa", r.judul], ["Waktu", r.t ? `${r.t[0]}${r.t[1] !== r.t[0] ? "–" + r.t[1] : ""} M` : "Tidak disebut dalam riwayat"], ["Tempat", p.nama], ["Tokoh", r.tokoh.map(nama).join(", ")]],
+      infobox: [["Surah", r.ayat.surah], ["Ayat", r.ayat.no], ["Peristiwa", r.judul], ["Waktu", en.u.waktu ? en.u.waktu + (en.u.ws ? "[ref:w]" : "") : r.t ? `${r.t[0]}${r.t[1] !== r.t[0] ? "–" + r.t[1] : ""} M` : "Tidak disebut dalam riwayat"], ["Tempat", p.nama], ["Tokoh", r.tokoh.map(nama).join(", ")]],
       ayat: [{ no: r.ayat.no, ar: r.ayat.arab }],
       bagian: [{ id: "nuzul", judul: "Asbabun nuzul", isi: [r.isi + "[ref:s1]"] }, ...(notes.length ? [{ id: "catatan", judul: "Catatan", isi: notes }] : [])],
-      lihatJuga: [{ label: p.nama, tempat: p.id, ket: "lokasi di peta" }], rujukan: { s1: { t: r.sumber, url: r.url } }
+      lihatJuga: [{ label: p.nama, tempat: p.id, ket: "lokasi di peta" }], rujukan: { s1: { t: r.sumber, url: r.url }, ...(en.u.ws ? { w: { t: en.u.ws, url: en.u.wu } } : {}) }
     };
   }
 
   // Pencarian balik: dari peristiwa/riwayat ke entri ensiklopedia
   window.NUZUL_LOOKUP = {
-    ev(evId, i) { const u = window.NUZUL.urutan.find((x) => x.ev === evId && x.a === i) || (evId === "hira" && i === 0 ? { id: "alaq-1-5" } : null); return u && u.id; },
+    ev(evId, i) { const u = window.NUZUL.urutan.find((x) => x.ev === evId && x.a === i) || (evId === "hira" && i === 0 ? { id: "alaq-1-5" } : evId === "muddatstsir" && i === 0 ? { id: "muddatstsir-1-5" } : null); return u && u.id; },
     tempat(pid, judul) { const u = window.NUZUL.urutan.find((x) => x.tempat === pid && x.r === judul) || ((pid === "hira" || pid === "khadijah") && /Wahyu pertama|Selimuti/.test(judul) ? { id: "alaq-1-5" } : null); return u && u.id; }
   };
 
@@ -92,7 +92,7 @@
           const art = toArticle(x);
           return html`<li key=${x.id}><button type="button" class=${x.id === sel ? "on" : ""} onClick=${() => onSelect(x.id)} aria-pressed=${x.id === sel}>
             <span class="n">${x.no}</span>
-            <span class="t"><b>${x.judul}</b><small>${x.sub}</small><small class="y">${x.tahun ? x.tahun + " M" : "Waktu tidak disebut"}${x.full ? " · Lengkap" : " · Ringkasan"}</small></span>
+            <span class="t"><b>${x.judul}</b><small>${x.sub}</small><small class="y">${x.u && x.u.waktu ? x.u.waktu : x.tahun ? x.tahun + " M" : "Waktu tidak disebut"}</small><small class=${`st ${x.full ? "full" : ""}`}>${x.full ? "Lengkap" : "Ringkasan"}</small></span>
             ${art.tontonan && html`<span class="nz-play-dot" title="Ada tontonan kejadian" aria-label="Ada tontonan">▶</span>`}
           </button></li>`;
         })}

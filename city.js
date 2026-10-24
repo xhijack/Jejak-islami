@@ -766,9 +766,9 @@
       }
     }
     const storyApi = {
-      begin({ lamps } = {}) {
+      begin({ lamps, malam } = {}) {
         if (walk.on) stopWalk();
-        story.on = true; story.nightGoal = 1; story.lamps = lamps || []; story.actors = {};
+        story.on = true; story.nightGoal = malam ?? 1; story.lamps = lamps || []; story.actors = {};
         for (const id in markers) markers[id].g.visible = false;
         renderer.domElement.classList.add("story");
       },

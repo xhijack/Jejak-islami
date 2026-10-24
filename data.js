@@ -126,7 +126,7 @@ window.SIRAH = {
       ayat: [{ surah: "Al-'Alaq", no: "1–5", arab: "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ",
         nuzul: "Ayat-ayat pertama yang turun. Jibril memerintahkan Nabi membaca tiga kali sebelum ayat ini disampaikan.",
         sumber: "HR. Bukhari & Muslim, dari Aisyah" }] },
-    { id: "muddatstsir", tahun: 611, h: "12 SH", lok: "makkah", tempat: "Mekah", judul: "Wahyu turun kembali",
+    { id: "muddatstsir", tahun: 611, h: "12 SH", lok: "makkah", tempat: "Mekah", judul: "Wahyu turun kembali", tontonan: "wahyu-kedua",
       narasi: "Setelah wahyu sempat terhenti beberapa waktu (fatrah), Nabi melihat Jibril di antara langit dan bumi. Beliau pulang dan berkata, \"Selimuti aku.\" Lalu turun perintah untuk bangkit dan memberi peringatan.",
       tokoh: ["nabi", "khadijah"],
       ayat: [{ surah: "Al-Muddatstsir", no: "1–5", arab: "يَا أَيُّهَا الْمُدَّثِّرُ ﴿١﴾ قُمْ فَأَنذِرْ ﴿٢﴾",

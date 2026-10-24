@@ -56,7 +56,7 @@
   // ---------- Susun keadaan tiap adegan ----------
   function resolve(ev) {
     const out = []; let s = { rasul: { e: 0, n: 0, state: "tenang" }, chars: {}, jib: { e: 0, n: 0, up: 9, power: 0 }, cam: null, inside: null };
-    const endOf = (pts, to) => (to >= 1 ? pts[pts.length - 1] : pts[0]);
+    const endOf = (pts, t) => window.SirahPathAt(pts, t);
     ev.babak.forEach((bk, bi) => bk.beats.forEach((b, k) => {
       const moves = []; s = { ...s, rasul: { ...s.rasul }, chars: { ...s.chars }, jib: { ...s.jib } };
       if (b.rasul) {
@@ -85,9 +85,17 @@
     }));
     return out;
   }
+  // Titik pada jalur di posisi t (0..1) menurut panjang lintasan
+  window.SirahPathAt = function (pts, t) {
+    if (t <= 0) return pts[0]; if (t >= 1) return pts[pts.length - 1];
+    const len = [0]; for (let i = 1; i < pts.length; i++) len.push(len[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const d = t * len[len.length - 1]; let i = 1; while (i < len.length - 1 && len[i] < d) i++;
+    const k = (d - len[i - 1]) / (len[i] - len[i - 1] || 1), a = pts[i - 1], b = pts[i];
+    return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+  };
   const textOf = (b) => (b.say ? b.say.text : b.narr) || "";
   const holdOf = (b) => (b.hold || 0) + 1400 + textOf(b).length * 22 + (b.say && b.say.arab ? 1000 : 0);
-  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril" };
+  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril", wahyu: "Wahyu turun" };
 
   function SirahStory({ api, id, onClose }) {
     const ev = window.TONTONAN[id], S = api.story;
@@ -102,7 +110,7 @@
       const mv = {}; f.moves.forEach((m) => { mv[m.id] = m; });
       const put = (aid, o, vis) => {
         const m = animate && mv[aid];
-        if (m) { const p = m.from >= 1 ? m.pts[m.pts.length - 1] : m.pts[0]; S.actor(aid, { e: p[0], n: p[1], up: 0, vis }); S.move(aid, m.pts, m.from, m.to, reduce ? 300 : m.dur); }
+        if (m) { const p = window.SirahPathAt(m.pts, m.from); S.actor(aid, { e: p[0], n: p[1], up: 0, vis }); S.move(aid, m.pts, m.from, m.to, reduce ? 300 : m.dur); }
         else S.actor(aid, { e: o.e, n: o.n, up: 0, vis });
       };
       put("rasul", f.rasul, true);
@@ -112,7 +120,7 @@
       moveEnd.current = performance.now() + (animate ? Math.max(0, ...f.moves.map((m) => (reduce ? 300 : m.dur))) : 0);
     }
     useEffect(() => {
-      S.begin({ lamps: ev.lampu });
+      S.begin({ lamps: ev.lampu, malam: ev.malam });
       S.actor("jibril", { e: 0, n: 0, up: 9, power: 0, vis: true });
       apply(frames[0], false);
       return () => S.end();
@@ -185,7 +193,7 @@
 
       <div class="st-bottom">
         <div class="pl-caption">
-          ${!b.say ? html`<p class="pl-narr">${shown}<span class="pl-caret">${caret}</span></p>` : html`<p class="pl-narr dim">${NAMA[who] || ev.tokoh[who].nama} berbicara</p>`}
+          ${!b.say ? html`<p class="pl-narr">${shown}<span class="pl-caret">${caret}</span></p>` : html`<p class="pl-narr dim">${who === "wahyu" ? "Wahyu turun kepada Rasulullah ﷺ" : (NAMA[who] || ev.tokoh[who].nama) + " berbicara"}</p>`}
           <p class="pl-src">Sumber: ${b.url ? html`<a href=${b.url} target="_blank" rel="noopener">${b.sumber}</a>` : b.sumber}</p>
         </div>
         <div class="pl-ctl">

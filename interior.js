@@ -20,18 +20,19 @@
     <radialGradient id="g-halo"><stop offset="0" stop-color="#fff7da" stop-opacity=".95" /><stop offset=".45" stop-color="#f2d27a" stop-opacity=".35" /><stop offset="1" stop-color="#f2d27a" stop-opacity="0" /></radialGradient>
     <radialGradient id="g-jibril"><stop offset="0" stop-color="#ffffff" stop-opacity="1" /><stop offset=".25" stop-color="#fff4c8" stop-opacity=".85" /><stop offset=".6" stop-color="#ffe08a" stop-opacity=".25" /><stop offset="1" stop-color="#ffe08a" stop-opacity="0" /></radialGradient>
     <radialGradient id="g-lampu"><stop offset="0" stop-color="#ffd58a" stop-opacity=".75" /><stop offset="1" stop-color="#ffb24a" stop-opacity="0" /></radialGradient>
+    <linearGradient id="g-siang" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc3dc" /><stop offset=".7" stop-color="#e8dcc0" /><stop offset="1" stop-color="#d9b98a" /></linearGradient>
     <radialGradient id="g-matahari"><stop offset="0" stop-color="#fff0c2" stop-opacity=".9" /><stop offset="1" stop-color="#f3a86a" stop-opacity="0" /></radialGradient>
   </defs>`;
 
   // ---------- Latar ----------
-  const Interior = ({ alt }) => html`<g>
+  const Interior = ({ alt, siang }) => html`<g>
     <rect width=${W} height=${H} fill=${alt ? "url(#g-dinding2)" : "url(#g-dinding)"} />
     ${[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => html`<rect key=${i} x="0" y=${140 + i * 64} width=${W} height="1.5" fill="#000" opacity=".06" />`)}
     <rect x="0" y="0" width=${W} height="86" fill="#3a2a1e" />
     ${Array.from({ length: 12 }, (_, i) => html`<rect key=${i} x=${30 + i * 135} y="70" width="34" height="34" rx="3" fill="#4d3626" />`)}
     <rect x="0" y="730" width=${W} height="170" fill="#4e3a2a" />
-    <rect x="80" y="250" width="230" height="480" fill="url(#g-malam)" stroke="#3a2a1e" stroke-width="22" />
-    <g clip-path="url(#door)"><${Stars} /></g>
+    <rect x="80" y="250" width="230" height="480" fill=${siang ? "url(#g-siang)" : "url(#g-malam)"} stroke="#3a2a1e" stroke-width="22" />
+    ${siang ? html`<path d="M310 730 L560 900 L80 900 L80 730 Z" fill="#fff2c8" opacity=".14" />` : html`<g clip-path="url(#door)"><${Stars} /></g>`}
     <clipPath id="door"><rect x="91" y="261" width="208" height="458" /></clipPath>
     <rect x="360" y="712" width="980" height="44" rx="6" fill=${alt ? "#6d5a44" : "#8a6a3a"} />
     ${[0, 1, 2, 3, 4, 5, 6].map((i) => html`<rect key=${i} x=${380 + i * 140} y="716" width="8" height="36" fill="#000" opacity=".12" />`)}
@@ -78,6 +79,9 @@
     </g>`;
     if (kind === "rumah-khadijah") return html`<g><${Interior} /><${Lamp} x=${1380} y=${380} />
       <ellipse cx="1220" cy="700" rx="90" ry="26" fill="#7a4b3a" /><ellipse cx="420" cy="700" rx="80" ry="24" fill="#6a4a3a" /></g>`;
+    if (kind === "rumah-khadijah-siang") return html`<g><${Interior} siang=${true} />
+      <ellipse cx="1220" cy="700" rx="90" ry="26" fill="#7a4b3a" /><ellipse cx="420" cy="700" rx="80" ry="24" fill="#6a4a3a" />
+      <g transform="translate(1300 640)"><ellipse cx="0" cy="70" rx="44" ry="10" fill="#000" opacity=".2" /><path d="M-34 -20 Q-40 40 -24 70 L24 70 Q40 40 34 -20 Z" fill="#a8774a" /><ellipse cx="0" cy="-20" rx="34" ry="9" fill="#7d5636" /><ellipse cx="0" cy="-20" rx="26" ry="6" fill="#4f7d93" /></g></g>`;
     if (kind === "rumah-waraqah") return html`<g><${Interior} alt=${true} />
       <g>${[0, 1, 2].map((r) => html`<g key=${r}><rect x="1260" y=${250 + r * 140} width="280" height="12" fill="#3a2a1e" />
         ${[0, 1, 2, 3, 4, 5].map((c) => html`<g key=${c}><rect x=${1272 + c * 44} y=${200 + r * 140} width="38" height="50" rx="18" fill=${["#d8c8a2", "#cdb98d", "#e2d4b0"][c % 3]} /><circle cx=${1291 + c * 44} cy=${225 + r * 140} r="6" fill="#a8916a" /></g>`)}</g>`)}</g>
@@ -174,10 +178,11 @@
   function anchorOf(st, who) {
     if (who === "rasul" && st.rasul) return { x: st.rasul.x, y: st.rasul.y - (st.rasul.small ? 70 : 120) };
     if (who === "jibril" && st.jibril) return { x: st.jibril.x, y: st.jibril.y - 130 };
+    if (who === "wahyu") return { x: st.rasul ? st.rasul.x : 800, y: 250 };
     const c = st.chars[who]; if (c) return { x: c.x, y: c.y - 190 };
     return { x: 800, y: 200 };
   }
-  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril" };
+  const NAMA = { rasul: "Rasulullah ﷺ", jibril: "Jibril", wahyu: "Wahyu turun" };
 
   function SirahInterior({ inside, show, say, talk, shown, caret, tokoh, idx, flash }) {
     const stageRef = useRef(null), bubRef = useRef(null);
@@ -211,13 +216,13 @@
           ${flash && html`<g class="pl-flash" key=${"f" + idx}><rect width=${W} height=${H} fill="#fff8e0" /></g>`}
         </svg>
         ${anchor && show && html`<div class="pl-bubble-wrap" style=${{ left: anchor.x + bx + "px", top: anchor.y + by + "px" }}>
-          <div ref=${bubRef} class=${`pl-bubble${who === "jibril" ? " light" : who === "rasul" ? " rasul" : ""}${tail ? "" : " notail"}`} key=${idx}>
+          <div ref=${bubRef} class=${`pl-bubble${who === "jibril" || who === "wahyu" ? " light" : who === "rasul" ? " rasul" : ""}${tail ? "" : " notail"}`} key=${idx}>
             <p class="pl-who">${NAMA[who] || tokoh[who].nama}${say.ayat ? html` <span>${say.ayat}</span>` : ""}</p>
             ${say.arab && html`<p class="pl-ar" lang="ar" dir="rtl">${say.arab}</p>`}
             <p class="pl-txt">${shown}<span class="pl-caret">${caret}</span></p>
           </div>
         </div>`}
-        <p class="in-label">${{ "hira-dalam": "Di dalam Gua Hira", "rumah-khadijah": "Di dalam rumah Khadijah", "rumah-waraqah": "Di rumah Waraqah bin Naufal" }[st.scene] || ""}</p>
+        <p class="in-label">${{ "hira-dalam": "Di dalam Gua Hira", "rumah-khadijah": "Di dalam rumah Khadijah", "rumah-khadijah-siang": "Di dalam rumah Khadijah", "rumah-waraqah": "Di rumah Waraqah bin Naufal" }[st.scene] || ""}</p>
       </div>
     </div>`;
   }

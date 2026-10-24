@@ -11,6 +11,8 @@
   const CAM_KHADIJAH = { at: [132, 97], dist: 2.6, el: 0.42, az: -0.94, up: 3 };
   const CAM_WARAQAH = { at: [44, 236], dist: 2.2, el: 0.4, az: -0.18, up: 3 };
   const jib = (power, at = JIBRIL, up = 7) => ({ at, up, power });
+  const PERGI = [R_RUMAH, [114, 112], [113, 150], [118, 250], [125, 345], [170, 470], [230, 620], [300, 800], [340, 1000], [700, 1500], [1300, 2150], [2050, 2850], [2850, 3400], [3250, 3650]];
+  const NAIK = [[3250, 3650], [3300, 3700], [3420, 3700], [3380, 3760], [3500, 3790], [3460, 3840], [3560, 3870], GUA];
 
   window.TONTONAN = {
     "wahyu-pertama": {
@@ -30,8 +32,8 @@
       tokoh: { khadijah: { nama: "Khadijah" }, waraqah: { nama: "Waraqah bin Naufal" } },
       lampu: [[139, 103], [44, 239]],
       paths: {
-        pergi: [R_RUMAH, [114, 112], [113, 150], [118, 250], [125, 345], [170, 470], [230, 620], [300, 800], [340, 1000], [700, 1500], [1300, 2150], [2050, 2850], [2850, 3400], [3250, 3650]],
-        naik: [[3250, 3650], [3300, 3700], [3420, 3700], [3380, 3760], [3500, 3790], [3460, 3840], [3560, 3870], GUA],
+        pergi: PERGI,
+        naik: NAIK,
         rasulKeWaraqah: [R_RUMAH, [114, 112], [106, 160], [80, 215], [58, 232]],
         khadijahKeWaraqah: [KHADIJAH, [118, 116], [111, 162], [85, 214], [33, 241]]
       },
@@ -126,5 +128,81 @@
       ],
       penutup: "Setelah masa terhentinya wahyu, turunlah Surah Al-Muddatstsir. Lihat peristiwa 611 M di peta."
     }
+  };
+
+  // ---------- Wahyu kedua: Al-Muddatstsir 1–5 ----------
+  const B4 = { sumber: "HR. Bukhari no. 4 (Jabir bin Abdullah)", url: "https://sunnah.com/bukhari:4" };
+  const B4922 = { sumber: "HR. Bukhari no. 4922 (Jabir bin Abdullah)", url: "https://sunnah.com/bukhari:4922" };
+  const B4925 = { sumber: "HR. Bukhari no. 4925 (Jabir bin Abdullah)", url: "https://sunnah.com/bukhari:4925" };
+  const T_PANGGIL = 0.45;                                   // titik di jalan turun saat beliau dipanggil
+  const LOOK = -0.91;                                       // arah pandang menanjak ke timur laut
+  const JIB2 = [3421, 3786];                                // cahaya malaikat di atas lereng, sedikit di depan beliau
+  const camPanggil = (az, dist = 3, el = 0.3) => ({ follow: "rasul", dist, el, az, up: 3 });
+
+  window.TONTONAN["wahyu-kedua"] = {
+    peta: true,
+    malam: 0,
+    judul: "Wahyu Turun Kembali",
+    tahun: 611,
+    tanggal: {
+      judul: "Setelah masa jeda wahyu, ±611 M",
+      rinci: [
+        { k: "Masa jeda", v: "Setelah wafatnya Waraqah, wahyu sempat terhenti. Lamanya tidak disebut dalam riwayat ini dan diperselisihkan ulama.", s: "HR. Bukhari no. 3 (Aisyah)", url: "https://sunnah.com/bukhari:3" },
+        { k: "Hari dan jam", v: "Tidak disebut dalam riwayat. Peta menampilkan siang hari hanya sebagai ilustrasi.", s: "Catatan penyusun" },
+        { k: "Tahun", v: "±611 M adalah perkiraan, satu tahun setelah wahyu pertama.", s: "Perkiraan" }
+      ]
+    },
+    pengantar: "Rasulullah ﷺ dan malaikat tidak digambarkan; keduanya hanya tampil sebagai nama dan cahaya. Rute adalah perkiraan. Urutan kejadian mengikuti HR. Bukhari no. 4, 4922, dan 4925 dan perlu diverifikasi ustadz.",
+    tokoh: { khadijah: { nama: "Khadijah" } },
+    lampu: [],
+    paths: { pergi: PERGI, naik: NAIK },
+    babak: [
+      { judul: "Masa jeda wahyu", beats: [
+        { cam: { at: [3540, 3870], dist: 24, el: 0.55, az: LOOK, up: 0 }, rasul: { at: GUA, state: "tenang" }, tanggal: true,
+          sumber: "HR. Bukhari no. 3 dan 4", url: "https://sunnah.com/bukhari:4",
+          narr: "Setelah wahyu pertama, wahyu sempat terhenti beberapa waktu. Masa ini disebut fatrah." },
+        { cam: CAM_GUA, ...B4922, narr: "Rasulullah ﷺ kembali berdiam di Gua Hira." }
+      ] },
+      { judul: "Panggilan dari langit", beats: [
+        { rasul: { path: "naik", from: 1, to: T_PANGGIL, dur: 7000 }, cam: { follow: "rasul", dist: 4, el: 0.42, az: "behind", up: 3 }, ...B4922,
+          narr: "Setelah selesai, beliau keluar dari gua dan berjalan turun." },
+        { cam: camPanggil(LOOK + Math.PI, 3.2, 0.34), ...B4922, hold: 600, narr: "Di tengah jalan, beliau mendengar suara memanggil." },
+        { cam: camPanggil(LOOK + Math.PI / 2), ...B4922, narr: "Beliau menoleh ke kanan, lalu ke kiri." },
+        { cam: camPanggil(LOOK - Math.PI / 2), ...B4922, narr: "Beliau melihat ke depan dan ke belakang, tetapi tidak melihat apa pun." },
+        { cam: { follow: "rasul", dist: 11, el: 0.12, az: LOOK, up: 22 }, rasul: { state: "gemetar" },
+          jibril: { at: JIB2, up: 50, power: 1 }, ...B4922, hold: 1200,
+          narr: "Lalu beliau mengangkat kepala." },
+        { ...B4, hold: 1500,
+          narr: "Ternyata malaikat yang dahulu mendatangi beliau di Hira duduk di atas kursi, di antara langit dan bumi." },
+        { ...B4, narr: "Beliau merasa sangat takut kepadanya." }
+      ] },
+      { judul: "Pulang ke rumah Khadijah", beats: [
+        { jibril: { at: JIB2, up: 50, power: 0 }, rasul: { path: "naik", from: T_PANGGIL, to: 0, dur: 6000 },
+          cam: { follow: "rasul", dist: 4, el: 0.45, az: "behind", up: 3 }, ...B4, narr: "Beliau bergegas pulang." },
+        { rasul: { path: "pergi", from: 1, to: 0, dur: 13000 }, cam: { follow: "rasul", dist: 9, el: 0.55, az: "behind", up: 3 }, ...B4922,
+          narr: "Beliau pulang menemui Khadijah." },
+        { cam: CAM_KHADIJAH, chars: [{ id: "khadijah", at: KHADIJAH, expr: "kaget", on: true }], ...B4922, narr: "Beliau tiba di rumah dan masuk menemui Khadijah." }
+      ] },
+      { judul: "Selimuti aku", beats: [
+        { inside: { scene: "rumah-khadijah-siang", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 590, y: 600, small: false, state: "gemetar" },
+            chars: [{ id: "khadijah", x: 1040, y: 640, expr: "kaget", on: true }] }, ...B4922,
+          say: { who: "rasul", text: "Selimuti aku, dan siramkan air dingin kepadaku.", arab: "دَثِّرُونِي وَصُبُّوا عَلَيَّ مَاءً بَارِدًا" } },
+        { inside: { rasul: { state: "berselimut" }, chars: [{ id: "khadijah", x: 960, expr: "khawatir" }] }, ...B4922,
+          narr: "Beliau pun diselimuti dan disirami air dingin." },
+        { inside: { jibril: { x: 800, y: 250, power: 0.45 }, chars: [{ id: "khadijah", expr: "kagum" }] }, ...B4,
+          narr: "Kemudian Allah menurunkan wahyu." },
+        { ...B4925, hold: 5000,
+          say: { who: "wahyu", ayat: "QS. Al-Muddatstsir: 1–5",
+            arab: "يَا أَيُّهَا الْمُدَّثِّرُ ﴿١﴾ قُمْ فَأَنذِرْ ﴿٢﴾ وَرَبَّكَ فَكَبِّرْ ﴿٣﴾ وَثِيَابَكَ فَطَهِّرْ ﴿٤﴾ وَالرُّجْزَ فَاهْجُرْ ﴿٥﴾",
+            text: "Wahai orang yang berselimut! Bangunlah, lalu berilah peringatan! Dan agungkanlah Tuhanmu, dan bersihkanlah pakaianmu, dan tinggalkanlah ar-rujz." } },
+        { inside: { jibril: { x: 800, y: 250, power: 0 }, chars: [{ id: "khadijah", expr: "lembut" }] }, ...B4925,
+          narr: "Dalam riwayat ini, ar-rujz dijelaskan sebagai berhala." },
+        { inside: { rasul: { state: "tenang" } }, sumber: "Catatan penyusun",
+          narr: "Seruan \"Bangunlah, lalu berilah peringatan\" dipahami sebagai awal perintah untuk berdakwah." },
+        { inside: null, cam: { at: [180, 420], dist: 42, el: 0.8, az: -0.45, up: 0 }, chars: [{ id: "khadijah", expr: "lembut" }], ...B4,
+          narr: "Setelah itu wahyu turun berturut-turut dan tidak terputus lagi." }
+      ] }
+    ],
+    penutup: "Wahyu kini turun terus-menerus. Dakwah dimulai secara diam-diam di Mekah. Lihat peristiwa berikutnya di timeline."
   };
 })();
