@@ -16,20 +16,40 @@
     { id: "masad-1-5", s: 111, ev: "shafa", a: 1, waktu: "±613 M, hari seruan di Bukit Shafa" },
     { id: "abasa-1-10", s: 80, ev: "abasa", a: 0, waktu: "Tidak disebut; periode Mekah (±614 M, perkiraan)" },
     { id: "alaq-9-19", s: 96, tempat: "kabah", r: "Ancaman Abu Jahal", waktu: "Tidak disebut; periode Mekah (±614 M, perkiraan)" },
+    { id: "isra-110", s: 17, waktu: "Awal Islam, ketika Nabi ﷺ masih bersembunyi di Mekah (Ibnu Hajar); tahunnya tidak disebut (±614 M, perkiraan)", ws: "Ibnu Hajar, Fath al-Bari 8/405", wu: "https://shamela.ws/book/1673/4752" },
+    { id: "anam-52", s: 6, waktu: "Tidak disebut; periode Mekah (±617 M, perkiraan)" },
+    { id: "qamar-1-2", s: 54, waktu: "Sekitar lima tahun sebelum Hijrah (±617 M), menurut Ibnu Hajar", ws: "Ibnu Hajar, Fath al-Bari 6/632", wu: "https://shamela.ws/book/1673/3826" },
+    { id: "fushshilat-22", s: 41, waktu: "Tidak disebut; periode Mekah (±618 M, perkiraan)" },
+    { id: "qashash-56", s: 28, waktu: "Menjelang wafat Abu Thalib, ±619 M (tahun ke-10 kenabian); waktu turunnya At-Taubah 113 dibahas ulama", ws: "Ibnu Hajar, Fath al-Bari 8/508", wu: "https://shamela.ws/book/1673/4855" },
     { id: "isra-1", s: 17, ev: "isra", a: 0, waktu: "Diperselisihkan; antara lain ±1 tahun sebelum Hijrah", ws: "Al-Qurthubi dan Ibnu Katsir, tafsir Al-Isra' 1; Ibnu Hajar, Fath al-Bari 8/670", wu: "https://quran.com/17:1/tafsirs/ar-tafseer-al-qurtubi" },
+    { id: "isra-85", s: 17, waktu: "Diperselisihkan: di Madinah setelah Hijrah (riwayat Ibnu Mas'ud) atau di Mekah (riwayat Ibnu Abbas); tahunnya tidak disebut, 623 M di peta hanya perkiraan" },
+    { id: "kautsar-1-3", s: 108, waktu: "Diperselisihkan: di Madinah menurut hadits Anas (Muslim), atau di Mekah menurut riwayat Al-'Ash bin Wa'il; tahunnya tidak disebut, 623 M di peta hanya perkiraan" },
     { id: "baqarah-144", s: 2, ev: "kiblat", a: 0, waktu: "16 atau 17 bulan setelah Hijrah (2 H)", ws: "HR. Bukhari no. 40 (Al-Bara' bin 'Azib)", wu: sn("bukhari", 40) },
     { id: "baqarah-125", s: 2, tempat: "maqam", r: "Usul Umar", waktu: "Tidak pasti; periode Madinah (624 M di peta hanya perkiraan)" },
+    { id: "baqarah-187", s: 2, waktu: "2 H (±624 M), di masa awal kewajiban puasa Ramadhan; tanggalnya tidak disebut" },
     { id: "anfal-9", s: 8, ev: "badar", a: 0, waktu: "17 Ramadhan 2 H, hari Perang Badar", ws: "Sirah Ibnu Hisyam" },
+    { id: "anfal-1", s: 8, waktu: "Seusai Perang Badar, Ramadhan 2 H (±624 M)" },
     { id: "anfal-30", s: 8, tempat: "nadwah", r: "Rencana membunuh Nabi", waktu: "Ayat turun setelah Badar (2 H); peristiwanya menjelang Hijrah",
       catatan: "Surah Al-Anfal turun tentang Perang Badar (HR. Bukhari no. 4645); ayat ini mengingatkan peristiwa menjelang Hijrah." },
+    { id: "nisa-95", s: 4, waktu: "Tidak disebut dalam hadits Zaid; menurut Ibnu Abbas berkaitan dengan Perang Badar (2 H, ±624 M, perkiraan)", ws: "HR. Bukhari no. 4595 (Ibnu Abbas)", wu: "https://sunnah.com/bukhari:4595" },
+    { id: "jumuah-11", s: 62, waktu: "Tidak disebut dalam riwayat; periode Madinah (±624 M, perkiraan)" },
     { id: "aliimran-128", s: 3, ev: "uhud", a: 0, waktu: "Syawal 3 H, Perang Uhud", ws: "Sirah Ibnu Hisyam" },
     { id: "aliimran-144", s: 3, ev: "uhud", a: 1, waktu: "Syawal 3 H, Perang Uhud", ws: "Sirah Ibnu Hisyam" },
+    { id: "nisa-11", s: 4, waktu: "Setelah Perang Uhud (Syawal 3 H) menurut riwayat dua putri Sa'ad bin Ar-Rabi'; riwayat Jabir tidak menyebut waktunya" },
+    { id: "hasyr-9", s: 59, waktu: "Tidak disebut dalam riwayat; Surah Al-Hasyr turun tentang Bani Nadhir (±625 M, perkiraan)", ws: "Muqbil, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 206 (riwayat Ibnu Abbas)", wu: "https://shamela.ws/book/11547/201" },
+    { id: "mujadilah-1-4", s: 58, waktu: "Tidak disebut dalam riwayat; periode Madinah (±626 M, perkiraan)" },
     { id: "ahzab-10", s: 33, ev: "khandaq", a: 0, waktu: "Syawal 5 H menurut pendapat yang masyhur; Musa bin 'Uqbah: 4 H", ws: "Ibnu Katsir, tafsir Al-Ahzab 9–10", wu: "https://quran.com/33:10/tafsirs/en-tafisr-ibn-kathir" },
+    { id: "ahzab-37", s: 33, waktu: "Menjelang pernikahan Nabi ﷺ dengan Zainab: Dzulqa'dah 5 H (±627 M) menurut Qatadah dan Al-Waqidi; ada yang menyebut 3 H", ws: "Ibnu Katsir, tafsir Al-Ahzab 53", wu: "https://quran.com/33:53/tafsirs/ar-tafsir-ibn-kathir" },
+    { id: "munafiqun-1-8", s: 63, waktu: "Ghazwah Bani al-Mushthaliq menurut ahli maghazi (tahunnya diperselisihkan: 4, 5, atau 6 H); sebagian riwayat menyebut Ghazwah Tabuk", ws: "Ibnu Hajar, Fath al-Bari 8/644", wu: "https://shamela.ws/book/1673/4991" },
     { id: "nur-11-20", s: 24, ev: "ifki", a: 0, waktu: "Sepulang ghazwah Bani al-Mushthaliq; 4, 5, atau 6 H (diperselisihkan)", ws: "Al-Qurthubi, tafsir An-Nur 11 (6 H menurut Ibnu Ishaq, 4 H menurut Musa bin 'Uqbah)", wu: "https://quran.com/24:11/tafsirs/ar-tafseer-al-qurtubi" },
+    { id: "baqarah-196", s: 2, waktu: "Dzulqa'dah 6 H (±628 M), di Hudaibiyah", ws: "HR. Bukhari no. 1778 (Anas) dan 4191 (Ka'ab bin 'Ujrah)", wu: "https://sunnah.com/bukhari:4191" },
     { id: "fath-1", s: 48, ev: "hudaibiyah", a: 0, waktu: "Dzulqa'dah 6 H, sepulang dari Hudaibiyah", ws: "HR. Bukhari no. 1778 (Anas): umrah Hudaibiyah di bulan Dzulqa'dah", wu: sn("bukhari", 1778) },
+    { id: "tahrim-1-4", s: 66, waktu: "Tidak disebut dalam riwayat; periode Madinah, ketika Zainab binti Jahsy sudah menjadi istri Nabi ﷺ (±629 M, perkiraan)" },
     { id: "nashr-1-3", s: 110, ev: "fathu", a: 0, waktu: "Diperselisihkan: sekitar Fathu Makkah dan Hunain (8 H), atau hari tasyriq Haji Wada' (10 H)" },
     { id: "taubah-40", s: 9, ev: "tsur", a: 0, waktu: "Ayat turun 9 H, masa seruan Perang Tabuk; peristiwanya saat Hijrah (622 M)" },
+    { id: "nur-6-9", s: 24, waktu: "Sya'ban 9 H, saat Nabi ﷺ kembali dari Tabuk, menurut Ath-Thabari (dinukil Al-Qurthubi); hadits-haditsnya tidak menyebut tahun", ws: "Al-Qurthubi, tafsir An-Nur 6 (menukil Ath-Thabari)", wu: "https://quran.com/24:6/tafsirs/ar-tafseer-al-qurtubi" },
     { id: "taubah-118", s: 9, ev: "tabuk", a: 0, waktu: "9 H, setelah Perang Tabuk (berangkat Rajab menurut Ibnu Ishaq)", ws: "Sirah Ibnu Hisyam" },
+    { id: "taubah-84", s: 9, waktu: "Dzulqa'dah 9 H, saat Abdullah bin Ubay wafat sepulang Perang Tabuk", ws: "Ibnu Hajar, Fath al-Bari 8/334 (menukil Al-Waqidi dan Al-Hakim dalam Al-Iklil)", wu: "https://shamela.ws/book/1673/4681" },
     { id: "hujurat-2", s: 49, ev: "wufud", a: 0, waktu: "9 H, saat rombongan Bani Tamim datang (tahun para utusan)" },
     { id: "maidah-3", s: 5, ev: "wada", a: 0, waktu: "Jumat, hari Arafah (9 Dzulhijjah) 10 H, saat Haji Wada'", ws: "HR. Bukhari no. 45 (Umar bin Khattab)", wu: sn("bukhari", 45) }
   ];
@@ -1868,6 +1888,3295 @@
         kemenag: {
           t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Ma'idah 3 (dimuat di TafsirWeb).",
           url: "https://tafsirweb.com/1887-surat-al-maidah-ayat-3.html"
+        }
+      }
+    },
+
+    // anam-52 (ditulis dari riset rujukan silang)
+    "anam-52": {
+      judul: "Al-An'am 52",
+      sub: "Larangan mengusir sahabat yang lemah",
+      surah: "Al-An'am",
+      ayatNo: "52",
+      tahun: 617,
+      tontonan: null,
+      peta: {
+        tahun: 617,
+        lok: "makkah"
+      },
+      lead: ["Al-An'am ayat 52 melarang Nabi ﷺ mengusir orang-orang beriman yang menyeru Tuhannya pagi dan petang demi mengharap keridaan-Nya.[ref:kemenag] Sa'ad bin Abi Waqqash menuturkan bahwa ayat ini turun tentang enam orang, termasuk dirinya dan Abdullah bin Mas'ud, ketika kaum musyrikin meminta Nabi ﷺ menjauhkan mereka.[ref:m2413a][ref:m2413b]", "Dalam riwayat Ibnu Majah, yang meminta adalah kaum Quraisy, dan keenam orang itu adalah Sa'ad, Ibnu Mas'ud, Shuhaib, Ammar, Al-Miqdad, dan Bilal.[ref:ib4128] Riwayat lain yang menyebut Al-Aqra' bin Habis dan 'Uyainah bin Hishn dinilai gharib oleh Ibnu Katsir, karena ayat ini Makkiyah sedangkan keduanya baru masuk Islam lama setelah Hijrah.[ref:ik]"],
+      infobox: [
+        ["Surah", "Al-An'am (الأنعام), surah ke-6 dalam mushaf"],
+        ["Ayat", "52; dalam riwayat Ibnu Hibban dan Al-Hakim, sampai ayat 53[ref:lubab]"],
+        ["Golongan", "Makkiyah; Ibnu Katsir menegaskan ayat ini Makkiyah[ref:ik]"],
+        ["Waktu", "Tidak disebut dalam riwayat; periode Mekah (±617 M di peta hanya perkiraan)"],
+        ["Tempat", "Mekah (tempat persisnya tidak disebut)"],
+        ["Tokoh", "Sa'ad bin Abi Waqqash, Abdullah bin Mas'ud, Bilal, seorang laki-laki dari Hudzail, dan dua orang yang tidak disebut namanya (riwayat Muslim)[ref:m2413b]; menurut riwayat Ibnu Majah juga Shuhaib, Ammar, dan Al-Miqdad; yang meminta adalah kaum Quraisy[ref:ib4128]"],
+        ["Riwayat utama", "HR. Muslim no. 2413a dan 2413b (Sa'ad bin Abi Waqqash)[ref:m2413a][ref:m2413b]; HR. Ibnu Majah no. 4128[ref:ib4128]"],
+        ["Riwayat pembanding", "HR. Ibnu Majah no. 4127 (Khabbab: Al-Aqra' bin Habis dan 'Uyainah bin Hishn)[ref:ib4127]; riwayat Ibnu Mas'ud (Ahmad, Ibnu Jarir) dan 'Ikrimah (Ibnu Jarir)[ref:ik][ref:thabari]"],
+        ["Derajat", "Shahih (Muslim). Ibnu Majah no. 4128: shahih menurut Darussalam[ref:ib4128]; Al-Hakim menilai riwayat Sa'ad shahih sesuai syarat Bukhari dan Muslim, disetujui Adz-Dzahabi[ref:muqbil]. Riwayat Khabbab: dha'if menurut Darussalam[ref:ib4127], gharib menurut Ibnu Katsir[ref:ik]"]
+      ],
+      ayat: [
+        {
+          no: 52,
+          ar: "وَلَا تَطْرُدِ الَّذِينَ يَدْعُونَ رَبَّهُم بِالْغَدَاةِ وَالْعَشِيِّ يُرِيدُونَ وَجْهَهُ ۖ مَا عَلَيْكَ مِنْ حِسَابِهِم مِّن شَيْءٍ وَمَا مِنْ حِسَابِكَ عَلَيْهِم مِّن شَيْءٍ فَتَطْرُدَهُمْ فَتَكُونَ مِنَ الظَّالِمِينَ",
+          id: "Janganlah engkau mengusir orang-orang yang menyeru Tuhannya di pagi hari dan petang hari, mereka mengharapkan keridaan-Nya. Engkau tidak memikul tanggung jawab sedikit pun terhadap perbuatan mereka dan mereka tidak memikul tanggung jawab sedikit pun terhadap perbuatanmu, yang menyebabkan engkau (berhak) mengusir mereka, sehingga engkau termasuk orang-orang yang zalim."
+        }
+      ],
+      bagian: [
+        {
+          id: "enam",
+          judul: "Enam orang yang diminta dijauhkan",
+          isi: ["Sa'ad bin Abi Waqqash berkata bahwa ayat ini turun tentang dirinya: turun tentang enam orang, dan ia serta Ibnu Mas'ud termasuk di antara mereka. Kaum musyrikin mempersoalkan mengapa Nabi ﷺ mendekatkan orang-orang itu.[ref:m2413a][ref:ik]", "Dalam jalur Isra'il, Sa'ad menuturkan bahwa mereka berenam sedang bersama Nabi ﷺ ketika kaum musyrikin berkata kepada beliau, \"Usirlah mereka, agar mereka tidak berani kepada kami.\" Ia menyebut dirinya, Ibnu Mas'ud, seorang laki-laki dari Hudzail, Bilal, dan dua orang lagi yang tidak ia sebutkan namanya.[ref:m2413b]", "Lalu terlintas dalam hati Rasulullah ﷺ apa yang Allah kehendaki, dan beliau berbicara dalam hatinya. Maka Allah menurunkan, \"Janganlah engkau mengusir orang-orang yang menyeru Tuhannya di pagi hari dan petang hari, mereka mengharapkan keridaan-Nya.\"[ref:m2413b]"]
+        },
+        {
+          id: "quraisy",
+          judul: "Permintaan para pemuka Quraisy",
+          isi: ["Riwayat Ibnu Majah dari Sa'ad menyebut nama keenam orang itu: Sa'ad, Ibnu Mas'ud, Shuhaib, Ammar, Al-Miqdad, dan Bilal. Kaum Quraisy meminta Rasulullah ﷺ mengusir mereka, lalu terlintas sesuatu dalam hati beliau, dan turunlah ayat ini.[ref:ib4128] Al-Wahidi membawakan nama-nama yang sama lewat jalur Al-Miqdam bin Syuraih.[ref:wahidi]", "Dalam lafal Ibnu Hibban dan Al-Hakim yang dibawakan As-Suyuthi, mereka berkata, \"Usirlah mereka, karena kami malu menjadi pengikutmu seperti orang-orang ini.\"[ref:lubab] Muqbil memuat hadits Sa'ad ini dari Shahih Muslim dan menukil penilaian Al-Hakim bahwa riwayatnya shahih sesuai syarat Bukhari dan Muslim, disetujui Adz-Dzahabi.[ref:muqbil]", "Ibnu Mas'ud juga meriwayatkan bahwa sekelompok pemuka Quraisy melewati Nabi ﷺ ketika di sisi beliau ada Khabbab bin Al-Arat, Shuhaib, Bilal, dan Ammar. Mereka bertanya apakah beliau rela dengan orang-orang itu, dan berkata bahwa seandainya beliau mengusir mereka, niscaya mereka akan mengikutinya.[ref:lubab][ref:ik] Menurut riwayat ini, kemudian turunlah ayat-ayat tentang mereka, dari ayat 51 sampai ayat 55.[ref:lubab89] Ibnu Katsir menukilnya dari Ahmad dan Ibnu Jarir.[ref:ik]"]
+        },
+        {
+          id: "ikrimah",
+          judul: "Riwayat 'Ikrimah: permintaan lewat Abu Thalib",
+          isi: ["Ath-Thabari dan Al-Wahidi membawakan riwayat 'Ikrimah: Utbah dan Syaibah bin Rabi'ah, Muth'im bin 'Adi, dan Al-Harits bin Naufal, para pemuka Bani Abdi Manaf, mendatangi Abu Thalib dan meminta agar keponakannya menjauhkan para budak dan sekutu dari majelisnya, karena hal itu akan membuatnya lebih dihormati di mata mereka dan lebih mendekatkan mereka untuk mengikutinya.[ref:thabari][ref:wahidi][ref:lubab89]", "Abu Thalib menyampaikannya kepada Nabi ﷺ, dan Umar bin Khattab sempat menyarankan agar permintaan itu dipenuhi untuk melihat apa yang sebenarnya mereka inginkan. Setelah ayat turun, Umar datang meminta maaf atas ucapannya.[ref:wahidi][ref:lubab89] Orang-orang yang dimaksud antara lain Bilal, Ammar bin Yasir, Salim maula Abu Hudzaifah, Ibnu Mas'ud, dan Al-Miqdad.[ref:lubab89][ref:thabari]", "Sebab turun yang diriwayatkan seorang tabi'in seperti 'Ikrimah berstatus mursal; menurut As-Suyuthi, riwayat seperti ini dapat diterima bila sanadnya shahih sampai kepadanya dan ia termasuk imam tafsir murid para sahabat, atau bila dikuatkan riwayat mursal lain.[ref:itqan]"]
+        },
+        {
+          id: "khabbab",
+          judul: "Riwayat Khabbab dan penilaiannya",
+          isi: ["Khabbab bin Al-Arat meriwayatkan bahwa Al-Aqra' bin Habis At-Tamimi dan 'Uyainah bin Hishn Al-Fazari mendapati Nabi ﷺ duduk bersama Shuhaib, Bilal, Ammar, Khabbab, dan orang-orang mukmin yang lemah. Mereka meminta majelis khusus agar para utusan Arab tidak melihat mereka bersama orang-orang itu, dan meminta perjanjian tertulis.[ref:ib4127]", "Menurut riwayat ini, Jibril datang membawa ayat 52 sehingga Nabi ﷺ melemparkan lembaran itu, dan kemudian turun Al-Kahf 28 yang memerintahkan beliau bersabar bersama orang-orang yang menyeru Tuhannya pagi dan petang.[ref:ib4127][ref:ik][ref:thabari]", "Darussalam menilai riwayat Ibnu Majah ini dha'if.[ref:ib4127] Ibnu Katsir menyebutnya gharib, karena ayat ini Makkiyah sedangkan Al-Aqra' dan 'Uyainah baru masuk Islam lama sesudah Hijrah; As-Suyuthi menukil penilaian itu.[ref:ik][ref:lubab89]"]
+        },
+        {
+          id: "makna",
+          judul: "Pagi dan petang",
+          isi: ["Ibnu Katsir menukil Sa'id bin Al-Musayyab, Mujahid, Al-Hasan, dan Qatadah bahwa \"menyeru Tuhannya pagi dan petang\" maksudnya shalat fardhu.[ref:ik] Al-Qurthubi menyebut pula pendapat dzikir dan membaca Al-Qur'an, sedangkan Ath-Thabari memilih makna umum yang mencakup dzikir, pujian, dan amal ibadah, tanpa mengkhususkan salah satunya.[ref:qurthubi][ref:thabari]", "Ibnu Katsir membandingkan ayat ini dengan perintah bersabar bersama mereka dalam Al-Kahf 28 dan dengan jawaban Nabi Nuh kepada kaumnya yang meremehkan para pengikutnya dalam Surah Asy-Syu'ara.[ref:ik]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa setiap orang bertanggung jawab atas amalnya sendiri, sehingga kedudukan sosial bukan alasan untuk menjauhi orang-orang beriman yang kurang mampu, dan dakwah tidak boleh membeda-bedakan mereka.[ref:kemenag] Tafsir Tahlili Kemenag di NU Online menyebut tokoh-tokoh musyrik yang mau mendengarkan dakwah asalkan Bilal bin Rabah dan kawan-kawannya diusir.[ref:nuonline]", "Ath-Thabari menyimpulkan bahwa kedekatan kepada Allah diraih dengan amal, bukan dengan kedudukan; hisab mereka dan hisab Nabi ﷺ terpisah, sehingga tidak ada alasan untuk mengusir mereka.[ref:thabari]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Sa'ad bin Abi Waqqash",
+          tokoh: "saad"
+        },
+        {
+          label: "Abdullah bin Mas'ud",
+          tokoh: "ibnumasud"
+        },
+        {
+          label: "Bilal bin Rabah",
+          tokoh: "bilal"
+        },
+        {
+          label: "Shuhaib Ar-Rumi",
+          tokoh: "suhaib"
+        },
+        {
+          label: "Ammar bin Yasir",
+          tokoh: "ammar"
+        },
+        {
+          label: "Khabbab bin Al-Arat",
+          tokoh: "khabbab"
+        },
+        {
+          label: "'Abasa 1–10",
+          wiki: "abasa-1-10",
+          ket: "tema serupa: perhatian kepada sahabat yang lemah"
+        }
+      ],
+      rujukan: {
+        m2413a: {
+          t: "HR. Muslim no. 2413a, dari Sa'ad bin Abi Waqqash (Kitab Keutamaan Sahabat, bab keutamaan Sa'ad).",
+          url: "https://sunnah.com/muslim:2413a"
+        },
+        m2413b: {
+          t: "HR. Muslim no. 2413b, jalur Isra'il dari Al-Miqdam bin Syuraih dari ayahnya dari Sa'ad bin Abi Waqqash (Kitab Keutamaan Sahabat).",
+          url: "https://sunnah.com/muslim:2413b"
+        },
+        ib4128: {
+          t: "HR. Ibnu Majah no. 4128, dari Sa'ad bin Abi Waqqash (Kitab Zuhud, bab duduk bersama orang-orang miskin). Darussalam: shahih.",
+          url: "https://sunnah.com/ibnmajah:4128"
+        },
+        ib4127: {
+          t: "HR. Ibnu Majah no. 4127, dari Khabbab bin Al-Arat (Kitab Zuhud, bab duduk bersama orang-orang miskin). Darussalam: dha'if.",
+          url: "https://sunnah.com/ibnmajah:4127"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-An'am 52 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=6&Ayah=52&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 88 (Al-An'am 52: riwayat Sa'ad dan Ibnu Mas'ud).",
+          url: "https://shamela.ws/book/2247/86"
+        },
+        lubab89: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 89 (lanjutan Al-An'am 52: riwayat 'Ikrimah dan Khabbab, penilaian Ibnu Katsir).",
+          url: "https://shamela.ws/book/2247/87"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 93 (Al-An'am 52, hadits Sa'ad dari Shahih Muslim).",
+          url: "https://shamela.ws/book/11547/88"
+        },
+        itqan: {
+          t: "As-Suyuthi, Al-Itqan fi 'Ulum al-Qur'an 1/117, bab sebab turun (riwayat tabi'in berstatus mursal dan syarat penerimaannya).",
+          url: "https://shamela.ws/book/11728/110"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-An'am 52.",
+          url: "https://quran.com/6:52/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-An'am 52.",
+          url: "https://quran.com/6:52/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-An'am 52.",
+          url: "https://quran.com/6:52/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-An'am 52 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/2176-surat-al-anam-ayat-52.html"
+        },
+        nuonline: {
+          t: "Al-Qur'an NU Online, Al-An'am 52 (Tafsir Tahlili Kemenag).",
+          url: "https://quran.nu.or.id/al-anam/52"
+        }
+      }
+    },
+
+    // isra-110 (ditulis dari riset rujukan silang)
+    "isra-110": {
+      judul: "Al-Isra' 110",
+      sub: "Bacaan shalat yang tidak terlalu keras dan tidak terlalu pelan",
+      surah: "Al-Isra'",
+      ayatNo: "110",
+      tahun: 614,
+      tontonan: null,
+      peta: {
+        tahun: 614,
+        lok: "makkah"
+      },
+      lead: ["Al-Isra' ayat 110 memerintahkan Nabi ﷺ agar tidak mengeraskan bacaan dalam shalat dan tidak pula merendahkannya, tetapi mengambil jalan tengah.[ref:kemenag] Menurut Ibnu Abbas, ayat ini turun ketika Rasulullah ﷺ masih bersembunyi di Mekah: bila beliau mengimami para sahabat dengan bacaan yang keras, orang-orang musyrik yang mendengarnya mencaci Al-Qur'an, Allah yang menurunkannya, dan Nabi yang membawanya.[ref:b4722][ref:m446]", "Aisyah meriwayatkan bahwa ayat ini turun tentang doa.[ref:b4723][ref:m447] Ath-Thabari mengunggulkan riwayat Ibnu Abbas karena sanadnya lebih shahih, dan An-Nawawi serta ulama lain sependapat; Ibnu Hajar membuka kemungkinan memadukan keduanya, yaitu doa di dalam shalat.[ref:thabari][ref:fath405][ref:lubab]"],
+      infobox: [
+        ["Surah", "Al-Isra' (الإسراء), surah ke-17 dalam mushaf"],
+        ["Ayat", "110; bagian awal ayat (\"Allah\" atau \"Ar-Rahman\") punya riwayat sebab tersendiri[ref:lubab]"],
+        ["Golongan", "Makkiyah"],
+        ["Waktu", "Awal Islam, ketika Nabi ﷺ masih bersembunyi di Mekah, menurut Ibnu Hajar[ref:fath405]; tahunnya tidak disebut (±614 M di peta hanya perkiraan)"],
+        ["Tempat", "Mekah (tempat persisnya tidak disebut)[ref:b4722]"],
+        ["Yang terlibat", "Rasulullah ﷺ dan para sahabat yang shalat bersama beliau; orang-orang musyrik Mekah yang mendengar bacaan[ref:b4722]"],
+        ["Riwayat utama", "HR. Bukhari no. 4722 dan HR. Muslim no. 446 (Ibnu Abbas)[ref:b4722][ref:m446]"],
+        ["Riwayat pembanding", "HR. Bukhari no. 4723 dan HR. Muslim no. 447a (Aisyah): tentang doa[ref:b4723][ref:m447]; riwayat Aisyah lain: tentang tasyahhud (Ibnu Jarir, Al-Hakim)[ref:lubab]"],
+        ["Derajat", "Shahih (Bukhari dan Muslim); At-Tirmidzi menilai riwayat Ibnu Abbas hasan shahih[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 110,
+          ar: "قُلِ ادْعُوا اللَّهَ أَوِ ادْعُوا الرَّحْمَٰنَ ۖ أَيًّا مَّا تَدْعُوا فَلَهُ الْأَسْمَاءُ الْحُسْنَىٰ ۚ وَلَا تَجْهَرْ بِصَلَاتِكَ وَلَا تُخَافِتْ بِهَا وَابْتَغِ بَيْنَ ذَٰلِكَ سَبِيلًا",
+          id: "Katakanlah (Muhammad), \"Serulah Allah atau serulah Ar-Rahman. Dengan nama yang mana saja kamu dapat menyeru, karena Dia mempunyai nama-nama yang terbaik (Asmaul Husna) dan janganlah engkau mengeraskan suaramu dalam shalat dan janganlah (pula) merendahkannya dan usahakan jalan tengah di antara kedua itu.\""
+        }
+      ],
+      bagian: [
+        {
+          id: "sembunyi",
+          judul: "Bacaan yang terdengar kaum musyrikin",
+          isi: ["Ibnu Abbas menjelaskan bahwa ayat ini turun ketika Rasulullah ﷺ bersembunyi di Mekah. Bila beliau shalat bersama para sahabat, beliau mengeraskan bacaan Al-Qur'an; ketika orang-orang musyrik mendengarnya, mereka mencaci Al-Qur'an, Allah yang menurunkannya, dan Nabi yang membawanya.[ref:b4722][ref:m446]", "Maka Allah berfirman kepada Nabi-Nya, \"Dan janganlah engkau mengeraskan suaramu dalam shalat\", yakni bacaanmu, sehingga orang-orang musyrik mendengar lalu mencaci Al-Qur'an; \"dan janganlah (pula) merendahkannya\" dari para sahabatmu sehingga mereka tidak mendengarnya; \"dan usahakan jalan tengah di antara kedua itu.\"[ref:b4722]", "Ibnu Hajar menjelaskan bahwa \"bersembunyi di Mekah\" maksudnya di awal Islam.[ref:fath405] Ibnu Ishaq membawakan riwayat Ibnu Abbas yang lebih panjang: bila beliau mengeraskan bacaan, orang-orang musyrik menjauh dan enggan mendengarnya, dan bila beliau merendahkannya, orang yang diam-diam ingin menyimak tidak lagi dapat mendengarnya.[ref:ik][ref:muqbil]"]
+        },
+        {
+          id: "doa",
+          judul: "Riwayat Aisyah: tentang doa",
+          isi: ["Aisyah berkata bahwa ayat ini diturunkan tentang doa.[ref:b4723][ref:m447] Ath-Thabari membawakan pendapat yang sama dari sejumlah tabi'in, antara lain Mujahid, Sa'id bin Jubair, 'Atha', dan Makhul, serta satu riwayat dari Ibnu Abbas.[ref:thabari]", "Dalam riwayat Aisyah yang lain, yang dibawakan Ibnu Jarir dan Al-Hakim, ayat ini turun tentang tasyahhud.[ref:lubab] Al-Wahidi juga membawakan riwayat Abdullah bin Syaddad bahwa sebagian orang badui Bani Tamim mengeraskan doa meminta harta dan anak setelah shalat.[ref:wahidi][ref:ik]"]
+        },
+        {
+          id: "tarjih",
+          judul: "Mana yang lebih kuat",
+          isi: ["Ath-Thabari memilih riwayat Ibnu Abbas lewat Sa'id bin Jubair, karena sanadnya paling shahih di antara riwayat sahabat dalam masalah ini dan paling sesuai dengan konteks ayat.[ref:thabari] Ibnu Hajar menukil pilihan Ath-Thabari itu dan menyebut An-Nawawi serta ulama lain juga mengunggulkannya.[ref:fath405][ref:lubab]", "Ibnu Hajar lalu membuka kemungkinan memadukan kedua riwayat: ayat ini turun tentang doa di dalam shalat. Ia menyebut riwayat Ibnu Mardawaih dari Abu Hurairah bahwa bila Rasulullah ﷺ shalat di dekat Ka'bah, beliau mengeraskan suara ketika berdoa, lalu turunlah ayat ini.[ref:fath406][ref:lubab] As-Suyuthi menambahkan bahwa riwayat tasyahhud menjelaskan maksud Aisyah dalam riwayat sebelumnya.[ref:lubab]", "Muqbil menilai penjelasan-penjelasan itu tidak saling bertentangan: kaum musyrikin bisa saja mencaci Al-Qur'an dan pembawanya, sementara ayat ini juga mencakup doa di dalam shalat.[ref:muqbil132]"]
+        },
+        {
+          id: "awal",
+          judul: "Bagian awal ayat: \"Allah\" atau \"Ar-Rahman\"",
+          isi: ["Untuk bagian awal ayat, Ath-Thabari membawakan riwayat Ibnu Abbas bahwa kaum musyrikin mendengar Nabi ﷺ berdoa dalam sujudnya, \"Ya Rahman, ya Rahim,\" lalu mengira beliau menyeru dua tuhan.[ref:thabari] Al-Qurthubi, dan As-Suyuthi dari Ibnu Mardawaih, membawakannya dengan lafal \"Ya Allah, ya Rahman\": orang-orang musyrik berkata bahwa beliau melarang mereka menyeru dua tuhan, padahal beliau sendiri menyeru dua tuhan.[ref:qurthubi][ref:lubab]", "Ibnu Katsir dan Al-Qurthubi menegaskan bahwa \"Allah\" dan \"Ar-Rahman\" adalah dua nama bagi Zat yang satu; dengan nama mana pun Dia diseru, Dia mempunyai nama-nama yang terbaik.[ref:ik][ref:qurthubi]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa menyeru Allah dengan nama \"Allah\" atau \"Ar-Rahman\" tidak berarti mengakui banyak tuhan, karena keduanya termasuk Asmaul Husna. Nabi ﷺ juga diingatkan agar tidak mengeraskan bacaan shalat sehingga orang musyrik mengejeknya, dan tidak merendahkannya sampai tidak terdengar.[ref:kemenag] Tafsir Tahlili Kemenag di NU Online juga menyebut tujuannya, yaitu agar orang-orang musyrik Mekah tidak menyakiti Nabi ﷺ dan menghina agamanya.[ref:nuonline]", "Al-Qurthubi membedakan hukumnya: dalam shalat sunnah orang boleh memilih mengeraskan atau memelankan bacaan, sedangkan bacaan shalat fardhu sudah jelas ketentuannya, baik malam maupun siang.[ref:qurthubi] Ibnu Katsir membawakan riwayat Adh-Dhahhak bahwa setelah Hijrah ketentuan ini tidak lagi mengikat, sehingga Nabi ﷺ boleh memilih.[ref:ik]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Abbas",
+          tokoh: "ibnuabbas"
+        },
+        {
+          label: "Aisyah binti Abu Bakar",
+          tokoh: "aisyah"
+        },
+        {
+          label: "Al-Isra' 1",
+          wiki: "isra-1",
+          ket: "surah yang sama"
+        },
+        {
+          label: "Ka'bah",
+          tempat: "kabah",
+          kota: "mekah",
+          ket: "riwayat Abu Hurairah: doa Nabi saat shalat di dekat Ka'bah"
+        }
+      ],
+      rujukan: {
+        b4722: {
+          t: "HR. Bukhari no. 4722, dari Sa'id bin Jubair dari Ibnu Abbas (Kitab Tafsir, Surah Al-Isra').",
+          url: "https://sunnah.com/bukhari:4722"
+        },
+        m446: {
+          t: "HR. Muslim no. 446, dari Sa'id bin Jubair dari Ibnu Abbas (Kitab Shalat, bab bacaan pertengahan antara keras dan pelan).",
+          url: "https://sunnah.com/muslim/4/163"
+        },
+        b4723: {
+          t: "HR. Bukhari no. 4723, dari Hisyam bin 'Urwah dari ayahnya dari Aisyah (Kitab Tafsir, Surah Al-Isra').",
+          url: "https://sunnah.com/bukhari:4723"
+        },
+        m447: {
+          t: "HR. Muslim no. 447a, dari Hisyam bin 'Urwah dari ayahnya dari Aisyah (Kitab Shalat).",
+          url: "https://sunnah.com/muslim:447"
+        },
+        fath405: {
+          t: "Ibnu Hajar, Fath al-Bari 8/405 (Kitab Tafsir, Surah Bani Isra'il, bab \"wa la tajhar bi shalatika\").",
+          url: "https://shamela.ws/book/1673/4752"
+        },
+        fath406: {
+          t: "Ibnu Hajar, Fath al-Bari 8/406 (lanjutan bab yang sama: doa di dalam shalat, riwayat Abu Hurairah).",
+          url: "https://shamela.ws/book/1673/4753"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Isra' 110 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=17&Ayah=110&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 128 (Al-Isra' 110).",
+          url: "https://shamela.ws/book/2247/126"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 131 (Al-Isra' 110: riwayat Ibnu Abbas dan Aisyah).",
+          url: "https://shamela.ws/book/11547/126"
+        },
+        muqbil132: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 132 (komentar penyusun tentang Al-Isra' 110).",
+          url: "https://shamela.ws/book/11547/127"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Isra' 110.",
+          url: "https://quran.com/17:110/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Isra' 110.",
+          url: "https://quran.com/17:110/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Isra' 110.",
+          url: "https://quran.com/17:110/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Isra' 110 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/4714-surat-al-isra-ayat-110.html"
+        },
+        nuonline: {
+          t: "Al-Qur'an NU Online, Al-Isra' 110 (Tafsir Tahlili Kemenag).",
+          url: "https://quran.nu.or.id/al-isra/110"
+        }
+      }
+    },
+
+    // fushshilat-22 (ditulis dari riset rujukan silang)
+    "fushshilat-22": {
+      judul: "Fushshilat 22",
+      sub: "Tiga orang yang mengira Allah tidak mendengar bisikan",
+      surah: "Fushshilat",
+      ayatNo: "22",
+      tahun: 618,
+      tontonan: null,
+      peta: {
+        tahun: 618,
+        tempat: "kabah",
+        kota: "mekah"
+      },
+      lead: ["Fushshilat ayat 22 mengingatkan bahwa manusia tidak dapat bersembunyi dari kesaksian pendengaran, penglihatan, dan kulitnya sendiri, dan bahwa mereka keliru mengira Allah tidak mengetahui banyak dari perbuatan mereka.[ref:kemenag] Abdullah bin Mas'ud meriwayatkan bahwa ayat ini turun tentang tiga orang, dua dari Quraisy dan satu dari Tsaqif atau sebaliknya, yang memperbincangkan apakah Allah mendengar ucapan mereka.[ref:b4817][ref:m2775]", "Dalam riwayat Bukhari dan Muslim lewat Sufyan, mereka berkumpul di dekat Al-Bait, yang menurut Ibnu Hajar adalah Ka'bah; dalam jalur Rauh bin Al-Qasim, mereka berada di sebuah rumah.[ref:b4817][ref:fath562][ref:b4816] Dalam riwayat At-Tirmidzi, Ibnu Mas'ud sendiri bersembunyi di balik tirai Ka'bah, mendengar percakapan itu, lalu menyampaikannya kepada Nabi ﷺ.[ref:t3249]"],
+      infobox: [
+        ["Surah", "Fushshilat (فصلت), surah ke-41 dalam mushaf; disebut juga Ha Mim As-Sajdah[ref:t3248]"],
+        ["Ayat", "22; sebagian jalur menyebut sampai ayat 23[ref:t3249][ref:b4817]"],
+        ["Golongan", "Makkiyah"],
+        ["Waktu", "Tidak disebut dalam riwayat; periode Mekah (±618 M di peta hanya perkiraan)"],
+        ["Tempat", "Di dekat Ka'bah (\"'inda al-bait\")[ref:b4817][ref:fath562]; satu jalur menyebut di sebuah rumah[ref:b4816]"],
+        ["Yang terlibat", "Tiga orang musyrik: dua dari Quraisy dan satu dari Tsaqif, atau sebaliknya[ref:m2775]; Abdullah bin Mas'ud yang mendengar percakapan mereka[ref:t3249]"],
+        ["Riwayat utama", "HR. Bukhari no. 4816, 4817, dan 7521; HR. Muslim no. 2775a (Ibnu Mas'ud)[ref:b4816][ref:b4817][ref:b7521][ref:m2775]"],
+        ["Riwayat pembanding", "HR. Tirmidzi no. 3249 (jalur Al-A'masy): Ibnu Mas'ud bersembunyi di balik tirai Ka'bah[ref:t3249]"],
+        ["Derajat", "Shahih (Bukhari dan Muslim); At-Tirmidzi: hasan shahih (no. 3248) dan hasan (no. 3249), Darussalam: shahih[ref:t3248][ref:t3249]"]
+      ],
+      ayat: [
+        {
+          no: 22,
+          ar: "وَمَا كُنتُمْ تَسْتَتِرُونَ أَن يَشْهَدَ عَلَيْكُمْ سَمْعُكُمْ وَلَا أَبْصَارُكُمْ وَلَا جُلُودُكُمْ وَلَٰكِن ظَنَنتُمْ أَنَّ اللَّهَ لَا يَعْلَمُ كَثِيرًا مِّمَّا تَعْمَلُونَ",
+          id: "(Dan kamu tidak dapat bersembunyi dari kesaksian pendengaran, penglihatan dan kulitmu terhadapmu) bahkan kamu mengira Allah tidak mengetahui banyak tentang apa yang kamu lakukan."
+        }
+      ],
+      bagian: [
+        {
+          id: "tiga",
+          judul: "Tiga orang di dekat Ka'bah",
+          isi: ["Ibnu Mas'ud menuturkan: tiga orang berkumpul di dekat Al-Bait, dua dari Quraisy dan satu dari Tsaqif, atau dua dari Tsaqif dan satu dari Quraisy. Ia menggambarkan mereka berperut besar karena banyak lemaknya, tetapi sedikit pemahaman hatinya.[ref:b4817][ref:m2775]", "Salah seorang bertanya, \"Apakah menurut kalian Allah mendengar apa yang kita ucapkan?\" Yang lain menjawab, \"Dia mendengar bila kita mengeraskan suara, dan tidak mendengar bila kita memelankannya.\" Yang ketiga berkata, \"Jika Dia mendengar ketika kita mengeraskan suara, berarti Dia juga mendengar ketika kita memelankannya.\" Maka Allah menurunkan ayat ini.[ref:b4817][ref:m2775][ref:t3248]"]
+        },
+        {
+          id: "rumah",
+          judul: "Di dekat Ka'bah atau di sebuah rumah?",
+          isi: ["Dalam jalur Rauh bin Al-Qasim dari Manshur, Al-Bukhari meriwayatkan bahwa dua orang Quraisy dan ipar mereka dari Tsaqif, atau sebaliknya, berada di sebuah rumah. Dalam lafal ini, salah seorang berkata Allah mendengar sebagian ucapan mereka, dan yang lain menjawab bahwa jika Dia mendengar sebagian, berarti Dia mendengar seluruhnya.[ref:b4816] Al-Wahidi dan Muqbil juga membawakan lafal \"di sebuah rumah\" ini.[ref:wahidi][ref:muqbil]", "Jalur Sufyan bin 'Uyainah dan Sufyan Ats-Tsauri dari Manshur menyebut \"di dekat Al-Bait\".[ref:b4817][ref:b7521] Ibnu Hajar menjelaskan bahwa yang dimaksud adalah Ka'bah, dan bahwa keraguan antara satu atau dua orang Tsaqif berasal dari perawi Abu Ma'mar; riwayat Abdurrazzaq dari Wahb bin Rabi'ah menyebut dua orang Quraisy dan satu orang Tsaqif tanpa ragu.[ref:fath562] As-Suyuthi juga membawakan lafal \"di dekat Al-Bait\".[ref:lubab]", "Jalur Al-A'masy dari 'Umarah bin 'Umair menambahkan bahwa Ibnu Mas'ud saat itu bersembunyi di balik tirai Ka'bah. Ia tidak memahami sebagian pembicaraan mereka, lalu menceritakannya kepada Nabi ﷺ, dan Allah menurunkan ayat 22 sampai ayat 23.[ref:t3249][ref:ik][ref:thabari]"]
+        },
+        {
+          id: "nama",
+          judul: "Siapa ketiga orang itu?",
+          isi: ["Hadits-hadits Ibnu Mas'ud tidak menyebut nama mereka.[ref:fath562] Ibnu Hajar mengumpulkan beberapa riwayat yang saling berbeda: dari Ibnu Basykuwal, lewat tafsir 'Abdul Ghani bin Sa'id yang lemah dari Ibnu Abbas, Al-Aswad bin 'Abdi Yaghuts dan Al-Akhnas bin Syariq; dari Ats-Tsa'labi dan Al-Baghawi, 'Abdu Yalil bin 'Amr dari Tsaqif bersama Shafwan dan Rabi'ah, putra Umayyah bin Khalaf; dan dari Isma'il At-Taimi, Shafwan bin Umayyah bersama Rabi'ah dan Habib, putra 'Amr.[ref:fath562] Al-Qurthubi juga menukil nama-nama dari Ats-Tsa'labi.[ref:qurthubi]", "Ibnu Hajar menutup daftar itu dengan \"wallahu a'lam\" dan menyebut penerapan riwayat yang pertama pada kisah ini bermasalah, sehingga nama-nama tersebut tidak dapat dipastikan.[ref:fath562]"]
+        },
+        {
+          id: "makna",
+          judul: "Makna \"tastatirun\"",
+          isi: ["Ath-Thabari memilih makna \"menyembunyikan diri\" (tastakhfun), yang ia nukil dari As-Suddi, karena itulah makna istitar yang dikenal; ia juga menukil makna \"menjaga diri\" dari Mujahid dan \"menyangka\" dari Qatadah.[ref:thabari] Al-Qurthubi menjelaskan maksudnya: karena manusia tidak dapat bersembunyi dari dirinya sendiri, ia semestinya meninggalkan maksiat karena takut anggota tubuhnya kelak bersaksi.[ref:qurthubi]", "Ibnu Katsir menjelaskan bahwa sangkaan keliru tentang Allah itulah yang membinasakan mereka, sebagaimana disebut ayat 23, sehingga mereka termasuk orang-orang yang rugi.[ref:ik] Ia juga membawakan riwayat Bahz bin Hakim dari ayahnya dari kakeknya bahwa pada hari kiamat mulut manusia ditutup, dan yang pertama kali berbicara tentang seseorang adalah paha dan telapak tangannya.[ref:ik]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa orang-orang yang berbuat dosa diam-diam tidak dapat bersembunyi dari pendengaran, penglihatan, dan kulit mereka sendiri yang kelak bersaksi, dan bahwa sangkaan keliru terhadap Tuhan itulah yang membinasakan mereka.[ref:kemenag] Tafsir Hidayatul Insan di TafsirWeb membawakan hadits Ibnu Mas'ud dari Al-Bukhari untuk ayat ini.[ref:kemenag]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Mas'ud",
+          tokoh: "ibnumasud"
+        },
+        {
+          label: "Ka'bah",
+          tempat: "kabah",
+          kota: "mekah",
+          ket: "tempat ketiga orang itu berkumpul"
+        }
+      ],
+      rujukan: {
+        b4816: {
+          t: "HR. Bukhari no. 4816, jalur Rauh bin Al-Qasim dari Manshur dari Mujahid dari Abu Ma'mar dari Ibnu Mas'ud (Kitab Tafsir, Surah Fushshilat): \"di sebuah rumah\".",
+          url: "https://sunnah.com/bukhari:4816"
+        },
+        b4817: {
+          t: "HR. Bukhari no. 4817, jalur Sufyan bin 'Uyainah dan Sufyan Ats-Tsauri dari Manshur, dari Ibnu Mas'ud (Kitab Tafsir, Surah Fushshilat): \"di dekat Al-Bait\".",
+          url: "https://sunnah.com/bukhari:4817"
+        },
+        b7521: {
+          t: "HR. Bukhari no. 7521, jalur Al-Humaidi dari Sufyan dari Manshur, dari Ibnu Mas'ud (Kitab Tauhid).",
+          url: "https://sunnah.com/bukhari:7521"
+        },
+        m2775: {
+          t: "HR. Muslim no. 2775a, jalur Ibnu Abi 'Umar dari Sufyan dari Manshur, dari Ibnu Mas'ud (Kitab Sifat Orang Munafik).",
+          url: "https://sunnah.com/muslim:2775a"
+        },
+        t3248: {
+          t: "HR. Tirmidzi no. 3248, dari Ibnu Mas'ud (Kitab Tafsir, Surah Ha Mim As-Sajdah). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3248"
+        },
+        t3249: {
+          t: "HR. Tirmidzi no. 3249, jalur Al-A'masy dari 'Umarah bin 'Umair dari Abdurrahman bin Yazid dari Ibnu Mas'ud (Kitab Tafsir, Surah Ha Mim As-Sajdah). Tirmidzi: hasan; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3249"
+        },
+        fath562: {
+          t: "Ibnu Hajar, Fath al-Bari 8/562 (Kitab Tafsir, Surah Ha Mim As-Sajdah).",
+          url: "https://shamela.ws/book/1673/4909"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Fushshilat 22 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=41&Ayah=22&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 171 (Surah Ha Mim As-Sajdah).",
+          url: "https://shamela.ws/book/2247/169"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 177 (Fushshilat 22).",
+          url: "https://shamela.ws/book/11547/172"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Fushshilat 22–23.",
+          url: "https://quran.com/41:22/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Fushshilat 22.",
+          url: "https://quran.com/41:22/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Fushshilat 22.",
+          url: "https://quran.com/41:22/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain (Hidayatul Insan, Al-Wajiz) untuk Fushshilat 22 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/9004-surat-fussilat-ayat-22.html"
+        }
+      }
+    },
+
+    // qamar-1-2 (ditulis dari riset rujukan silang)
+    "qamar-1-2": {
+      judul: "Al-Qamar 1–2",
+      sub: "Terbelahnya bulan di Mekah",
+      surah: "Al-Qamar",
+      ayatNo: "1–2",
+      tahun: 617,
+      tontonan: null,
+      peta: {
+        tahun: 617,
+        lok: "makkah"
+      },
+      lead: ["Al-Qamar ayat 1–2 menyebut dekatnya hari kiamat dan terbelahnya bulan, lalu menggambarkan orang-orang musyrik yang berpaling dari setiap tanda dan menyebutnya sihir yang terus-menerus.[ref:kemenag] Anas bin Malik meriwayatkan bahwa penduduk Mekah meminta Nabi ﷺ memperlihatkan suatu tanda, lalu beliau memperlihatkan kepada mereka terbelahnya bulan.[ref:b4867]", "Abdullah bin Mas'ud, yang menyaksikannya, menuturkan bahwa bulan terbelah ketika mereka bersama Nabi ﷺ di Mina, dan beliau bersabda, \"Saksikanlah.\"[ref:b3869][ref:b4864] Ibnu Katsir menyebut hadits-hadits tentang peristiwa ini mutawatir dengan sanad-sanad yang shahih, dan para ulama sepakat bahwa ia terjadi di masa Nabi ﷺ.[ref:ik] Menurut Ibnu Hajar, peristiwa itu terjadi di Mekah sekitar lima tahun sebelum Hijrah.[ref:fath632]"],
+      infobox: [
+        ["Surah", "Al-Qamar (القمر), surah ke-54 dalam mushaf"],
+        ["Ayat", "1–2"],
+        ["Golongan", "Makkiyah"],
+        ["Waktu", "Sekitar lima tahun sebelum Hijrah (±617 M), menurut Ibnu Hajar[ref:fath632]; pada malam hari[ref:fath185]"],
+        ["Tempat", "Mekah; Ibnu Mas'ud menyebut mereka sedang di Mina, dan menurut Ibnu Hajar Mina termasuk wilayah Mekah[ref:b3869][ref:fath184]"],
+        ["Tokoh", "Penduduk Mekah yang meminta tanda[ref:b4867]; Abdullah bin Mas'ud yang menyaksikannya[ref:b3869][ref:fath632]; Jubair bin Muth'im juga meriwayatkannya[ref:t3289]. Anas dan Ibnu Abbas tidak menyaksikannya: Anas masih kecil di Madinah dan Ibnu Abbas belum lahir, menurut Ibnu Hajar[ref:fath632]"],
+        ["Riwayat utama", "HR. Bukhari no. 4867, 4868, dan 3868 (Anas)[ref:b4867][ref:b4868][ref:b3868]; HR. Bukhari no. 3636, 3869, dan 4864, HR. Muslim no. 2800a (Ibnu Mas'ud)[ref:b3636][ref:b3869][ref:b4864][ref:m2800]; HR. Tirmidzi no. 3289 (Jubair bin Muth'im)[ref:t3289]"],
+        ["Riwayat pembanding", "Yang tegas menyebut turunnya ayat: HR. Tirmidzi no. 3286 (Anas)[ref:t3286]; Al-Hakim dari Ibnu Mas'ud[ref:lubab]; Ath-Thabarani dari Ibnu Abbas[ref:muqbil]"],
+        ["Derajat", "Peristiwanya shahih dan mutawatir menurut Ibnu Katsir[ref:ik]. Riwayat yang menyebut turunnya ayat: hasan shahih menurut At-Tirmidzi[ref:t3286]; Muqbil mencatat Shahihain tidak menyebut turunnya ayat secara tegas[ref:muqbil]. Tirmidzi no. 3289: shahih menurut Darussalam[ref:t3289]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "اقْتَرَبَتِ السَّاعَةُ وَانشَقَّ الْقَمَرُ",
+          id: "Saat (hari Kiamat) semakin dekat, bulan pun terbelah."
+        },
+        {
+          no: 2,
+          ar: "وَإِن يَرَوْا آيَةً يُعْرِضُوا وَيَقُولُوا سِحْرٌ مُّسْتَمِرٌّ",
+          id: "Dan jika mereka (orang-orang musyrikin) melihat suatu tanda (mukjizat), mereka berpaling dan berkata, \"(Ini adalah) sihir yang terus menerus.\""
+        }
+      ],
+      bagian: [
+        {
+          id: "tanda",
+          judul: "Permintaan suatu tanda",
+          isi: ["Anas bin Malik meriwayatkan bahwa penduduk Mekah meminta Rasulullah ﷺ memperlihatkan suatu tanda, lalu beliau memperlihatkan kepada mereka terbelahnya bulan.[ref:b4867] Dalam jalur lain dari Anas, bulan tampak terbelah dua sampai mereka melihat Gunung Hira di antara kedua belahannya.[ref:b3868]", "Ibnu Hajar mencatat bahwa hanya riwayat Anas yang mengaitkan terbelahnya bulan secara langsung dengan permintaan penduduk Mekah, dan riwayat Anas ini termasuk mursal sahabat karena Anas tidak menyaksikan peristiwanya.[ref:fath182] Menurut Ibnu Hajar, saat itu Anas baru berusia sekitar empat atau lima tahun dan tinggal di Madinah, sedangkan Ibnu Abbas belum lahir.[ref:fath632]"]
+        },
+        {
+          id: "saksi",
+          judul: "Riwayat Ibnu Mas'ud dan Jubair bin Muth'im",
+          isi: ["Ibnu Mas'ud berkata bahwa bulan terbelah ketika mereka bersama Nabi ﷺ di Mina, lalu beliau bersabda, \"Saksikanlah,\" dan sebagian bulan bergerak ke arah gunung.[ref:b3869] Dalam lafal lain, satu belahan berada di atas gunung dan belahan lainnya di bawahnya.[ref:b4864] Abu Nu'aim meriwayatkan dari Ibnu Mas'ud bahwa ia melihat Gunung Hira di antara dua belahan bulan.[ref:fath185] Dalam jalur Abu Adh-Dhuha dari Masruq, Ibnu Mas'ud menyebut bulan terbelah di Mekah.[ref:b3869]", "Jubair bin Muth'im meriwayatkan bahwa bulan terbelah di masa Nabi ﷺ menjadi dua bagian, satu di atas gunung ini dan satu di atas gunung itu. Orang-orang berkata, \"Muhammad telah menyihir kita,\" lalu sebagian mereka menjawab bahwa seandainya ia menyihir mereka, ia tidak mungkin menyihir semua orang.[ref:t3289]", "Ibnu Hajar memadukan penyebutan Mina dan Mekah: Mina termasuk wilayah Mekah, sehingga keduanya tidak bertentangan.[ref:fath184]"]
+        },
+        {
+          id: "sihir",
+          judul: "\"Sihir yang terus-menerus\"",
+          isi: ["Al-Wahidi membawakan riwayat Masruq dari Abdullah: kaum Quraisy menyebutnya sihir, lalu mereka bertanya kepada para musafir yang datang, dan para musafir itu membenarkan bahwa mereka juga melihatnya; kemudian turunlah ayat ini.[ref:wahidi] Ibnu Katsir dan Ath-Thabari juga membawakan kisah para musafir ini.[ref:ik][ref:thabari]", "Ibnu Hajar menukil riwayat Abu 'Awanah bahwa mereka berkata, \"Muhammad tidak mungkin menyihir semua orang,\" lalu menunggu kabar dari para musafir.[ref:fath184]", "Dalam riwayat Ath-Thabarani dari Ibnu Abbas, bulan mengalami gerhana di masa Nabi ﷺ, lalu orang-orang kafir berkata, \"Bulan telah disihir,\" dan turunlah ayat 1–2. Muqbil menukil Ibnu Katsir yang menilai sanadnya jayyid dan menduga bulan terbelah pada malam gerhana, sehingga tidak banyak penduduk bumi yang mengetahuinya; di tempat lain Ibnu Katsir menyebut alur riwayat ini gharib.[ref:muqbil]"]
+        },
+        {
+          id: "turun",
+          judul: "Riwayat yang tegas menyebut turunnya ayat",
+          isi: ["At-Tirmidzi meriwayatkan dari Anas lewat Ma'mar dari Qatadah: penduduk Mekah meminta suatu tanda kepada Nabi ﷺ, lalu bulan terbelah di Mekah dua kali, maka turunlah \"Iqtarabatis sa'atu wansyaqqal qamar\" sampai \"sihrun mustamirr\". At-Tirmidzi menilainya hasan shahih.[ref:t3286]", "As-Suyuthi membawakan riwayat Ibnu Mas'ud dengan lafal Al-Hakim: ia melihat bulan terbelah dua di Mekah sebelum Nabi ﷺ keluar berhijrah, lalu mereka berkata, \"Bulan telah disihir,\" maka turunlah ayat ini.[ref:lubab] Muqbil menukil penilaian Al-Hakim bahwa riwayat Ibnu Mas'ud ini sesuai syarat Bukhari dan Muslim, disetujui Adz-Dzahabi.[ref:muqbil]", "Muqbil mencatat bahwa asal hadits ini ada di Shahihain, tetapi keduanya tidak tegas menyebut turunnya ayat.[ref:muqbil] Tafsir Hidayatul Insan menilai tambahan \"maka turunlah ayat\" dalam jalur Ma'mar dari Qatadah syadz, karena Ma'mar menyelisihi perawi lain dari Qatadah yang tidak menyebutkannya.[ref:kemenag] Al-Bukhari sendiri meletakkan hadits-hadits ini di bawah ayat 1–2 dalam Kitab Tafsir.[ref:b4867]"]
+        },
+        {
+          id: "duakali",
+          judul: "\"Dua kali\" atau \"dua belahan\"?",
+          isi: ["Sebagian jalur riwayat Anas menyebut bulan terbelah \"dua kali\" (marratain).[ref:m2802][ref:t3286] Ibnu Hajar mencatat bahwa tidak satu pun jalur hadits Ibnu Mas'ud memakai lafal itu, menukil Ibnu Katsir yang menyebut riwayat \"dua kali\" perlu ditinjau, lalu menyimpulkan bahwa maknanya \"dua belahan\", karena hanya itulah cara memadukan riwayat-riwayat yang ada.[ref:fath183]", "Ibnu Hajar juga menukil Ibnu Al-Qayyim yang menyebut anggapan bulan terbelah dua kali sebagai kekeliruan menurut ahli hadits dan sirah.[ref:fath183] Lafal Al-Bukhari dari Anas memang menyebut bulan terbelah menjadi dua belahan.[ref:b4868]"]
+        },
+        {
+          id: "waktu",
+          judul: "Kapan peristiwa ini terjadi",
+          isi: ["Ibnu Hajar menyebut peristiwa ini terjadi di Mekah sekitar lima tahun sebelum Hijrah.[ref:fath632] Ath-Thabari membawakan riwayat Ibnu Abbas bahwa peristiwa itu terjadi sebelum Hijrah, dan Ibnu Hajar menyebut riwayat Ibnu Mardawaih dari Ibnu Mas'ud, \"sebelum kami pindah ke Madinah\".[ref:thabari][ref:fath184]", "Peristiwa ini terjadi pada malam hari.[ref:fath185] Ibnu Hajar membahas saatnya di malam itu: kebanyakan riwayat menunjukkan menjelang bulan terbenam, sementara sebagian riwayat menyebut malam purnama.[ref:fath184] Tahun ±617 M di peta adalah perkiraan dari keterangan Ibnu Hajar tersebut.[ref:fath632]"]
+        },
+        {
+          id: "ingkar",
+          judul: "Mengapa tidak tercatat di seluruh dunia?",
+          isi: ["Ibnu Hajar menukil jawaban Az-Zajjaj: peristiwa itu terjadi pada malam hari, ketika kebanyakan orang tidur dan pintu-pintu tertutup, sehingga hanya sedikit yang memperhatikan langit.[ref:fath185] Al-Khaththabi menambahkan bahwa tanda itu diminta oleh sekelompok orang tertentu dan mungkin hanya terlihat sebentar oleh orang yang sedang mengamati.[ref:fath185] Ibnu Hajar juga mencatat bahwa tidak ada ahli falak yang tegas menafikannya.[ref:fath185]", "Al-Qurthubi menukil pendapat sebagian orang bahwa bulan baru akan terbelah pada hari kiamat, lalu menjawab bahwa riwayat-riwayat dari para perawi yang adil menetapkan bulan telah terbelah di Mekah, dan itulah makna lahir ayat; ia menyebut mayoritas ulama memegang pendapat ini.[ref:qurthubi]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag mengaitkan pembukaan surah ini dengan akhir Surah An-Najm yang memperingatkan dekatnya kiamat, dan menjelaskan bahwa orang-orang musyrik tetap berpaling dan menyebut tanda yang mereka lihat sebagai sihir yang terus-menerus.[ref:kemenag] Ath-Thabari menjelaskan bahwa bulan terbelah sebagai hujah atas kebenaran risalah Nabi ﷺ ketika kaum kafir Quraisy meminta bukti, lalu mereka berpaling darinya.[ref:thabari]", "Ibnu Katsir menyebut peristiwa ini salah satu mukjizat yang nyata, dan menukil riwayat Ibnu Mas'ud bahwa terbelahnya bulan termasuk lima tanda yang telah berlalu.[ref:ik]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Mas'ud",
+          tokoh: "ibnumasud"
+        },
+        {
+          label: "Anas bin Malik",
+          tokoh: "anas"
+        },
+        {
+          label: "Jubair bin Muth'im",
+          tokoh: "jubairmuthim"
+        },
+        {
+          label: "Abdullah bin Abbas",
+          tokoh: "ibnuabbas"
+        },
+        {
+          label: "Jabal Nur (Hira)",
+          tempat: "jabalnur",
+          kota: "mekah",
+          ket: "Hira terlihat di antara dua belahan bulan"
+        },
+        {
+          label: "Aqabah, Mina",
+          tempat: "aqabah-mina",
+          kota: "mekah",
+          ket: "penanda wilayah Mina; Ibnu Mas'ud menyebut mereka sedang di Mina"
+        }
+      ],
+      rujukan: {
+        b4867: {
+          t: "HR. Bukhari no. 4867, dari Qatadah dari Anas bin Malik (Kitab Tafsir, Surah Al-Qamar).",
+          url: "https://sunnah.com/bukhari:4867"
+        },
+        b4868: {
+          t: "HR. Bukhari no. 4868, dari Qatadah dari Anas bin Malik (Kitab Tafsir, Surah Al-Qamar): \"terbelah menjadi dua belahan\".",
+          url: "https://sunnah.com/bukhari:4868"
+        },
+        b3868: {
+          t: "HR. Bukhari no. 3868, dari Qatadah dari Anas bin Malik (Kitab Manaqib al-Anshar, bab terbelahnya bulan).",
+          url: "https://sunnah.com/bukhari:3868"
+        },
+        b3636: {
+          t: "HR. Bukhari no. 3636, dari Abu Ma'mar dari Ibnu Mas'ud (Kitab Al-Manaqib, bab mukjizat terbelahnya bulan).",
+          url: "https://sunnah.com/bukhari:3636"
+        },
+        b3869: {
+          t: "HR. Bukhari no. 3869, dari Ibrahim dari Abu Ma'mar dari Ibnu Mas'ud (Kitab Manaqib al-Anshar, bab terbelahnya bulan); juga jalur Abu Adh-Dhuha dari Masruq: \"di Mekah\".",
+          url: "https://sunnah.com/bukhari:3869"
+        },
+        b4864: {
+          t: "HR. Bukhari no. 4864, dari Abu Ma'mar dari Ibnu Mas'ud (Kitab Tafsir, Surah Al-Qamar).",
+          url: "https://sunnah.com/bukhari:4864"
+        },
+        m2800: {
+          t: "HR. Muslim no. 2800a, dari Abu Ma'mar dari Ibnu Mas'ud (Kitab Sifat Kiamat, Surga, dan Neraka, bab terbelahnya bulan).",
+          url: "https://sunnah.com/muslim:2800a"
+        },
+        m2802: {
+          t: "HR. Muslim no. 2802a, dari Qatadah dari Anas bin Malik (bab terbelahnya bulan): \"dua kali\".",
+          url: "https://sunnah.com/muslim:2802a"
+        },
+        t3286: {
+          t: "HR. Tirmidzi no. 3286, jalur Ma'mar dari Qatadah dari Anas (Kitab Tafsir, Surah Al-Qamar). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3286"
+        },
+        t3289: {
+          t: "HR. Tirmidzi no. 3289, dari Muhammad bin Jubair bin Muth'im dari ayahnya (Kitab Tafsir, Surah Al-Qamar). Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3289"
+        },
+        fath182: {
+          t: "Ibnu Hajar, Fath al-Bari 7/182 (Kitab Manaqib al-Anshar, bab terbelahnya bulan).",
+          url: "https://shamela.ws/book/1673/4010"
+        },
+        fath183: {
+          t: "Ibnu Hajar, Fath al-Bari 7/183 (bab terbelahnya bulan: lafal \"dua kali\").",
+          url: "https://shamela.ws/book/1673/4011"
+        },
+        fath184: {
+          t: "Ibnu Hajar, Fath al-Bari 7/184 (bab terbelahnya bulan: Mina dan Mekah, para musafir, saatnya di malam itu).",
+          url: "https://shamela.ws/book/1673/4012"
+        },
+        fath185: {
+          t: "Ibnu Hajar, Fath al-Bari 7/185 (bab terbelahnya bulan: terjadi malam hari, jawaban atas penolakan).",
+          url: "https://shamela.ws/book/1673/4013"
+        },
+        fath632: {
+          t: "Ibnu Hajar, Fath al-Bari 6/632 (Kitab Al-Manaqib, bab permintaan kaum musyrikin agar diperlihatkan tanda): \"di Mekah sekitar lima tahun sebelum Hijrah\".",
+          url: "https://shamela.ws/book/1673/3826"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Qamar 1 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=54&Ayah=1&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 185 (Surah Al-Qamar).",
+          url: "https://shamela.ws/book/2247/183"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 201 (Al-Qamar 1–2).",
+          url: "https://shamela.ws/book/11547/196"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Qamar 1–2.",
+          url: "https://quran.com/54:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Qamar 1–2.",
+          url: "https://quran.com/54:1/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Qamar 1.",
+          url: "https://quran.com/54:1/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain (Hidayatul Insan, As-Sa'di, dan lainnya) untuk Al-Qamar 1 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/10239-surat-al-qamar-ayat-1.html"
+        }
+      }
+    },
+
+    // qashash-56 (ditulis dari riset rujukan silang)
+    "qashash-56": {
+      judul: "Al-Qashash 56",
+      sub: "Wafatnya Abu Thalib: hidayah hanya milik Allah",
+      surah: "Al-Qashash",
+      ayatNo: "56",
+      tahun: 619,
+      tontonan: null,
+      peta: {
+        tahun: 619,
+        lok: "makkah"
+      },
+      lead: ["Al-Qashash ayat 56 menegaskan bahwa Nabi ﷺ tidak dapat memberi petunjuk kepada orang yang beliau kasihi; hidayah taufik sepenuhnya milik Allah.[ref:kemenag] Menurut hadits Al-Musayyab bin Hazn, ayat ini turun tentang Abu Thalib, paman yang mengasuh dan melindungi beliau, ketika ia menjelang wafat dan tidak mengucapkan \"La ilaha illallah\".[ref:b4772][ref:ik]", "Hadits yang sama menyebut bahwa Nabi ﷺ bersumpah akan terus memohonkan ampunan untuk pamannya selama tidak dilarang, lalu turun At-Taubah 113.[ref:b4772][ref:m24] Karena Surah At-Taubah termasuk yang terakhir turun, sedangkan Abu Thalib wafat di Mekah sebelum Hijrah, para ulama membahas kapan ayat itu turun.[ref:qurthubi113][ref:fath508]"],
+      infobox: [
+        ["Surah", "Al-Qashash (القصص), surah ke-28 dalam mushaf"],
+        ["Ayat", "56; hadits yang sama juga menyebut At-Taubah 113[ref:b4772]"],
+        ["Golongan", "Al-Qashash: Makkiyah; At-Taubah: Madaniyah dan termasuk surah yang terakhir turun[ref:qurthubi113]"],
+        ["Waktu", "Menjelang wafatnya Abu Thalib di Mekah, sebelum Hijrah menurut kesepakatan ulama (Ibnu Hajar)[ref:fath508]; ±619 M, tahun ke-10 kenabian, dengan bulan yang diperselisihkan[ref:nuonline]"],
+        ["Tempat", "Mekah, di sisi Abu Thalib yang menjelang wafat (tempat persisnya tidak disebut)[ref:b4772]"],
+        ["Tokoh", "Abu Thalib; Abu Jahal dan Abdullah bin Abi Umayyah bin Al-Mughirah yang hadir di sisinya[ref:b4772]; perawinya Al-Musayyab bin Hazn, yang menurut Ibnu Hajar mungkin ikut hadir ketika itu sebelum masuk Islam[ref:fath507]"],
+        ["Riwayat utama", "HR. Bukhari no. 4772, 4675, 3884, dan 1360; HR. Muslim no. 24a (Al-Musayyab bin Hazn)[ref:b4772][ref:b4675][ref:b3884][ref:b1360][ref:m24]"],
+        ["Riwayat pembanding", "HR. Muslim no. 25a dan 25b; HR. Tirmidzi no. 3188 (Abu Hurairah)[ref:m25a][ref:m25b][ref:t3188]"],
+        ["Derajat", "Shahih, disepakati Bukhari dan Muslim[ref:hadeethenc]; riwayat Abu Hurairah: hasan gharib menurut At-Tirmidzi, shahih menurut Darussalam[ref:t3188]"]
+      ],
+      ayat: [
+        {
+          no: 56,
+          ar: "إِنَّكَ لَا تَهْدِي مَنْ أَحْبَبْتَ وَلَٰكِنَّ اللَّهَ يَهْدِي مَن يَشَاءُ ۚ وَهُوَ أَعْلَمُ بِالْمُهْتَدِينَ",
+          id: "Sungguh, engkau (Muhammad) tidak dapat memberi petunjuk kepada orang yang engkau kasihi, tetapi Allah memberi petunjuk kepada orang yang Dia kehendaki, dan Dia lebih mengetahui orang-orang yang mau menerima petunjuk."
+        }
+      ],
+      bagian: [
+        {
+          id: "paman",
+          judul: "Paman yang melindungi",
+          isi: ["Ibnu Katsir menjelaskan bahwa ayat ini turun tentang Abu Thalib, paman Rasulullah ﷺ, yang biasa melindungi dan membela beliau; kasih sayangnya kepada Nabi ﷺ adalah kasih sayang seorang kerabat.[ref:ik] Al-Abbas bin Abdul Muthalib kelak menyebut hal itu di hadapan Nabi ﷺ: Abu Thalib dahulu menjaga beliau dan marah demi beliau.[ref:b3883]"]
+        },
+        {
+          id: "kalimat",
+          judul: "Satu kalimat untuk dibela di sisi Allah",
+          isi: ["Al-Musayyab bin Hazn meriwayatkan: ketika Abu Thalib menjelang wafat, Rasulullah ﷺ datang dan mendapati Abu Jahal dan Abdullah bin Abi Umayyah bin Al-Mughirah di sisinya. Beliau bersabda, \"Wahai pamanku, ucapkanlah La ilaha illallah, satu kalimat yang dengannya aku akan membelamu di sisi Allah.\"[ref:b4772]", "Abu Jahal dan Abdullah bin Abi Umayyah berkata, \"Wahai Abu Thalib, apakah engkau hendak berpaling dari agama Abdul Muthalib?\" Rasulullah ﷺ terus menawarkan kalimat itu kepadanya, dan keduanya terus mengulang ucapan mereka, hingga kata terakhir Abu Thalib adalah bahwa ia tetap di atas agama Abdul Muthalib, dan ia enggan mengucapkan La ilaha illallah.[ref:m24][ref:b4772]", "Rasulullah ﷺ bersabda, \"Demi Allah, aku sungguh akan memohonkan ampunan untukmu selama aku tidak dilarang.\"[ref:b4772] Ibnu Hajar menukil penjelasan bahwa permohonan ampunan ini tidak berarti memaafkan syirik, dan bahwa yang dimaksud adalah agar azabnya diringankan.[ref:fath507][ref:fath508]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya dua ayat",
+          isi: ["Maka Allah menurunkan At-Taubah 113, dan menurunkan tentang Abu Thalib, \"Sungguh, engkau (Muhammad) tidak dapat memberi petunjuk kepada orang yang engkau kasihi, tetapi Allah memberi petunjuk kepada orang yang Dia kehendaki.\"[ref:b4772][ref:m24] At-Taubah 113 menyatakan bahwa tidak pantas bagi Nabi dan orang-orang beriman memohonkan ampunan bagi orang-orang musyrik, sekalipun kerabat sendiri, setelah jelas bahwa mereka penghuni neraka.[ref:nuquran113]", "Al-Bukhari juga meriwayatkan kisah ini dalam Kitab Jenazah, Kitab Manaqib al-Anshar, dan tafsir At-Taubah 113.[ref:b1360][ref:b3884][ref:b4675] Ibnu Hajar memahami susunan kalimat hadits ini begini: ayat pertama turun tentang Abu Thalib dan orang lain, sedangkan ayat kedua khusus tentang Abu Thalib.[ref:fath508]"]
+        },
+        {
+          id: "abuhurairah",
+          judul: "Riwayat Abu Hurairah",
+          isi: ["Abu Hurairah meriwayatkan bahwa Rasulullah ﷺ berkata kepada pamannya menjelang wafatnya, \"Ucapkanlah La ilaha illallah, aku akan bersaksi untukmu dengan kalimat itu pada hari kiamat,\" tetapi ia enggan, lalu Allah menurunkan Al-Qashash 56.[ref:m25a]", "Dalam jalur Yahya bin Sa'id, Abu Thalib menjawab bahwa seandainya kaum Quraisy tidak akan mencelanya dengan mengatakan bahwa ia mengucapkannya hanya karena takut menghadapi kematian, niscaya ia akan mengucapkannya untuk menyenangkan hati beliau.[ref:m25b][ref:t3188] At-Tirmidzi menilai riwayat ini hasan gharib, hanya dikenal dari Yazid bin Kaisan.[ref:t3188]", "As-Suyuthi juga membawakan riwayat An-Nasa'i dan Ibnu 'Asakir dengan sanad yang ia nilai jayyid: Abu Sa'id bin Rafi' bertanya kepada Ibnu Umar apakah ayat ini turun tentang Abu Jahal dan Abu Thalib, dan Ibnu Umar menjawab, \"Ya.\"[ref:lubab]"]
+        },
+        {
+          id: "taubah",
+          judul: "Kapan At-Taubah 113 turun?",
+          isi: ["Al-Qurthubi menukil Al-Husain bin Al-Fadhl yang menganggap kaitan At-Taubah 113 dengan Abu Thalib jauh kemungkinannya, karena surah ini termasuk yang terakhir turun, sedangkan Abu Thalib wafat di awal masa Islam ketika Nabi ﷺ masih di Mekah.[ref:qurthubi113] As-Suyuthi menulis bahwa zahir hadits ini menunjukkan ayat itu turun di Mekah.[ref:lubab113]", "Ayat yang sama juga diriwayatkan turun berkenaan dengan sebab lain. Ali bin Abi Thalib mendengar seseorang memohonkan ampunan untuk kedua orang tuanya yang musyrik; orang itu beralasan dengan Nabi Ibrahim yang memohonkan ampunan untuk ayahnya, lalu Ali menyampaikannya kepada Nabi ﷺ, dan turunlah ayat ini.[ref:lubab113][ref:ik113] Riwayat Ibnu Mas'ud dan Buraidah menyebut Nabi ﷺ meminta izin kepada Rabbnya untuk memohonkan ampunan bagi ibunda beliau dan tidak diizinkan; dalam riwayat Ath-Thabarani dari Ibnu Abbas, itu terjadi di 'Usfan sepulang dari Tabuk.[ref:lubab113][ref:lubab114][ref:wahidi113] Ibnu Katsir menilai riwayat Ath-Thabarani itu gharib dengan alur yang aneh.[ref:ik113]", "Ibnu Hajar menyebut riwayat-riwayat tentang ibunda Nabi ﷺ saling menguatkan dan menunjukkan bahwa turunnya ayat ini tertunda setelah wafatnya Abu Thalib. Menurutnya, ayat ini mungkin punya dua sebab: yang lebih dahulu, yaitu urusan Abu Thalib, dan yang belakangan, yaitu urusan Aminah; bisa jadi pula turunnya ayat tertunda walaupun sebabnya terjadi lebih dahulu.[ref:fath508] As-Suyuthi menukil pendapat Ibnu Hajar ini dan menyebut ulama lain memadukannya dengan turunnya ayat lebih dari sekali.[ref:lubab114]", "Ibnu Hajar juga menyebut riwayat yang memuat sabda Nabi ﷺ bahwa beliau akan terus memohonkan ampunan untuk Abu Thalib \"sampai Rabbku melarangku\".[ref:fath508] Adapun Al-Qashash 56, Ibnu Hajar menegaskan bahwa para perawi tidak berbeda pendapat bahwa ayat itu turun tentang Abu Thalib.[ref:fath506]"]
+        },
+        {
+          id: "kedudukan",
+          judul: "Kedudukan Abu Thalib",
+          isi: ["Al-Wahidi menukil Az-Zajjaj bahwa para mufassir sepakat Al-Qashash 56 turun tentang Abu Thalib.[ref:wahidi] Al-Qurthubi menukil ungkapan Az-Zajjaj itu sebagai kesepakatan kaum muslimin, lalu meluruskannya menjadi kesepakatan kebanyakan mufassir.[ref:qurthubi] Ibnu Katsir menyebut pendapat ini dari Ibnu Abbas, Ibnu Umar, Mujahid, Asy-Sya'bi, dan Qatadah.[ref:ik]", "Ibnu Katsir menyimpulkan bahwa Abu Thalib tetap pada agama yang dianutnya sebelumnya hingga wafat, dan hal itu termasuk hikmah Allah yang sempurna.[ref:ik] Muqbil menulis bahwa hadits ini membantah anggapan bahwa Abu Thalib masuk Islam, dan HadeethEnc menjelaskan hal yang sama.[ref:muqbil56][ref:hadeethenc] NU Online memaparkan bahwa sebagian ulama belakangan, antara lain Ahmad bin Zaini Dahlan dalam Asna al-Mathalib, berpendapat lain, dengan dalil antara lain riwayat bahwa Al-Abbas melihat bibir Abu Thalib bergerak menjelang wafatnya.[ref:nuonline]", "Ketika Al-Abbas bertanya apa manfaat yang beliau berikan kepada pamannya, Rasulullah ﷺ menjawab bahwa Abu Thalib berada di bagian neraka yang dangkal, dan seandainya bukan karena beliau, ia berada di tingkat yang paling bawah.[ref:b3883] Rumaysho juga menukil hadits Muslim bahwa Abu Thalib adalah penghuni neraka yang paling ringan azabnya.[ref:rumaysho]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag membedakan dua macam hidayah: hidayah taufik, yaitu kemampuan menerima dan menjalankan ajaran Allah dengan hati terbuka, sepenuhnya kewenangan Allah; sedangkan Nabi ﷺ diberi hidayah irsyad, yaitu menunjukkan dan menjelaskan jalan yang benar.[ref:kemenag] Ath-Thabari menafsirkan \"Dia lebih mengetahui orang-orang yang mau menerima petunjuk\" sebagai orang-orang yang dalam ilmu Allah telah ditetapkan mendapat petunjuk.[ref:thabari]", "HadeethEnc menarik beberapa pelajaran dari hadits ini, antara lain bahwa amal bergantung pada penutupnya, bahwa mengikuti leluhur dalam kebatilan adalah perilaku jahiliah, dan bahwa boleh menjenguk orang musyrik yang sakit bila diharapkan keislamannya.[ref:hadeethenc] Rumaysho membahas kisah ini dalam pelajaran sirah tentang wafatnya Abu Thalib.[ref:rumaysho]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abu Thalib",
+          tokoh: "abuthalib"
+        },
+        {
+          label: "Abu Jahal",
+          tokoh: "abujahal"
+        },
+        {
+          label: "Abdullah bin Abi Umayyah",
+          tokoh: "abdullahumayyah"
+        },
+        {
+          label: "Al-Musayyab bin Hazn",
+          tokoh: "musayyabhazn"
+        },
+        {
+          label: "Al-Abbas bin Abdul Muthalib",
+          tokoh: "abbas"
+        },
+        {
+          label: "Abu Hurairah",
+          tokoh: "abuhurairah"
+        },
+        {
+          label: "Syi'ib Abi Thalib",
+          tempat: "syiib",
+          kota: "mekah",
+          ket: "kawasan Bani Hasyim; tempat wafatnya tidak disebut dalam hadits"
+        },
+        {
+          label: "At-Taubah 118",
+          wiki: "taubah-118",
+          ket: "surah yang sama dengan ayat 113"
+        }
+      ],
+      rujukan: {
+        b4772: {
+          t: "HR. Bukhari no. 4772, dari Sa'id bin Al-Musayyab dari ayahnya (Kitab Tafsir, Surah Al-Qashash).",
+          url: "https://sunnah.com/bukhari:4772"
+        },
+        b4675: {
+          t: "HR. Bukhari no. 4675, dari Sa'id bin Al-Musayyab dari ayahnya (Kitab Tafsir, bab At-Taubah 113).",
+          url: "https://sunnah.com/bukhari:4675"
+        },
+        b3884: {
+          t: "HR. Bukhari no. 3884, dari Ibnu Al-Musayyab dari ayahnya (Kitab Manaqib al-Anshar, bab kisah Abu Thalib).",
+          url: "https://sunnah.com/bukhari:3884"
+        },
+        b1360: {
+          t: "HR. Bukhari no. 1360, dari Sa'id bin Al-Musayyab dari ayahnya (Kitab Jenazah, bab bila orang musyrik mengucapkan La ilaha illallah saat menjelang wafat).",
+          url: "https://sunnah.com/bukhari:1360"
+        },
+        m24: {
+          t: "HR. Muslim no. 24a, dari Sa'id bin Al-Musayyab dari ayahnya (Kitab Iman).",
+          url: "https://sunnah.com/muslim:24a"
+        },
+        m25a: {
+          t: "HR. Muslim no. 25a, dari Abu Hazim dari Abu Hurairah (Kitab Iman).",
+          url: "https://sunnah.com/muslim:25a"
+        },
+        m25b: {
+          t: "HR. Muslim no. 25b, jalur Yahya bin Sa'id dari Yazid bin Kaisan dari Abu Hazim dari Abu Hurairah (Kitab Iman).",
+          url: "https://sunnah.com/muslim:25b"
+        },
+        t3188: {
+          t: "HR. Tirmidzi no. 3188, dari Abu Hurairah (Kitab Tafsir, Surah Al-Qashash). Tirmidzi: hasan gharib; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3188"
+        },
+        b3883: {
+          t: "HR. Bukhari no. 3883, dari Abdullah bin Al-Harits dari Al-Abbas bin Abdul Muthalib (Kitab Manaqib al-Anshar, bab kisah Abu Thalib).",
+          url: "https://sunnah.com/bukhari:3883"
+        },
+        fath506: {
+          t: "Ibnu Hajar, Fath al-Bari 8/506 (Kitab Tafsir, Surah Al-Qashash, bab \"innaka la tahdi man ahbabta\").",
+          url: "https://shamela.ws/book/1673/4853"
+        },
+        fath507: {
+          t: "Ibnu Hajar, Fath al-Bari 8/507 (bab yang sama: siapa yang hadir di sisi Abu Thalib).",
+          url: "https://shamela.ws/book/1673/4854"
+        },
+        fath508: {
+          t: "Ibnu Hajar, Fath al-Bari 8/508 (bab yang sama: waktu turunnya At-Taubah 113).",
+          url: "https://shamela.ws/book/1673/4855"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Qashash 56 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=28&Ayah=56&search=yes&img=A&LanguageID=2"
+        },
+        wahidi113: {
+          t: "Al-Wahidi, Asbab an-Nuzul, At-Taubah 113 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=9&Ayah=113&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 150 (Al-Qashash 56).",
+          url: "https://shamela.ws/book/2247/148"
+        },
+        lubab113: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 113 (At-Taubah 113).",
+          url: "https://shamela.ws/book/2247/111"
+        },
+        lubab114: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 114 (lanjutan At-Taubah 113, pendapat Ibnu Hajar).",
+          url: "https://shamela.ws/book/2247/112"
+        },
+        muqbil56: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 156 (Al-Qashash 56, riwayat Abu Hurairah dari Shahih Muslim).",
+          url: "https://shamela.ws/book/11547/151"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Qashash 56.",
+          url: "https://quran.com/28:56/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik113: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir At-Taubah 113.",
+          url: "https://quran.com/9:113/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Qashash 56.",
+          url: "https://quran.com/28:56/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Qashash 56.",
+          url: "https://quran.com/28:56/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        qurthubi113: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir At-Taubah 113.",
+          url: "https://quran.com/9:113/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Qashash 56 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/7106-surat-al-qashash-ayat-56.html"
+        },
+        nuquran113: {
+          t: "Al-Qur'an NU Online, At-Taubah 113 (terjemah dan Tafsir Tahlili Kemenag).",
+          url: "https://quran.nu.or.id/at-taubah/113"
+        },
+        nuonline: {
+          t: "Muhamad Abror, \"Kisah Wafatnya Abu Thalib di Bulan Rajab dan Status Keimanannya\", NU Online, 15 Februari 2022.",
+          url: "https://nu.or.id/sirah-nabawiyah/kisah-wafatnya-abu-thalib-di-bulan-rajab-dan-status-keimanannya-bei3t"
+        },
+        rumaysho: {
+          t: "Muhammad Abduh Tuasikal, \"Wafatnya Abu Thalib\", Buletin Rumaysho Edisi 61 (Januari 2019).",
+          url: "https://rumaysho.com/wp-content/uploads/2019/01/Buletin-Rumaysho-Wonosari-Edisi-61.pdf"
+        },
+        hadeethenc: {
+          t: "Ensiklopedia Hadis Terjemahan (HadeethEnc), hadits Al-Musayyab tentang wafatnya Abu Thalib: derajat dan penjelasan.",
+          url: "https://hadeethenc.com/id/browse/hadith/3410"
+        }
+      }
+    },
+
+    // isra-85 (ditulis dari riset rujukan silang)
+    "isra-85": {
+      judul: "Al-Isra' 85",
+      sub: "Pertanyaan tentang ruh",
+      surah: "Al-Isra'",
+      ayatNo: "85",
+      tahun: 623,
+      tontonan: null,
+      peta: {
+        tahun: 623,
+        lok: "madinah"
+      },
+      lead: ["Al-Isra' ayat 85 menjawab pertanyaan tentang ruh: ruh termasuk urusan Tuhan, dan manusia hanya diberi sedikit pengetahuan.[ref:kemenag] Menurut Abdullah bin Mas'ud, pertanyaan itu diajukan sekelompok orang Yahudi ketika ia berjalan bersama Nabi ﷺ di sebuah ladang di Madinah, lalu ayat ini turun sebagai jawabannya.[ref:b4721][ref:b7297]", "Riwayat Ibnu Abbas menyebut penanya yang lain: kaum Quraisy, yang meminta orang Yahudi memberi mereka pertanyaan untuk diajukan kepada Nabi ﷺ.[ref:t3140] Karena Surah Al-Isra' tergolong Makkiyah, Ibnu Katsir memadukan kedua riwayat: ayat ini turun lagi di Madinah, atau beliau menjawab orang Yahudi dengan ayat yang sudah turun sebelumnya.[ref:ik][ref:lubab] As-Suyuthi lebih mendahulukan riwayat Ibnu Mas'ud, karena Ibnu Mas'ud menyaksikan sendiri peristiwanya.[ref:lubab]"],
+      infobox: [
+        ["Surah", "Al-Isra' (الإسراء), surah ke-17 dalam mushaf"],
+        ["Ayat", "85"],
+        ["Golongan", "Makkiyah; Ibnu Katsir mencatat bahwa riwayat Al-Bukhari secara lahiriah menunjukkan ayat ini Madaniyah[ref:ik]"],
+        ["Waktu", "Tidak disebut dalam riwayat. Menurut riwayat Ibnu Mas'ud, setelah Hijrah, di Madinah[ref:b7297]; menurut riwayat 'Atha' bin Yasar, ayat ini sudah turun di Mekah[ref:ik][ref:thabari]. 623 M di peta hanya perkiraan"],
+        ["Tempat", "Sebuah ladang di Madinah[ref:b7297]; dalam jalur lain disebut reruntuhan (khirab) Madinah[ref:b125]. Peta mengikuti riwayat ini"],
+        ["Yang terlibat", "Rasulullah ﷺ, Abdullah bin Mas'ud, dan sekelompok orang Yahudi[ref:b4721]; dalam riwayat Ibnu Abbas, kaum Quraisy yang bertanya atas saran orang Yahudi[ref:t3140]"],
+        ["Riwayat utama", "HR. Bukhari no. 4721 (juga no. 125 dan 7297) dan HR. Muslim no. 2794a, dari Abdullah bin Mas'ud"],
+        ["Riwayat pembanding", "HR. Tirmidzi no. 3140, dari 'Ikrimah dari Ibnu Abbas[ref:t3140]"],
+        ["Derajat", "Riwayat Ibnu Mas'ud shahih (Bukhari dan Muslim)[ref:b4721][ref:m2794]. Riwayat Ibnu Abbas: hasan shahih gharib menurut At-Tirmidzi, shahih menurut Darussalam[ref:t3140]; Al-Hakim menshahihkan sanadnya dan disetujui Adz-Dzahabi (dinukil Muqbil)[ref:muqbil130]"]
+      ],
+      ayat: [
+        {
+          no: 85,
+          ar: "وَيَسْأَلُونَكَ عَنِ الرُّوحِ ۖ قُلِ الرُّوحُ مِنْ أَمْرِ رَبِّي وَمَا أُوتِيتُم مِّنَ الْعِلْمِ إِلَّا قَلِيلًا",
+          id: "Dan mereka bertanya kepadamu (Muhammad) tentang roh. Katakanlah, \"Roh itu termasuk urusan Tuhanku, sedangkan kamu diberi pengetahuan hanya sedikit.\""
+        }
+      ],
+      bagian: [
+        {
+          id: "ladang",
+          judul: "Di sebuah ladang di Madinah",
+          isi: ["Abdullah bin Mas'ud bercerita: ia sedang bersama Nabi ﷺ di sebuah ladang, ketika beliau bersandar pada sebatang pelepah kurma. Sekelompok orang Yahudi lewat.[ref:b4721] Sebagian dari mereka berkata, \"Tanyakan kepadanya tentang ruh.\" Yang lain berkata, \"Jangan tanyakan, nanti ia memperdengarkan kepada kalian sesuatu yang tidak kalian sukai.\" Mereka tetap bertanya.[ref:b4721][ref:b7297]", "Dalam riwayat Al-Bukhari di Kitab Al-I'tisham, ladang itu disebut berada di Madinah; dalam riwayat di Kitab Al-'Ilm, Ibnu Mas'ud menyebut mereka sedang berjalan di reruntuhan Madinah.[ref:b7297][ref:b125] Muslim meriwayatkan kisah yang sama lewat jalur Al-A'masy.[ref:m2794]"]
+        },
+        {
+          id: "turun",
+          judul: "Beliau diam, lalu wahyu turun",
+          isi: ["Nabi ﷺ terdiam dan tidak menjawab. Ibnu Mas'ud memahami bahwa wahyu sedang turun kepada beliau, maka ia tetap berdiri di tempatnya.[ref:b4721] Setelah wahyu turun, beliau membaca, \"Dan mereka bertanya kepadamu tentang ruh. Katakanlah, 'Ruh itu termasuk urusan Tuhanku.'\"[ref:b4721][ref:m2794]", "Dalam riwayat di Kitab Al-'Ilm, ujung ayat dibaca \"wa ma utu\" (dan mereka tidak diberi), dan Al-A'masy berkata, \"Begitulah dalam bacaan kami.\"[ref:b125] Al-Qurthubi menyebut \"wa ma utu\" sebagai bacaan Ibnu Mas'ud, sedangkan bacaan mayoritas adalah \"wa ma utitum\" (dan kamu tidak diberi).[ref:qurthubi]"]
+        },
+        {
+          id: "quraisy",
+          judul: "Riwayat Ibnu Abbas: pertanyaan titipan untuk Quraisy",
+          isi: ["Ibnu Abbas meriwayatkan: kaum Quraisy berkata kepada orang Yahudi, \"Berilah kami sesuatu untuk kami tanyakan kepada laki-laki ini.\" Mereka menjawab, \"Tanyakan kepadanya tentang ruh.\" Kaum Quraisy pun bertanya, lalu Allah menurunkan ayat ini.[ref:t3140]", "Menurut riwayat yang sama, orang Yahudi kemudian berkata bahwa mereka telah diberi ilmu yang banyak, yaitu Taurat, dan siapa yang diberi Taurat telah diberi kebaikan yang banyak.[ref:t3140] Maka turun Al-Kahf ayat 109: seandainya lautan menjadi tinta untuk menulis kalimat-kalimat Tuhanku, pasti habislah lautan itu sebelum kalimat-kalimat Tuhanku selesai ditulis.[ref:t3140]", "Al-Wahidi memuat riwayat Ibnu Mas'ud dan riwayat Ibnu Abbas ini, ditambah keterangan para mufassir bahwa orang Yahudi menyarankan tiga pertanyaan: tentang ruh, tentang para pemuda di masa lalu, dan tentang laki-laki yang menjelajahi timur dan barat.[ref:wahidi] Dua pertanyaan terakhir dijawab di Surah Al-Kahf.[ref:wahidi] Al-Qurthubi juga membawakan keterangan tentang tiga pertanyaan ini.[ref:qurthubi]"]
+        },
+        {
+          id: "padu",
+          judul: "Madinah atau Mekah?",
+          isi: ["Ibnu Katsir mencatat bahwa konteks riwayat Al-Bukhari secara lahiriah menunjukkan ayat ini Madaniyah, padahal seluruh Surah Al-Isra' Makkiyah.[ref:ik] Ia memberi dua jawaban: ayat ini mungkin turun lagi di Madinah sebagaimana sebelumnya telah turun di Mekah, atau Nabi ﷺ diberi wahyu agar menjawab pertanyaan mereka dengan ayat yang sudah turun sebelumnya.[ref:ik] Muqbil Al-Wadi'i memuat kedua riwayat, lalu menukil penjelasan Ibnu Katsir ini.[ref:muqbil][ref:muqbil130]", "Ibnu Katsir dan Ath-Thabari juga membawakan riwayat 'Atha' bin Yasar lewat Ibnu Ishaq, bahwa ayat ini turun di Mekah, lalu setelah Hijrah para rabi Yahudi mempersoalkannya kepada Nabi ﷺ.[ref:ik][ref:thabari] Tafsir Ringkas Kemenag menyebut penanyanya orang-orang kafir Mekah.[ref:kemenag]", "As-Suyuthi menukil bahwa Ibnu Katsir memadukan kedua hadits dengan berulangnya turun ayat, demikian pula Ibnu Hajar, yang juga menyebut kemungkinan diamnya beliau saat ditanya orang Yahudi karena menunggu penjelasan tambahan; bila tidak, riwayat dalam Ash-Shahih lebih shahih.[ref:lubab] As-Suyuthi sendiri menguatkan riwayat Ash-Shahih, karena perawinya hadir dalam peristiwa itu, sedangkan Ibnu Abbas tidak.[ref:lubab]", "Dalam pengantar kitabnya, As-Suyuthi menjadikan ayat ruh ini contoh ayat yang mungkin turun dua kali.[ref:lubab5] Ia juga menyebut timbangan untuk memilih salah satu dari dua sebab: kekuatan sanad, dan apakah perawinya menyaksikan peristiwa itu.[ref:lubab5]"]
+        },
+        {
+          id: "ruh",
+          judul: "Apa yang dimaksud ruh",
+          isi: ["Ibnu Katsir menyebut beberapa pendapat tentang ruh yang ditanyakan: ruh manusia, Jibril, atau malaikat yang agung; sebagian riwayat tentang malaikat itu ia nilai gharib, bahkan munkar.[ref:ik] Ath-Thabari menyebut pendapat Jibril (Qatadah) dan malaikat (Ibnu Abbas dan Ali).[ref:thabari]", "Al-Qurthubi menukil bahwa mayoritas mufassir memahaminya sebagai ruh yang membuat badan hidup, lalu memilih membiarkan maknanya umum sebagaimana ayat membiarkannya, agar manusia menyadari ketidakmampuannya mengetahui hakikat dirinya sendiri.[ref:qurthubi] Tafsir Ringkas Kemenag menjelaskan bahwa hanya Allah yang mengetahui hakikat ruh.[ref:kemenag]"]
+        },
+        {
+          id: "ilmu",
+          judul: "\"Hanya sedikit\"",
+          isi: ["Tentang siapa yang diajak bicara dalam kalimat \"kamu diberi pengetahuan hanya sedikit\", Qatadah memahaminya khusus untuk orang Yahudi, sedangkan Ibnu Juraij memahaminya untuk Nabi ﷺ dan seluruh manusia.[ref:thabari]", "Ath-Thabari memilih makna umum: ilmu siapa pun selain Allah, sebanyak apa pun, tetap sedikit dibanding ilmu Allah.[ref:thabari] Al-Qurthubi juga menilai makna umum ini yang benar, sesuai dengan bacaan mayoritas.[ref:qurthubi]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Mas'ud",
+          tokoh: "ibnumasud"
+        },
+        {
+          label: "Abdullah bin Abbas",
+          tokoh: "ibnuabbas"
+        },
+        {
+          label: "Al-Isra' 1",
+          wiki: "isra-1",
+          ket: "surah yang sama"
+        }
+      ],
+      rujukan: {
+        b4721: {
+          t: "HR. Bukhari no. 4721, dari Alqamah dari Abdullah bin Mas'ud (Kitab Tafsir, Surah Al-Isra').",
+          url: "https://sunnah.com/bukhari:4721"
+        },
+        b7297: {
+          t: "HR. Bukhari no. 7297, dari Alqamah dari Abdullah bin Mas'ud (Kitab Al-I'tisham bil-Kitab was-Sunnah): \"di sebuah ladang di Madinah\".",
+          url: "https://sunnah.com/bukhari:7297"
+        },
+        b125: {
+          t: "HR. Bukhari no. 125, dari Alqamah dari Abdullah bin Mas'ud (Kitab Al-'Ilm): \"di reruntuhan Madinah\", dengan catatan bacaan Al-A'masy.",
+          url: "https://sunnah.com/bukhari:125"
+        },
+        m2794: {
+          t: "HR. Muslim no. 2794a, dari Alqamah dari Abdullah bin Mas'ud (Kitab Sifat Kiamat, Surga, dan Neraka; bab pertanyaan orang Yahudi tentang ruh).",
+          url: "https://sunnah.com/muslim:2794a"
+        },
+        t3140: {
+          t: "HR. Tirmidzi no. 3140, dari 'Ikrimah dari Ibnu Abbas (Kitab Tafsir, Surah Bani Isra'il). Tirmidzi: hasan shahih gharib; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3140"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Isra' 85 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=17&Ayah=85&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 126 (Al-Isra' 85).",
+          url: "https://shamela.ws/book/2247/124"
+        },
+        lubab5: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 5 (tanbih tentang sebab yang berbilang dan cara memilihnya).",
+          url: "https://shamela.ws/book/2247/3"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 129 (Al-Isra' 85: riwayat Ibnu Mas'ud dari Shahih Bukhari).",
+          url: "https://shamela.ws/book/11547/124"
+        },
+        muqbil130: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 130 (takhrij, riwayat Ibnu Abbas, dan kutipan Ibnu Katsir).",
+          url: "https://shamela.ws/book/11547/125"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Isra' 85.",
+          url: "https://quran.com/17:85/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Isra' 85.",
+          url: "https://quran.com/17:85/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Isra' 85.",
+          url: "https://quran.com/17:85/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI, Al-Isra' 85 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/4689-surat-al-isra-ayat-85.html"
+        }
+      }
+    },
+
+    // kautsar-1-3 (ditulis dari riset rujukan silang)
+    "kautsar-1-3": {
+      judul: "Al-Kautsar 1–3",
+      sub: "Nikmat yang banyak, dan pembenci yang terputus",
+      surah: "Al-Kausar",
+      ayatNo: "1–3",
+      tahun: 623,
+      tontonan: null,
+      peta: {
+        tahun: 623,
+        lok: "madinah"
+      },
+      lead: ["Surah Al-Kautsar mengabarkan bahwa Allah telah memberi Nabi ﷺ nikmat yang banyak, memerintahkan beliau shalat dan berkurban karena Allah, dan menegaskan bahwa orang yang membenci beliau itulah yang terputus.[ref:kemenag] Anas bin Malik menceritakan: suatu hari Nabi ﷺ terlelap sejenak di tengah para sahabat, lalu mengangkat kepala sambil tersenyum dan bersabda bahwa baru saja turun kepadanya sebuah surah, kemudian membacanya.[ref:m400]", "Hadits Anas itu tidak menyebut sebab turunnya.[ref:m400] Riwayat-riwayat tentang sebab menyebut seorang pembesar Quraisy, terutama Al-'Ash bin Wa'il, yang mencela beliau \"abtar\" (terputus keturunannya) setelah putra beliau wafat; kebanyakan riwayat ini datang dari tabi'in.[ref:wahidi][ref:ik3][ref:lubab] Karena Anas tinggal bersama Nabi ﷺ di Madinah, hadits Anas dijadikan dalil oleh yang berpendapat surah ini Madaniyah, sedangkan pendapat Makkiyah dinisbatkan kepada mayoritas ulama.[ref:ik][ref:b5166][ref:dorar]"],
+      infobox: [
+        ["Surah", "Al-Kautsar (الكوثر), surah ke-108 dalam mushaf"],
+        ["Ayat", "1–3 (seluruh surah)"],
+        ["Golongan", "Diperselisihkan. Makkiyah menurut Ibnu Abbas, Al-Kalbi, dan Muqatil[ref:qurthubi], dan dinisbatkan kepada mayoritas ulama[ref:dorar][ref:nu]; Madaniyah menurut Ibnu Katsir, Ibnu Hajar, dan As-Suyuthi[ref:dorar]; banyak ahli qira'at berdalil dengan hadits Anas untuk pendapat ini[ref:ik]"],
+        ["Waktu", "Tidak disebut dalam riwayat. Bila mengikuti hadits Anas, setelah Hijrah[ref:m400][ref:b5166]; riwayat Al-'Ash bin Wa'il menggambarkan masa Mekah[ref:wahidi]. 623 M di peta hanya perkiraan"],
+        ["Tempat", "Di tengah para sahabat; jalur Ali bin Hujr menambahkan \"di masjid\"[ref:m400]"],
+        ["Tokoh", "Anas bin Malik (perawi)[ref:m400]; dalam riwayat sebab: Al-'Ash bin Wa'il, atau menurut riwayat lain 'Uqbah bin Abi Mu'aith, Abu Jahal, Abu Lahab, dan Ka'ab bin Al-Asyraf bersama pembesar Quraisy[ref:ik3]"],
+        ["Riwayat utama", "HR. Muslim no. 400a (Anas bin Malik)"],
+        ["Riwayat pembanding", "Riwayat Al-'Ash bin Wa'il: Ibnu Ishaq dari Yazid bin Ruman; Mujahid, Sa'id bin Jubair, dan Qatadah[ref:wahidi][ref:ik3]. Riwayat Ka'ab bin Al-Asyraf: Al-Bazzar dari Ibnu Abbas[ref:lubab][ref:muqbil]"],
+        ["Derajat", "Hadits Anas shahih (Muslim)[ref:m400]. Riwayat Al-'Ash bin Wa'il kebanyakan dari tabi'in, sehingga mursal[ref:lubab5]; yang disandarkan kepada Ibnu Abbas dibawakan Al-Wahidi tanpa sanad[ref:wahidi]. Riwayat Ka'ab bin Al-Asyraf dinilai sanadnya shahih oleh Ibnu Katsir dan As-Suyuthi, tetapi Muqbil menyimpulkan yang benar mursal[ref:ik3][ref:lubab][ref:muqbil]. Riwayat Abu Ayyub tentang wafatnya Ibrahim lemah menurut As-Suyuthi[ref:lubab]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ",
+          id: "Sungguh, Kami telah memberimu (Muhammad) nikmat yang banyak."
+        },
+        {
+          no: 2,
+          ar: "فَصَلِّ لِرَبِّكَ وَانْحَرْ",
+          id: "Maka laksanakanlah shalat karena Tuhanmu, dan berkurbanlah (sebagai ibadah dan mendekatkan diri kepada Allah)."
+        },
+        {
+          no: 3,
+          ar: "إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+          id: "Sungguh, orang-orang yang membencimu dialah yang terputus (dari rahmat Allah)."
+        }
+      ],
+      bagian: [
+        {
+          id: "anas",
+          judul: "Surah yang baru turun",
+          isi: ["Anas bin Malik berkata: suatu hari, ketika Rasulullah ﷺ berada di tengah-tengah kami, beliau terlelap sejenak, lalu mengangkat kepala sambil tersenyum. Kami bertanya, \"Apa yang membuat engkau tersenyum, wahai Rasulullah?\" Beliau menjawab, \"Baru saja turun kepadaku sebuah surah,\" lalu membaca basmalah dan Surah Al-Kautsar.[ref:m400]", "Beliau bertanya, \"Tahukah kalian apa Al-Kautsar itu?\" Mereka menjawab, \"Allah dan Rasul-Nya lebih tahu.\" Beliau bersabda bahwa Al-Kautsar adalah sungai yang dijanjikan Tuhannya, yang padanya terdapat kebaikan yang banyak; ia adalah telaga yang didatangi umat beliau pada hari kiamat, dengan bejana sebanyak bintang.[ref:m400]", "Dalam jalur Ali bin Hujr, Anas menyebut peristiwa itu terjadi \"di tengah-tengah kami di masjid\".[ref:m400] Muslim membawakan hadits ini dalam bab dalil bagi yang berpendapat basmalah adalah ayat di awal setiap surah selain Bara'ah.[ref:m400]"]
+        },
+        {
+          id: "abtar",
+          judul: "Celaan \"abtar\"",
+          isi: ["Al-Wahidi membawakan riwayat yang disandarkan kepada Ibnu Abbas, tanpa sanad: surah ini turun tentang Al-'Ash bin Wa'il, yang bertemu Nabi ﷺ di pintu Bani Sahm ketika beliau keluar dari Masjidil Haram.[ref:wahidi] Ketika ditanya dengan siapa ia berbicara, ia menyebut beliau orang yang tidak punya keturunan. Saat itu putra beliau dari Khadijah, Abdullah, telah wafat.[ref:wahidi]", "Ibnu Ishaq meriwayatkan dari Yazid bin Ruman bahwa setiap kali Nabi ﷺ disebut, Al-'Ash bin Wa'il berkata, \"Biarkan dia, ia laki-laki yang abtar, tidak punya keturunan; bila ia mati, ia akan dilupakan.\" Maka Allah menurunkan surah ini.[ref:wahidi][ref:ik3]", "Ibnu Katsir dan Ath-Thabari juga menyebut Al-'Ash bin Wa'il menurut riwayat dari Ibnu Abbas, Mujahid, Sa'id bin Jubair, dan Qatadah.[ref:ik3][ref:thabari3] As-Suyuthi membawakan riwayat As-Suddi bahwa kaum Quraisy biasa menyebut seseorang \"terputus\" bila anak-anak laki-lakinya wafat, dan ketika putra Nabi ﷺ wafat, Al-'Ash berkata, \"Muhammad telah terputus.\"[ref:lubab] Al-Baihaqi meriwayatkan serupa dari Muhammad bin Ali dan menyebut nama putra itu Al-Qasim.[ref:lubab]"]
+        },
+        {
+          id: "lain",
+          judul: "Nama-nama lain dalam riwayat",
+          isi: ["Riwayat lain menyebut orang yang berbeda: Syimr bin 'Athiyyah menyebut 'Uqbah bin Abi Mu'aith, yang berkata bahwa tidak akan ada putra Nabi ﷺ yang tetap hidup.[ref:thabari3][ref:lubab] Ibnu Katsir juga menyebut riwayat 'Atha' tentang Abu Lahab, dan riwayat Ibnu Abbas tentang Abu Jahal.[ref:ik3]", "Al-Bazzar meriwayatkan dari Ibnu Abbas bahwa Ka'ab bin Al-Asyraf datang ke Mekah, lalu kaum Quraisy berkata kepadanya, \"Engkau pemimpin mereka. Tidakkah engkau lihat orang yang terputus dari kaumnya ini? Ia mengaku lebih baik daripada kami, padahal kamilah pengurus haji, penyedia minum jamaah haji, dan penjaga Ka'bah.\" Ka'ab menjawab, \"Kalian lebih baik daripadanya.\" Maka turun ayat 3.[ref:lubab][ref:muqbil]", "Ibnu Katsir dan As-Suyuthi menilai sanad riwayat Al-Bazzar ini shahih.[ref:ik3][ref:lubab] Muqbil Al-Wadi'i mula-mula menukil penilaian itu, lalu menyatakan bahwa yang benar menurutnya riwayat ini mursal.[ref:muqbil] Dalam versi Ibnu Jarir yang ia nukil, turun pula An-Nisa' ayat 51–52 tentang orang-orang yang diberi bagian dari Kitab.[ref:muqbil]", "As-Suyuthi juga mencatat riwayat Ath-Thabarani dari Abu Ayyub bahwa surah ini turun ketika Ibrahim, putra Nabi ﷺ, wafat, dan menilai sanadnya lemah.[ref:lubab] Riwayat Sa'id bin Jubair bahwa ayat 2 turun pada hari Hudaibiyah ia nilai sangat ganjil.[ref:lubab]"]
+        },
+        {
+          id: "golongan",
+          judul: "Makkiyah atau Madaniyah",
+          isi: ["Ibnu Katsir membuka tafsirnya dengan menyebut surah ini Madaniyah, \"dan ada yang mengatakan Makkiyah\", lalu mencatat bahwa banyak ahli qira'at berdalil dengan hadits Anas untuk menggolongkannya Madaniyah.[ref:ik] Anas berusia sepuluh tahun ketika Nabi ﷺ tiba di Madinah, lalu melayani beliau selama sepuluh tahun.[ref:b5166]", "Al-Qurthubi menyebut surah ini Makkiyah menurut Ibnu Abbas, Al-Kalbi, dan Muqatil.[ref:qurthubi] Mausu'at at-Tafsir (Ad-Durar as-Saniyyah) mencatat bahwa Ibnu Al-Jauzi dan Abu Hayyan menisbatkan pendapat Makkiyah kepada mayoritas ulama, sedangkan Ibnu Katsir, Ibnu Hajar, dan As-Suyuthi berpendapat Madaniyah.[ref:dorar] Ibnu 'Asyur, yang dinukil di sana, menyebut pertentangan pendapat dan riwayat dalam hal ini sangat kuat, dan menukil pendapat Madaniyah dari Al-Hasan, Qatadah, Mujahid, dan 'Ikrimah.[ref:dorar] NU Online juga menyebutnya Makkiyah menurut mayoritas ulama.[ref:nu]", "Riwayat Al-'Ash bin Wa'il menggambarkan masa Mekah, sedangkan Anas baru menyertai Nabi ﷺ setelah beliau tiba di Madinah.[ref:wahidi][ref:b5166] Menurut As-Suyuthi, riwayat sebab dari tabi'in berstatus mursal; riwayat itu dapat diterima bila sanad kepadanya shahih dan ia termasuk imam tafsir yang belajar dari para sahabat, seperti Mujahid, 'Ikrimah, dan Sa'id bin Jubair, atau bila dikuatkan riwayat mursal yang lain.[ref:lubab5] Di sini peta mengikuti hadits Anas; tahun 623 M hanya perkiraan."]
+        },
+        {
+          id: "makna",
+          judul: "Makna Al-Kautsar dan \"al-abtar\"",
+          isi: ["Ibnu Abbas menafsirkan Al-Kautsar sebagai kebaikan yang Allah berikan kepada Nabi ﷺ.[ref:b4966] Ketika Sa'id bin Jubair diberi tahu bahwa sebagian orang mengatakan Al-Kautsar adalah sungai di surga, ia menjawab bahwa sungai itu termasuk kebaikan yang Allah berikan kepada beliau.[ref:b4966] Ibnu Katsir memadukan kedua makna ini, sedangkan Ath-Thabari memilih makna sungai di surga karena riwayatnya dari Nabi ﷺ bersambung dan saling menguatkan.[ref:ik][ref:thabari1] Tafsir Ringkas Kemenag menyebut nikmat itu antara lain kenabian, Al-Qur'an, syafaat, dan telaga.[ref:kemenag]", "Kata \"syani'aka\" berarti orang yang membenci dan memusuhi beliau.[ref:ik3] Ath-Thabari menjelaskan al-abtar sebagai yang paling sedikit dan paling hina, yang terputus keturunannya, dan maknanya berlaku bagi setiap pembenci beliau meskipun ayat ini turun tentang orang tertentu.[ref:thabari3] Ibnu Katsir menyebut anggapan kaum musyrikin itu keliru: Allah justru mengabadikan sebutan Nabi ﷺ dan mewajibkan syariat beliau sampai hari kiamat.[ref:ik3]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Anas bin Malik",
+          tokoh: "anas"
+        },
+        {
+          label: "Al-'Ash bin Wa'il",
+          tokoh: "ashwail"
+        },
+        {
+          label: "Khadijah binti Khuwailid",
+          tokoh: "khadijah",
+          ket: "ibu putra Nabi yang disebut dalam riwayat"
+        },
+        {
+          label: "Ibrahim bin Muhammad",
+          tokoh: "ibrahim",
+          ket: "riwayat lemah tentang wafatnya"
+        },
+        {
+          label: "Masjid Nabawi",
+          tempat: "masjid-nabawi",
+          kota: "madinah",
+          ket: "jalur Ali bin Hujr: \"di masjid\""
+        }
+      ],
+      rujukan: {
+        m400: {
+          t: "HR. Muslim no. 400a, dari Al-Mukhtar bin Fulful dari Anas bin Malik (Kitab Shalat, bab dalil bagi yang berpendapat basmalah adalah ayat di awal setiap surah selain Bara'ah).",
+          url: "https://sunnah.com/muslim:400a"
+        },
+        b4966: {
+          t: "HR. Bukhari no. 4966, dari Sa'id bin Jubair dari Ibnu Abbas (Kitab Tafsir, Surah Al-Kautsar).",
+          url: "https://sunnah.com/bukhari:4966"
+        },
+        b5166: {
+          t: "HR. Bukhari no. 5166, dari Anas bin Malik (Kitab Nikah): Anas berusia sepuluh tahun ketika Nabi ﷺ tiba di Madinah dan melayani beliau sepuluh tahun.",
+          url: "https://sunnah.com/bukhari:5166"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Surah Al-Kautsar (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=108&Ayah=1&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 217 (Surah Al-Kautsar).",
+          url: "https://shamela.ws/book/2247/215"
+        },
+        lubab5: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 5 (tanbih: riwayat sebab dari tabi'in berstatus mursal).",
+          url: "https://shamela.ws/book/2247/3"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 237 (Surah Al-Kautsar: riwayat Ka'ab bin Al-Asyraf).",
+          url: "https://shamela.ws/book/11547/232"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Kautsar 1.",
+          url: "https://quran.com/108:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik3: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Kautsar 3.",
+          url: "https://quran.com/108:3/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari1: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Kautsar 1.",
+          url: "https://quran.com/108:1/tafsirs/ar-tafsir-al-tabari"
+        },
+        thabari3: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Kautsar 3.",
+          url: "https://quran.com/108:3/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Kautsar 1.",
+          url: "https://quran.com/108:1/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        dorar: {
+          t: "Mausu'at at-Tafsir (Ad-Durar as-Saniyyah), pengantar Surah Al-Kautsar: Makkiyah atau Madaniyah.",
+          url: "https://dorar.net/tafseer/108"
+        },
+        nu: {
+          t: "Muhamad Hanif Rahman, \"Pengantar Tafsir Surat Al-Kautsar: Spesifikasi, Munasabab, Sababun Nuzul dan Keutamaannya\", NU Online, 11 Desember 2023.",
+          url: "https://nu.or.id/tafsir/pengantar-tafsir-surat-al-kautsar-spesifikasi-munasabab-sababun-nuzul-dan-keutamaannya-f58nS"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI, Al-Kautsar 1 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/13070-surat-al-kautsar-ayat-1.html"
+        }
+      }
+    },
+
+    // baqarah-187 (ditulis dari riset rujukan silang)
+    "baqarah-187": {
+      judul: "Al-Baqarah 187",
+      sub: "Keringanan di malam-malam Ramadhan",
+      surah: "Al-Baqarah",
+      ayatNo: "187",
+      tahun: 624,
+      tontonan: null,
+      peta: {
+        tahun: 624,
+        lok: "madinah"
+      },
+      lead: ["Al-Baqarah ayat 187 menghalalkan bercampur dengan istri pada malam hari bulan puasa, serta makan dan minum sampai jelas terbitnya fajar.[ref:kemenag] Sebelumnya, menurut Al-Bara' bin 'Azib, sahabat yang tertidur sebelum berbuka tidak makan pada malam itu dan siang berikutnya sampai sore.[ref:b1915] Seorang Anshar, Qais bin Shirmah, tertidur karena lelah bekerja dan pingsan di tengah hari berikutnya, lalu ayat ini turun.[ref:b1915]", "Al-Bara' juga meriwayatkan bahwa ketika puasa Ramadhan diwajibkan, para sahabat tidak mendekati istri sepanjang bulan itu, dan sebagian laki-laki \"mengkhianati diri sendiri\"; maka turun bagian ayat \"Allah mengetahui bahwa kamu tidak dapat menahan dirimu sendiri\".[ref:b4508] Riwayat-riwayat lain menyebut Umar bin Khattab di antara mereka.[ref:lubab][ref:ik] Muqbil Al-Wadi'i menyimpulkan bahwa kedua peristiwa itu bersama-sama menjadi sebab turunnya ayat.[ref:muqbil26]"],
+      infobox: [
+        ["Surah", "Al-Baqarah (البقرة), surah ke-2 dalam mushaf"],
+        ["Ayat", "187"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Tanggalnya tidak disebut. Di masa awal kewajiban puasa Ramadhan[ref:b4508], yang menurut para sejarawan ditetapkan pada 10 Sya'ban 2 H[ref:nupuasa]; jadi ±624 M"],
+        ["Tempat", "Madinah"],
+        ["Tokoh", "Qais bin Shirmah Al-Anshari, yang namanya berbeda-beda dalam riwayat[ref:b1915][ref:thabari]; Umar bin Khattab[ref:lubab]; Ka'ab bin Malik, menurut riwayatnya sendiri[ref:lubab24]"],
+        ["Riwayat utama", "HR. Bukhari no. 1915 dan 4508 (Al-Bara' bin 'Azib); HR. Abu Dawud no. 2314 (Al-Bara')"],
+        ["Riwayat pembanding", "HR. Abu Dawud no. 2313 (Ibnu Abbas)[ref:d2313]; riwayat Mu'adz bin Jabal dan Ka'ab bin Malik tentang Umar[ref:lubab][ref:lubab24]; HR. Bukhari no. 1917 (Sahl bin Sa'd) tentang kata \"minal fajr\"[ref:b1917]"],
+        ["Derajat", "Shahih (Bukhari)[ref:b1915][ref:b4508]; Abu Dawud no. 2314 shahih dan no. 2313 hasan shahih menurut Al-Albani[ref:d2314][ref:d2313]. Riwayat Mu'adz tentang Umar terputus, karena Ibnu Abi Laila tidak mendengar dari Mu'adz, tetapi punya penguat menurut As-Suyuthi[ref:lubab]"]
+      ],
+      ayat: [
+        {
+          no: 187,
+          ar: "أُحِلَّ لَكُمْ لَيْلَةَ الصِّيَامِ الرَّفَثُ إِلَىٰ نِسَائِكُمْ ۚ هُنَّ لِبَاسٌ لَّكُمْ وَأَنتُمْ لِبَاسٌ لَّهُنَّ ۗ عَلِمَ اللَّهُ أَنَّكُمْ كُنتُمْ تَخْتَانُونَ أَنفُسَكُمْ فَتَابَ عَلَيْكُمْ وَعَفَا عَنكُمْ ۖ فَالْآنَ بَاشِرُوهُنَّ وَابْتَغُوا مَا كَتَبَ اللَّهُ لَكُمْ ۚ وَكُلُوا وَاشْرَبُوا حَتَّىٰ يَتَبَيَّنَ لَكُمُ الْخَيْطُ الْأَبْيَضُ مِنَ الْخَيْطِ الْأَسْوَدِ مِنَ الْفَجْرِ ۖ ثُمَّ أَتِمُّوا الصِّيَامَ إِلَى اللَّيْلِ ۚ وَلَا تُبَاشِرُوهُنَّ وَأَنتُمْ عَاكِفُونَ فِي الْمَسَاجِدِ ۗ تِلْكَ حُدُودُ اللَّهِ فَلَا تَقْرَبُوهَا ۗ كَذَٰلِكَ يُبَيِّنُ اللَّهُ آيَاتِهِ لِلنَّاسِ لَعَلَّهُمْ يَتَّقُونَ",
+          id: "Dihalalkan bagimu pada malam hari puasa bercampur dengan istrimu. Mereka adalah pakaian bagimu, dan kamu adalah pakaian bagi mereka. Allah mengetahui bahwa kamu tidak dapat menahan dirimu sendiri, tetapi Dia menerima tobatmu dan memaafkanmu. Maka sekarang campurilah mereka dan carilah apa yang telah ditetapkan Allah bagimu. Makan dan minumlah hingga jelas bagimu (perbedaan) antara benang putih dan benang hitam, yaitu fajar. Kemudian sempurnakanlah puasa sampai (datang) malam. Tetapi jangan kamu campuri mereka, ketika kamu beriktikaf dalam masjid. Itulah ketentuan Allah, maka janganlah kamu mendekatinya. Demikianlah Allah menerangkan ayat-ayat-Nya kepada manusia, agar mereka bertakwa."
+        }
+      ],
+      bagian: [
+        {
+          id: "awal",
+          judul: "Aturan di masa awal",
+          isi: ["Al-Bara' bin 'Azib menuturkan: dahulu, bila seorang sahabat berpuasa lalu tertidur sebelum berbuka, ia tidak makan pada malam itu dan siang berikutnya sampai sore.[ref:b1915] Dalam riwayat Ibnu Abbas, larangan makan, minum, dan bercampur dengan istri berlaku setelah mereka shalat Isya sampai malam berikutnya.[ref:d2313]", "Mu'adz bin Jabal meriwayatkan bahwa puasa melewati beberapa tahap: mula-mula Nabi ﷺ berpuasa tiga hari setiap bulan dan puasa 'Asyura; lalu turun ayat 183–184, yang memberi pilihan antara berpuasa dan memberi makan seorang miskin; kemudian ayat 185 mewajibkan puasa bagi yang hadir di bulan Ramadhan.[ref:d507] Riwayat ini juga menyebut Shirmah yang datang setelah bekerja seharian.[ref:d507]"]
+        },
+        {
+          id: "qais",
+          judul: "Qais bin Shirmah pingsan",
+          isi: ["Qais bin Shirmah Al-Anshari sedang berpuasa. Ketika waktu berbuka tiba, ia datang kepada istrinya dan bertanya, \"Apakah engkau punya makanan?\" Istrinya menjawab tidak, tetapi ia akan pergi mencarikannya.[ref:b1915] Qais seharian bekerja, sehingga ia tertidur. Ketika istrinya kembali dan melihatnya tertidur, ia berkata, \"Sungguh malang engkau.\"[ref:b1915]", "Ketika tengah hari, Qais pingsan. Hal itu disampaikan kepada Nabi ﷺ, lalu turunlah ayat \"Dihalalkan bagimu pada malam hari puasa bercampur dengan istrimu\", dan para sahabat sangat bergembira. Turun pula, \"Makan dan minumlah hingga jelas bagimu benang putih dari benang hitam.\"[ref:b1915]", "Dalam riwayat Abu Dawud, namanya Shirmah bin Qais Al-Anshari, dan disebut bahwa ia bekerja seharian di tanahnya.[ref:d2314] Ath-Thabari membawakan nama-nama lain dalam berbagai jalur, seperti Shirmah bin Malik, Abu Qais bin Shirmah, dan Shirmah bin Anas.[ref:thabari] Al-Wahidi juga memuat riwayat Al-Qasim bin Muhammad yang menyebutnya Shirmah bin Anas.[ref:wahidi]"]
+        },
+        {
+          id: "umar",
+          judul: "Malam-malam Ramadhan dan kisah Umar",
+          isi: ["Al-Bara' meriwayatkan: ketika puasa Ramadhan diturunkan, para sahabat tidak mendekati istri-istri mereka sepanjang Ramadhan, dan ada laki-laki yang mengkhianati diri sendiri. Maka Allah menurunkan, \"Allah mengetahui bahwa kamu tidak dapat menahan dirimu sendiri, tetapi Dia menerima tobatmu dan memaafkanmu.\"[ref:b4508] Ibnu Abbas juga menyebut seorang laki-laki yang melanggar larangan itu setelah shalat Isya, lalu Allah berkehendak memberi kemudahan dan keringanan.[ref:d2313]", "As-Suyuthi membawakan riwayat Mu'adz bin Jabal (Ahmad, Abu Dawud, dan Al-Hakim) bahwa Umar bin Khattab mendatangi istrinya setelah tidur, lalu menyampaikannya kepada Nabi ﷺ.[ref:lubab] Ia mencatat bahwa riwayat ini masyhur dari Ibnu Abi Laila, tetapi Ibnu Abi Laila tidak mendengar dari Mu'adz, dan riwayat ini punya penguat-penguat.[ref:lubab]", "Dalam riwayat Ka'ab bin Malik (Ahmad, Ibnu Jarir, dan Ibnu Abi Hatim), Umar pulang larut malam dari majelis Nabi ﷺ dan hendak mendatangi istrinya; istrinya berkata ia sudah tidur, tetapi Umar menyangkalnya.[ref:lubab24] Ka'ab berbuat serupa. Esok harinya Umar mengabarkan hal itu kepada Nabi ﷺ, lalu ayat ini turun.[ref:lubab24] Ibnu Katsir dan Ath-Thabari menghimpun riwayat-riwayat tentang Umar ini dari Ibnu Abbas, Ka'ab bin Malik, Ibnu Abi Laila, dan para tabi'in.[ref:ik][ref:thabari] Tafsir Ringkas Kemenag juga menyebut kisah Umar yang menyesal lalu melapor kepada Nabi ﷺ.[ref:kemenag]"]
+        },
+        {
+          id: "dua",
+          judul: "Dua sebab yang dipadukan",
+          isi: ["Al-Qurthubi menukil Ibnu Al-'Arabi yang berpendapat bahwa sebab turunnya adalah kisah Umar, karena ayat ini dimulai dengan \"maka sekarang campurilah mereka\"; seandainya sebabnya kisah Qais, ayat akan dimulai dengan perintah makan.[ref:qurthubi]", "Muqbil Al-Wadi'i memuat kedua hadits Al-Bara'.[ref:muqbil] Menurutnya, meski keduanya berbeda, tidak ada halangan ayat ini turun tentang kedua kelompok itu, dan dengan menggabungkan dua hadits Al-Bukhari diketahui bahwa kedua peristiwa itu bersama-sama menjadi sebabnya.[ref:muqbil][ref:muqbil26]", "Al-Qurthubi juga menjelaskan bahwa kata \"dihalalkan\" menunjukkan hal itu sebelumnya diharamkan, lalu hukumnya dihapus.[ref:qurthubi] Menurut Ibnu Katsir, ayat ini mengangkat aturan lama itu, sehingga makan, minum, dan bercampur dengan istri dibolehkan sepanjang malam sampai fajar.[ref:ik]"]
+        },
+        {
+          id: "fajar",
+          judul: "\"Minal fajr\": benang putih dan benang hitam",
+          isi: ["Sahl bin Sa'd meriwayatkan bahwa mula-mula turun \"Makan dan minumlah hingga jelas bagimu benang putih dari benang hitam\" tanpa kata \"minal fajr\" (yaitu fajar).[ref:b1917] Sebagian orang yang hendak berpuasa mengikat benang putih dan benang hitam di kaki mereka, dan terus makan sampai bisa membedakan keduanya. Lalu Allah menurunkan \"minal fajr\", dan mereka pun tahu bahwa yang dimaksud adalah malam dan siang.[ref:b1917]", "Ibnu Katsir juga membawakan kisah 'Adi bin Hatim yang meletakkan benang putih dan hitam di bawah bantalnya, lalu Nabi ﷺ menjelaskan bahwa yang dimaksud adalah terangnya siang dan gelapnya malam.[ref:ik] Untuk bagian \"jangan kamu campuri mereka ketika kamu beriktikaf\", As-Suyuthi membawakan riwayat Qatadah bahwa dahulu orang yang beriktikaf bila keluar dari masjid boleh mendatangi istrinya, lalu ayat ini melarangnya.[ref:lubab24]"]
+        },
+        {
+          id: "waktu",
+          judul: "Kapan ayat ini turun",
+          isi: ["Hadits-hadits di atas tidak menyebut tanggalnya, tetapi Al-Bara' menggambarkan masa ketika puasa Ramadhan baru diturunkan.[ref:b4508] Abu Dawud meletakkan hadits Al-Bara' dan Ibnu Abbas dalam bab permulaan diwajibkannya puasa.[ref:d2314][ref:d2313]", "NU Online menukil para sejarawan bahwa kewajiban puasa Ramadhan ditetapkan pada 10 Sya'ban tahun kedua Hijrah, dan Perang Badar terjadi pada Ramadhan pertama sesudahnya.[ref:nupuasa][ref:nubadar] Karena itu ayat ini ditempatkan di tahun 2 H (±624 M); bulannya hanya perkiraan."]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar"
+        },
+        {
+          label: "Ka'ab bin Malik",
+          tokoh: "kaab",
+          ket: "meriwayatkan kisah Umar dan dirinya"
+        },
+        {
+          label: "Al-Baqarah 144",
+          wiki: "baqarah-144",
+          ket: "surah yang sama, 2 H"
+        },
+        {
+          label: "Al-Anfal 9",
+          wiki: "anfal-9",
+          ket: "Perang Badar, Ramadhan 2 H"
+        }
+      ],
+      rujukan: {
+        b1915: {
+          t: "HR. Bukhari no. 1915, dari Abu Ishaq dari Al-Bara' bin 'Azib (Kitab Puasa, bab firman Allah \"Uhilla lakum lailatash shiyam\").",
+          url: "https://sunnah.com/bukhari:1915"
+        },
+        b4508: {
+          t: "HR. Bukhari no. 4508, dari Abu Ishaq dari Al-Bara' bin 'Azib (Kitab Tafsir, Al-Baqarah 187).",
+          url: "https://sunnah.com/bukhari:4508"
+        },
+        b1917: {
+          t: "HR. Bukhari no. 1917, dari Abu Hazim dari Sahl bin Sa'd (Kitab Puasa).",
+          url: "https://sunnah.com/bukhari:1917"
+        },
+        d2314: {
+          t: "HR. Abu Dawud no. 2314, dari Abu Ishaq dari Al-Bara' bin 'Azib (Kitab Puasa, bab permulaan diwajibkannya puasa). Al-Albani: shahih.",
+          url: "https://sunnah.com/abudawud:2314"
+        },
+        d2313: {
+          t: "HR. Abu Dawud no. 2313, dari 'Ikrimah dari Ibnu Abbas (Kitab Puasa, bab permulaan diwajibkannya puasa). Al-Albani: hasan shahih.",
+          url: "https://sunnah.com/abudawud:2313"
+        },
+        d507: {
+          t: "HR. Abu Dawud no. 507, dari Ibnu Abi Laila dari Mu'adz bin Jabal (Kitab Shalat, bab tata cara adzan): tahap-tahap syariat shalat dan puasa.",
+          url: "https://sunnah.com/abudawud:507"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Baqarah 187 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=2&Ayah=187&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 23 (Al-Baqarah 187: riwayat Mu'adz dan awal hadits Al-Bara').",
+          url: "https://shamela.ws/book/2247/21"
+        },
+        lubab24: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 24 (Al-Baqarah 187: hadits Al-Bara', Ka'ab bin Malik, Sahl bin Sa'd, dan Qatadah).",
+          url: "https://shamela.ws/book/2247/22"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 25 (Al-Baqarah 187: dua hadits Al-Bara' dari Shahih Bukhari).",
+          url: "https://shamela.ws/book/11547/20"
+        },
+        muqbil26: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 26 (memadukan dua hadits Al-Bara').",
+          url: "https://shamela.ws/book/11547/21"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Baqarah 187.",
+          url: "https://quran.com/2:187/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Baqarah 187.",
+          url: "https://quran.com/2:187/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Baqarah 187.",
+          url: "https://quran.com/2:187/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI, Al-Baqarah 187 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/690-surat-al-baqarah-ayat-187.html"
+        },
+        nupuasa: {
+          t: "Fathoni Ahmad, \"Keterangan Lengkap Puasa Ramadhan dalam QS Al-Baqarah\", NU Online, 27 April 2020.",
+          url: "https://nu.or.id/ramadhan/keterangan-lengkap-puasa-ramadhan-dalam-qs-al-baqarah-BO99H"
+        },
+        nubadar: {
+          t: "Muhammad Afiq Zahara, \"Ramadhan di Saat Perang Badar dan Fathu Makkah\", NU Online, 8 Mei 2019.",
+          url: "https://nu.or.id/ramadhan/ramadhan-di-saat-perang-badar-dan-fathu-makkah-ud8FB"
+        }
+      }
+    },
+
+    // anfal-1 (ditulis dari riset rujukan silang)
+    "anfal-1": {
+      judul: "Al-Anfal 1",
+      sub: "Perselisihan harta rampasan Badar",
+      surah: "Al-Anfal",
+      ayatNo: "1",
+      tahun: 624,
+      tontonan: null,
+      peta: {
+        tahun: 624,
+        lok: "badar"
+      },
+      lead: ["Al-Anfal ayat 1 menjawab pertanyaan para sahabat tentang harta rampasan perang (al-anfal): harta itu milik Allah dan Rasul, maka mereka diperintahkan bertakwa, memperbaiki hubungan di antara sesama, dan taat kepada Allah dan Rasul-Nya.[ref:kemenag] Menurut Ibnu Abbas, Surah Al-Anfal turun berkenaan dengan Perang Badar.[ref:b4645]", "Sa'ad bin Abi Waqqash menuturkan bahwa pada hari Badar ia membawa sebuah pedang dan memintanya dari Nabi ﷺ; beliau menolak, lalu turunlah ayat ini.[ref:t3079][ref:m1748a] Riwayat lain menyebut perselisihan para pemuda dan orang-orang tua tentang bagian rampasan (Ibnu Abbas), atau tiga kelompok pasukan yang masing-masing merasa paling berhak (Ubadah bin Ash-Shamit).[ref:d2737][ref:muqbil97] Hidayatul Insan menilai riwayat Sa'ad dan riwayat Ibnu Abbas tidak bertentangan, dan mungkin keduanya menjadi sebab.[ref:kemenag]"],
+      infobox: [
+        ["Surah", "Al-Anfal (الأنفال), surah ke-8 dalam mushaf"],
+        ["Ayat", "1"],
+        ["Golongan", "Madaniyah; turun berkenaan dengan Perang Badar[ref:b4645][ref:qurthubi]"],
+        ["Waktu", "Seusai Perang Badar, Ramadhan 2 H (±624 M)[ref:b4645][ref:nubadar][ref:nupuasa]. Dalam riwayat Ahmad, surah ini turun tak lama setelah Sa'ad diminta menyerahkan pedangnya[ref:lubab94]"],
+        ["Tempat", "Badar (tidak disebut tegas); dalam riwayat Ahmad, Sa'ad baru berjalan sedikit ketika surah ini turun[ref:lubab94]"],
+        ["Tokoh", "Sa'ad bin Abi Waqqash[ref:t3079]; para pemuda dan orang-orang tua pasukan Badar[ref:d2737]; Ubadah bin Ash-Shamit[ref:muqbil97]"],
+        ["Riwayat utama", "HR. Tirmidzi no. 3079 dan HR. Muslim no. 1748a–b (Sa'ad bin Abi Waqqash)"],
+        ["Riwayat pembanding", "HR. Abu Dawud no. 2737 (Ibnu Abbas)[ref:d2737]; riwayat Ubadah bin Ash-Shamit (Ahmad, Ibnu Hibban, Al-Hakim)[ref:muqbil96][ref:ik]"],
+        ["Derajat", "Riwayat Sa'ad shahih (Muslim); At-Tirmidzi: hasan shahih; Darussalam: shahih[ref:t3079]. Riwayat Ibnu Abbas shahih menurut Al-Albani[ref:d2737]. Riwayat Ubadah dishahihkan Al-Hakim menurut syarat Muslim dan disetujui Adz-Dzahabi[ref:muqbil96]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "يَسْأَلُونَكَ عَنِ الْأَنفَالِ ۖ قُلِ الْأَنفَالُ لِلَّهِ وَالرَّسُولِ ۖ فَاتَّقُوا اللَّهَ وَأَصْلِحُوا ذَاتَ بَيْنِكُمْ ۖ وَأَطِيعُوا اللَّهَ وَرَسُولَهُ إِن كُنتُم مُّؤْمِنِينَ",
+          id: "Mereka menanyakan kepadamu (Muhammad) tentang (pembagian) harta rampasan perang. Katakanlah, \"Harta rampasan perang itu milik Allah dan Rasul (menurut ketentuan Allah dan Rasul-Nya), maka bertakwalah kepada Allah dan perbaikilah hubungan di antara sesamamu, dan taatlah kepada Allah dan Rasul-Nya jika kamu orang-orang yang beriman.\""
+        }
+      ],
+      bagian: [
+        {
+          id: "pedang",
+          judul: "Pedang Sa'ad bin Abi Waqqash",
+          isi: ["Mush'ab bin Sa'ad meriwayatkan dari ayahnya: pada hari Badar, Sa'ad datang membawa sebuah pedang dan berkata, \"Wahai Rasulullah, Allah telah melegakan dadaku dari kaum musyrikin; berikanlah pedang ini kepadaku.\" Beliau menjawab, \"Pedang ini bukan milikku dan bukan milikmu.\"[ref:t3079]", "Sa'ad berkata, \"Bisa jadi pedang ini diberikan kepada orang yang tidak berjuang seperti perjuanganku.\"[ref:t3079] Kemudian Rasulullah ﷺ mendatanginya dan bersabda, \"Engkau memintanya kepadaku ketika ia bukan milikku. Sekarang ia telah menjadi milikku, dan ia untukmu.\" Sa'ad berkata, saat itulah turun ayat \"Mereka menanyakan kepadamu tentang harta rampasan perang\".[ref:t3079]", "Dalam riwayat Muslim, Sa'ad mengambil pedang itu dari bagian seperlima (khumus), lalu meminta Nabi ﷺ memberikannya, tetapi beliau menolak, maka turun ayat ini.[ref:m1748a] Dalam jalur lain, Sa'ad menyebut empat ayat Al-Qur'an turun tentang dirinya.[ref:m1748b] Ia meminta pedang itu sampai tiga kali, dan beliau menyuruhnya meletakkannya kembali di tempat ia mengambilnya.[ref:m1748b]"]
+        },
+        {
+          id: "umair",
+          judul: "Riwayat Ahmad: saudaranya, 'Umair",
+          isi: ["Dalam riwayat Ahmad yang dibawakan As-Suyuthi dan Ibnu Katsir, Sa'ad menuturkan bahwa saudaranya, 'Umair, terbunuh pada hari Badar.[ref:lubab94] Sa'ad membalas dengan membunuh Sa'id bin Al-'Ash dan mengambil pedangnya, lalu membawanya kepada Nabi ﷺ. Beliau bersabda, \"Pergilah, letakkan pedang itu di tempat pengumpulan harta rampasan.\"[ref:lubab94][ref:ik]", "Sa'ad kembali dengan perasaan yang hanya diketahui Allah, karena saudaranya terbunuh dan rampasannya diambil.[ref:lubab94] Belum jauh ia berjalan, turunlah Surah Al-Anfal, dan Nabi ﷺ bersabda kepadanya, \"Pergilah, ambil pedangmu.\"[ref:lubab94] Al-Wahidi juga membawakan riwayat ini dengan sanadnya.[ref:wahidi]"]
+        },
+        {
+          id: "pemuda",
+          judul: "Para pemuda dan orang-orang tua",
+          isi: ["Ibnu Abbas meriwayatkan bahwa pada Perang Badar, Rasulullah ﷺ bersabda, \"Siapa yang melakukan ini dan itu, baginya tambahan sekian dan sekian.\" Para pemuda maju, sedangkan orang-orang tua tetap di bawah panji-panji.[ref:d2737] Setelah Allah memberi kemenangan, orang-orang tua berkata, \"Kami adalah penopang kalian; seandainya kalian kalah, kalian akan kembali kepada kami. Jangan kalian ambil harta rampasan sendiri.\" Para pemuda menolak dan berkata, \"Rasulullah ﷺ telah memberikannya untuk kami.\"[ref:d2737]", "Maka Allah menurunkan ayat ini sampai ayat 5, \"Sebagaimana Tuhanmu menyuruhmu pergi dari rumahmu dengan kebenaran\".[ref:d2737] Riwayat itu ditutup dengan keterangan bahwa hal itu ternyata lebih baik bagi mereka.[ref:d2737] As-Suyuthi mencatat riwayat ini juga dikeluarkan An-Nasa'i, Ibnu Hibban, dan Al-Hakim.[ref:lubab]"]
+        },
+        {
+          id: "ubadah",
+          judul: "Riwayat Ubadah bin Ash-Shamit",
+          isi: ["Ubadah bin Ash-Shamit, yang ikut Perang Badar, menuturkan bahwa setelah musuh dikalahkan, kaum muslimin terbagi tiga: sebagian mengejar musuh, sebagian mengumpulkan harta rampasan, dan sebagian mengelilingi Rasulullah ﷺ untuk menjaga beliau.[ref:muqbil97] Masing-masing merasa paling berhak atas harta rampasan, lalu turun ayat ini, dan Rasulullah ﷺ membaginya di antara kaum muslimin.[ref:muqbil97][ref:wahidi]", "Ibnu Katsir membawakan ucapan Ubadah: \"Tentang kami, para peserta Badar, ayat ini turun, ketika kami berselisih tentang rampasan dan akhlak kami menjadi buruk karenanya. Maka Allah mencabutnya dari tangan kami dan menyerahkannya kepada Rasulullah ﷺ.\" Lalu beliau membaginya secara merata.[ref:ik] Muqbil memuat riwayat ini sebagai sebab lain dan membahas apakah Makhul mendengar langsung dari Abu Umamah, perawi riwayat ini dari Ubadah.[ref:muqbil97]"]
+        },
+        {
+          id: "makna",
+          judul: "Makna al-anfal dan hukumnya",
+          isi: ["Ibnu Katsir menukil Ibnu Abbas, Mujahid, 'Ikrimah, 'Atha', Adh-Dhahhak, Qatadah, dan mayoritas ulama bahwa al-anfal berarti harta rampasan perang (ghanimah).[ref:ik] Ath-Thabari memilih makna tambahan yang diberikan imam kepada sebagian atau seluruh pasukan di luar bagian pokok, karena secara bahasa nafl berarti tambahan.[ref:thabari]", "Mujahid dan 'Ikrimah berpendapat hukum ayat ini dihapus oleh ayat 41 tentang seperlima (khumus), sedangkan Ibnu Zaid berpendapat ayat ini tetap berlaku.[ref:thabari] Ath-Thabari menguatkan bahwa ayat ini tidak dihapus, karena tidak ada dalil yang menunjukkannya.[ref:thabari] Al-Qurthubi mencatat bahwa pembagian oleh Rasulullah ﷺ itu terjadi sebelum turun ayat 41.[ref:qurthubi]", "Tafsir Ringkas Kemenag menyebut bahwa melimpahnya harta rampasan Badar sempat memicu perselisihan, sehingga ayat ini mengajak kaum mukmin bertakwa dan mempererat persaudaraan.[ref:kemenag]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Sa'ad bin Abi Waqqash",
+          tokoh: "saad"
+        },
+        {
+          label: "Ubadah bin Ash-Shamit",
+          tokoh: "ubadah"
+        },
+        {
+          label: "Abdullah bin Abbas",
+          tokoh: "ibnuabbas"
+        },
+        {
+          label: "Al-Anfal 9",
+          wiki: "anfal-9",
+          ket: "doa Nabi di hari Badar"
+        },
+        {
+          label: "Al-Anfal 30",
+          wiki: "anfal-30",
+          ket: "surah yang sama"
+        }
+      ],
+      rujukan: {
+        t3079: {
+          t: "HR. Tirmidzi no. 3079, dari Mush'ab bin Sa'ad dari Sa'ad bin Abi Waqqash (Kitab Tafsir, Surah Al-Anfal). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3079"
+        },
+        m1748a: {
+          t: "HR. Muslim no. 1748a, dari Mush'ab bin Sa'ad dari ayahnya (Kitab Jihad, bab al-anfal).",
+          url: "https://sunnah.com/muslim:1748a"
+        },
+        m1748b: {
+          t: "HR. Muslim no. 1748b, dari Mush'ab bin Sa'ad dari ayahnya (Kitab Jihad, bab al-anfal): \"empat ayat turun tentang diriku\".",
+          url: "https://sunnah.com/muslim:1748b"
+        },
+        d2737: {
+          t: "HR. Abu Dawud no. 2737, dari 'Ikrimah dari Ibnu Abbas (Kitab Jihad, bab tentang nafl). Al-Albani: shahih.",
+          url: "https://sunnah.com/abudawud:2737"
+        },
+        b4645: {
+          t: "HR. Bukhari no. 4645, dari Sa'id bin Jubair dari Ibnu Abbas (Kitab Tafsir, Al-Anfal 1): \"Surah Al-Anfal turun tentang Badar\".",
+          url: "https://sunnah.com/bukhari:4645"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Anfal 1 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=8&Ayah=1&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 93 (awal Surah Al-Anfal, riwayat Ibnu Abbas).",
+          url: "https://shamela.ws/book/2247/91"
+        },
+        lubab94: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 94 (Al-Anfal 1: riwayat Sa'ad bin Abi Waqqash dan Mujahid).",
+          url: "https://shamela.ws/book/2247/92"
+        },
+        muqbil96: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 96 (Al-Anfal 1: riwayat Sa'ad dan takhrij \"sebab lain\").",
+          url: "https://shamela.ws/book/11547/91"
+        },
+        muqbil97: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 97 (Al-Anfal 1: riwayat Ubadah bin Ash-Shamit dan catatan sanadnya).",
+          url: "https://shamela.ws/book/11547/92"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Anfal 1.",
+          url: "https://quran.com/8:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Anfal 1.",
+          url: "https://quran.com/8:1/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Anfal 1.",
+          url: "https://quran.com/8:1/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain (termasuk Hidayatul Insan) untuk Al-Anfal 1 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/2867-surat-al-anfal-ayat-1.html"
+        },
+        nubadar: {
+          t: "Muhammad Afiq Zahara, \"Ramadhan di Saat Perang Badar dan Fathu Makkah\", NU Online, 8 Mei 2019: Badar terjadi pada Ramadhan pertama kewajiban puasa.",
+          url: "https://nu.or.id/ramadhan/ramadhan-di-saat-perang-badar-dan-fathu-makkah-ud8FB"
+        },
+        nupuasa: {
+          t: "Fathoni Ahmad, \"Keterangan Lengkap Puasa Ramadhan dalam QS Al-Baqarah\", NU Online, 27 April 2020: puasa Ramadhan diwajibkan pada Sya'ban 2 H.",
+          url: "https://nu.or.id/ramadhan/keterangan-lengkap-puasa-ramadhan-dalam-qs-al-baqarah-BO99H"
+        }
+      }
+    },
+
+    // nisa-11 (ditulis dari riset rujukan silang)
+    "nisa-11": {
+      judul: "An-Nisa' 11",
+      sub: "Ayat warisan untuk anak dan orang tua",
+      surah: "An-Nisa'",
+      ayatNo: "11",
+      tahun: 625,
+      tontonan: null,
+      peta: {
+        tahun: 625,
+        tempat: "bani-salimah",
+        kota: "madinah"
+      },
+      lead: ["An-Nisa' ayat 11 menetapkan bagian warisan anak-anak dan kedua orang tua: bagian anak laki-laki dua kali bagian anak perempuan, anak perempuan yang berjumlah dua atau lebih mendapat dua pertiga, dan pembagian dilakukan setelah wasiat dan utang dipenuhi.[ref:kemenag] Jabir bin Abdullah meriwayatkan bahwa ayat ini turun ketika ia sakit dan dijenguk Nabi ﷺ dan Abu Bakar di perkampungan Bani Salimah, lalu ia bertanya apa yang harus ia lakukan dengan hartanya.[ref:b4577]", "Jabir juga meriwayatkan kisah istri Sa'ad bin Ar-Rabi', yang datang bersama dua putrinya setelah Sa'ad gugur di Uhud dan paman mereka mengambil seluruh harta peninggalannya; menurut riwayat ini, ayat warisan turun karena peristiwa itu.[ref:t2092][ref:d2892] Ibnu Katsir menilai riwayat kedua inilah yang lebih cocok dengan ayat ini, sedangkan Ibnu Hajar dan Muqbil Al-Wadi'i berpendapat ayat ini dapat turun karena kedua peristiwa sekaligus.[ref:ik][ref:lubab][ref:muqbil65]"],
+      infobox: [
+        ["Surah", "An-Nisa' (النساء), surah ke-4 dalam mushaf"],
+        ["Ayat", "11 (Muqbil memuat ayat 11–12 dalam satu bab)[ref:muqbil]"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Riwayat Jabir tidak menyebut waktunya[ref:b4577]. Riwayat dua putri Sa'ad bin Ar-Rabi' menunjuk masa setelah Perang Uhud[ref:t2092], yang terjadi pada Syawal 3 H[ref:ik121]; 625 M di peta hanya perkiraan"],
+        ["Tempat", "Perkampungan Bani Salimah, Madinah, tempat Jabir dijenguk[ref:b4577]"],
+        ["Tokoh", "Jabir bin Abdullah; Nabi ﷺ dan Abu Bakar[ref:b4577]; istri dan dua putri Sa'ad bin Ar-Rabi', serta paman kedua putri itu[ref:t2092]"],
+        ["Riwayat utama", "HR. Bukhari no. 4577 (Jabir bin Abdullah)"],
+        ["Riwayat pembanding", "HR. Muslim no. 1616a (Jabir): ayat yang turun disebut ayat kalalah[ref:m1616]; HR. Abu Dawud no. 2891–2892 dan HR. Tirmidzi no. 2092 (Jabir): kisah dua putri Sa'ad bin Ar-Rabi'[ref:d2891][ref:d2892][ref:t2092]"],
+        ["Derajat", "Riwayat Jabir dari Al-Bukhari shahih dan disepakati Al-Bukhari dan Muslim[ref:muqbil65]. Riwayat dua putri Sa'ad: hasan shahih menurut At-Tirmidzi, dha'if menurut Darussalam[ref:t2092]; hasan menurut Al-Albani[ref:d2892]; Al-Hakim menshahihkan sanadnya dan disetujui Adz-Dzahabi[ref:muqbil]. Perawinya, Abdullah bin Muhammad bin 'Aqil, menurut Muqbil jujur tetapi lemah hafalannya[ref:muqbil65]"]
+      ],
+      ayat: [
+        {
+          no: 11,
+          ar: "يُوصِيكُمُ اللَّهُ فِي أَوْلَادِكُمْ ۖ لِلذَّكَرِ مِثْلُ حَظِّ الْأُنثَيَيْنِ ۚ فَإِن كُنَّ نِسَاءً فَوْقَ اثْنَتَيْنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ ۖ وَإِن كَانَتْ وَاحِدَةً فَلَهَا النِّصْفُ ۚ وَلِأَبَوَيْهِ لِكُلِّ وَاحِدٍ مِّنْهُمَا السُّدُسُ مِمَّا تَرَكَ إِن كَانَ لَهُ وَلَدٌ ۚ فَإِن لَّمْ يَكُن لَّهُ وَلَدٌ وَوَرِثَهُ أَبَوَاهُ فَلِأُمِّهِ الثُّلُثُ ۚ فَإِن كَانَ لَهُ إِخْوَةٌ فَلِأُمِّهِ السُّدُسُ ۚ مِن بَعْدِ وَصِيَّةٍ يُوصِي بِهَا أَوْ دَيْنٍ ۗ آبَاؤُكُمْ وَأَبْنَاؤُكُمْ لَا تَدْرُونَ أَيُّهُمْ أَقْرَبُ لَكُمْ نَفْعًا ۚ فَرِيضَةً مِّنَ اللَّهِ ۗ إِنَّ اللَّهَ كَانَ عَلِيمًا حَكِيمًا",
+          id: "Allah mensyariatkan (mewajibkan) kepadamu tentang (pembagian warisan untuk) anak-anakmu, (yaitu) bagian seorang anak laki-laki sama dengan bagian dua orang anak perempuan. Dan jika anak itu semuanya perempuan yang jumlahnya lebih dari dua, maka bagian mereka dua pertiga dari harta yang ditinggalkan. Jika dia (anak perempuan) itu seorang saja, maka dia memperoleh setengah (harta yang ditinggalkan). Dan untuk kedua ibu-bapak, bagian masing-masing seperenam dari harta yang ditinggalkan, jika dia (yang meninggal) mempunyai anak. Jika dia (yang meninggal) tidak mempunyai anak dan dia diwarisi oleh kedua ibu-bapaknya (saja), maka ibunya mendapat sepertiga. Jika dia (yang meninggal) mempunyai beberapa saudara, maka ibunya mendapat seperenam. (Pembagian-pembagian tersebut di atas) setelah (dipenuhi) wasiat yang dibuatnya atau (dan setelah dibayar) hutangnya. (Tentang) orang tuamu dan anak-anakmu, kamu tidak mengetahui siapa di antara mereka yang lebih banyak manfaatnya bagimu. Ini adalah ketetapan Allah. Sungguh, Allah Maha Mengetahui, Mahabijaksana."
+        }
+      ],
+      bagian: [
+        {
+          id: "jabir",
+          judul: "Jabir sakit di Bani Salimah",
+          isi: ["Jabir bin Abdullah berkata: Nabi ﷺ dan Abu Bakar menjengukku di perkampungan Bani Salimah dengan berjalan kaki.[ref:b4577] Nabi ﷺ mendapatiku tidak sadarkan diri, lalu beliau meminta air, berwudhu dengannya, kemudian memercikkannya kepadaku, hingga aku sadar.[ref:b4577]", "Jabir bertanya, \"Apa yang engkau perintahkan kepadaku tentang hartaku, wahai Rasulullah?\" Maka turunlah, \"Allah mensyariatkan kepadamu tentang (pembagian warisan untuk) anak-anakmu.\"[ref:b4577] Al-Wahidi dan As-Suyuthi membawakan riwayat ini; As-Suyuthi menyebutnya dikeluarkan para imam yang enam.[ref:wahidi][ref:lubab]"]
+        },
+        {
+          id: "kalalah",
+          judul: "Ayat warisan atau ayat kalalah?",
+          isi: ["Jalur-jalur hadits Jabir berbeda dalam menyebut ayat yang turun: jalur Ibnu Juraij dalam riwayat Al-Bukhari menyebut ayat 11.[ref:b4577] Jalur Sufyan bin 'Uyainah dalam riwayat Muslim menyebut Nabi ﷺ tidak menjawab sampai turun ayat warisan, \"Mereka meminta fatwa kepadamu. Katakanlah, 'Allah memberi fatwa kepadamu tentang kalalah'\", yaitu ayat 176.[ref:m1616] Dalam jalur Syu'bah yang dibawakan Ath-Thabari, Jabir berkata, \"Yang mewarisiku hanyalah kalalah.\"[ref:thabari]", "Ibnu Katsir berkata: yang tampak, hadits Jabir yang pertama menjadi sebab turunnya ayat terakhir surah ini, karena saat itu Jabir hanya punya saudara-saudara perempuan dan belum punya anak perempuan.[ref:ik]"]
+        },
+        {
+          id: "saad",
+          judul: "Dua putri Sa'ad bin Ar-Rabi'",
+          isi: ["Jabir juga meriwayatkan: istri Sa'ad bin Ar-Rabi' datang kepada Rasulullah ﷺ bersama dua putri Sa'ad dan berkata, \"Wahai Rasulullah, ini dua putri Sa'ad bin Ar-Rabi'. Ayah mereka gugur sebagai syahid bersamamu di Perang Uhud. Paman mereka mengambil harta mereka dan tidak menyisakan apa pun, padahal mereka tidak akan dinikahkan kecuali bila punya harta.\" Beliau bersabda, \"Allah akan memutuskan perkara ini.\"[ref:t2092]", "Lalu turun ayat warisan. Rasulullah ﷺ memerintahkan paman mereka, \"Berikan kepada dua putri Sa'ad dua pertiga, dan kepada ibu mereka seperdelapan; sisanya untukmu.\"[ref:t2092] Dalam riwayat Abu Dawud, ayat yang turun disebut dengan lafal \"Allah mensyariatkan kepadamu tentang anak-anakmu\".[ref:d2891]", "Salah satu jalur Abu Dawud, lewat Bisyr bin Al-Mufadhdhal, menyebut keduanya putri Tsabit bin Qais; Abu Dawud menyatakan Bisyr keliru, karena keduanya putri Sa'ad bin Ar-Rabi', sedangkan Tsabit bin Qais gugur di Perang Yamamah.[ref:d2891] Abu Dawud menyebut jalur yang menyebut Sa'ad sebagai yang paling benar.[ref:d2892] Al-Qurthubi menukil Al-Kiya Ath-Thabari bahwa ayat ini turun tentang ahli waris Sa'ad bin Ar-Rabi', dan pendapat inilah yang lebih shahih menurut ahli riwayat dibanding pendapat ahli waris Tsabit bin Qais.[ref:qurthubi]"]
+        },
+        {
+          id: "mana",
+          judul: "Mana yang menjadi sebab?",
+          isi: ["Ibnu Katsir menilai hadits Jabir yang kedua, tentang dua putri Sa'ad, lebih mirip dengan sebab turunnya ayat ini.[ref:ik] As-Suyuthi menukil Ibnu Hajar: sebagian ulama berpegang pada kisah ini untuk mengatakan ayat ini turun tentang dua putri Sa'ad, bukan tentang Jabir, apalagi Jabir saat itu belum punya anak.[ref:lubab] Jawaban Ibnu Hajar: ayat ini turun karena kedua perkara itu, dan mungkin awal ayat turun tentang dua putri itu, sedangkan bagian \"jika seseorang meninggal dalam keadaan kalalah\" (ayat 12) turun tentang Jabir.[ref:lubab]", "Muqbil Al-Wadi'i memuat kedua riwayat.[ref:muqbil] Menurutnya, kisah Jabir lebih shahih karena disepakati Al-Bukhari dan Muslim, sedangkan kisah dua putri Sa'ad diriwayatkan Abdullah bin Muhammad bin 'Aqil, yang jujur tetapi lemah hafalannya.[ref:muqbil65] Ia mengkritik pembagian ayat oleh Ibnu Hajar, karena kalalah dalam ayat 12 berkaitan dengan warisan saudara seibu, lalu menyimpulkan, sebagaimana juga dinyatakan Ibnu Hajar sebelumnya, bahwa tidak ada halangan ayat ini turun tentang kedua perkara sekaligus.[ref:muqbil65]", "Al-Qurthubi mendahulukan kisah ahli waris Sa'ad bin Ar-Rabi' sebelum kisah Jabir.[ref:qurthubi] Ath-Thabari membawakan riwayat-riwayat ini tanpa memilih salah satunya.[ref:thabari]"]
+        },
+        {
+          id: "jahiliyah",
+          judul: "Latar: warisan di masa jahiliyah",
+          isi: ["Ibnu Katsir menyebut bahwa orang-orang jahiliyah memberikan seluruh warisan kepada laki-laki, tidak kepada perempuan; menurut Ibnu Abbas, mereka hanya memberi warisan kepada yang ikut berperang.[ref:ik] As-Suddi, dalam riwayat Ath-Thabari, menyebut bahwa orang jahiliyah tidak memberi warisan kepada anak-anak perempuan dan anak laki-laki yang masih kecil, lalu menceritakan Ummu Kujjah, janda Abdurrahman saudara penyair Hassan, yang mengadukan para ahli waris yang mengambil harta suaminya.[ref:thabari]", "Al-Qurthubi menyebut ayat ini salah satu rukun agama dan menekankan agungnya ilmu faraidh.[ref:qurthubi] Tafsir Ringkas Kemenag menjelaskan bahwa ketentuan ini datang dari Allah, karena manusia tidak mengetahui siapa di antara orang tua dan anak yang lebih besar manfaatnya.[ref:kemenag]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Jabir bin Abdullah",
+          tokoh: "jabir"
+        },
+        {
+          label: "Sa'ad bin Ar-Rabi'",
+          tokoh: "saadrabi"
+        },
+        {
+          label: "Abu Bakar Ash-Shiddiq",
+          tokoh: "abubakar"
+        },
+        {
+          label: "Perkampungan Bani Salimah",
+          tempat: "bani-salimah",
+          kota: "madinah",
+          ket: "tempat Jabir dijenguk"
+        },
+        {
+          label: "Ali 'Imran 128",
+          wiki: "aliimran-128",
+          ket: "Perang Uhud, 3 H"
+        }
+      ],
+      rujukan: {
+        b4577: {
+          t: "HR. Bukhari no. 4577, dari Ibnu Al-Munkadir dari Jabir bin Abdullah (Kitab Tafsir, bab \"Yushikumullah\").",
+          url: "https://sunnah.com/bukhari:4577"
+        },
+        m1616: {
+          t: "HR. Muslim no. 1616a, dari Ibnu Al-Munkadir dari Jabir bin Abdullah (Kitab Faraidh, bab warisan kalalah).",
+          url: "https://sunnah.com/muslim:1616a"
+        },
+        d2891: {
+          t: "HR. Abu Dawud no. 2891, dari Abdullah bin Muhammad bin 'Aqil dari Jabir (Kitab Faraidh, bab warisan anak kandung). Al-Albani: hasan, tetapi penyebutan Tsabit bin Qais keliru; yang terpelihara adalah Sa'ad bin Ar-Rabi'.",
+          url: "https://sunnah.com/abudawud:2891"
+        },
+        d2892: {
+          t: "HR. Abu Dawud no. 2892, dari Abdullah bin Muhammad bin 'Aqil dari Jabir (Kitab Faraidh): menyebut istri Sa'ad bin Ar-Rabi'. Al-Albani: hasan.",
+          url: "https://sunnah.com/abudawud:2892"
+        },
+        t2092: {
+          t: "HR. Tirmidzi no. 2092, dari Abdullah bin Muhammad bin 'Aqil dari Jabir (Kitab Faraidh, bab warisan anak perempuan). Tirmidzi: hasan shahih, hanya dikenal dari hadits Ibnu 'Aqil; Darussalam: dha'if.",
+          url: "https://sunnah.com/tirmidhi:2092"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, An-Nisa' 11 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=4&Ayah=11&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 53 (An-Nisa' 11, dengan kutipan Ibnu Hajar).",
+          url: "https://shamela.ws/book/2247/51"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 64 (An-Nisa' 11–12: dua riwayat Jabir).",
+          url: "https://shamela.ws/book/11547/59"
+        },
+        muqbil65: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 65 (penilaian kedua riwayat dan tanggapan atas Ibnu Hajar).",
+          url: "https://shamela.ws/book/11547/60"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir An-Nisa' 11.",
+          url: "https://quran.com/4:11/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik121: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Ali 'Imran 121: Perang Uhud terjadi pada hari Sabtu, bulan Syawal 3 H.",
+          url: "https://quran.com/3:121/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir An-Nisa' 11.",
+          url: "https://quran.com/4:11/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir An-Nisa' 11.",
+          url: "https://quran.com/4:11/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI, An-Nisa' 11 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/1543-surat-an-nisa-ayat-11.html"
+        }
+      }
+    },
+
+    // nisa-95 (ditulis dari riset rujukan silang)
+    "nisa-95": {
+      judul: "An-Nisa' 95",
+      sub: "Tambahan \"ghairu ulid-dharar\" untuk Ibnu Ummi Maktum",
+      surah: "An-Nisa'",
+      ayatNo: "95",
+      tahun: 624,
+      tontonan: null,
+      peta: {
+        tahun: 624,
+        lok: "madinah"
+      },
+      lead: ["An-Nisa' ayat 95 menegaskan bahwa orang beriman yang duduk tidak ikut berperang tanpa uzur tidak sama dengan orang yang berjihad di jalan Allah dengan harta dan jiwanya.[ref:kemenag] Menurut Zaid bin Tsabit, penulis wahyu, ketika ia sedang menuliskan ayat ini dari dikte Rasulullah ﷺ, Abdullah bin Ummi Maktum yang tunanetra datang dan berkata bahwa seandainya mampu, ia pasti ikut berjihad.[ref:b4592]", "Allah lalu menurunkan tambahan \"ghairu ulid-dharar\" (selain yang mempunyai uzur), sehingga orang yang berhalangan tidak termasuk yang dicela.[ref:b4592][ref:b4593] Kisah ini diriwayatkan Al-Bukhari dari Zaid bin Tsabit dan Al-Bara' bin 'Azib, serta Muslim dari Al-Bara'.[ref:b4592][ref:b4593][ref:m1898] Al-Wahidi, As-Suyuthi, dan Muqbil memuatnya dalam kitab-kitab asbabun nuzul.[ref:wahidi][ref:lubab][ref:muqbil]"],
+      infobox: [
+        ["Surah", "An-Nisa' (النساء), surah ke-4 dalam mushaf"],
+        ["Ayat", "95; kalimat \"ghairu ulid-dharar\" turun menyusul ketika ayat itu sedang ditulis[ref:b4592][ref:fath261]"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Tidak disebut dalam hadits Zaid dan Al-Bara'. Menurut Ibnu Abbas, ayat ini berkenaan dengan orang yang tidak ikut dan yang ikut Perang Badar (2 H)[ref:b4595][ref:t3032]; tahun ±624 M di peta hanya perkiraan"],
+        ["Tempat", "Madinah (tempat persisnya tidak disebut)"],
+        ["Tokoh", "Abdullah bin Ummi Maktum; Zaid bin Tsabit, penulis wahyu[ref:b4592]. Riwayat Ibnu Abbas juga menyebut seorang putra Jahsy[ref:t3032][ref:thabari]"],
+        ["Riwayat utama", "HR. Bukhari no. 4592 (Sahl bin Sa'd dari Marwan bin Al-Hakam dari Zaid bin Tsabit); HR. Bukhari no. 4593–4594 dan Muslim no. 1898 (Al-Bara' bin 'Azib)"],
+        ["Riwayat pembanding", "HR. Abu Dawud no. 2507 (Kharijah bin Zaid dari Zaid bin Tsabit)[ref:d2507]; HR. Bukhari no. 4595 dan Tirmidzi no. 3032 (Ibnu Abbas): kaitannya dengan Perang Badar[ref:b4595][ref:t3032]"],
+        ["Derajat", "Shahih (Bukhari, Muslim). At-Tirmidzi: hasan shahih untuk riwayat Al-Bara' dan riwayat Zaid lewat Sahl[ref:t3031][ref:t3033]; Al-Albani: hasan shahih untuk riwayat Abu Dawud[ref:d2507]; dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 95,
+          ar: "لَّا يَسْتَوِي الْقَاعِدُونَ مِنَ الْمُؤْمِنِينَ غَيْرُ أُولِي الضَّرَرِ وَالْمُجَاهِدُونَ فِي سَبِيلِ اللَّهِ بِأَمْوَالِهِمْ وَأَنفُسِهِمْ ۚ فَضَّلَ اللَّهُ الْمُجَاهِدِينَ بِأَمْوَالِهِمْ وَأَنفُسِهِمْ عَلَى الْقَاعِدِينَ دَرَجَةً ۚ وَكُلًّا وَعَدَ اللَّهُ الْحُسْنَىٰ ۚ وَفَضَّلَ اللَّهُ الْمُجَاهِدِينَ عَلَى الْقَاعِدِينَ أَجْرًا عَظِيمًا",
+          id: "Tidaklah sama antara orang beriman yang duduk (yang tidak turut berperang) tanpa mempunyai uzur (halangan) dengan orang yang berjihad di jalan Allah dengan harta dan jiwanya. Allah melebihkan derajat orang-orang yang berjihad dengan harta dan jiwanya atas orang-orang yang duduk (tidak ikut berperang tanpa halangan). Kepada masing-masing, Allah menjanjikan (pahala) yang baik (surga) dan Allah melebihkan orang-orang yang berjihad atas orang yang duduk dengan pahala yang besar."
+        }
+      ],
+      bagian: [
+        {
+          id: "dikte",
+          judul: "Ayat yang sedang ditulis",
+          isi: ["Sahl bin Sa'd As-Sa'idi menuturkan: ia melihat Marwan bin Al-Hakam duduk di masjid, lalu ia mendekat dan duduk di sampingnya.[ref:b4592] Marwan mengabarkan bahwa Zaid bin Tsabit bercerita kepadanya: Rasulullah ﷺ mendiktekan kepadanya ayat \"Tidaklah sama orang-orang beriman yang duduk dengan orang-orang yang berjihad di jalan Allah\".[ref:b4592]", "Al-Bara' bin 'Azib juga meriwayatkan bahwa ketika ayat itu turun, Nabi ﷺ memanggil Zaid untuk menuliskannya.[ref:b4593] Dalam salah satu jalurnya, Zaid datang membawa tinta dan papan atau tulang bahu (katif), dan riwayat Muslim menyebut Zaid menuliskannya di atas tulang bahu.[ref:b4594][ref:m1898][ref:wahidi]"]
+        },
+        {
+          id: "keluhan",
+          judul: "Keluhan Ibnu Ummi Maktum",
+          isi: ["Ketika itu Ibnu Ummi Maktum, yang tunanetra, datang dan berkata, \"Wahai Rasulullah, seandainya aku mampu berjihad, tentu aku berjihad.\"[ref:b4592] Dalam riwayat Al-Bara', ia mengadukan kebutaannya; As-Suyuthi menukil lafalnya bahwa ia saat itu berada di belakang Nabi ﷺ dan berkata, \"Wahai Rasulullah, aku ini buta.\"[ref:b4593][ref:lubab]", "Ibnu Hajar memadukan kedua lafal itu: Ibnu Ummi Maktum bangkit dari tempatnya di belakang Nabi ﷺ hingga berada di hadapan beliau.[ref:fath261] Ath-Thabari juga membawakan riwayat Zaid bin Arqam bahwa Ibnu Ummi Maktum berdoa, \"Ya Allah, aku ini buta, maka berilah aku keringanan.\"[ref:thabari]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya \"ghairu ulid-dharar\"",
+          isi: ["Zaid menuturkan bahwa wahyu lalu turun kepada Rasulullah ﷺ ketika ia duduk berimpit dengan beliau, dan ia merasakan beratnya wahyu itu sampai khawatir pahanya sendiri remuk.[ref:b4592] Setelah keadaan itu berlalu, turunlah tambahan \"ghairu ulid-dharar\".[ref:b4592]", "Dalam riwayat Abu Dawud dari jalur Kharijah bin Zaid, Zaid menuliskan ayat itu di atas tulang bahu, lalu menambahkan pengecualian yang turun kemudian.[ref:d2507] Ibnu Hajar menukil ucapan Zaid dalam jalur ini, \"Seakan-akan aku masih melihat tempat sisipannya, di dekat retakan pada tulang bahu itu.\"[ref:fath261]", "Ibnu Hajar menukil dua kemungkinan dari Ibnu al-Munir: hanya kalimat pengecualian yang turun lalu disisipkan, atau seluruh ayat diturunkan ulang.[ref:fath261] Ia menilai kemungkinan pertama lebih jelas.[ref:fath261] Al-Qurthubi juga menukil dari Zaid bahwa kalimat itu turun tersendiri, lalu Zaid menyisipkannya pada tempatnya.[ref:qurthubi]"]
+        },
+        {
+          id: "badar",
+          judul: "Kaitannya dengan Perang Badar",
+          isi: ["Ibnu Abbas menafsirkan ayat ini: tidak sama orang beriman yang duduk tidak ikut Perang Badar dengan orang yang ikut ke Badar.[ref:b4595]", "Dalam riwayat At-Tirmidzi dari Ibnu Abbas, ketika terjadi Perang Badar, Abdullah bin Jahsy dan Ibnu Ummi Maktum berkata bahwa mereka berdua buta dan bertanya apakah ada keringanan bagi mereka, lalu turunlah pengecualian itu.[ref:t3032] At-Tirmidzi memberi catatan gharib untuk jalur ini, dan Ibnu Katsir mengutipnya sebagai hasan gharib.[ref:t3032][ref:ik]", "Ath-Thabari meriwayatkan kisah ini dari jalur yang sama, Miqsam dari Ibnu Abbas, dengan nama Abu Ahmad bin Jahsy.[ref:thabari] Hidayatul Insan, yang dimuat TafsirWeb, mencatat bahwa Abdullah bin Jahsy bukan orang buta.[ref:kemenag]"]
+        },
+        {
+          id: "jalur",
+          judul: "Jalur-jalur riwayat",
+          isi: ["As-Suyuthi menyebut kisah ini juga datang dari Zaid bin Arqam (Ath-Thabarani) dan Al-Faltan bin 'Ashim (Ibnu Hibban), serta dari banyak riwayat mursal pada Ibnu Jarir.[ref:lubab] Al-Wahidi membawakan riwayat Zaid bin Tsabit dan dua jalur Al-Bara'; dalam salah satunya, pengecualian itu turun sebelum Ibnu Ummi Maktum beranjak.[ref:wahidi]", "Muqbil memuat hadits Al-Bara', Zaid bin Tsabit, dan Al-Faltan bin 'Ashim.[ref:muqbil] Ia mencatat bahwa jalur Al-Bukhari dari Zaid melewati Marwan bin Al-Hakam yang diperbincangkan, tetapi dikuatkan oleh jalur Kharijah bin Zaid dan Qabishah bin Dzu'aib.[ref:muqbil] Ibnu Katsir menyebut hadits Zaid lewat Sahl dan hadits Ibnu Abbas tentang Badar hanya diriwayatkan Al-Bukhari, tidak oleh Muslim.[ref:ik]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa orang yang berjihad dengan harta dan jiwa dilebihkan satu derajat atas orang yang duduk tanpa uzur, sementara kedua golongan dijanjikan surga dan para mujahid mendapat pahala yang lebih besar.[ref:kemenag]", "Ibnu Katsir menyimpulkan dari kalimat \"kepada masing-masing Allah menjanjikan (pahala) yang baik\" bahwa jihad adalah fardhu kifayah, bukan fardhu 'ain.[ref:ik] Ia juga membawakan hadits Anas bahwa ada orang-orang di Madinah yang tertahan oleh uzur, tetapi tetap menyertai pasukan dalam pahala setiap kali pasukan menempuh jalan bukit atau lembah.[ref:ik][ref:b2839]", "Al-Qurthubi menukil dua pendapat tentang orang yang berhalangan: pahalanya sama dengan para mujahid, atau ia mendapat pahala tanpa pelipatgandaan; ia condong kepada pendapat pertama.[ref:qurthubi]"]
+        },
+        {
+          id: "setelah",
+          judul: "Ibnu Ummi Maktum sesudahnya",
+          isi: ["Rumaysho, menukil Siyar A'lam an-Nubala', menyebut riwayat Anas bahwa Ibnu Ummi Maktum ikut dalam Perang Qadisiyyah dengan membawa bendera hitam dan mengenakan baju besi.[ref:rumaysho] Tentang wafatnya ada perbedaan: Al-Waqidi menyebut ia kembali ke Madinah dan wafat di sana, sedangkan pendapat lain menyebut ia syahid di Qadisiyyah.[ref:rumaysho]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Ummi Maktum",
+          tokoh: "ibnuummimaktum"
+        },
+        {
+          label: "Zaid bin Tsabit",
+          tokoh: "zaidtsabit",
+          ket: "penulis wahyu"
+        },
+        {
+          label: "Abdullah bin Abbas",
+          tokoh: "ibnuabbas"
+        },
+        {
+          label: "'Abasa 1–10",
+          wiki: "abasa-1-10",
+          ket: "teguran tentang Ibnu Ummi Maktum"
+        },
+        {
+          label: "Al-Anfal 9",
+          wiki: "anfal-9",
+          ket: "Perang Badar"
+        }
+      ],
+      rujukan: {
+        b4592: {
+          t: "HR. Bukhari no. 4592, dari Sahl bin Sa'd dari Marwan bin Al-Hakam dari Zaid bin Tsabit (Kitab Tafsir, bab An-Nisa' 95).",
+          url: "https://sunnah.com/bukhari:4592"
+        },
+        b4593: {
+          t: "HR. Bukhari no. 4593, dari Al-Bara' bin 'Azib (Kitab Tafsir, bab An-Nisa' 95).",
+          url: "https://sunnah.com/bukhari:4593"
+        },
+        b4594: {
+          t: "HR. Bukhari no. 4594, dari Abu Ishaq dari Al-Bara' bin 'Azib (Kitab Tafsir, bab An-Nisa' 95).",
+          url: "https://sunnah.com/bukhari:4594"
+        },
+        b4595: {
+          t: "HR. Bukhari no. 4595, dari Miqsam dari Ibnu Abbas (Kitab Tafsir, bab An-Nisa' 95).",
+          url: "https://sunnah.com/bukhari:4595"
+        },
+        m1898: {
+          t: "HR. Muslim no. 1898a, dari Abu Ishaq dari Al-Bara' bin 'Azib (Kitab Al-Imarah, bab gugurnya kewajiban jihad bagi yang berhalangan).",
+          url: "https://sunnah.com/muslim:1898a"
+        },
+        t3031: {
+          t: "HR. Tirmidzi no. 3031, dari Al-Bara' bin 'Azib (Kitab Tafsir, Surah An-Nisa'). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3031"
+        },
+        t3032: {
+          t: "HR. Tirmidzi no. 3032, dari Miqsam dari Ibnu Abbas (Kitab Tafsir, Surah An-Nisa'). Tirmidzi: gharib dari jalur ini; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3032"
+        },
+        t3033: {
+          t: "HR. Tirmidzi no. 3033, dari Sahl bin Sa'd dari Marwan bin Al-Hakam dari Zaid bin Tsabit (Kitab Tafsir, Surah An-Nisa'). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3033"
+        },
+        d2507: {
+          t: "HR. Abu Dawud no. 2507, dari Kharijah bin Zaid dari Zaid bin Tsabit (Kitab Jihad, bab keringanan tidak ikut berperang karena uzur). Al-Albani: hasan shahih.",
+          url: "https://sunnah.com/abudawud:2507"
+        },
+        b2839: {
+          t: "HR. Bukhari no. 2839, dari Anas bin Malik (Kitab Jihad, bab orang yang tertahan uzur dari berperang).",
+          url: "https://sunnah.com/bukhari:2839"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, An-Nisa' 95 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=4&Ayah=95&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 67 (An-Nisa' 95).",
+          url: "https://shamela.ws/book/2247/65"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 75 (An-Nisa' 95).",
+          url: "https://shamela.ws/book/11547/70"
+        },
+        fath261: {
+          t: "Ibnu Hajar, Fath al-Bari 8/261 (Kitab Tafsir, bab An-Nisa' 95).",
+          url: "https://shamela.ws/book/1673/4608"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir An-Nisa' 95.",
+          url: "https://quran.com/4:95/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir An-Nisa' 95.",
+          url: "https://quran.com/4:95/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir An-Nisa' 95.",
+          url: "https://quran.com/4:95/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain (antara lain Hidayatul Insan) untuk An-Nisa' 95 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/1627-surat-an-nisa-ayat-95.html"
+        },
+        rumaysho: {
+          t: "Muhammad Abduh Tuasikal, \"Ibnu Ummi Maktum: Sahabat Nabi yang Buta tetapi Tetap Berjuang untuk Islam\", Rumaysho.com (2026).",
+          url: "https://rumaysho.com/41601-ibnu-ummi-maktum-sahabat-nabi-yang-buta-tetapi-tetap-berjuang-untuk-islam.html"
+        }
+      }
+    },
+
+    // hasyr-9 (ditulis dari riset rujukan silang)
+    "hasyr-9": {
+      judul: "Al-Hasyr 9",
+      sub: "Anshar yang mengutamakan tamu Rasulullah ﷺ",
+      surah: "Al-Hasyr",
+      ayatNo: "9",
+      tahun: 625,
+      tontonan: null,
+      peta: {
+        tahun: 625,
+        lok: "madinah"
+      },
+      lead: ["Al-Hasyr ayat 9 memuji kaum Anshar: mereka mencintai kaum Muhajirin, tidak menaruh keinginan dalam hati terhadap apa yang diberikan kepada Muhajirin, dan mengutamakan mereka atas diri sendiri meskipun mereka juga membutuhkan.[ref:kemenag]", "Menurut Abu Hurairah, ayat ini turun setelah seorang Anshar menjamu tamu Rasulullah ﷺ dengan makanan yang hanya cukup untuk anak-anaknya: lampu dipadamkan agar sang tamu dapat makan, sementara ia dan istrinya tidur dalam keadaan lapar.[ref:b4889][ref:b3798] Salah satu jalur Muslim menyebut Anshar itu Abu Thalhah, sedangkan riwayat lain menyebut nama yang berbeda.[ref:m2054c][ref:fath632]"],
+      infobox: [
+        ["Surah", "Al-Hasyr (الحشر), surah ke-59 dalam mushaf"],
+        ["Ayat", "9, khususnya \"wa yu'tsiruna 'ala anfusihim wa lau kana bihim khashashah\""],
+        ["Golongan", "Madaniyah; menurut Ibnu Abbas, surah ini turun tentang Bani Nadhir[ref:muqbil206]"],
+        ["Waktu", "Tidak disebut dalam hadits Abu Hurairah[ref:b4889]; tahun ±625 M di peta mengikuti konteks surah, yaitu pengusiran Bani Nadhir, dan hanya perkiraan[ref:muqbil206]"],
+        ["Tempat", "Madinah, di rumah seorang Anshar[ref:b4889]"],
+        ["Tokoh", "Seorang Anshar dan istrinya; Abu Thalhah menurut satu jalur Muslim[ref:m2054c], Tsabit bin Qais menurut riwayat mursal Abul Mutawakkil[ref:lubab]"],
+        ["Riwayat utama", "HR. Bukhari no. 3798 dan 4889; HR. Muslim no. 2054 (Abu Hurairah)"],
+        ["Riwayat pembanding", "Riwayat Yazid Al-Asham tentang tawaran Anshar membagi tanah dengan Muhajirin, dan riwayat Ibnu Umar tentang kepala kambing yang berpindah ke tujuh rumah[ref:wahidi][ref:lubab]"],
+        ["Derajat", "Shahih (Bukhari, Muslim); dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]. Riwayat Abul Mutawakkil berstatus mursal[ref:fath632]"]
+      ],
+      ayat: [
+        {
+          no: 9,
+          ar: "وَالَّذِينَ تَبَوَّءُوا الدَّارَ وَالْإِيمَانَ مِن قَبْلِهِمْ يُحِبُّونَ مَنْ هَاجَرَ إِلَيْهِمْ وَلَا يَجِدُونَ فِي صُدُورِهِمْ حَاجَةً مِّمَّا أُوتُوا وَيُؤْثِرُونَ عَلَىٰ أَنفُسِهِمْ وَلَوْ كَانَ بِهِمْ خَصَاصَةٌ ۚ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُولَٰئِكَ هُمُ الْمُفْلِحُونَ",
+          id: "Dan orang-orang (Ansar) yang telah menempati kota Madinah dan telah beriman sebelum (kedatangan) mereka (Muhajirin), mereka mencintai orang yang berhijrah ke tempat mereka. Dan mereka tidak menaruh keinginan dalam hati mereka terhadap apa yang diberikan kepada mereka (Muhajirin); dan mereka mengutamakan (Muhajirin) atas dirinya sendiri, meskipun mereka juga memerlukan. Dan siapa yang dijaga dirinya dari kekikiran, maka mereka itulah orang-orang yang beruntung."
+        }
+      ],
+      bagian: [
+        {
+          id: "tamu",
+          judul: "Tamu yang lapar",
+          isi: ["Abu Hurairah meriwayatkan: seorang laki-laki datang kepada Rasulullah ﷺ dalam keadaan sangat lapar.[ref:b4889][ref:b3798] Beliau mengirim utusan kepada istri-istri beliau, tetapi tidak ada makanan pada mereka; dalam riwayat lain, mereka hanya memiliki air.[ref:b4889][ref:b3798]", "Rasulullah ﷺ lalu bertanya siapa yang mau menjamu orang itu malam ini, dan seorang laki-laki Anshar menyanggupinya.[ref:b4889][ref:m2054a]"]
+        },
+        {
+          id: "lampu",
+          judul: "Lampu yang dipadamkan",
+          isi: ["Laki-laki itu membawanya pulang dan berpesan kepada istrinya agar memuliakan tamu Rasulullah ﷺ.[ref:b4889] Istrinya menjawab bahwa mereka hanya punya makanan untuk anak-anak.[ref:b4889]", "Ia meminta istrinya menyiapkan makanan, menyalakan lampu, dan menidurkan anak-anak bila mereka meminta makan malam.[ref:b3798] Istrinya lalu berdiri seolah-olah hendak membetulkan lampu, tetapi justru memadamkannya.[ref:b3798] Keduanya berpura-pura ikut makan, lalu tidur dalam keadaan lapar.[ref:b3798]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya ayat",
+          isi: ["Pagi harinya, laki-laki itu menemui Rasulullah ﷺ, dan beliau bersabda, \"Sungguh Allah takjub, atau tertawa, karena perbuatan si fulan dan si fulanah.\"[ref:b4889][ref:lubab] Lalu Allah menurunkan ayat \"dan mereka mengutamakan (Muhajirin) atas dirinya sendiri, meskipun mereka juga memerlukan\".[ref:b4889][ref:lubab]", "Muqbil memuat hadits ini dalam Ash-Shahih al-Musnad min Asbab an-Nuzul dan menyebut periwayatnya, antara lain Al-Bukhari, Muslim, At-Tirmidzi, dan Ibnu Jarir.[ref:muqbil]"]
+        },
+        {
+          id: "nama",
+          judul: "Siapa Anshar itu?",
+          isi: ["Riwayat Al-Bukhari hanya menyebut \"seorang laki-laki dari Anshar\".[ref:b4889] Dalam salah satu jalur Muslim, yaitu dari Ibnu Fudhail dari ayahnya dari Abu Hazim, ia disebut Abu Thalhah.[ref:m2054c] Ath-Thabari juga menyebut nama Abu Thalhah dalam riwayatnya, dan Ibnu Katsir mencatat bahwa satu riwayat Muslim menamainya demikian.[ref:thabari][ref:ik]", "Ibnu Hajar menyatakan bahwa Anshar itu adalah Abu Thalhah, sebagaimana telah ia jelaskan dalam bab Manaqib al-Anshar, tetapi ia menukil keraguan Al-Khathib apakah yang dimaksud Abu Thalhah Zaid bin Sahl atau sahabat lain dengan kunyah yang sama.[ref:fath632]", "Riwayat mursal Abul Mutawakkil An-Naji, yang dikutip As-Suyuthi dari Musaddad dan Ibnul Mundzir, menyebut penjamu itu Tsabit bin Qais bin Syammas.[ref:lubab] Al-Qurthubi menukil dari Al-Mahdawi dan An-Nahhas bahwa ayat ini turun tentang Tsabit bin Qais dan seorang Anshar bernama Abul Mutawakkil.[ref:qurthubi] Ibnu Hajar menilai anggapan bahwa ayat ini turun tentang Abul Mutawakkil sebagai kekeliruan yang nyata, karena Abul Mutawakkil adalah seorang tabi'in yang dikenal.[ref:fath632]"]
+        },
+        {
+          id: "lain",
+          judul: "Riwayat-riwayat lain",
+          isi: ["Al-Wahidi dan As-Suyuthi membawakan riwayat Yazid Al-Asham: kaum Anshar meminta Nabi ﷺ membagi tanah mereka menjadi dua dengan kaum Muhajirin.[ref:wahidi][ref:lubab] Beliau menolak dan mengusulkan agar Anshar mencukupi kebutuhan Muhajirin dan berbagi hasil buahnya, sedangkan tanahnya tetap milik Anshar.[ref:wahidi][ref:lubab] Mereka ridha, lalu turunlah ayat ini.[ref:wahidi][ref:lubab]", "Keduanya juga membawakan riwayat Ibnu Umar: seorang sahabat diberi hadiah kepala kambing, lalu mengirimkannya kepada saudaranya yang ia anggap lebih membutuhkan.[ref:wahidi][ref:lubab] Hadiah itu terus berpindah sampai tujuh rumah dan kembali kepada orang pertama, lalu ayat ini turun.[ref:wahidi][ref:lubab]", "Al-Qurthubi juga menukil riwayat Ibnu Abbas tentang harta Bani Nadhir yang diserahkan kepada kaum Muhajirin dengan kerelaan kaum Anshar.[ref:qurthubi] Dari semua riwayat itu, ia menilai kisah penjamuan tamu sebagai yang paling shahih.[ref:qurthubi] Ath-Thabari dan Ibnu Katsir juga membawakan riwayat tentang pembagian harta Bani Nadhir dalam menafsirkan ayat ini.[ref:thabari][ref:ik]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa kaum Anshar menyambut Muhajirin dengan cinta dan persaudaraan karena Allah, membantu mereka tanpa rasa iri, dan mendahulukan kebutuhan saudara seiman meskipun mereka sendiri membutuhkan.[ref:kemenag]", "Ibnu Katsir menjelaskan bahwa \"hajah\" dalam ayat ini berarti rasa dengki, sedangkan \"khashashah\" berarti keadaan butuh.[ref:ik] Ia menilai memberi ketika sedang membutuhkan lebih tinggi derajatnya daripada memberi dari kelebihan.[ref:ik] Almanhaj memuat uraian Ustadz Abu Minhal tentang kedermawanan keluarga Anshar ini, dengan merujuk HR. Bukhari no. 3798 dan Muslim no. 2054.[ref:almanhaj]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abu Thalhah Al-Anshari",
+          tokoh: "abuthalhah",
+          ket: "nama tuan rumah menurut satu jalur Muslim"
+        },
+        {
+          label: "Abu Hurairah",
+          tokoh: "abuhurairah",
+          ket: "perawi kisah"
+        },
+        {
+          label: "Perkampungan Bani Nadhir",
+          tempat: "nadhir",
+          kota: "madinah",
+          ket: "konteks Surah Al-Hasyr"
+        }
+      ],
+      rujukan: {
+        b4889: {
+          t: "HR. Bukhari no. 4889, dari Abu Hurairah (Kitab Tafsir, bab Al-Hasyr 9).",
+          url: "https://sunnah.com/bukhari:4889"
+        },
+        b3798: {
+          t: "HR. Bukhari no. 3798, dari Abu Hurairah (Kitab Manaqib al-Anshar, bab \"wa yu'tsiruna 'ala anfusihim\").",
+          url: "https://sunnah.com/bukhari:3798"
+        },
+        m2054a: {
+          t: "HR. Muslim no. 2054a, dari Abu Hurairah (Kitab Minuman, bab memuliakan tamu dan keutamaan mendahulukannya).",
+          url: "https://sunnah.com/muslim:2054a"
+        },
+        m2054c: {
+          t: "HR. Muslim no. 2054c, dari Ibnu Fudhail dari ayahnya dari Abu Hazim dari Abu Hurairah; tuan rumah disebut Abu Thalhah.",
+          url: "https://sunnah.com/muslim:2054c"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Hasyr 9 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=59&Ayah=9&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 192 (Al-Hasyr 9).",
+          url: "https://shamela.ws/book/2247/190"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 208 (Al-Hasyr 9).",
+          url: "https://shamela.ws/book/11547/203"
+        },
+        muqbil206: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 206 (Al-Hasyr 1–2: riwayat Ibnu Abbas bahwa surah ini turun tentang Bani Nadhir).",
+          url: "https://shamela.ws/book/11547/201"
+        },
+        fath632: {
+          t: "Ibnu Hajar, Fath al-Bari 8/632 (Kitab Tafsir, bab \"wa yu'tsiruna 'ala anfusihim\").",
+          url: "https://shamela.ws/book/1673/4979"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Hasyr 9.",
+          url: "https://quran.com/59:9/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Hasyr 9.",
+          url: "https://quran.com/59:9/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Hasyr 9.",
+          url: "https://quran.com/59:9/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Hasyr 9 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/10807-surat-al-hasyr-ayat-9.html"
+        },
+        almanhaj: {
+          t: "Ustadz Abu Minhal, \"Kedermawanan Keluarga Anshar\", Almanhaj (dari Majalah As-Sunnah Edisi 01/Tahun XXI/1438 H).",
+          url: "https://almanhaj.or.id/11221-kedermawanan-keluarga-anshar.html"
+        }
+      }
+    },
+
+    // ahzab-37 (ditulis dari riset rujukan silang)
+    "ahzab-37": {
+      judul: "Al-Ahzab 37",
+      sub: "Zaid, Zainab, dan berakhirnya hukum anak angkat",
+      surah: "Al-Ahzab",
+      ayatNo: "37",
+      tahun: 627,
+      tontonan: null,
+      peta: {
+        tahun: 627,
+        lok: "madinah"
+      },
+      lead: ["Al-Ahzab ayat 37 turun berkenaan dengan Zainab binti Jahsy dan Zaid bin Haritsah, sebagaimana dikatakan Anas bin Malik dalam riwayat Al-Bukhari.[ref:b4787] Zaid, yang dimerdekakan dan pernah diangkat anak oleh Rasulullah ﷺ, datang mengadukan istrinya, dan beliau terus berkata kepadanya, \"Bertakwalah kepada Allah dan pertahankan istrimu.\"[ref:b7420][ref:b4782]", "Menurut penjelasan Ali bin Al-Husain yang dibawakan Ibnu Katsir dan Ibnu Hajar, yang beliau sembunyikan adalah kabar dari Allah bahwa Zainab kelak akan menjadi istri beliau.[ref:ik][ref:fath524] Pernikahan itu kemudian terjadi atas ketetapan Allah, untuk menghapus anggapan jahiliyah bahwa bekas istri anak angkat sama dengan bekas istri anak kandung.[ref:fath524][ref:kemenag]"],
+      infobox: [
+        ["Surah", "Al-Ahzab (الأحزاب), surah ke-33 dalam mushaf"],
+        ["Ayat", "37"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Setelah Zaid menceraikan Zainab dan masa iddahnya selesai[ref:m1428b]. Pernikahan Nabi ﷺ dengan Zainab terjadi pada Dzulqa'dah 5 H (±627 M) menurut Qatadah, Al-Waqidi, dan lainnya; Abu 'Ubaidah dan Khalifah bin Khayyath menyebut 3 H[ref:ik53]"],
+        ["Tempat", "Madinah"],
+        ["Tokoh", "Zaid bin Haritsah dan Zainab binti Jahsy[ref:b4787]"],
+        ["Riwayat utama", "HR. Bukhari no. 4787 dan 7420 (Anas bin Malik); HR. Muslim no. 1428b (Anas, kisah pinangan setelah iddah)"],
+        ["Riwayat pembanding", "Ayat 36 tentang pinangan Zainab untuk Zaid: riwayat Qatadah dan Ibnu Abbas[ref:lubab]; HR. Bukhari no. 4782 (Ibnu Umar) tentang panggilan \"Zaid bin Muhammad\" dan Al-Ahzab 5[ref:b4782]; HR. Tirmidzi no. 3207 (Aisyah), dha'if menurut Darussalam[ref:t3207]"],
+        ["Derajat", "Shahih (Bukhari, Muslim); dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]. Sanad penjelasan Ali bin Al-Husain lemah karena Ali bin Zaid bin Jud'an, tetapi maknanya sejalan dengan riwayat As-Suddi dan dipegang Ibnu Hajar[ref:fath524]"]
+      ],
+      ayat: [
+        {
+          no: 37,
+          ar: "وَإِذْ تَقُولُ لِلَّذِي أَنْعَمَ اللَّهُ عَلَيْهِ وَأَنْعَمْتَ عَلَيْهِ أَمْسِكْ عَلَيْكَ زَوْجَكَ وَاتَّقِ اللَّهَ وَتُخْفِي فِي نَفْسِكَ مَا اللَّهُ مُبْدِيهِ وَتَخْشَى النَّاسَ وَاللَّهُ أَحَقُّ أَن تَخْشَاهُ ۖ فَلَمَّا قَضَىٰ زَيْدٌ مِّنْهَا وَطَرًا زَوَّجْنَاكَهَا لِكَيْ لَا يَكُونَ عَلَى الْمُؤْمِنِينَ حَرَجٌ فِي أَزْوَاجِ أَدْعِيَائِهِمْ إِذَا قَضَوْا مِنْهُنَّ وَطَرًا ۚ وَكَانَ أَمْرُ اللَّهِ مَفْعُولًا",
+          id: "Dan (ingatlah), ketika engkau (Muhammad) berkata kepada orang yang telah diberi nikmat oleh Allah dan engkau (juga) telah memberi nikmat kepadanya, \"Pertahankanlah terus istrimu dan bertakwalah kepada Allah,\" sedang engkau menyembunyikan di dalam hatimu apa yang akan ditampakkan oleh Allah, dan engkau takut kepada manusia, padahal Allah lebih berhak engkau takuti. Maka ketika Zaid telah mengakhiri keperluan terhadap istrinya (menceraikannya), Kami nikahkan engkau dengan dia (Zainab) agar tidak ada keberatan bagi orang mukmin untuk (menikahi) istri-istri anak-anak angkat mereka, apabila anak-anak angkat itu telah menyelesaikan keperluannya terhadap istrinya. Dan ketetapan Allah itu pasti terjadi."
+        }
+      ],
+      bagian: [
+        {
+          id: "zaid",
+          judul: "Zaid bin Haritsah dan anak angkat",
+          isi: ["Ibnu Katsir dan Ath-Thabari menjelaskan bahwa \"orang yang telah diberi nikmat oleh Allah dan engkau juga telah memberi nikmat kepadanya\" adalah Zaid bin Haritsah: Allah memberinya nikmat Islam, dan Rasulullah ﷺ memerdekakannya.[ref:ik][ref:thabari]", "Abdullah bin Umar menuturkan bahwa para sahabat dahulu memanggil Zaid dengan \"Zaid bin Muhammad\", sampai turun ayat 5 surah ini yang memerintahkan agar anak angkat dipanggil dengan nama bapak mereka.[ref:b4782] Ibnu Katsir menjelaskan bahwa Allah mengakhiri penisbatan anak angkat itu, dan pernikahan dalam ayat 37 menghapus keberatan orang beriman untuk menikahi bekas istri anak angkat mereka.[ref:ik]"]
+        },
+        {
+          id: "pinangan",
+          judul: "Pernikahan Zaid dengan Zainab",
+          isi: ["As-Suyuthi membawakan riwayat Qatadah, dengan sanad yang ia sebut shahih: Nabi ﷺ meminang Zainab untuk Zaid.[ref:lubab] Zainab semula mengira pinangan itu untuk beliau sendiri, lalu menolak ketika tahu pinangan itu untuk Zaid, hingga turun ayat 36, \"Dan tidaklah pantas bagi laki-laki yang mukmin dan perempuan yang mukmin...\", lalu ia ridha dan menerimanya.[ref:lubab]", "Dalam riwayat Ibnu Abbas lewat Ikrimah, yang juga dibawakan As-Suyuthi dari Ibnu Jarir, Zainab menolak karena merasa nasabnya lebih mulia.[ref:lubab]"]
+        },
+        {
+          id: "nasihat",
+          judul: "\"Pertahankan istrimu\"",
+          isi: ["Anas bin Malik menuturkan bahwa Zaid bin Haritsah datang mengadukan istrinya, dan Nabi ﷺ terus berkata kepadanya, \"Bertakwalah kepada Allah dan pertahankan istrimu.\"[ref:b7420] Tsabit Al-Bunani, perawi dari Anas, membaca ayat ini dan berkata bahwa ayat itu turun tentang Zainab dan Zaid bin Haritsah.[ref:b7420] Ibnu Hajar menegaskan bahwa riwayat-riwayat tidak berbeda bahwa ayat ini turun tentang Zaid dan Zainab.[ref:fath523]", "Aisyah berkata, \"Seandainya Rasulullah ﷺ menyembunyikan sesuatu, tentu beliau menyembunyikan ayat ini.\"[ref:b7420] Dalam riwayat Muslim, Aisyah juga menegaskan bahwa siapa yang mengira Rasulullah ﷺ menyembunyikan sesuatu dari Kitab Allah, ia telah melakukan kebohongan besar atas nama Allah.[ref:m177a]"]
+        },
+        {
+          id: "disembunyikan",
+          judul: "Apa yang beliau sembunyikan?",
+          isi: ["Ibnu Katsir membawakan riwayat Ibnu Abi Hatim dari Ali bin Al-Husain (Zainal Abidin): Allah telah memberitahukan kepada Nabi-Nya bahwa Zainab akan menjadi salah satu istrinya sebelum beliau menikahinya.[ref:ik] Maka ketika Zaid datang mengadukannya, beliau berkata, \"Bertakwalah kepada Allah dan pertahankan istrimu.\"[ref:ik] Ibnu Katsir menyebut As-Suddi juga meriwayatkan penjelasan serupa.[ref:ik]", "Ibnu Hajar mencatat bahwa sanad riwayat Ali bin Al-Husain itu lemah karena perawinya, Ali bin Zaid bin Jud'an, dan bahwa riwayat As-Suddi menyampaikan kisah yang sama dengan lebih jelas.[ref:fath524] Ia menyimpulkan: yang disembunyikan Nabi ﷺ adalah kabar dari Allah bahwa Zainab akan menjadi istrinya.[ref:fath524] Beliau menyembunyikannya karena khawatir orang-orang berkata bahwa beliau menikahi istri anaknya.[ref:fath524]", "Menurut Ibnu Hajar, Allah hendak menghapus hukum adopsi jahiliyah dengan cara yang paling tegas, yaitu pernikahan pemimpin kaum muslimin dengan bekas istri orang yang dipanggil anaknya, agar lebih mudah diterima.[ref:fath524] Al-Qurthubi menyebut penjelasan ini sebagai tafsir terbaik untuk ayat ini, dan menisbatkannya kepada para ulama peneliti seperti Az-Zuhri, Al-Qadhi Bakr bin Al-'Ala' Al-Qusyairi, dan Ibnu Al-'Arabi.[ref:qurthubi]"]
+        },
+        {
+          id: "ditolak",
+          judul: "Riwayat yang ditolak para ulama",
+          isi: ["Ibnu Katsir menyatakan bahwa Ibnu Abi Hatim dan Ibnu Jarir membawakan di sini atsar-atsar dari sebagian salaf yang sengaja ia lewati dan tidak ia sebutkan karena tidak shahih.[ref:ik] Ia juga tidak menyebutkan satu riwayat Imam Ahmad dari Hammad bin Zaid dari Tsabit dari Anas, karena di dalamnya ada keganjilan.[ref:ik]", "Ibnu Hajar juga menyatakan bahwa atsar-atsar lain yang dibawakan Ibnu Abi Hatim dan Ath-Thabari, lalu dinukil banyak mufassir, tidak sepatutnya disibukkan, dan bahwa riwayat yang ia bawakan itulah yang menjadi pegangan.[ref:fath524]", "Al-Qurthubi menolak riwayat yang menggambarkan bahwa hati Nabi ﷺ condong kepada Zainab ketika ia masih menjadi istri Zaid.[ref:qurthubi] Menurutnya, ucapan seperti itu hanya muncul dari orang yang tidak memahami kemaksuman Nabi ﷺ atau meremehkan kehormatannya.[ref:qurthubi] Artikel Almanhaj yang menerjemahkan bahasan Ibnul Qayyim dalam Zadul Ma'ad juga menolak anggapan itu, dan catatan kakinya menyebut riwayat tersebut batil.[ref:almanhaj]"]
+        },
+        {
+          id: "zawwajnakaha",
+          judul: "\"Kami nikahkan engkau dengan dia\"",
+          isi: ["Anas menuturkan: setelah masa iddah Zainab selesai, Rasulullah ﷺ meminta Zaid menyampaikan pinangan beliau kepadanya.[ref:m1428b] Zaid merasa sangat segan kepada Zainab, sehingga ia menyampaikan pinangan itu sambil membelakanginya.[ref:m1428b]", "Zainab menjawab, \"Aku tidak akan berbuat apa pun sampai aku meminta petunjuk kepada Tuhanku,\" lalu ia menuju tempat shalatnya.[ref:m1428b] Kemudian turunlah Al-Qur'an, dan Rasulullah ﷺ datang menemuinya tanpa meminta izin.[ref:m1428b] Ibnu Katsir menjelaskan bahwa Allah sendirilah yang menikahkan Zainab dengan Nabi ﷺ melalui wahyu.[ref:ik]", "Zainab biasa membanggakan diri di hadapan istri-istri Nabi ﷺ yang lain: mereka dinikahkan oleh keluarga mereka, sedangkan ia dinikahkan oleh Allah dari atas tujuh langit.[ref:b7420] Menurut Anas, pada walimah pernikahan itu disajikan roti dan daging, dan Ibnu Katsir menyebut ayat hijab (ayat 53) turun pada pagi hari walimah tersebut.[ref:m1428b][ref:ik53]"]
+        },
+        {
+          id: "ayat40",
+          judul: "Ucapan orang-orang dan ayat 40",
+          isi: ["Dalam riwayat At-Tirmidzi dari Aisyah, setelah Nabi ﷺ menikahi Zainab, orang-orang berkata bahwa beliau menikahi istri anaknya, lalu Allah menurunkan ayat 40, \"Muhammad itu bukanlah bapak dari seseorang di antara kamu.\"[ref:t3207] At-Tirmidzi menilai riwayat ini gharib, dan Darussalam menilainya dha'if.[ref:t3207]"]
+        },
+        {
+          id: "sumber",
+          judul: "Dalam kitab-kitab asbabun nuzul",
+          isi: ["As-Suyuthi membawakan riwayat Al-Bukhari dari Anas, riwayat Al-Hakim dari Anas tentang Zaid yang mengadukan istrinya, dan riwayat Muslim, Ahmad, dan An-Nasa'i tentang pinangan setelah iddah.[ref:lubab] Muqbil memuat riwayat Al-Bukhari dari Anas, juga dari At-Tirmidzi, Ahmad, dan Al-Hakim, serta riwayat Ibnu Sa'd tentang ucapan Zainab.[ref:muqbil]", "Al-Wahidi tidak memuat sebab turun ayat 36 dan 37 dalam kitabnya: terjemahan Inggrisnya menyatakan ayat ini tidak termuat, dan dalam teks Arabnya pembahasan berpindah dari ayat 35 langsung ke ayat 51.[ref:wahidi][ref:wahidiar]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa pernikahan ini terasa berat bagi Nabi ﷺ karena menyangkut persoalan yang sangat sensitif di tengah masyarakat, lalu Allah menguatkan hati beliau dan menegaskan bahwa ketetapan-Nya pasti terlaksana.[ref:kemenag]", "Rumaysho mencatat bahwa Nabi ﷺ menikahi Zainab setelah masa iddahnya selesai, pada bulan Dzulqa'dah 5 H, mengikuti pendapat Al-Waqidi dan Ibnu Katsir.[ref:rumaysho]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Zaid bin Haritsah",
+          tokoh: "zaid"
+        },
+        {
+          label: "Zainab binti Jahsy",
+          tokoh: "zainabjahsy"
+        },
+        {
+          label: "Anas bin Malik",
+          tokoh: "anas",
+          ket: "perawi kisah"
+        },
+        {
+          label: "Aisyah binti Abu Bakar",
+          tokoh: "aisyah"
+        },
+        {
+          label: "Al-Ahzab 10",
+          wiki: "ahzab-10",
+          ket: "surah yang sama, Perang Khandaq"
+        },
+        {
+          label: "An-Nur 11–20",
+          wiki: "nur-11-20",
+          ket: "Zainab memberi kesaksian baik tentang Aisyah"
+        }
+      ],
+      rujukan: {
+        b4787: {
+          t: "HR. Bukhari no. 4787, dari Tsabit dari Anas bin Malik (Kitab Tafsir, bab Al-Ahzab 37).",
+          url: "https://sunnah.com/bukhari:4787"
+        },
+        b7420: {
+          t: "HR. Bukhari no. 7420, dari Tsabit dari Anas bin Malik (Kitab At-Tauhid).",
+          url: "https://sunnah.com/bukhari:7420"
+        },
+        b4782: {
+          t: "HR. Bukhari no. 4782, dari Salim dari Abdullah bin Umar (Kitab Tafsir, bab Al-Ahzab 5).",
+          url: "https://sunnah.com/bukhari:4782"
+        },
+        m1428b: {
+          t: "HR. Muslim no. 1428b, dari Tsabit dari Anas bin Malik (Kitab Nikah).",
+          url: "https://sunnah.com/muslim:1428b"
+        },
+        m177a: {
+          t: "HR. Muslim no. 177a, dari Masruq dari Aisyah (Kitab Iman).",
+          url: "https://sunnah.com/muslim:177a"
+        },
+        t3207: {
+          t: "HR. Tirmidzi no. 3207, dari Aisyah (Kitab Tafsir, Surah Al-Ahzab). Tirmidzi: gharib; Darussalam: dha'if.",
+          url: "https://sunnah.com/tirmidhi:3207"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Ahzab 37 (terjemahan Inggris Mokrane Guezzou): tidak memuat sebab turun ayat ini.",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=33&Ayah=37&search=yes&img=A&LanguageID=2"
+        },
+        wahidiar: {
+          t: "Al-Wahidi, Asbab Nuzul al-Qur'an (teks Arab), hlm. 357: dari ayat 35 langsung ke ayat 51.",
+          url: "https://shamela.ws/book/11314/354"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 159 (Al-Ahzab 36–37).",
+          url: "https://shamela.ws/book/2247/157"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 168 (Al-Ahzab 37).",
+          url: "https://shamela.ws/book/11547/163"
+        },
+        fath523: {
+          t: "Ibnu Hajar, Fath al-Bari 8/523 (Kitab Tafsir, bab \"wa tukhfi fi nafsika ma Allahu mubdihi\").",
+          url: "https://shamela.ws/book/1673/4870"
+        },
+        fath524: {
+          t: "Ibnu Hajar, Fath al-Bari 8/524 (lanjutan bab yang sama).",
+          url: "https://shamela.ws/book/1673/4871"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Ahzab 37.",
+          url: "https://quran.com/33:37/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik53: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Ahzab 53 (waktu turunnya ayat hijab dan tahun pernikahan Zainab).",
+          url: "https://quran.com/33:53/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Ahzab 37.",
+          url: "https://quran.com/33:37/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Ahzab 37.",
+          url: "https://quran.com/33:37/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Ahzab 37 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/7649-surat-al-ahzab-ayat-37.html"
+        },
+        rumaysho: {
+          t: "Muhammad Abduh Tuasikal, \"Faedah Sirah Nabi: Istri Nabi, Zainab binti Jahsy\", Rumaysho.com.",
+          url: "https://rumaysho.com/16864-faedah-sirah-nabi-istri-nabi-zainab-binti-jahsy.html"
+        },
+        almanhaj: {
+          t: "Ibnul Qayyim, Zadul Ma'ad 4/265–274, \"Terapi Rasulullah dalam Penyembuhan Penyakit Al-'Isyq\", terjemahan Ustadz Ahmad Ridwan, Almanhaj (2007).",
+          url: "https://almanhaj.or.id/2074-terapi-rasulullah-dalam-penyembuhan-penyakit-al-isyq-cinta.html"
+        }
+      }
+    },
+
+    // munafiqun-1-8 (ditulis dari riset rujukan silang)
+    "munafiqun-1-8": {
+      judul: "Al-Munafiqun 1–8",
+      sub: "Ucapan Abdullah bin Ubay dan kejujuran Zaid bin Arqam",
+      surah: "Al-Munafiqun",
+      ayatNo: "1–8",
+      tahun: 627,
+      tontonan: null,
+      peta: {
+        tahun: 627,
+        lok: "g-mushthaliq"
+      },
+      lead: ["Surah Al-Munafiqun, terutama ayat 7–8, mengabadikan ucapan Abdullah bin Ubay, pemimpin kaum munafik, dalam sebuah ekspedisi: \"Janganlah kalian berinfak kepada orang-orang yang ada di sisi Rasulullah sampai mereka bubar,\" dan \"Jika kita kembali ke Madinah, pastilah orang yang mulia akan mengusir orang yang hina dari sana.\"[ref:b4900][ref:m2772]", "Zaid bin Arqam, yang mendengarnya, melaporkan ucapan itu, tetapi Abdullah bin Ubay bersumpah tidak mengatakannya, dan Zaid sempat dianggap berdusta sampai Allah menurunkan surah ini membenarkannya.[ref:b4900][ref:b4903] Menurut para ahli maghazi, peristiwa ini terjadi dalam Ghazwah Bani al-Mushthaliq, sedangkan sebagian riwayat menyebut Ghazwah Tabuk.[ref:fath644][ref:t3314]"],
+      infobox: [
+        ["Surah", "Al-Munafiqun (المنافقون), surah ke-63 dalam mushaf"],
+        ["Ayat", "1–8, dengan fokus ayat 7–8"],
+        ["Golongan", "Madaniyah[ref:ik1]"],
+        ["Waktu", "Diperselisihkan. Ghazwah Bani al-Mushthaliq (Al-Muraisi') menurut para ahli maghazi[ref:fath644]; tahunnya 6 H menurut Ibnu Ishaq dan 4 H menurut Musa bin 'Uqbah[ref:qurthubi24], sedangkan Rumaysho menyebut Sya'ban 5 H[ref:rumaysho]. Sebagian riwayat menyebut Ghazwah Tabuk[ref:t3314][ref:lubab197]"],
+        ["Tempat", "Mata air Al-Muraisi' di wilayah Bani al-Mushthaliq, menurut para mufassir dan ahli sirah yang dikutip Al-Wahidi[ref:wahidi]; sebagian riwayat menyebut surah ini turun ketika rombongan masih dalam perjalanan[ref:fath645][ref:t3313]"],
+        ["Tokoh", "Abdullah bin Ubay bin Salul; Zaid bin Arqam; paman Zaid, yang menurut Ath-Thabarani dan Ibnu Mardawaih adalah Sa'ad bin Ubadah[ref:fath645]; Umar bin Khattab[ref:b4905]"],
+        ["Riwayat utama", "HR. Bukhari no. 4900–4904 dan Muslim no. 2772 (Zaid bin Arqam); HR. Bukhari no. 4905 dan Tirmidzi no. 3315 (Jabir bin Abdullah)"],
+        ["Riwayat pembanding", "HR. Tirmidzi no. 3313 (Abu Sa'd Al-Azdi dari Zaid: perselisihan di mata air) dan no. 3314 (Muhammad bin Ka'b dari Zaid: \"dalam Ghazwah Tabuk\")[ref:t3313][ref:t3314]"],
+        ["Derajat", "Shahih (Bukhari, Muslim). At-Tirmidzi menilai no. 3312–3315 hasan shahih; Darussalam: shahih, kecuali no. 3315 hasan[ref:t3312][ref:t3313][ref:t3314][ref:t3315]; dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "إِذَا جَاءَكَ الْمُنَافِقُونَ قَالُوا نَشْهَدُ إِنَّكَ لَرَسُولُ اللَّهِ ۗ وَاللَّهُ يَعْلَمُ إِنَّكَ لَرَسُولُهُ وَاللَّهُ يَشْهَدُ إِنَّ الْمُنَافِقِينَ لَكَاذِبُونَ",
+          id: "Apabila orang-orang munafik datang kepadamu (Muhammad), mereka berkata, \"Kami mengakui, bahwa engkau adalah Rasul Allah.\" Dan Allah mengetahui bahwa engkau benar-benar Rasul-Nya; dan Allah menyaksikan bahwa orang-orang munafik itu benar-benar pendusta."
+        },
+        {
+          no: 2,
+          ar: "اتَّخَذُوا أَيْمَانَهُمْ جُنَّةً فَصَدُّوا عَن سَبِيلِ اللَّهِ ۚ إِنَّهُمْ سَاءَ مَا كَانُوا يَعْمَلُونَ",
+          id: "Mereka menjadikan sumpah-sumpah mereka sebagai perisai, lalu mereka menghalang-halangi (manusia) dari jalan Allah. Sungguh, betapa buruknya apa yang telah mereka kerjakan."
+        },
+        {
+          no: 3,
+          ar: "ذَٰلِكَ بِأَنَّهُمْ آمَنُوا ثُمَّ كَفَرُوا فَطُبِعَ عَلَىٰ قُلُوبِهِمْ فَهُمْ لَا يَفْقَهُونَ",
+          id: "Yang demikian itu karena sesungguhnya mereka telah beriman, kemudian menjadi kafir, maka hati mereka dikunci, sehingga mereka tidak dapat mengerti."
+        },
+        {
+          no: 4,
+          ar: "وَإِذَا رَأَيْتَهُمْ تُعْجِبُكَ أَجْسَامُهُمْ ۖ وَإِن يَقُولُوا تَسْمَعْ لِقَوْلِهِمْ ۖ كَأَنَّهُمْ خُشُبٌ مُّسَنَّدَةٌ ۖ يَحْسَبُونَ كُلَّ صَيْحَةٍ عَلَيْهِمْ ۚ هُمُ الْعَدُوُّ فَاحْذَرْهُمْ ۚ قَاتَلَهُمُ اللَّهُ ۖ أَنَّىٰ يُؤْفَكُونَ",
+          id: "Dan apabila engkau melihat mereka, tubuh mereka mengagumkanmu. Dan jika mereka berkata, engkau mendengarkan tutur katanya. Mereka seakan-akan kayu yang tersandar. Mereka mengira bahwa setiap teriakan ditujukan kepada mereka. Mereka itulah musuh (yang sebenarnya), maka waspadalah terhadap mereka; semoga Allah membinasakan mereka. Bagaimanakah mereka dapat dipalingkan (dari kebenaran)?"
+        },
+        {
+          no: 5,
+          ar: "وَإِذَا قِيلَ لَهُمْ تَعَالَوْا يَسْتَغْفِرْ لَكُمْ رَسُولُ اللَّهِ لَوَّوْا رُءُوسَهُمْ وَرَأَيْتَهُمْ يَصُدُّونَ وَهُم مُّسْتَكْبِرُونَ",
+          id: "Dan apabila dikatakan kepada mereka, \"Marilah (beriman), agar Rasulullah memohonkan ampunan bagimu,\" mereka membuang muka dan engkau lihat mereka berpaling dengan menyombongkan diri."
+        },
+        {
+          no: 6,
+          ar: "سَوَاءٌ عَلَيْهِمْ أَسْتَغْفَرْتَ لَهُمْ أَمْ لَمْ تَسْتَغْفِرْ لَهُمْ لَن يَغْفِرَ اللَّهُ لَهُمْ ۚ إِنَّ اللَّهَ لَا يَهْدِي الْقَوْمَ الْفَاسِقِينَ",
+          id: "Sama saja bagi mereka, engkau (Muhammad) mohonkan ampunan untuk mereka atau tidak engkau mohonkan ampunan bagi mereka, Allah tidak akan mengampuni mereka; sesungguhnya Allah tidak akan memberi petunjuk kepada orang-orang yang fasik."
+        },
+        {
+          no: 7,
+          ar: "هُمُ الَّذِينَ يَقُولُونَ لَا تُنفِقُوا عَلَىٰ مَنْ عِندَ رَسُولِ اللَّهِ حَتَّىٰ يَنفَضُّوا ۗ وَلِلَّهِ خَزَائِنُ السَّمَاوَاتِ وَالْأَرْضِ وَلَٰكِنَّ الْمُنَافِقِينَ لَا يَفْقَهُونَ",
+          id: "Mereka yang berkata (kepada orang-orang Ansar), \"Janganlah kamu bersedekah kepada orang-orang (Muhajirin) yang ada di sisi Rasulullah sampai mereka bubar (meninggalkan Rasulullah).\" Padahal milik Allah-lah perbendaharaan langit dan bumi, tetapi orang-orang munafik itu tidak memahami."
+        },
+        {
+          no: 8,
+          ar: "يَقُولُونَ لَئِن رَّجَعْنَا إِلَى الْمَدِينَةِ لَيُخْرِجَنَّ الْأَعَزُّ مِنْهَا الْأَذَلَّ ۚ وَلِلَّهِ الْعِزَّةُ وَلِرَسُولِهِ وَلِلْمُؤْمِنِينَ وَلَٰكِنَّ الْمُنَافِقِينَ لَا يَعْلَمُونَ",
+          id: "Mereka berkata, \"Sungguh, jika kita kembali ke Madinah (kembali dari perang Bani Mustalik), pastilah orang yang kuat akan mengusir orang-orang yang lemah dari sana.\" Padahal kekuatan itu hanyalah bagi Allah, Rasul-Nya dan bagi orang-orang mukmin, tetapi orang-orang munafik itu tidak mengetahui."
+        }
+      ],
+      bagian: [
+        {
+          id: "ucapan",
+          judul: "Ucapan Abdullah bin Ubay",
+          isi: ["Zaid bin Arqam menuturkan: ia sedang ikut dalam sebuah ghazwah ketika mendengar Abdullah bin Ubay berkata, \"Janganlah kalian berinfak kepada orang-orang yang ada di sisi Rasulullah sampai mereka bubar dari sekitarnya,\" dan \"Jika kita kembali ke Madinah, pastilah orang yang mulia akan mengusir orang yang hina dari sana.\"[ref:b4900]", "Dalam riwayat Muslim, perjalanan itu disebut sebagai perjalanan yang membuat orang-orang mengalami kesulitan.[ref:m2772] Dalam riwayat At-Tirmidzi lewat Abu Sa'd Al-Azdi, pemicunya adalah perebutan air: seorang Arab badui memukul kepala seorang Anshar, lalu orang itu mengadu kepada Abdullah bin Ubay, yang marah dan mengucapkan kata-kata tersebut.[ref:t3313]"]
+        },
+        {
+          id: "jabir",
+          judul: "Seruan jahiliyah di mata air",
+          isi: ["Jabir bin Abdullah meriwayatkan: dalam sebuah ghazwah, seorang Muhajirin menendang seorang Anshar.[ref:b4905][ref:t3315] Orang Anshar itu berseru, \"Wahai kaum Anshar!\" dan orang Muhajirin itu berseru, \"Wahai kaum Muhajirin!\"[ref:b4905][ref:t3315] Rasulullah ﷺ mendengarnya dan bersabda, \"Mengapa ada seruan jahiliyah? Tinggalkanlah, karena seruan itu busuk.\"[ref:b4905][ref:t3315]", "Abdullah bin Ubay mendengar kejadian itu dan berkata bahwa jika mereka kembali ke Madinah, pastilah orang yang mulia akan mengusir orang yang hina dari sana.[ref:b4905] Jabir menambahkan bahwa ketika kaum Muhajirin baru tiba di Madinah, jumlah kaum Anshar lebih banyak, kemudian jumlah Muhajirin bertambah.[ref:b4905]", "Ibnu Hajar menyebut nama kedua orang itu: Jahjah bin Qais, atau bin Sa'id, Al-Ghifari, yang menuntun kuda Umar bin Khattab, dan Sinan bin Wabarah Al-Juhani, sekutu kaum Anshar.[ref:fath649] Al-Wahidi membawakan kisah ini dari para mufassir dan ahli sirah dengan menyebut mata air Al-Muraisi'.[ref:wahidi]"]
+        },
+        {
+          id: "umar",
+          judul: "Umar dan kebijaksanaan Nabi ﷺ",
+          isi: ["Ketika ucapan itu sampai kepada Nabi ﷺ, Umar meminta izin untuk memenggal leher orang munafik itu.[ref:b4905][ref:t3315] Beliau menjawab, \"Biarkan dia, agar orang-orang tidak berkata bahwa Muhammad membunuh sahabat-sahabatnya.\"[ref:b4905][ref:t3315]", "Ibnu Katsir menukil kisah Ibnu Ishaq bahwa Nabi ﷺ lalu memerintahkan rombongan segera berangkat, sehingga orang-orang sibuk dengan perjalanan dan melupakan peristiwa itu.[ref:iken]"]
+        },
+        {
+          id: "zaid",
+          judul: "Zaid dianggap berdusta",
+          isi: ["Zaid menyampaikan ucapan itu kepada pamannya, atau kepada Umar, lalu kabar itu sampai kepada Nabi ﷺ.[ref:b4900] Beliau memanggil Zaid dan mendengar penuturannya, lalu memanggil Abdullah bin Ubay dan kawan-kawannya, yang bersumpah tidak mengatakannya.[ref:b4900] Rasulullah ﷺ menerima sumpah mereka dan tidak membenarkan Zaid.[ref:b4900]", "Zaid sangat sedih dan memilih tinggal di rumah.[ref:b4900] Pamannya berkata, \"Engkau hanya ingin Rasulullah ﷺ tidak memercayaimu dan membencimu.\"[ref:b4900] Dalam riwayat Muslim, orang-orang berkata bahwa Zaid telah berdusta kepada Rasulullah ﷺ.[ref:m2772]", "Ibnu Hajar mencatat bahwa sebagian besar riwayat menyebut \"pamanku\".[ref:fath645] Menurut Ath-Thabarani dan Ibnu Mardawaih, yang dimaksud adalah Sa'ad bin Ubadah, pemimpin Khazraj, bukan paman kandung Zaid.[ref:fath645] Ia juga mengambil pelajaran bahwa menyampaikan ucapan seseorang demi kemaslahatan yang lebih besar bukanlah namimah yang tercela.[ref:fath646]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya surah",
+          isi: ["Lalu Allah menurunkan \"Apabila orang-orang munafik datang kepadamu...\".[ref:b4900] Nabi ﷺ memanggil Zaid, membacakan ayat-ayat itu kepadanya, dan bersabda, \"Wahai Zaid, sesungguhnya Allah telah membenarkanmu.\"[ref:b4900] As-Suyuthi membawakan hadits Zaid ini untuk surah tersebut, didahului riwayat Qatadah bahwa Abdullah bin Ubay memalingkan kepalanya ketika diajak menemui Nabi ﷺ agar dimohonkan ampun (ayat 5).[ref:lubab]", "Dalam riwayat At-Tirmidzi lewat Abu Sa'd Al-Azdi, ketika Zaid berjalan bersama Rasulullah ﷺ dalam perjalanan, beliau menghampirinya dan menggosok telinganya; Abu Bakar dan Umar lalu menyampaikan kabar gembira kepadanya, dan keesokan paginya Rasulullah ﷺ membacakan Surah Al-Munafiqun.[ref:t3313] Ibnu Hajar menukil riwayat mursal Al-Hasan bahwa Nabi ﷺ memegang telinga Zaid dan berkata, \"Telingamu telah jujur, wahai anak muda.\"[ref:fath646]", "Dalam riwayat Muslim dan Al-Bukhari, ketika Nabi ﷺ memanggil mereka agar beliau memohonkan ampun bagi mereka, mereka memalingkan kepala.[ref:m2772][ref:b4903] Zaid menyebut mereka, yang diumpamakan \"kayu yang tersandar\" dalam ayat 4, sebagai orang-orang yang berpenampilan sangat bagus.[ref:m2772][ref:b4903]"]
+        },
+        {
+          id: "ekspedisi",
+          judul: "Bani al-Mushthaliq atau Tabuk?",
+          isi: ["Hadits Zaid dalam riwayat utama Al-Bukhari hanya menyebut \"dalam sebuah ghazwah\".[ref:b4900] Dalam riwayat At-Tirmidzi dari Muhammad bin Ka'b Al-Qurazhi, Zaid menyebutnya \"dalam Ghazwah Tabuk\".[ref:t3314] As-Suyuthi mencatat bahwa hadits Zaid memiliki banyak jalur, dan sebagiannya menyebut peristiwa itu terjadi dalam Ghazwah Tabuk serta surah ini turun pada malam hari.[ref:lubab197]", "Ibnu Hajar memaparkan kedua pendapat.[ref:fath644] Pendapat Tabuk didukung riwayat Muhammad bin Ka'b pada An-Nasa'i, lafal Zuhair tentang \"perjalanan yang sulit\", dan riwayat mursal Sa'id bin Jubair pada 'Abd bin Humaid dengan sanad shahih.[ref:fath644] Adapun para ahli maghazi berpendapat bahwa itu Ghazwah Bani al-Mushthaliq, didukung hadits Jabir serta riwayat Ibnu 'Aidz dan Al-Hakim dalam Al-Iklil dari jalur Abul Aswad dari 'Urwah.[ref:fath644]", "Untuk hadits Jabir, Sufyan bin 'Uyainah berkata, \"Mereka berpendapat bahwa itu adalah Ghazwah Bani al-Mushthaliq.\"[ref:t3315] Ibnu Hajar menukil bahwa Ibnu Ishaq juga menamainya Ghazwah Bani al-Mushthaliq, dan Ibnu Abi Hatim meriwayatkan dari jalur Az-Zuhri dan 'Urwah bahwa itu Ghazwah Al-Muraisi'.[ref:fath649] Ibnu Katsir juga membawakan riwayat Ibnu Abi Hatim yang menempatkan peristiwa ini pada Ghazwah Al-Muraisi'.[ref:ik7]", "Terjemahan Kemenag untuk ayat 8 memberi keterangan \"(kembali dari perang Bani Mustalik)\".[ref:kemenag] Di sini peristiwa ini ditempatkan pada Ghazwah Bani al-Mushthaliq, mengikuti pendapat para ahli maghazi; tahun ±627 M di peta hanya perkiraan, karena tahun ghazwah itu sendiri diperselisihkan.[ref:fath644][ref:qurthubi24]"]
+        },
+        {
+          id: "putra",
+          judul: "Abdullah, putra Abdullah bin Ubay",
+          isi: ["Dalam riwayat At-Tirmidzi dari jalur Jabir, putra Abdullah bin Ubay, yang juga bernama Abdullah, berkata kepada ayahnya bahwa ia tidak akan dibiarkan pulang sampai mengakui bahwa dialah yang hina dan Rasulullah ﷺ yang mulia, lalu ayahnya mengucapkannya.[ref:t3315] At-Tirmidzi mencatat bahwa tambahan ini datang dari perawi selain 'Amr bin Dinar.[ref:t3315]", "Al-Qurthubi juga menyebut bahwa ia tidak membiarkan ayahnya masuk Madinah sampai mengakui hal itu.[ref:qurthubi8] Al-Wahidi menuturkan dari para ahli sirah bahwa Abdullah bahkan menawarkan diri untuk membunuh ayahnya, tetapi Nabi ﷺ memilih untuk tetap memperlakukan ayahnya dengan baik.[ref:wahidi]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat 7–8",
+          isi: ["Ath-Thabari menjelaskan bahwa ayat 7 menceritakan ucapan kaum munafik kepada kawan-kawan mereka agar berhenti membantu Rasulullah ﷺ dan para sahabatnya supaya mereka bubar, padahal perbendaharaan langit dan bumi adalah milik Allah, dan tidak seorang pun dapat memberi kecuali dengan kehendak-Nya.[ref:thabari]", "Al-Qurthubi menjelaskan bahwa kaum munafik mengira kemuliaan ada pada harta dan banyaknya pengikut, lalu Allah menegaskan bahwa kemuliaan itu milik-Nya, Rasul-Nya, dan orang-orang beriman.[ref:qurthubi8] Tafsir Ringkas Kemenag juga menegaskan bahwa kekuatan sejati ada pada Allah, Rasul-Nya, dan kaum mukmin.[ref:kemenag]", "Rumaysho menguraikan peristiwa ini dalam rangkaian Ghazwah Bani al-Mushthaliq, dengan mengutip Ibnu Ishaq dan Tafsir As-Sa'di.[ref:rumaysho]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Ubay bin Salul",
+          tokoh: "abdullahubay"
+        },
+        {
+          label: "Zaid bin Arqam",
+          tokoh: "zaidarqam"
+        },
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar"
+        },
+        {
+          label: "Sa'ad bin Ubadah",
+          tokoh: "saadubadah",
+          ket: "\"paman\" Zaid menurut riwayat Ath-Thabarani"
+        },
+        {
+          label: "An-Nur 11–20",
+          wiki: "nur-11-20",
+          ket: "haditsul ifki, sepulang ghazwah yang sama"
+        },
+        {
+          label: "At-Taubah 118",
+          wiki: "taubah-118",
+          ket: "Ghazwah Tabuk, pendapat lain"
+        }
+      ],
+      rujukan: {
+        b4900: {
+          t: "HR. Bukhari no. 4900, dari Abu Ishaq dari Zaid bin Arqam (Kitab Tafsir, bab Al-Munafiqun 1).",
+          url: "https://sunnah.com/bukhari:4900"
+        },
+        b4903: {
+          t: "HR. Bukhari no. 4903, dari Zaid bin Arqam (Kitab Tafsir, Surah Al-Munafiqun).",
+          url: "https://sunnah.com/bukhari:4903"
+        },
+        b4905: {
+          t: "HR. Bukhari no. 4905, dari 'Amr bin Dinar dari Jabir bin Abdullah (Kitab Tafsir, bab Al-Munafiqun 6).",
+          url: "https://sunnah.com/bukhari:4905"
+        },
+        m2772: {
+          t: "HR. Muslim no. 2772, dari Abu Ishaq dari Zaid bin Arqam (Kitab Sifat Kaum Munafik).",
+          url: "https://sunnah.com/muslim:2772"
+        },
+        t3312: {
+          t: "HR. Tirmidzi no. 3312, dari Abu Ishaq dari Zaid bin Arqam (Kitab Tafsir, Surah Al-Munafiqun). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3312"
+        },
+        t3313: {
+          t: "HR. Tirmidzi no. 3313, dari As-Suddi dari Abu Sa'd Al-Azdi dari Zaid bin Arqam (Kitab Tafsir, Surah Al-Munafiqun). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3313"
+        },
+        t3314: {
+          t: "HR. Tirmidzi no. 3314, dari Al-Hakam dari Muhammad bin Ka'b Al-Qurazhi dari Zaid bin Arqam: \"dalam Ghazwah Tabuk\" (Kitab Tafsir, Surah Al-Munafiqun). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3314"
+        },
+        t3315: {
+          t: "HR. Tirmidzi no. 3315, dari 'Amr bin Dinar dari Jabir bin Abdullah (Kitab Tafsir, Surah Al-Munafiqun). Tirmidzi: hasan shahih; Darussalam: hasan.",
+          url: "https://sunnah.com/tirmidhi:3315"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Munafiqun 7 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=63&Ayah=7&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 196 (Surah Al-Munafiqun).",
+          url: "https://shamela.ws/book/2247/194"
+        },
+        lubab197: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 197 (lanjutan hadits Zaid bin Arqam dan catatan jalur-jalurnya).",
+          url: "https://shamela.ws/book/2247/195"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 214 (Surah Al-Munafiqun).",
+          url: "https://shamela.ws/book/11547/209"
+        },
+        fath644: {
+          t: "Ibnu Hajar, Fath al-Bari 8/644 (Kitab Tafsir, Surah Al-Munafiqun, bab ayat 1).",
+          url: "https://shamela.ws/book/1673/4991"
+        },
+        fath645: {
+          t: "Ibnu Hajar, Fath al-Bari 8/645 (lanjutan bab yang sama).",
+          url: "https://shamela.ws/book/1673/4992"
+        },
+        fath646: {
+          t: "Ibnu Hajar, Fath al-Bari 8/646 (Surah Al-Munafiqun, bab ayat 2).",
+          url: "https://shamela.ws/book/1673/4993"
+        },
+        fath649: {
+          t: "Ibnu Hajar, Fath al-Bari 8/649 (Surah Al-Munafiqun, bab ayat 6: hadits Jabir).",
+          url: "https://shamela.ws/book/1673/4996"
+        },
+        ik1: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Munafiqun 1.",
+          url: "https://quran.com/63:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik7: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Munafiqun 5–8.",
+          url: "https://quran.com/63:7/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        iken: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim (ringkasan Inggris), tafsir Al-Munafiqun 5–8.",
+          url: "https://quran.com/63:5/tafsirs/en-tafisr-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Munafiqun 7.",
+          url: "https://quran.com/63:7/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi8: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Munafiqun 8.",
+          url: "https://quran.com/63:8/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        qurthubi24: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir An-Nur 11 (tahun Ghazwah Bani al-Mushthaliq menurut Ibnu Ishaq dan Musa bin 'Uqbah).",
+          url: "https://quran.com/24:11/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Terjemah dan Tafsir Ringkas Kemenag RI serta tafsir lain untuk Al-Munafiqun 8 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/10930-surat-al-munafiqun-ayat-8.html"
+        },
+        rumaysho: {
+          t: "Muhammad Abduh Tuasikal, \"Faedah Sirah Nabi: Perang Bani Musthaliq (Muraisi')...\", Rumaysho.com (2023).",
+          url: "https://rumaysho.com/37191-faedah-sirah-nabi-perang-bani-musthaliq-muraisi-rasulullah-menikah-dengan-juwairiyyah-kisah-haditsul-ifki-aisyah-difitnah-selingkuh.html"
+        }
+      }
+    },
+
+    // baqarah-196 (ditulis dari riset rujukan silang)
+    "baqarah-196": {
+      judul: "Al-Baqarah 196",
+      sub: "Fidyah untuk Ka'ab bin 'Ujrah di Hudaibiyah",
+      surah: "Al-Baqarah",
+      ayatNo: "196",
+      tahun: 628,
+      tontonan: null,
+      peta: {
+        tahun: 628,
+        lok: "makkah"
+      },
+      lead: ["Al-Baqarah ayat 196 memuat ketentuan haji dan umrah.[ref:kemenag] Bagian \"Jika ada di antara kamu yang sakit atau ada gangguan di kepalanya (lalu dia bercukur), maka dia wajib berfidyah\" turun berkenaan dengan Ka'ab bin 'Ujrah.[ref:kemenag][ref:b4517]", "Ka'ab menuturkan bahwa di Hudaibiyah, ketika sedang berihram, kutu kepalanya berjatuhan ke wajahnya.[ref:b4190][ref:b4191] Nabi ﷺ menyuruhnya bercukur dan memberinya pilihan: berpuasa tiga hari, memberi makan enam orang miskin, atau menyembelih seekor kambing.[ref:b4190][ref:b4191] Ka'ab berkata bahwa ayat itu turun khusus tentang dirinya, tetapi berlaku umum untuk semua.[ref:b4517]"],
+      infobox: [
+        ["Surah", "Al-Baqarah (البقرة), surah ke-2 dalam mushaf"],
+        ["Ayat", "196, bagian fidyah: \"fa man kana minkum maridhan au bihi adzan min ra'sihi fa fidyatun min shiyamin au shadaqatin au nusuk\""],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Dzulqa'dah 6 H (±628 M), saat umrah Hudaibiyah[ref:b1778][ref:iken]"],
+        ["Tempat", "Hudaibiyah, ketika kaum muslimin berihram dan dihalangi kaum musyrikin menuju Ka'bah[ref:b4191]"],
+        ["Tokoh", "Ka'ab bin 'Ujrah[ref:b4517]"],
+        ["Riwayat utama", "HR. Bukhari no. 4517 (Abdullah bin Ma'qil dari Ka'ab); HR. Bukhari no. 4159, 4190, dan 4191 (Abdurrahman bin Abi Laila dari Ka'ab); HR. Muslim no. 1201; HR. Tirmidzi no. 2973"],
+        ["Riwayat pembanding", "Riwayat Ibnu Abbas lewat 'Atha' (Al-Wahidi)[ref:wahidi][ref:lubab28]; untuk awal ayat 196, riwayat Ya'la bin Umayyah tentang orang yang berihram umrah dengan pakaian berwangi[ref:muqbil29]"],
+        ["Derajat", "Shahih (Bukhari, Muslim); At-Tirmidzi: hasan shahih[ref:t2973]; dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 196,
+          ar: "وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ ۚ فَإِنْ أُحْصِرْتُمْ فَمَا اسْتَيْسَرَ مِنَ الْهَدْيِ ۖ وَلَا تَحْلِقُوا رُءُوسَكُمْ حَتَّىٰ يَبْلُغَ الْهَدْيُ مَحِلَّهُ ۚ فَمَن كَانَ مِنكُم مَّرِيضًا أَوْ بِهِ أَذًى مِّن رَّأْسِهِ فَفِدْيَةٌ مِّن صِيَامٍ أَوْ صَدَقَةٍ أَوْ نُسُكٍ ۚ فَإِذَا أَمِنتُمْ فَمَن تَمَتَّعَ بِالْعُمْرَةِ إِلَى الْحَجِّ فَمَا اسْتَيْسَرَ مِنَ الْهَدْيِ ۚ فَمَن لَّمْ يَجِدْ فَصِيَامُ ثَلَاثَةِ أَيَّامٍ فِي الْحَجِّ وَسَبْعَةٍ إِذَا رَجَعْتُمْ ۗ تِلْكَ عَشَرَةٌ كَامِلَةٌ ۗ ذَٰلِكَ لِمَن لَّمْ يَكُنْ أَهْلُهُ حَاضِرِي الْمَسْجِدِ الْحَرَامِ ۚ وَاتَّقُوا اللَّهَ وَاعْلَمُوا أَنَّ اللَّهَ شَدِيدُ الْعِقَابِ",
+          id: "Dan sempurnakanlah ibadah haji dan umrah karena Allah. Tetapi jika kamu terkepung (oleh musuh), maka (sembelihlah) hadyu yang mudah didapat, dan jangan kamu mencukur kepalamu, sebelum hadyu sampai di tempat penyembelihannya. Jika ada di antara kamu yang sakit atau ada gangguan di kepalanya (lalu dia bercukur), maka dia wajib berfidyah, yaitu berpuasa, bersedekah atau berkurban. Apabila kamu dalam keadaan aman, maka barang siapa mengerjakan umrah sebelum haji, dia (wajib menyembelih) hadyu yang mudah didapat. Tetapi jika dia tidak mendapatkannya, maka dia (wajib) berpuasa tiga hari dalam (musim) haji dan tujuh (hari) setelah kamu kembali. Itulah sepuluh (hari) yang lengkap. Demikian itu, bagi orang yang keluarganya tidak ada (tinggal) di sekitar Masjidilharam. Bertakwalah kepada Allah dan ketahuilah bahwa Allah sangat keras hukuman-Nya."
+        }
+      ],
+      bagian: [
+        {
+          id: "hudaibiyah",
+          judul: "Berihram di Hudaibiyah",
+          isi: ["Ka'ab bin 'Ujrah menuturkan: mereka bersama Nabi ﷺ di Hudaibiyah dalam keadaan berihram, sementara kaum musyrikin menghalangi mereka menuju Ka'bah.[ref:b4191] Rambut Ka'ab lebat, dan kutu kepalanya berjatuhan ke wajahnya.[ref:b4191]", "Dalam riwayat Muslim, Nabi ﷺ mendatanginya ketika ia sedang menyalakan api di bawah periuk.[ref:m1201] Riwayat Al-Bukhari lewat Mujahid menyebut bahwa saat itu belum dijelaskan kepada mereka bahwa mereka akan bertahalul di Hudaibiyah, dan mereka masih berharap dapat memasuki Mekah.[ref:b4159]"]
+        },
+        {
+          id: "pertanyaan",
+          judul: "\"Apakah kutu kepalamu mengganggumu?\"",
+          isi: ["Nabi ﷺ bertanya, \"Apakah kutu-kutu kepalamu mengganggumu?\"[ref:b4190][ref:b4191] Ka'ab menjawab, \"Ya.\"[ref:b4190][ref:b4191]", "Dalam riwayat Abdullah bin Ma'qil, Ka'ab dibawa kepada Nabi ﷺ, dan beliau bersabda, \"Aku tidak mengira penderitaanmu sampai seberat ini. Apakah engkau mampu menyediakan seekor kambing?\"[ref:b4517] Ka'ab menjawab tidak.[ref:b4517]"]
+        },
+        {
+          id: "fidyah",
+          judul: "Tiga pilihan fidyah",
+          isi: ["Nabi ﷺ menyuruhnya mencukur kepala, lalu berpuasa tiga hari, atau memberi makan enam orang miskin, atau menyembelih seekor kambing.[ref:b4190][ref:m1201] Ayyub, salah seorang perawi, berkata bahwa ia tidak tahu pilihan mana yang disebut pertama.[ref:b4190][ref:m1201]", "Dalam riwayat Abdullah bin Ma'qil, setiap orang miskin mendapat setengah sha' makanan.[ref:b4517] Riwayat Mujahid lewat Ibnu Abi Najih menyebut takarannya satu faraq untuk enam orang miskin.[ref:b4159] Hidayatul Insan, yang dimuat TafsirWeb, menjelaskan bahwa satu faraq sama dengan tiga sha'.[ref:kemenag]"]
+        },
+        {
+          id: "turun",
+          judul: "\"Khusus untukku, umum untuk kalian\"",
+          isi: ["Abdullah bin Ma'qil menuturkan bahwa ia duduk bersama Ka'ab di masjid Kufah dan bertanya tentang fidyah.[ref:b4517] Ka'ab menjawab bahwa ayat itu turun khusus tentang dirinya, tetapi berlaku umum untuk mereka semua.[ref:b4517]", "Riwayat Al-Bukhari lewat Abdurrahman bin Abi Laila menyebut bahwa ayat fidyah turun setelah Nabi ﷺ bertanya kepadanya.[ref:b4191][ref:b4159] Ibnu Hajar mencatat bahwa Al-Bukhari membawakan hadits Ka'ab di bab tafsir ini sebagai sebab turunnya ayat, dan rinciannya telah ia uraikan di Kitab al-Hajj.[ref:fath186]", "As-Suyuthi juga membawakan riwayat Ahmad dari Ka'ab bahwa mereka berihram di Hudaibiyah ketika dikepung kaum musyrikin, dan riwayat Al-Wahidi lewat 'Atha' dari Ibnu Abbas bahwa Allah menurunkan ayat ini \"di tempat itu\".[ref:lubab][ref:lubab28] Al-Wahidi menghimpun tujuh riwayat tentang Ka'ab untuk ayat ini, dengan beberapa perbedaan rincian tentang hewan sembelihan dan takaran makanan.[ref:wahidi]"]
+        },
+        {
+          id: "hukum",
+          judul: "Pilihan, bukan urutan",
+          isi: ["Ibnu Katsir menegaskan bahwa ketiga bentuk fidyah itu adalah pilihan (takhyir), dan menyebutnya sebagai pendapat empat imam dan mayoritas ulama.[ref:ik] Menurutnya, ayat menyebut mulai dari yang paling ringan, sedangkan perintah Nabi ﷺ kepada Ka'ab mendahulukan yang paling utama.[ref:ik]", "Ibnu Katsir dan Al-Qurthubi menukil riwayat dari sebagian ulama, seperti Al-Hasan dan 'Ikrimah, tentang puasa sepuluh hari atau memberi makan sepuluh orang miskin.[ref:ik][ref:qurthubi] Ibnu Katsir menilainya gharib karena menyelisihi hadits Ka'ab, dan Al-Qurthubi mencatat bahwa para fuqaha dan ahli hadits tidak memakainya.[ref:ik][ref:qurthubi]", "Tentang tempatnya, Al-Qurthubi menukil pendapat 'Atha' bahwa sembelihan dilakukan di Mekah, sedangkan makanan dan puasa boleh di mana saja; Imam Malik membolehkan ketiganya di mana saja.[ref:qurthubi]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa orang yang sakit atau terganggu kepalanya lalu bercukur sebelum waktunya wajib membayar fidyah, dengan memilih berpuasa, bersedekah, atau menyembelih hewan sesuai kemampuannya.[ref:kemenag]", "NU Online menyebut contoh gangguan di kepala itu antara lain kutu, dengan tiga pilihan fidyah: berpuasa tiga hari, bersedekah makanan untuk enam orang miskin, atau menyembelih seekor kambing.[ref:nuonline] Almanhaj juga memuat kisah Ka'ab ini dalam bahasan larangan mencukur rambut ketika ihram.[ref:almanhaj]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Ka'ab bin 'Ujrah",
+          tokoh: "kaabujrah"
+        },
+        {
+          label: "Al-Fath 1",
+          wiki: "fath-1",
+          ket: "Hudaibiyah, perjalanan yang sama"
+        },
+        {
+          label: "Al-Baqarah 144",
+          wiki: "baqarah-144",
+          ket: "surah yang sama"
+        }
+      ],
+      rujukan: {
+        b4517: {
+          t: "HR. Bukhari no. 4517, dari Abdullah bin Ma'qil dari Ka'ab bin 'Ujrah (Kitab Tafsir, bab Al-Baqarah 196).",
+          url: "https://sunnah.com/bukhari:4517"
+        },
+        b4190: {
+          t: "HR. Bukhari no. 4190, dari Mujahid dari Abdurrahman bin Abi Laila dari Ka'ab bin 'Ujrah (Kitab Al-Maghazi, bab Ghazwah Al-Hudaibiyah).",
+          url: "https://sunnah.com/bukhari:4190"
+        },
+        b4191: {
+          t: "HR. Bukhari no. 4191, dari Mujahid dari Abdurrahman bin Abi Laila dari Ka'ab bin 'Ujrah (Kitab Al-Maghazi, bab Ghazwah Al-Hudaibiyah).",
+          url: "https://sunnah.com/bukhari:4191"
+        },
+        b4159: {
+          t: "HR. Bukhari no. 4159, dari Ibnu Abi Najih dari Mujahid dari Abdurrahman bin Abi Laila dari Ka'ab bin 'Ujrah (Kitab Al-Maghazi, bab Ghazwah Al-Hudaibiyah).",
+          url: "https://sunnah.com/bukhari:4159"
+        },
+        b1778: {
+          t: "HR. Bukhari no. 1778, dari Qatadah dari Anas bin Malik: umrah Hudaibiyah pada bulan Dzulqa'dah (Kitab Umrah).",
+          url: "https://sunnah.com/bukhari:1778"
+        },
+        m1201: {
+          t: "HR. Muslim no. 1201a, dari Mujahid dari Abdurrahman bin Abi Laila dari Ka'ab bin 'Ujrah (Kitab Haji, bab bolehnya orang yang berihram mencukur rambut karena gangguan).",
+          url: "https://sunnah.com/muslim:1201a"
+        },
+        t2973: {
+          t: "HR. Tirmidzi no. 2973, dari Ka'ab bin 'Ujrah (Kitab Tafsir, Surah Al-Baqarah). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:2973"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Baqarah 196 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=2&Ayah=196&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 27 (Al-Baqarah 196).",
+          url: "https://shamela.ws/book/2247/25"
+        },
+        lubab28: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 28 (lanjutan riwayat Ahmad dan riwayat Al-Wahidi dari Ibnu Abbas).",
+          url: "https://shamela.ws/book/2247/26"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 30 (Al-Baqarah 196, bagian fidyah).",
+          url: "https://shamela.ws/book/11547/25"
+        },
+        muqbil29: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 29 (awal Al-Baqarah 196, riwayat Ya'la bin Umayyah).",
+          url: "https://shamela.ws/book/11547/24"
+        },
+        fath186: {
+          t: "Ibnu Hajar, Fath al-Bari 8/186 (Kitab Tafsir, bab Al-Baqarah 196).",
+          url: "https://shamela.ws/book/1673/4533"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Baqarah 196.",
+          url: "https://quran.com/2:196/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        iken: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim (ringkasan Inggris), tafsir Al-Baqarah 196: turun pada tahun keenam Hijriah, tahun Perjanjian Hudaibiyah.",
+          url: "https://quran.com/2:196/tafsirs/en-tafisr-ibn-kathir"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Baqarah 196.",
+          url: "https://quran.com/2:196/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Terjemah dan Tafsir Ringkas Kemenag RI serta tafsir lain (antara lain Hidayatul Insan) untuk Al-Baqarah 196 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/717-surat-al-baqarah-ayat-196.html"
+        },
+        nuonline: {
+          t: "Alwi Jamalulel Ubab, \"Tafsir Surat Al-Baqarah Ayat 196: 6 Hukum dan Adab Haji\", NU Online (2023).",
+          url: "https://nu.or.id/tafsir/tafsir-surat-al-baqarah-ayat-196-6-hukum-dan-adab-haji-aodXn"
+        },
+        almanhaj: {
+          t: "Ustadz Khalid Syamhudi, \"Larangan dalam Ihram\", Almanhaj (dari Majalah As-Sunnah Edisi 12/Tahun V/1422 H).",
+          url: "https://almanhaj.or.id/2872-larangan-dalam-ihram.html"
+        }
+      }
+    },
+
+    // jumuah-11 (ditulis dari riset rujukan silang)
+    "jumuah-11": {
+      judul: "Al-Jumu'ah 11",
+      sub: "Kafilah dagang di tengah khutbah Jumat",
+      surah: "Al-Jumu'ah",
+      ayatNo: "11",
+      tahun: 624,
+      tontonan: null,
+      peta: {
+        tahun: 624,
+        tempat: "masjid-nabawi",
+        kota: "madinah"
+      },
+      lead: ["Al-Jumu'ah ayat 11 turun ketika sebuah kafilah dagang datang pada hari Jumat, saat Rasulullah ﷺ sedang berkhutbah sambil berdiri.[ref:m863a] Orang-orang berhamburan menuju kafilah itu sampai yang tersisa bersama beliau hanya dua belas orang.[ref:b4899][ref:m863a]", "Jabir bin Abdullah, perawi kisah ini, termasuk di antara dua belas orang itu, dan riwayat lain menyebut Abu Bakar dan Umar juga bertahan.[ref:m863c][ref:m863d] Ayat ini menegaskan bahwa apa yang ada di sisi Allah lebih baik daripada permainan dan perdagangan.[ref:thabari]"],
+      infobox: [
+        ["Surah", "Al-Jumu'ah (الجمعة), surah ke-62 dalam mushaf"],
+        ["Ayat", "11"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Hari Jumat, ketika Nabi ﷺ berkhutbah[ref:m863a]; tahunnya tidak disebut dalam riwayat (periode Madinah, ±624 M di peta hanya perkiraan)"],
+        ["Tempat", "Madinah, di masjid tempat Nabi ﷺ berkhutbah[ref:t3311][ref:wahidi]"],
+        ["Tokoh", "Jabir bin Abdullah, perawi yang ikut bertahan[ref:m863c]; Abu Bakar dan Umar[ref:m863d]; Dihyah bin Khalifah Al-Kalbi, pemilik kafilah menurut para mufassir[ref:wahidi][ref:ik]"],
+        ["Yang bertahan", "Dua belas orang[ref:b4899]; riwayat lain menyebut sebelas, delapan, atau empat puluh, dan angka empat puluh hanya diriwayatkan 'Ali bin 'Ashim menurut Ad-Daraquthni[ref:qurthubi]"],
+        ["Riwayat utama", "HR. Bukhari no. 4899 dan 936; HR. Muslim no. 863; HR. Tirmidzi no. 3311 (Jabir bin Abdullah)"],
+        ["Riwayat pembanding", "Riwayat Jabir lewat Ibnu Jarir: orang-orang juga bubar mendatangi arak-arakan pernikahan yang diiringi rebana dan seruling[ref:lubab][ref:muqbil]"],
+        ["Derajat", "Shahih (Bukhari dan Muslim); At-Tirmidzi: hasan shahih[ref:t3311]; dimuat Muqbil dalam Ash-Shahih al-Musnad min Asbab an-Nuzul[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 11,
+          ar: "وَإِذَا رَأَوْا تِجَارَةً أَوْ لَهْوًا انفَضُّوا إِلَيْهَا وَتَرَكُوكَ قَائِمًا ۚ قُلْ مَا عِندَ اللَّهِ خَيْرٌ مِّنَ اللَّهْوِ وَمِنَ التِّجَارَةِ ۚ وَاللَّهُ خَيْرُ الرَّازِقِينَ",
+          id: "Dan apabila mereka melihat perdagangan atau permainan, mereka segera menuju kepadanya dan mereka tinggalkan engkau (Muhammad) sedang berdiri (berkhotbah). Katakanlah, \"Apa yang ada di sisi Allah lebih baik daripada permainan dan perdagangan,\" dan Allah Pemberi rezeki yang terbaik."
+        }
+      ],
+      bagian: [
+        {
+          id: "kafilah",
+          judul: "Kafilah tiba saat khutbah",
+          isi: ["Jabir bin Abdullah menuturkan: pada suatu hari Jumat sebuah kafilah dagang datang ketika mereka sedang bersama Nabi ﷺ.[ref:b4899] Orang-orang pun berhamburan keluar kecuali dua belas orang, lalu Allah menurunkan ayat ini.[ref:b4899]", "Dalam riwayat Muslim, kafilah itu datang dari Syam ketika Nabi ﷺ sedang berkhutbah sambil berdiri.[ref:m863a] At-Tirmidzi meriwayatkan kisah yang sama dan menilainya hasan shahih.[ref:t3311] Salah satu jalur Bukhari menyebut kafilah itu membawa bahan makanan.[ref:b936]"]
+        },
+        {
+          id: "bertahan",
+          judul: "Dua belas orang yang bertahan",
+          isi: ["Jabir berkata bahwa ia termasuk di antara dua belas orang itu.[ref:m863c] Jalur Muslim yang lain dan riwayat At-Tirmidzi menyebut Abu Bakar dan Umar di antara mereka.[ref:m863d][ref:t3311]", "Al-Qurthubi mencatat angka lain dalam berbagai riwayat, yaitu sebelas, delapan, dan empat puluh orang.[ref:qurthubi] Tentang angka empat puluh, Ad-Daraquthni menjelaskan bahwa hanya 'Ali bin 'Ashim yang meriwayatkannya, sedangkan perawi lain menyebut dua belas.[ref:qurthubi]", "Al-Qurthubi juga membawakan riwayat mursal Muqatil bin Hayyan dalam Al-Marasil karya Abu Dawud yang menyebut nama-nama mereka: Abu Bakar, Umar, Utsman, Ali, Thalhah, Az-Zubair, Sa'ad bin Abi Waqqash, Abdurrahman bin 'Auf, Abu 'Ubaidah bin Al-Jarrah, Sa'id bin Zaid, dan Bilal, ditambah Ibnu Mas'ud atau 'Ammar bin Yasir menurut versi yang berbeda.[ref:qurthubi]"]
+        },
+        {
+          id: "dihyah",
+          judul: "Kafilah siapa, dan mengapa disambut?",
+          isi: ["Hadits-hadits Jabir di atas tidak menyebut pemilik kafilah.[ref:b4899][ref:m863a] Menurut para mufassir yang dikutip Al-Wahidi, penduduk Madinah saat itu sedang dilanda kelaparan dan harga-harga mahal.[ref:wahidi] Dihyah bin Khalifah Al-Kalbi datang dari Syam membawa dagangan, dan kedatangannya diumumkan dengan tabuhan genderang ketika Nabi ﷺ berkhutbah.[ref:wahidi]", "Ibnu Katsir membawakan keterangan Muqatil bin Hayyan bahwa dagangan itu milik Dihyah sebelum ia masuk Islam, dan bersamanya ada genderang.[ref:ik] Al-Qurthubi menukil Al-Kalbi dan lainnya bahwa kafilah itu membawa gandum dan tepung di masa paceklik.[ref:qurthubi] Ath-Thabari membawakan riwayat Al-Hasan tentang lapar dan mahalnya harga, serta riwayat Abu Malik bahwa Dihyah datang dari Syam membawa minyak zaitun.[ref:thabari] Tafsir Ringkas Kemenag juga menyebut kafilah itu datang dari Syam.[ref:kemenag]"]
+        },
+        {
+          id: "lahw",
+          judul: "Makna \"permainan\" (lahw)",
+          isi: ["Ath-Thabari juga membawakan riwayat Jabir bahwa ketika ada gadis-gadis yang dinikahkan, arak-arakannya lewat dengan rebana dan seruling, lalu orang-orang meninggalkan Nabi ﷺ yang berdiri di atas mimbar dan pergi ke sana.[ref:thabari]", "Muqbil memuat riwayat ini dari Ibnu Jarir dan Abu 'Awanah melalui nukilan Ibnu Hajar dalam Fath al-Bari, dan menyebut para perawinya perawi kitab Shahih.[ref:muqbil] As-Suyuthi menyimpulkan bahwa ayat ini seakan turun berkenaan dengan kedua hal itu sekaligus, lalu menyebut Ibnu Al-Mundzir meriwayatkan kisah pernikahan dan kedatangan kafilah bersama-sama dari satu jalur Jabir.[ref:lubab]", "Mujahid menafsirkan \"lahw\" sebagai genderang.[ref:thabari] Tafsir Ringkas Kemenag menyebutnya hiburan musik dan tari yang diadakan untuk menyambut kafilah dagang.[ref:kemenag]"]
+        },
+        {
+          id: "khutbah",
+          judul: "Saat khutbah atau saat shalat?",
+          isi: ["Sebagian besar riwayat menyebut peristiwa ini terjadi saat khutbah.[ref:m863a][ref:wahidi] Namun salah satu lafaz Bukhari berbunyi \"ketika kami sedang shalat bersama Nabi ﷺ\", dan Al-Bukhari menempatkannya dalam bab tentang jamaah yang bubar meninggalkan imam dalam shalat Jumat.[ref:b936]", "Ibnu Katsir membawakan, dengan ungkapan \"dikatakan\" (qila), riwayat Muqatil bin Hayyan dalam Al-Marasil karya Abu Dawud: dahulu Nabi ﷺ mengerjakan shalat Jumat sebelum khutbah, seperti shalat 'Id, lalu peristiwa ini terjadi saat beliau berkhutbah.[ref:ik] Al-Qurthubi menambahkan dari riwayat mursal yang sama bahwa sesudah itu khutbah didahulukan sebelum shalat.[ref:qurthubi]", "Qatadah, sebagaimana dibawakan Ath-Thabari, menyebut kejadian seperti ini terulang sampai tiga kali Jumat.[ref:thabari]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Dalam riwayat Abu Ya'la yang dibawakan Ibnu Katsir, Nabi ﷺ bersabda bahwa seandainya mereka semua pergi, lembah itu akan mengalirkan api kepada mereka.[ref:ik] Al-Wahidi dan Ath-Thabari membawakan makna yang serupa dari para mufassir dan Qatadah.[ref:wahidi][ref:thabari]", "Ath-Thabari menafsirkan bahwa pahala di sisi Allah bagi orang yang tetap duduk mendengarkan khutbah sampai selesai lebih baik daripada hiburan dan perdagangan, dan Allah sebaik-baik pemberi rezeki.[ref:thabari]", "Ibnu Katsir menjadikan frasa \"dan mereka tinggalkan engkau sedang berdiri\" dalil bahwa khatib berkhutbah sambil berdiri.[ref:ik] Al-Qurthubi juga membahas hukum Jumat dari ayat ini, termasuk perbedaan pendapat tentang jumlah minimal jamaah: Rabi'ah menyebut dua belas, sedangkan Asy-Syafi'i empat puluh.[ref:qurthubi]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Jabir bin Abdullah",
+          tokoh: "jabir"
+        },
+        {
+          label: "Abu Bakar Ash-Shiddiq",
+          tokoh: "abubakar"
+        },
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar"
+        },
+        {
+          label: "Masjid Nabawi",
+          tempat: "masjid-nabawi",
+          kota: "madinah",
+          ket: "tempat khutbah Jumat Nabi ﷺ"
+        },
+        {
+          label: "Al-Hujurat 2",
+          wiki: "hujurat-2",
+          ket: "adab di hadapan Nabi ﷺ"
+        }
+      ],
+      rujukan: {
+        b4899: {
+          t: "HR. Bukhari no. 4899, dari Jabir bin Abdullah (Kitab Tafsir, Surah Al-Jumu'ah).",
+          url: "https://sunnah.com/bukhari:4899"
+        },
+        b936: {
+          t: "HR. Bukhari no. 936, dari Jabir bin Abdullah (Kitab Jumu'ah, bab bila jamaah bubar meninggalkan imam dalam shalat Jumat).",
+          url: "https://sunnah.com/bukhari:936"
+        },
+        m863a: {
+          t: "HR. Muslim no. 863a, dari Jabir bin Abdullah (Kitab Jumu'ah).",
+          url: "https://sunnah.com/muslim:863a"
+        },
+        m863c: {
+          t: "HR. Muslim no. 863c, dari Jabir bin Abdullah: \"tidak tersisa kecuali dua belas orang, aku termasuk di antara mereka\".",
+          url: "https://sunnah.com/muslim:863c"
+        },
+        m863d: {
+          t: "HR. Muslim no. 863d, dari Jabir bin Abdullah: \"di antara mereka Abu Bakar dan Umar\".",
+          url: "https://sunnah.com/muslim:863d"
+        },
+        t3311: {
+          t: "HR. Tirmidzi no. 3311, dari Jabir bin Abdullah (Kitab Tafsir, Surah Al-Jumu'ah). Tirmidzi: hasan shahih; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3311"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Jumu'ah 11 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=62&Ayah=11&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 196 (Surah Al-Jumu'ah).",
+          url: "https://shamela.ws/book/2247/194"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 213 (Surah Al-Jumu'ah).",
+          url: "https://shamela.ws/book/11547/208"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Jumu'ah 11.",
+          url: "https://quran.com/62:11/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Jumu'ah 11.",
+          url: "https://quran.com/62:11/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Jumu'ah 11.",
+          url: "https://quran.com/62:11/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Jumu'ah 11 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/10911-surat-al-jumuah-ayat-11.html"
+        }
+      }
+    },
+
+    // mujadilah-1-4 (ditulis dari riset rujukan silang)
+    "mujadilah-1-4": {
+      judul: "Al-Mujadilah 1–4",
+      sub: "Gugatan Khaulah dan hukum zhihar",
+      surah: "Al-Mujadilah",
+      ayatNo: "1–4",
+      tahun: 626,
+      tontonan: null,
+      peta: {
+        tahun: 626,
+        lok: "madinah"
+      },
+      lead: ["Al-Mujadilah ayat 1–4 turun tentang seorang perempuan yang datang mengadukan suaminya kepada Rasulullah ﷺ, sementara Aisyah yang berada di sudut rumah tidak dapat mendengar pembicaraannya.[ref:im188] Aisyah lalu memuji Allah yang pendengaran-Nya meliputi segala suara.[ref:im188]", "Dalam riwayat Ibnu Majah ia disebut Khaulah binti Tsa'labah, dan dalam riwayat Abu Dawud Khuwailah binti Malik bin Tsa'labah, istri Aus bin Ash-Shamit, yang telah menzhiharnya.[ref:im2063][ref:d2214] Ayat 2–4 lalu menetapkan hukum zhihar beserta kafaratnya.[ref:ik2]"],
+      infobox: [
+        ["Surah", "Al-Mujadilah (المجادلة), surah ke-58 dalam mushaf"],
+        ["Ayat", "1–4"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Tidak disebut dalam riwayat; periode Madinah (±626 M di peta hanya perkiraan). Menurut riwayat Ibnu Abbas, inilah zhihar pertama dalam Islam[ref:ik2]"],
+        ["Tempat", "Madinah, di rumah tempat Nabi ﷺ menerima perempuan itu; Aisyah berada di sudut rumah[ref:im188]"],
+        ["Tokoh", "Khaulah binti Tsa'labah, disebut juga Khuwailah[ref:im2063][ref:d2214]; suaminya, Aus bin Ash-Shamit, saudara 'Ubadah bin Ash-Shamit[ref:d2214]; Aisyah[ref:im188]"],
+        ["Riwayat utama", "HR. Ibnu Majah no. 188 dan 2063; HR. An-Nasa'i no. 3460 (Aisyah)"],
+        ["Riwayat pembanding", "HR. Abu Dawud no. 2214 (Khuwailah binti Malik bin Tsa'labah), dengan rincian kafarat[ref:d2214]; riwayat Ahmad dari Khuwailah binti Tsa'labah[ref:ik2]"],
+        ["Derajat", "Riwayat Aisyah: shahih menurut Darussalam[ref:im188][ref:im2063][ref:n3460]; Al-Hakim: shahih al-isnad, disetujui Adz-Dzahabi[ref:muqbil]; Al-Bukhari menyebutnya secara mu'allaq dalam Kitab at-Tauhid[ref:ik]. Riwayat Abu Dawud: hasan menurut Al-Albani, kecuali keterangan tentang 'araq[ref:d2214]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "قَدْ سَمِعَ اللَّهُ قَوْلَ الَّتِي تُجَادِلُكَ فِي زَوْجِهَا وَتَشْتَكِي إِلَى اللَّهِ وَاللَّهُ يَسْمَعُ تَحَاوُرَكُمَا ۚ إِنَّ اللَّهَ سَمِيعٌ بَصِيرٌ",
+          id: "Sungguh, Allah telah mendengar ucapan perempuan yang mengajukan gugatan kepadamu (Muhammad) tentang suaminya, dan mengadukan (halnya) kepada Allah, dan Allah mendengar percakapan antara kamu berdua. Sesungguhnya Allah Maha Mendengar, Maha Melihat."
+        },
+        {
+          no: 2,
+          ar: "الَّذِينَ يُظَاهِرُونَ مِنكُم مِّن نِّسَائِهِم مَّا هُنَّ أُمَّهَاتِهِمْ ۖ إِنْ أُمَّهَاتُهُمْ إِلَّا اللَّائِي وَلَدْنَهُمْ ۚ وَإِنَّهُمْ لَيَقُولُونَ مُنكَرًا مِّنَ الْقَوْلِ وَزُورًا ۚ وَإِنَّ اللَّهَ لَعَفُوٌّ غَفُورٌ",
+          id: "Orang-orang di antara kamu yang menzihar istrinya, (menganggap istrinya sebagai ibunya, padahal) istri mereka itu bukanlah ibunya. Ibu-ibu mereka hanyalah perempuan yang melahirkannya. Dan sesungguhnya mereka benar-benar telah mengucapkan suatu perkataan yang mungkar dan dusta. Dan sesungguhnya Allah Maha Pemaaf, Maha Pengampun."
+        },
+        {
+          no: 3,
+          ar: "وَالَّذِينَ يُظَاهِرُونَ مِن نِّسَائِهِمْ ثُمَّ يَعُودُونَ لِمَا قَالُوا فَتَحْرِيرُ رَقَبَةٍ مِّن قَبْلِ أَن يَتَمَاسَّا ۚ ذَٰلِكُمْ تُوعَظُونَ بِهِ ۚ وَاللَّهُ بِمَا تَعْمَلُونَ خَبِيرٌ",
+          id: "Dan mereka yang menzihar istrinya, kemudian menarik kembali apa yang telah mereka ucapkan, maka (mereka diwajibkan) memerdekakan seorang budak sebelum kedua suami istri itu bercampur. Demikianlah yang diajarkan kepadamu, dan Allah Mahateliti atas apa yang kamu kerjakan."
+        },
+        {
+          no: 4,
+          ar: "فَمَن لَّمْ يَجِدْ فَصِيَامُ شَهْرَيْنِ مُتَتَابِعَيْنِ مِن قَبْلِ أَن يَتَمَاسَّا ۖ فَمَن لَّمْ يَسْتَطِعْ فَإِطْعَامُ سِتِّينَ مِسْكِينًا ۚ ذَٰلِكَ لِتُؤْمِنُوا بِاللَّهِ وَرَسُولِهِ ۚ وَتِلْكَ حُدُودُ اللَّهِ ۗ وَلِلْكَافِرِينَ عَذَابٌ أَلِيمٌ",
+          id: "Maka barangsiapa tidak dapat (memerdekakan hamba sahaya), maka (dia wajib) berpuasa dua bulan berturut-turut sebelum keduanya bercampur. Tetapi barangsiapa tidak mampu, maka (wajib) memberi makan enam puluh orang miskin. Demikianlah agar kamu beriman kepada Allah dan Rasul-Nya. Itulah hukum-hukum Allah, dan bagi orang-orang yang mengingkarinya akan mendapat azab yang sangat pedih."
+        }
+      ],
+      bagian: [
+        {
+          id: "aduan",
+          judul: "Aduan yang didengar Allah",
+          isi: ["Aisyah berkata, \"Segala puji bagi Allah yang pendengaran-Nya meliputi segala suara.\"[ref:im188] Perempuan yang mengajukan gugatan itu datang kepada Nabi ﷺ dan berbicara dengan beliau, sementara Aisyah berada di sudut rumah dan tidak mendengar apa yang dikatakannya.[ref:im188] Lalu Allah menurunkan, \"Sungguh, Allah telah mendengar ucapan perempuan yang mengajukan gugatan kepadamu tentang suaminya.\"[ref:im188]", "Dalam riwayat Ibnu Majah yang lain, Aisyah menyebut namanya, Khaulah binti Tsa'labah, dan berkata bahwa sebagian ucapannya tidak terdengar olehnya.[ref:im2063] Khaulah mengadu bahwa suaminya telah menghabiskan masa mudanya dan ia telah melahirkan anak-anak untuknya, tetapi setelah ia tua dan tidak dapat lagi melahirkan, suaminya menzhiharnya.[ref:im2063] Ia terus mengadu sampai Jibril turun membawa ayat-ayat ini.[ref:im2063]", "Al-Wahidi membawakan riwayat yang sama dari Al-Hakim, termasuk doa Khaulah, \"Ya Allah, aku mengadu kepada-Mu.\"[ref:wahidi] An-Nasa'i juga meriwayatkannya dari Aisyah dengan menyebut nama Khaulah.[ref:n3460] As-Suyuthi mengutip riwayat Al-Hakim, yang dinilai shahih oleh Al-Hakim sendiri, dengan keterangan bahwa suaminya adalah Aus bin Ash-Shamit.[ref:lubab]"]
+        },
+        {
+          id: "nama",
+          judul: "Siapa perempuan itu?",
+          isi: ["Riwayat Abu Dawud datang dari perempuan itu sendiri, yang menyebut dirinya Khuwailah binti Malik bin Tsa'labah.[ref:d2214] Ia menyebut suaminya Aus bin Ash-Shamit, dan Abu Dawud menjelaskan bahwa Aus adalah saudara 'Ubadah bin Ash-Shamit.[ref:d2214]", "Ibnu Katsir membawakan riwayat Imam Ahmad dari Khuwailah binti Tsa'labah: \"Demi Allah, tentang aku dan Aus bin Ash-Shamit Allah menurunkan awal Surah Al-Mujadilah,\" lalu menyatakan bahwa inilah sebab turun yang benar bagi awal surah ini.[ref:ik2]", "Ath-Thabari membawakan banyak riwayat dengan nama yang berbeda-beda, seperti Khaulah binti Tsa'labah, Khuwailah binti Khuwailid, Khuwailah binti Ad-Dulaij, dan Jamilah; riwayat-riwayat yang menyebut suaminya menamainya Aus bin Ash-Shamit.[ref:thabari] Al-Qurthubi juga mencatat nama-nama itu dan menilai \"Khaulah\" yang paling benar.[ref:qurthubi] Ia menukil Al-Mawardi bahwa perbedaannya muncul karena penisbatan kepada ayah atau kakek.[ref:qurthubi]"]
+        },
+        {
+          id: "zhihar",
+          judul: "Zhihar dan jawaban Nabi ﷺ",
+          isi: ["Zhihar adalah ucapan suami yang menyamakan istrinya dengan punggung ibunya, seperti \"Engkau bagiku seperti punggung ibuku.\"[ref:kemenag] Ibnu Katsir menjelaskan bahwa di masa Jahiliyah zhihar dianggap talak, lalu Allah memberi keringanan bagi umat ini dengan menetapkan kafarat, bukan talak.[ref:ik2] Al-Qurthubi juga menyebut zhihar dan ila' sebagai bentuk talak di masa Jahiliyah.[ref:qurthubi]", "Menurut beberapa riwayat tafsir, sebelum ayat ini turun Nabi ﷺ menjawab bahwa perempuan itu telah menjadi haram bagi suaminya.[ref:thabari][ref:qurthubi] Dalam riwayat Abu Dawud, beliau menasihatinya agar bertakwa kepada Allah, dan ia terus mengadu sampai ayat Al-Qur'an turun.[ref:d2214]", "Dalam riwayat Ahmad, Khuwailah menyebut suaminya sudah lanjut usia dan perangainya memburuk.[ref:ik2] Menurut riwayat Ibnu Abbas lewat 'Ikrimah, Aus adalah orang pertama yang melakukan zhihar dalam Islam; Ibnu Katsir menilai sanadnya jayyid dan kuat.[ref:ik2]"]
+        },
+        {
+          id: "hukum",
+          judul: "Hukum zhihar yang kemudian turun",
+          isi: ["Ayat 2 menegaskan bahwa istri yang dizhihar tidak menjadi ibu suaminya; ibunya hanyalah perempuan yang melahirkannya, dan ucapan zhihar adalah perkataan mungkar dan dusta.[ref:ik2]", "Ayat 3–4 menetapkan kafaratnya secara berurutan: memerdekakan seorang budak sebelum suami istri bercampur; jika tidak mampu, berpuasa dua bulan berturut-turut; jika tidak mampu juga, memberi makan enam puluh orang miskin.[ref:ik2][ref:d2214]", "Dalam riwayat Abu Dawud, Nabi ﷺ menyampaikan urutan kafarat itu, dan Khuwailah menjawab bahwa suaminya tidak mampu pada setiap tahap.[ref:d2214] Nabi ﷺ lalu membantu dengan sekeranjang kurma ('araq), dan Khuwailah menambah satu keranjang lagi.[ref:d2214] Nabi ﷺ bersabda, \"Engkau telah berbuat baik,\" lalu menyuruhnya memberi makan enam puluh orang miskin atas nama suaminya dan kembali kepadanya.[ref:d2214]"]
+        },
+        {
+          id: "umar",
+          judul: "Catatan tentang kisah yang populer",
+          isi: ["Al-Qurthubi membawakan kisah Umar bin Khattab yang berhenti lama mendengarkan nasihat perempuan ini, dan berkata bahwa Allah telah mendengar ucapannya dari atas tujuh langit.[ref:qurthubi] Ibnu Katsir mencatat bahwa sanad kisah ini terputus (munqathi') antara Abu Yazid dan Umar, meskipun diriwayatkan pula dari jalur lain.[ref:ik]"]
+        },
+        {
+          id: "kandungan",
+          judul: "Kandungan ayat",
+          isi: ["Tafsir Ringkas Kemenag menjelaskan bahwa Allah Maha Mendengar semua jenis percakapan, yang terbuka maupun yang tertutup.[ref:kemenag]", "Ibnu Katsir dan Muqbil mencatat bahwa riwayat Aisyah ini juga dikeluarkan Ahmad, An-Nasa'i, Ibnu Majah, dan Ibnu Jarir, dan bahwa Al-Bukhari menyebutnya secara mu'allaq dalam Kitab at-Tauhid.[ref:ik][ref:muqbil]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Khaulah binti Tsa'labah",
+          tokoh: "khaulahtsalabah"
+        },
+        {
+          label: "Aisyah binti Abu Bakar",
+          tokoh: "aisyah"
+        },
+        {
+          label: "Ubadah bin Ash-Shamit",
+          tokoh: "ubadah",
+          ket: "saudara Aus bin Ash-Shamit"
+        },
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar",
+          ket: "kisah yang sanadnya terputus"
+        },
+        {
+          label: "An-Nur 6–9",
+          wiki: "nur-6-9",
+          ket: "hukum keluarga: li'an"
+        }
+      ],
+      rujukan: {
+        im188: {
+          t: "HR. Ibnu Majah no. 188, dari Aisyah (Muqaddimah, bab yang diingkari kaum Jahmiyyah). Darussalam: shahih.",
+          url: "https://sunnah.com/ibnmajah:188"
+        },
+        im2063: {
+          t: "HR. Ibnu Majah no. 2063, dari Aisyah (Kitab Thalaq, bab zhihar), menyebut nama Khaulah binti Tsa'labah. Darussalam: shahih.",
+          url: "https://sunnah.com/ibnmajah:2063"
+        },
+        n3460: {
+          t: "HR. An-Nasa'i no. 3460, dari Aisyah (Kitab Thalaq, bab zhihar). Darussalam: shahih.",
+          url: "https://sunnah.com/nasai:3460"
+        },
+        d2214: {
+          t: "HR. Abu Dawud no. 2214, dari Khuwailah binti Malik bin Tsa'labah (Kitab Thalaq, bab zhihar). Al-Albani: hasan, kecuali ucapan \"dan 'araq itu...\".",
+          url: "https://sunnah.com/abudawud:2214"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, Al-Mujadilah 1 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=58&Ayah=1&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 189 (Surah Al-Mujadilah).",
+          url: "https://shamela.ws/book/2247/187"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 204 (Surah Al-Mujadilah).",
+          url: "https://shamela.ws/book/11547/199"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Mujadilah 1.",
+          url: "https://quran.com/58:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik2: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir Al-Mujadilah 2–4 (riwayat Ahmad dari Khuwailah dan hukum zhihar).",
+          url: "https://quran.com/58:2/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir Al-Mujadilah 1.",
+          url: "https://quran.com/58:1/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir Al-Mujadilah 1.",
+          url: "https://quran.com/58:1/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk Al-Mujadilah 1 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/10755-surat-al-mujadalah-ayat-1.html"
+        }
+      }
+    },
+
+    // nur-6-9 (ditulis dari riset rujukan silang)
+    "nur-6-9": {
+      judul: "An-Nur 6–9",
+      sub: "Li'an: sumpah suami dan istri tanpa saksi",
+      surah: "An-Nur",
+      ayatNo: "6–9",
+      tahun: 630,
+      tontonan: null,
+      peta: {
+        tahun: 630,
+        lok: "madinah"
+      },
+      lead: ["An-Nur ayat 6–9 menetapkan hukum li'an: seorang suami yang menuduh istrinya berzina tanpa empat saksi bersumpah empat kali dengan nama Allah bahwa ia benar, lalu pada sumpah kelima memohon laknat Allah atas dirinya jika ia berdusta; istri terhindar dari hukuman bila ia bersumpah dengan cara yang sama.[ref:ik]", "Menurut riwayat Ibnu Abbas dalam Shahih Bukhari, ayat ini turun ketika Hilal bin Umayyah mengajukan tuduhan seperti itu dan Nabi ﷺ bersabda, \"Bukti, atau hukuman had di punggungmu.\"[ref:b4747] Riwayat Sahl bin Sa'd mengaitkan ayat yang sama dengan 'Uwaimir Al-'Ajlani; para ulama berbeda pendapat tentang mana yang lebih dahulu, dan sebagian memadukan keduanya.[ref:b4745][ref:lubab139]"],
+      infobox: [
+        ["Surah", "An-Nur (النور), surah ke-24 dalam mushaf"],
+        ["Ayat", "6–9"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Sya'ban 9 H (±630 M), saat Nabi ﷺ kembali dari Tabuk ke Madinah, menurut Ath-Thabari sebagaimana dinukil Al-Qurthubi[ref:qurthubi]; hadits-haditsnya tidak menyebut tahun, dan Al-Qurthubi tidak merinci kisah mana yang dimaksud"],
+        ["Tempat", "Madinah, di hadapan Nabi ﷺ[ref:b4747][ref:b4745]"],
+        ["Yang terlibat", "Hilal bin Umayyah dan istrinya[ref:b4747]; 'Uwaimir Al-'Ajlani dan istrinya, dengan 'Ashim bin 'Adi sebagai perantara pertanyaan[ref:b4745]; Sa'ad bin 'Ubadah, yang bertanya tentang ayat empat saksi[ref:wahidi]"],
+        ["Riwayat utama", "HR. Bukhari no. 4747 (Ibnu Abbas, kisah Hilal)"],
+        ["Riwayat pembanding", "HR. Bukhari no. 4745 (Sahl bin Sa'd, kisah 'Uwaimir)[ref:b4745]; HR. Muslim no. 1496 (Anas): Hilal orang pertama yang melakukan li'an dalam Islam[ref:m1496]"],
+        ["Derajat", "Shahih (Bukhari); kisah 'Uwaimir diriwayatkan Bukhari dan Muslim[ref:lubab139]; Muqbil memuat keduanya[ref:muqbil][ref:muqbil144]"]
+      ],
+      ayat: [
+        {
+          no: 6,
+          ar: "وَالَّذِينَ يَرْمُونَ أَزْوَاجَهُمْ وَلَمْ يَكُن لَّهُمْ شُهَدَاءُ إِلَّا أَنفُسُهُمْ فَشَهَادَةُ أَحَدِهِمْ أَرْبَعُ شَهَادَاتٍ بِاللَّهِ ۙ إِنَّهُ لَمِنَ الصَّادِقِينَ",
+          id: "Dan orang-orang yang menuduh istrinya (berzina), padahal mereka tidak mempunyai saksi-saksi selain diri mereka sendiri, maka kesaksian masing-masing orang itu ialah empat kali bersumpah dengan (nama) Allah, bahwa sesungguhnya dia termasuk orang yang berkata benar."
+        },
+        {
+          no: 7,
+          ar: "وَالْخَامِسَةُ أَنَّ لَعْنَتَ اللَّهِ عَلَيْهِ إِن كَانَ مِنَ الْكَاذِبِينَ",
+          id: "Dan (sumpah) yang kelima bahwa laknat Allah akan menimpanya, jika dia termasuk orang yang berdusta."
+        },
+        {
+          no: 8,
+          ar: "وَيَدْرَأُ عَنْهَا الْعَذَابَ أَن تَشْهَدَ أَرْبَعَ شَهَادَاتٍ بِاللَّهِ ۙ إِنَّهُ لَمِنَ الْكَاذِبِينَ",
+          id: "Dan istri itu terhindar dari hukuman apabila dia bersumpah empat kali atas (nama) Allah bahwa dia (suaminya) benar-benar termasuk orang-orang yang berdusta,"
+        },
+        {
+          no: 9,
+          ar: "وَالْخَامِسَةَ أَنَّ غَضَبَ اللَّهِ عَلَيْهَا إِن كَانَ مِنَ الصَّادِقِينَ",
+          id: "dan (sumpah) yang kelima bahwa kemurkaan Allah akan menimpanya (istri), jika dia (suaminya) itu termasuk orang yang berkata benar."
+        }
+      ],
+      bagian: [
+        {
+          id: "hilal",
+          judul: "Hilal bin Umayyah dan turunnya ayat",
+          isi: ["Ibnu Abbas meriwayatkan bahwa Hilal bin Umayyah menuduh istrinya berzina di hadapan Nabi ﷺ.[ref:b4747] Beliau bersabda, \"Bukti, atau hukuman had di punggungmu.\"[ref:b4747] Hilal adalah salah satu dari tiga sahabat yang tidak ikut Perang Tabuk lalu diterima taubatnya.[ref:b4418][ref:lubab139]", "Hilal bertanya apakah seorang suami yang menyaksikan sendiri hal itu harus pergi mencari bukti, dan Nabi ﷺ mengulangi sabdanya.[ref:b4747] Hilal berkata, \"Demi Zat yang mengutusmu dengan kebenaran, sungguh aku jujur, dan Allah pasti akan menurunkan sesuatu yang membebaskan punggungku dari hukuman.\" Lalu Jibril turun membawa ayat 6 sampai 9.[ref:b4747][ref:lubab]", "Dalam riwayat yang dibawakan Al-Wahidi, kisah ini didahului pertanyaan Sa'ad bin 'Ubadah tentang ayat 4 yang mewajibkan empat saksi, dan 'Ubadah bin Ash-Shamit sempat berkata bahwa Hilal akan didera.[ref:wahidi] Setelah wahyu turun, Nabi ﷺ bersabda, \"Bergembiralah, wahai Hilal.\"[ref:wahidi] Ibnu Katsir membawakan riwayat Ibnu Abbas ini dari Ahmad, dan Ath-Thabari meriwayatkannya dengan sanadnya sendiri.[ref:ik][ref:thabari]"]
+        },
+        {
+          id: "lian",
+          judul: "Li'an di hadapan Nabi ﷺ",
+          isi: ["Nabi ﷺ memanggil keduanya.[ref:b4747] Hilal bersaksi lebih dahulu, dan Nabi ﷺ bersabda, \"Allah mengetahui bahwa salah seorang dari kalian berdua berdusta; adakah yang mau bertaubat?\" Kemudian istrinya bersaksi.[ref:b4747]", "Ketika tiba sumpah kelima, orang-orang menghentikannya dan mengingatkan bahwa sumpah itu menentukan.[ref:b4747] Ia sempat ragu, lalu berkata bahwa ia tidak akan mempermalukan kaumnya sepanjang hari itu, dan melanjutkan sumpahnya.[ref:b4747]", "Di akhir kisah Nabi ﷺ bersabda, \"Seandainya tidak ada ketetapan yang telah lalu dari Kitab Allah, tentu ada urusan antara aku dan dia.\"[ref:b4747] Ibnu Katsir menjelaskan bahwa dengan sumpahnya itu istri terhindar dari hukuman.[ref:ik]"]
+        },
+        {
+          id: "uwaimir",
+          judul: "Kisah 'Uwaimir Al-'Ajlani",
+          isi: ["Sahl bin Sa'd meriwayatkan: 'Uwaimir datang kepada 'Ashim bin 'Adi, pemuka Bani 'Ajlan, dan memintanya menanyakan kepada Nabi ﷺ apa yang harus dilakukan seorang suami yang mendapati istrinya bersama laki-laki lain.[ref:b4745] Nabi ﷺ tidak menyukai pertanyaan seperti itu.[ref:b4745]", "'Uwaimir lalu datang sendiri, dan Nabi ﷺ bersabda, \"Allah telah menurunkan Al-Qur'an tentang engkau dan istrimu.\" Keduanya pun melakukan li'an sesuai yang disebutkan Allah dalam Kitab-Nya.[ref:b4745]", "Sesudahnya 'Uwaimir berkata bahwa jika ia tetap menahan istrinya, ia telah menzaliminya, lalu ia menceraikannya.[ref:b4745] Sejak itu berpisahnya suami istri menjadi ketentuan bagi pasangan yang melakukan li'an, dan anak yang lahir dinisbatkan kepada ibunya.[ref:b4745]", "Ath-Thabari dan Ibnu Katsir juga membawakan riwayat Ibnu Umar tentang seorang laki-laki yang mula-mula bertanya secara umum, lalu kembali karena hal itu benar-benar menimpanya, kemudian turun ayat ini; namanya tidak disebut.[ref:thabari][ref:ik] Al-Wahidi membawakan riwayat Ibnu Mas'ud dari Muslim tentang seorang laki-laki Anshar yang juga tidak disebut namanya.[ref:wahidi]"]
+        },
+        {
+          id: "mana",
+          judul: "Hilal atau 'Uwaimir?",
+          isi: ["Hadits Anas dalam Shahih Muslim menyebut Hilal bin Umayyah sebagai orang pertama yang melakukan li'an dalam Islam.[ref:m1496] Al-Qurthubi menyebut pendapat yang masyhur: kasus Hilal terjadi lebih dahulu dan itulah sebab turunnya ayat.[ref:qurthubi]", "Sebagian ulama berpendapat lain: Al-Qurthubi menukil Abu 'Abdillah bin Abi Shufrah yang menilai penuduh itu adalah 'Uwaimir dan menyebut penyebutan Hilal sebagai kekeliruan, Ath-Thabari yang mempersoalkan penyebutan Hilal, serta Al-Kalbi yang menganggap 'Uwaimir lebih tampak.[ref:qurthubi]", "Ibnu Hajar, sebagaimana dinukil As-Suyuthi, merangkum perbedaan ini: ada yang menguatkan 'Uwaimir, ada yang menguatkan Hilal, dan ada yang memadukan keduanya.[ref:lubab139] An-Nawawi condong pada pendapat bahwa Hilal yang pertama mengalaminya, lalu 'Uwaimir datang pada waktu yang berdekatan, sehingga ayat turun tentang keduanya; Al-Khatib mengikutinya.[ref:lubab139]", "Ibnu Hajar sendiri menyebut kemungkinan lain: ayat turun karena Hilal, lalu ketika 'Uwaimir datang tanpa mengetahui kejadian itu, Nabi ﷺ mengabarkan hukumnya kepadanya.[ref:lubab139] Karena itu dalam kisah Hilal disebut \"Jibril turun\", sedangkan dalam kisah 'Uwaimir disebut \"Allah telah menurunkan tentang engkau\", yakni tentang orang yang mengalami hal serupa.[ref:lubab139][ref:lubab140]", "Ibnu Hajar juga mencatat bahwa Al-Qurthubi membolehkan kemungkinan ayat ini turun dua kali, dan menegaskan tidak ada halangan bagi satu ayat untuk memiliki beberapa sebab.[ref:lubab140] Kajian Ulumul Qur'an berbahasa Indonesia menjadikan kisah ini contoh beberapa sebab untuk satu ayat yang dapat dipadukan.[ref:taaddud]"]
+        },
+        {
+          id: "hukum",
+          judul: "Ketentuan li'an",
+          isi: ["Menurut Ibnu Katsir, suami yang menuduh istrinya tanpa bukti boleh melakukan li'an: ia bersaksi empat kali dengan nama Allah sebagai ganti empat saksi, lalu sumpah kelima memohon laknat Allah atas dirinya jika ia berdusta.[ref:ik]", "Istri terhindar dari hukuman bila ia bersaksi empat kali bahwa suaminya berdusta, lalu sumpah kelima memohon murka Allah atas dirinya jika suaminya benar.[ref:ik] Keduanya lalu dipisahkan untuk selamanya, dan anaknya tidak dinisbatkan kepada suami.[ref:ik]", "Al-Qurthubi mencatat pendapat mayoritas ulama bahwa li'an berlaku untuk setiap tuduhan zina dari suami kepada istrinya, dan bahwa suami yang memulai, sesuai urutan dalam ayat.[ref:qurthubi] Di TafsirWeb, Hidayatul Insan memuat kedua riwayat Bukhari tentang 'Uwaimir dan Hilal, sedangkan Tafsir Ringkas Kemenag menjelaskan hukumnya tanpa menyebut sebab turun.[ref:kemenag]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Hilal bin Umayyah",
+          tokoh: "hilalumayyah"
+        },
+        {
+          label: "Sa'ad bin Ubadah",
+          tokoh: "saadubadah"
+        },
+        {
+          label: "At-Taubah 118",
+          wiki: "taubah-118",
+          ket: "Hilal, salah satu dari tiga sahabat Tabuk"
+        },
+        {
+          label: "An-Nur 11–20",
+          wiki: "nur-11-20",
+          ket: "surah yang sama"
+        },
+        {
+          label: "Al-Mujadilah 1–4",
+          wiki: "mujadilah-1-4",
+          ket: "hukum keluarga: zhihar"
+        }
+      ],
+      rujukan: {
+        b4747: {
+          t: "HR. Bukhari no. 4747, dari Ibnu Abbas (Kitab Tafsir, Surah An-Nur).",
+          url: "https://sunnah.com/bukhari:4747"
+        },
+        b4745: {
+          t: "HR. Bukhari no. 4745, dari Sahl bin Sa'd (Kitab Tafsir, Surah An-Nur, bab ayat 6).",
+          url: "https://sunnah.com/bukhari:4745"
+        },
+        m1496: {
+          t: "HR. Muslim no. 1496, dari Anas bin Malik (Kitab Li'an).",
+          url: "https://sunnah.com/muslim:1496"
+        },
+        b4418: {
+          t: "HR. Bukhari no. 4418, dari Ka'ab bin Malik (Kitab Al-Maghazi): menyebut Murarah bin Ar-Rabi' dan Hilal bin Umayyah Al-Waqifi.",
+          url: "https://sunnah.com/bukhari:4418"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, An-Nur 6 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=24&Ayah=6&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 138 (An-Nur 6, riwayat Bukhari tentang Hilal).",
+          url: "https://shamela.ws/book/2247/136"
+        },
+        lubab139: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 139 (riwayat Sahl bin Sa'd dan pembahasan Ibnu Hajar).",
+          url: "https://shamela.ws/book/2247/137"
+        },
+        lubab140: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 140 (lanjutan pembahasan Ibnu Hajar).",
+          url: "https://shamela.ws/book/2247/138"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 143 (An-Nur 6–9, hadits Sahl bin Sa'd dari Bukhari).",
+          url: "https://shamela.ws/book/11547/138"
+        },
+        muqbil144: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 144 (catatan kaki: riwayat Ibnu Abbas tentang Hilal).",
+          url: "https://shamela.ws/book/11547/139"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim (ringkasan Inggris), tafsir An-Nur 6–10.",
+          url: "https://quran.com/24:6/tafsirs/en-tafisr-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir An-Nur 6.",
+          url: "https://quran.com/24:6/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir An-Nur 6.",
+          url: "https://quran.com/24:6/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk An-Nur 6 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/6134-surat-an-nur-ayat-6.html"
+        },
+        taaddud: {
+          t: "Ahmad Qoys Jamalallail, \"Konsep Taaddud As-Sabab Wa An-Nazil Wahid di Dalam Ulumul Al-Quran (Bagian 2)\", TafsirAlquran.id, 27 Mei 2021.",
+          url: "https://tafsiralquran.id/konsep-taaddud-as-sabab-wa-an-nazil-wahid-di-dalam-ulumul-al-quran-bagian-2/"
+        }
+      }
+    },
+
+    // tahrim-1-4 (ditulis dari riset rujukan silang)
+    "tahrim-1-4": {
+      judul: "At-Tahrim 1–4",
+      sub: "Madu di rumah Zainab dan sumpah Nabi ﷺ",
+      surah: "At-Tahrim",
+      ayatNo: "1–4",
+      tahun: 629,
+      tontonan: null,
+      peta: {
+        tahun: 629,
+        lok: "madinah"
+      },
+      lead: ["At-Tahrim ayat 1–4 turun ketika Nabi ﷺ bersumpah tidak akan lagi minum madu yang biasa beliau minum di rumah Zainab binti Jahsy.[ref:b4912] Menurut penuturan Aisyah, ia dan Hafshah telah bersepakat untuk mengatakan kepada beliau bahwa tercium bau maghafir darinya.[ref:b4912][ref:b5267]", "Ayat 1 bertanya mengapa beliau mengharamkan apa yang dihalalkan Allah, dan ayat 2 mensyariatkan cara membebaskan diri dari sumpah.[ref:thabari] Ada pula riwayat bahwa yang beliau haramkan adalah hamba sahaya beliau, Mariyah.[ref:n3959][ref:lubab] Ibnu Katsir dan Al-Qurthubi menilai kisah madu sebagai sebab yang benar, sedangkan Ibnu Hajar membuka kemungkinan keduanya menjadi sebab.[ref:ik2][ref:qurthubi][ref:lubab200]"],
+      infobox: [
+        ["Surah", "At-Tahrim (التحريم), surah ke-66 dalam mushaf"],
+        ["Ayat", "1–4"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Tidak disebut dalam riwayat; periode Madinah, ketika Zainab binti Jahsy sudah menjadi istri Nabi ﷺ[ref:b4912] (±629 M di peta hanya perkiraan)"],
+        ["Tempat", "Madinah, di rumah-rumah istri Nabi ﷺ[ref:b4912][ref:b5268]"],
+        ["Tokoh", "Zainab binti Jahsy, Aisyah, dan Hafshah[ref:b5267]; dalam riwayat lain Saudah dan Shafiyyah[ref:b5268], atau Mariyah[ref:lubab]"],
+        ["Dua istri dalam ayat 4", "Aisyah dan Hafshah, menurut Aisyah[ref:b5267] dan menurut jawaban Umar kepada Ibnu Abbas[ref:b4913]"],
+        ["Riwayat utama", "HR. Bukhari no. 4912 dan 5267; HR. Muslim no. 1474a (Aisyah, lewat 'Ubaid bin 'Umair)"],
+        ["Riwayat pembanding", "HR. Bukhari no. 5268 dan Muslim no. 1474b (Aisyah, lewat Hisyam bin 'Urwah): madu di rumah Hafshah[ref:b5268][ref:m1474b]; HR. An-Nasa'i no. 3959 (Anas): pengharaman hamba sahaya[ref:n3959]"],
+        ["Derajat", "Kisah madu: shahih (Bukhari dan Muslim). Riwayat Anas tentang hamba sahaya: shahih menurut Darussalam[ref:n3959], sanadnya shahih menurut As-Suyuthi[ref:lubab], shahih sesuai syarat Muslim menurut Al-Hakim yang disetujui Adz-Dzahabi[ref:muqbil]; Ibnu al-'Arabi mencatat kisah Mariyah tidak termuat dalam kitab Shahih[ref:qurthubi]"]
+      ],
+      ayat: [
+        {
+          no: 1,
+          ar: "يَا أَيُّهَا النَّبِيُّ لِمَ تُحَرِّمُ مَا أَحَلَّ اللَّهُ لَكَ ۖ تَبْتَغِي مَرْضَاتَ أَزْوَاجِكَ ۚ وَاللَّهُ غَفُورٌ رَّحِيمٌ",
+          id: "Wahai Nabi! Mengapa engkau mengharamkan apa yang dihalalkan Allah bagimu? Engkau ingin menyenangkan hati istri-istrimu? Dan Allah Maha Pengampun, Maha Penyayang."
+        },
+        {
+          no: 2,
+          ar: "قَدْ فَرَضَ اللَّهُ لَكُمْ تَحِلَّةَ أَيْمَانِكُمْ ۚ وَاللَّهُ مَوْلَاكُمْ ۖ وَهُوَ الْعَلِيمُ الْحَكِيمُ",
+          id: "Sungguh, Allah telah mewajibkan kepadamu membebaskan diri dari sumpahmu; dan Allah adalah pelindungmu dan Dia Maha Mengetahui, Mahabijaksana."
+        },
+        {
+          no: 3,
+          ar: "وَإِذْ أَسَرَّ النَّبِيُّ إِلَىٰ بَعْضِ أَزْوَاجِهِ حَدِيثًا فَلَمَّا نَبَّأَتْ بِهِ وَأَظْهَرَهُ اللَّهُ عَلَيْهِ عَرَّفَ بَعْضَهُ وَأَعْرَضَ عَن بَعْضٍ ۖ فَلَمَّا نَبَّأَهَا بِهِ قَالَتْ مَنْ أَنبَأَكَ هَٰذَا ۖ قَالَ نَبَّأَنِيَ الْعَلِيمُ الْخَبِيرُ",
+          id: "Dan ingatlah ketika secara rahasia Nabi membicarakan suatu peristiwa kepada salah seorang istrinya (Hafsah). Lalu dia menceritakan peristiwa itu (kepada Aisyah) dan Allah memberitahukan peristiwa itu kepadanya (Nabi), lalu (Nabi) memberitahukan (kepada Hafsah) sebagian dan menyembunyikan sebagian yang lain. Maka ketika dia (Nabi) memberitahukan pembicaraan itu kepadanya (Hafsah), dia bertanya, \"Siapa yang telah memberitahukan hal ini kepadamu?\" Nabi menjawab, \"Yang memberitahukan kepadaku adalah Allah Yang Maha Mengetahui, Mahateliti.\""
+        },
+        {
+          no: 4,
+          ar: "إِن تَتُوبَا إِلَى اللَّهِ فَقَدْ صَغَتْ قُلُوبُكُمَا ۖ وَإِن تَظَاهَرَا عَلَيْهِ فَإِنَّ اللَّهَ هُوَ مَوْلَاهُ وَجِبْرِيلُ وَصَالِحُ الْمُؤْمِنِينَ ۖ وَالْمَلَائِكَةُ بَعْدَ ذَٰلِكَ ظَهِيرٌ",
+          id: "Jika kamu berdua bertobat kepada Allah, maka sungguh, hati kamu berdua telah condong (untuk menerima kebenaran); dan jika kamu berdua saling bantu membantu menyusahkan Nabi, maka sungguh, Allah menjadi pelindungnya dan (juga) Jibril dan orang-orang mukmin yang baik; dan selain itu malaikat-malaikat adalah penolongnya."
+        }
+      ],
+      bagian: [
+        {
+          id: "madu",
+          judul: "Madu di rumah Zainab binti Jahsy",
+          isi: ["Aisyah menuturkan bahwa Rasulullah ﷺ biasa minum madu di rumah Zainab binti Jahsy dan tinggal agak lama di sana.[ref:b4912] Aisyah dan Hafshah lalu bersepakat: siapa pun di antara mereka yang didatangi beliau lebih dahulu akan berkata, \"Aku mencium bau maghafir darimu,\" yaitu sejenis getah yang baunya tajam.[ref:b5267][ref:m1474a]", "Ketika hal itu disampaikan, beliau menjawab, \"Tidak, aku hanya minum madu di rumah Zainab binti Jahsy, dan aku tidak akan mengulanginya lagi.\"[ref:b5267][ref:m1474a] Dalam riwayat Kitab Tafsir, beliau menambahkan, \"Aku telah bersumpah; jangan engkau ceritakan hal ini kepada siapa pun.\"[ref:b4912]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya ayat 1–4",
+          isi: ["Aisyah menyebut ayat-ayat yang turun sesudahnya, dari \"Wahai Nabi, mengapa engkau mengharamkan apa yang dihalalkan Allah bagimu\" sampai \"Jika kamu berdua bertobat kepada Allah\"; dua orang yang dimaksud adalah Aisyah dan Hafshah.[ref:b5267] Ayat tentang Nabi yang membicarakan sesuatu secara rahasia kepada salah seorang istrinya merujuk pada ucapan beliau, \"Aku hanya minum madu.\"[ref:b5267]", "Ath-Thabari menjelaskan bahwa Allah menegur pengharaman sesuatu yang halal itu, lalu mensyariatkan kafarat sumpah melalui firman-Nya, \"Allah telah mewajibkan kepadamu membebaskan diri dari sumpahmu.\" Menurutnya, penutup ayat 1, \"Allah Maha Pengampun, Maha Penyayang,\" berarti Allah telah mengampuni beliau atas pengharaman itu.[ref:thabari]", "Dalam riwayat-riwayat yang dibawakan Ibnu Katsir disebutkan bahwa Nabi ﷺ kemudian membayar kafarat atas sumpahnya.[ref:ik]"]
+        },
+        {
+          id: "hisyam",
+          judul: "Rumah Zainab atau rumah Hafshah?",
+          isi: ["Jalur Hisyam bin 'Urwah dari ayahnya dari Aisyah menceritakan versi yang berbeda: madu itu diminum di rumah Hafshah binti Umar, dan yang bersepakat adalah Aisyah, Saudah, dan Shafiyyah.[ref:b5268][ref:m1474b] Dalam riwayat ini Aisyah sendiri menuturkan rasa cemburunya.[ref:b5268][ref:m1474b]", "Al-Wahidi membawakan versi Hisyam ini dari Bukhari dan Muslim, serta riwayat Ibnu Abi Mulaikah yang menyebut madu itu hadiah untuk Saudah.[ref:wahidi]", "Al-Qurthubi mencatat riwayat-riwayat yang menyebut Hafshah, Saudah, dan Ummu Salamah, lalu menyimpulkan bahwa yang shahih adalah madu yang diminum di rumah Zainab.[ref:qurthubi] Ibnu Katsir juga membawakan dua jalur riwayat Aisyah yang menyebut Zainab binti Jahsy.[ref:ik2]"]
+        },
+        {
+          id: "mariyah",
+          judul: "Riwayat tentang Mariyah",
+          isi: ["Anas bin Malik meriwayatkan bahwa Nabi ﷺ memiliki seorang hamba sahaya, lalu Aisyah dan Hafshah terus mendesak beliau hingga beliau menyatakannya haram atas diri beliau.[ref:n3959] Maka Allah menurunkan ayat 1.[ref:n3959]", "As-Suyuthi menyebut riwayat Anas ini dikeluarkan Al-Hakim dan An-Nasa'i dengan sanad shahih.[ref:lubab] Ia juga membawakan riwayat Adh-Dhiya' dalam Al-Mukhtarah dari Ibnu Umar dari Umar bahwa Nabi ﷺ berpesan kepada Hafshah agar tidak memberi tahu siapa pun bahwa Ummu Ibrahim (Mariyah) haram bagi beliau, tetapi Hafshah menceritakannya kepada Aisyah, lalu turun ayat 2.[ref:lubab]", "Riwayat Abu Hurairah melalui Ath-Thabarani dinilai As-Suyuthi sanadnya lemah, sedangkan riwayat Al-Bazzar dari Ibnu Abbas bahwa ayat ini turun tentang hamba sahaya beliau dinilainya bersanad shahih.[ref:lubab][ref:lubab200]", "Muqbil memuat riwayat Anas ini di samping kisah madu, dengan menukil penilaian Al-Hakim bahwa sanadnya shahih sesuai syarat Muslim, yang disetujui Adz-Dzahabi.[ref:muqbil] Ath-Thabari membawakan banyak riwayat tentang hamba sahaya ini, antara lain dari Zaid bin Aslam, Masruq, Asy-Sya'bi, dan Ibnu Abbas.[ref:thabari] Ibnu Katsir juga membawakannya dari An-Nasa'i, Ibnu Jarir, dan Al-Haitsam bin Kulaib.[ref:ik]"]
+        },
+        {
+          id: "pendapat",
+          judul: "Pendapat para ulama",
+          isi: ["Ibnu Katsir menegaskan, \"Yang benar, hal itu terjadi ketika beliau mengharamkan madu atas dirinya,\" lalu membawakan hadits Bukhari dari Aisyah.[ref:ik2]", "Al-Qurthubi menyebut tiga pendapat tentang sebab turunnya: madu, wanita yang menghibahkan dirinya kepada Nabi ﷺ, dan Mariyah.[ref:qurthubi] Menurutnya yang paling shahih adalah yang pertama dan yang paling lemah adalah yang kedua.[ref:qurthubi] Ia menukil Ibnu al-'Arabi bahwa riwayat Mariyah lebih baik sanadnya dan lebih dekat maknanya, tetapi tidak dicatat dalam kitab Shahih.[ref:qurthubi]", "Ath-Thabari tidak memastikan salah satunya.[ref:thabari] Menurutnya yang diharamkan beliau adalah sesuatu yang halal baginya, entah hamba sahaya, minuman, atau yang lain, dan masing-masing mungkin.[ref:thabari]", "As-Suyuthi menukil Ibnu Hajar bahwa ayat ini mungkin turun karena kedua sebab itu sekaligus.[ref:lubab200] Di TafsirWeb, Hidayatul Insan mengikuti pendapat ini dan menukil Asy-Syaukani bahwa kedua sebab itu shahih, sedangkan Tafsir Ringkas Kemenag menyebut kedua sebab tanpa menguatkan salah satunya.[ref:kemenag]", "Dua riwayat lain dinilai As-Suyuthi sangat gharib atau lemah: bahwa ayat 2 turun tentang sumpah Abu Bakar terhadap Misthah, dan bahwa ayat 1 turun tentang wanita yang menghibahkan dirinya.[ref:lubab200]"]
+        },
+        {
+          id: "ayat4",
+          judul: "Dua istri dalam ayat 4",
+          isi: ["Ibnu Abbas menuturkan bahwa selama setahun ia ingin bertanya kepada Umar tentang ayat ini, tetapi segan.[ref:b4913] Dalam perjalanan pulang haji, ia akhirnya bertanya siapa dua istri Nabi ﷺ yang saling membantu itu, dan Umar menjawab, \"Mereka adalah Hafshah dan Aisyah.\"[ref:b4913]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Zainab binti Jahsy",
+          tokoh: "zainabjahsy"
+        },
+        {
+          label: "Aisyah binti Abu Bakar",
+          tokoh: "aisyah"
+        },
+        {
+          label: "Hafshah binti Umar",
+          tokoh: "hafshah"
+        },
+        {
+          label: "Mariyah Al-Qibthiyyah",
+          tokoh: "mariyah"
+        },
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar",
+          ket: "menjawab pertanyaan Ibnu Abbas tentang ayat 4"
+        },
+        {
+          label: "Rumah Hafshah",
+          tempat: "rumah-hafshah",
+          kota: "madinah",
+          ket: "tempat minum madu menurut riwayat Hisyam"
+        }
+      ],
+      rujukan: {
+        b4912: {
+          t: "HR. Bukhari no. 4912, dari Aisyah lewat 'Ubaid bin 'Umair (Kitab Tafsir, Surah At-Tahrim).",
+          url: "https://sunnah.com/bukhari:4912"
+        },
+        b5267: {
+          t: "HR. Bukhari no. 5267, dari Aisyah lewat 'Ubaid bin 'Umair (Kitab Thalaq, bab At-Tahrim 1).",
+          url: "https://sunnah.com/bukhari:5267"
+        },
+        b5268: {
+          t: "HR. Bukhari no. 5268, dari Aisyah lewat Hisyam bin 'Urwah dari ayahnya (Kitab Thalaq).",
+          url: "https://sunnah.com/bukhari:5268"
+        },
+        m1474a: {
+          t: "HR. Muslim no. 1474a, dari Aisyah (Kitab Thalaq, bab kafarat bagi yang mengharamkan istrinya tanpa niat talak).",
+          url: "https://sunnah.com/muslim:1474a"
+        },
+        m1474b: {
+          t: "HR. Muslim no. 1474b, dari Aisyah lewat Hisyam bin 'Urwah (Kitab Thalaq).",
+          url: "https://sunnah.com/muslim:1474b"
+        },
+        b4913: {
+          t: "HR. Bukhari no. 4913, dari Ibnu Abbas (Kitab Tafsir, Surah At-Tahrim): pertanyaannya kepada Umar.",
+          url: "https://sunnah.com/bukhari:4913"
+        },
+        n3959: {
+          t: "HR. An-Nasa'i no. 3959, dari Anas bin Malik (Kitab 'Isyratin Nisa', bab cemburu). Darussalam: shahih.",
+          url: "https://sunnah.com/nasai:3959"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, At-Tahrim 1 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=66&Ayah=1&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 199 (Surah At-Tahrim).",
+          url: "https://shamela.ws/book/2247/197"
+        },
+        lubab200: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 200 (lanjutan Surah At-Tahrim).",
+          url: "https://shamela.ws/book/2247/198"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 217 (Surah At-Tahrim).",
+          url: "https://shamela.ws/book/11547/212"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir At-Tahrim 1 (riwayat-riwayat tentang Mariyah).",
+          url: "https://quran.com/66:1/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        ik2: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir At-Tahrim 2 (kisah madu).",
+          url: "https://quran.com/66:2/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir At-Tahrim 1.",
+          url: "https://quran.com/66:1/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir At-Tahrim 1.",
+          url: "https://quran.com/66:1/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk At-Tahrim 1 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/11005-surat-at-tahrim-ayat-1.html"
+        }
+      }
+    },
+
+    // taubah-84 (ditulis dari riset rujukan silang)
+    "taubah-84": {
+      judul: "At-Taubah 84",
+      sub: "Shalat jenazah untuk Abdullah bin Ubay",
+      surah: "At-Taubah",
+      ayatNo: "84",
+      tahun: 631,
+      tontonan: null,
+      peta: {
+        tahun: 631,
+        lok: "madinah"
+      },
+      lead: ["At-Taubah ayat 84 turun setelah Rasulullah ﷺ menshalatkan jenazah Abdullah bin Ubay bin Salul, pemimpin kaum munafik, meskipun Umar bin Khattab keberatan.[ref:b4670] Ayat ini melarang beliau menshalatkan siapa pun dari kaum munafik yang mati dan berdiri di kuburnya.[ref:b4670][ref:ik]", "Menurut Al-Waqidi dan Al-Hakim yang dinukil Ibnu Hajar, Abdullah bin Ubay wafat sepulang Perang Tabuk, pada Dzulqa'dah 9 H.[ref:fath] Setelah ayat ini turun, Nabi ﷺ tidak pernah lagi menshalatkan seorang munafik dan tidak berdiri di kuburnya.[ref:t3097]"],
+      infobox: [
+        ["Surah", "At-Taubah (التوبة), surah ke-9 dalam mushaf"],
+        ["Ayat", "84 (berkaitan dengan ayat 80 tentang memohonkan ampun tujuh puluh kali)[ref:b4670]"],
+        ["Golongan", "Madaniyah"],
+        ["Waktu", "Dzulqa'dah 9 H (±631 M), sepulang Perang Tabuk, menurut Al-Waqidi dan Al-Hakim yang dinukil Ibnu Hajar[ref:fath]"],
+        ["Tempat", "Madinah[ref:fath]"],
+        ["Tokoh", "Abdullah bin Ubay bin Salul; putranya, Abdullah bin Abdullah; Umar bin Khattab[ref:b4670]"],
+        ["Riwayat utama", "HR. Bukhari no. 4670 dan Muslim no. 2400a (Ibnu Umar); HR. Bukhari no. 1366 dan Tirmidzi no. 3097 (Ibnu Abbas dari Umar)"],
+        ["Riwayat pembanding", "HR. Bukhari no. 1350 dan 3008 (Jabir): Nabi ﷺ memakaikan gamisnya setelah jenazah dimasukkan ke liang kubur, sebagai balasan atas gamis yang dahulu diberikan kepada Al-Abbas[ref:b1350][ref:b3008]"],
+        ["Derajat", "Shahih (Bukhari dan Muslim); At-Tirmidzi: hasan shahih gharib[ref:t3097]; dimuat Muqbil dalam Ash-Shahih al-Musnad[ref:muqbil]"]
+      ],
+      ayat: [
+        {
+          no: 84,
+          ar: "وَلَا تُصَلِّ عَلَىٰ أَحَدٍ مِّنْهُم مَّاتَ أَبَدًا وَلَا تَقُمْ عَلَىٰ قَبْرِهِ ۖ إِنَّهُمْ كَفَرُوا بِاللَّهِ وَرَسُولِهِ وَمَاتُوا وَهُمْ فَاسِقُونَ",
+          id: "Dan janganlah engkau (Muhammad) melaksanakan salat untuk seseorang yang mati di antara mereka (orang-orang munafik), selama-lamanya dan janganlah engkau berdiri (mendoakan) di atas kuburnya. Sesungguhnya mereka ingkar kepada Allah dan Rasul-Nya dan mereka mati dalam keadaan fasik."
+        }
+      ],
+      bagian: [
+        {
+          id: "gamis",
+          judul: "Permintaan putranya",
+          isi: ["Ibnu Umar meriwayatkan: ketika Abdullah bin Ubay wafat, putranya, Abdullah bin Abdullah, datang kepada Rasulullah ﷺ meminta gamis beliau untuk mengafani ayahnya, dan beliau memberikannya.[ref:b4670] Ia lalu meminta beliau menshalatkan ayahnya.[ref:b4670]", "Al-Bukhari juga meriwayatkan dari Jabir bahwa saat Perang Badar, Al-Abbas dibawa sebagai tawanan tanpa pakaian, dan gamis Abdullah bin Ubay-lah yang pas untuknya.[ref:b3008] Karena itu Nabi ﷺ kemudian memberikan gamisnya kepada Abdullah bin Ubay; Ibnu 'Uyainah berkata bahwa Abdullah pernah berjasa kepada Nabi ﷺ sehingga beliau ingin membalasnya.[ref:b3008]", "Dalam riwayat Jabir yang lain, Nabi ﷺ datang setelah jenazah Abdullah bin Ubay dimasukkan ke liang kubur, lalu memerintahkan agar ia dikeluarkan dan memakaikan gamis beliau kepadanya.[ref:b1350]"]
+        },
+        {
+          id: "umar",
+          judul: "Keberatan Umar",
+          isi: ["Ketika Nabi ﷺ berdiri hendak menshalatkannya, Umar bangkit, memegang pakaian beliau, dan berkata, \"Wahai Rasulullah, apakah engkau akan menshalatkannya, padahal Tuhanmu telah melarangmu menshalatkannya?\"[ref:b4670]", "Nabi ﷺ menjawab, \"Allah hanya memberiku pilihan,\" lalu membaca ayat 80 tentang memohonkan ampun bagi mereka sampai tujuh puluh kali, dan bersabda, \"Aku akan menambahnya lebih dari tujuh puluh kali.\" Umar berkata, \"Dia orang munafik.\"[ref:b4670]", "Dalam penuturan Umar sendiri, ia mendekati Nabi ﷺ dan menyebut ucapan-ucapan Abdullah bin Ubay di masa lalu.[ref:b1366] Nabi ﷺ tersenyum dan bersabda, \"Mundurlah dariku, wahai Umar. Aku diberi pilihan, maka aku memilih. Seandainya aku tahu bahwa bila aku menambah lebih dari tujuh puluh kali ia akan diampuni, tentu aku menambahnya.\"[ref:b1366]"]
+        },
+        {
+          id: "turun",
+          judul: "Turunnya larangan",
+          isi: ["Nabi ﷺ pun menshalatkannya, lalu Allah menurunkan ayat 84.[ref:b4670][ref:m2400a]", "Umar menuturkan bahwa beliau menshalatkannya lalu pergi, dan tidak lama kemudian turun dua ayat dari Surah Bara'ah.[ref:b1366] Belakangan Umar merasa heran atas keberaniannya kepada Rasulullah ﷺ pada hari itu.[ref:b1366]", "Dalam riwayat At-Tirmidzi, Nabi ﷺ juga mengiringi jenazahnya, dan setelah ayat ini turun beliau tidak pernah lagi menshalatkan seorang munafik dan tidak berdiri di kuburnya.[ref:t3097]", "As-Suyuthi membawakan riwayat Ibnu Umar ini dari Bukhari dan Muslim, dan mencatat bahwa kisah yang sama juga datang dari hadits Umar, Anas, Jabir, dan lainnya.[ref:lubab] Muqbil memuatnya dalam Ash-Shahih al-Musnad dengan takhrij hadits Umar dari Bukhari, Muslim, At-Tirmidzi, Ahmad, dan lainnya.[ref:muqbil]"]
+        },
+        {
+          id: "pilihan",
+          judul: "Mengapa Umar berkata \"Tuhanmu telah melarangmu\"?",
+          isi: ["Ibnu Hajar mencatat bahwa ucapan Umar ini perlu dijelaskan, karena saat itu belum ada larangan khusus menshalatkan orang munafik.[ref:fath] Ia menguatkan pendapat Al-Qurthubi bahwa Umar memahaminya dari ayat tentang larangan memohonkan ampun bagi kaum musyrik.[ref:fath]", "Al-Qurthubi menyebut penjelasan lain, antara lain bahwa Umar mendapat ilham yang kemudian dibenarkan wahyu, atau memahaminya dari ayat 80.[ref:qurthubi] Tentang \"pilihan\" dalam ayat 80, sebagian ulama memahaminya sebagai ungkapan putus harapan, dengan angka tujuh puluh sebagai kiasan banyaknya, dan sebagian lain berpendapat pilihan itu kemudian dihapus oleh ayat \"sama saja bagi mereka\".[ref:qurthubi]"]
+        },
+        {
+          id: "hikmah",
+          judul: "Hikmah di balik sikap Nabi ﷺ",
+          isi: ["Al-Qurthubi menilai alasan yang paling shahih bagi pemberian gamis itu adalah membalas jasa Abdullah bin Ubay yang dahulu memberikan gamisnya kepada Al-Abbas; ada pula pendapat bahwa beliau ingin memuliakan putranya.[ref:qurthubi]", "Qatadah, sebagaimana dibawakan Ath-Thabari, meriwayatkan bahwa Nabi ﷺ bersabda gamis itu tidak akan memberi manfaat baginya di sisi Allah, tetapi beliau berharap dengan itu seribu orang dari kaumnya masuk Islam.[ref:thabari] Al-Wahidi membawakannya dari para mufassir, sedangkan Al-Qurthubi mencatat bahwa dalam riwayat yang shahih disebut \"beberapa orang dari kaumnya\", bukan seribu.[ref:wahidi][ref:qurthubi]"]
+        },
+        {
+          id: "lemah",
+          judul: "Riwayat yang lemah",
+          isi: ["Ada riwayat dari Anas bahwa Jibril menarik pakaian Nabi ﷺ untuk mencegah beliau menshalatkannya.[ref:ik][ref:thabari] Ibnu Katsir menilainya lemah karena perawinya, Yazid Ar-Raqasyi, lemah; Al-Qurthubi menyebutnya bertentangan dengan riwayat yang lebih kuat.[ref:ik][ref:qurthubi]"]
+        },
+        {
+          id: "hukum",
+          judul: "Kandungan dan hukum",
+          isi: ["Ibnu Katsir menjelaskan bahwa larangan ini berlaku bagi siapa saja yang dikenal kemunafikannya, meskipun turun tentang Abdullah bin Ubay.[ref:ik] Ia juga menukil bahwa Umar tidak menshalatkan jenazah yang tidak ia kenal sampai Hudzaifah bin Al-Yaman, yang diberi tahu Nabi ﷺ nama-nama sebagian munafik, ikut menshalatkannya.[ref:ik]", "Ath-Thabari menafsirkan \"janganlah engkau berdiri di atas kuburnya\" sebagai larangan mengurus pemakamannya.[ref:thabari] Al-Qurthubi menegaskan bahwa larangan ini khusus bagi orang yang mati dalam kekafiran, sedangkan para ulama bersepakat bahwa shalat jenazah tidak boleh ditinggalkan bagi seorang muslim, termasuk pelaku dosa besar.[ref:qurthubi]", "Di TafsirWeb, Zubdatut Tafsir, Hidayatul Insan, dan Al-Wajiz juga mengaitkan ayat ini dengan shalat jenazah Abdullah bin Ubay.[ref:kemenag]"]
+        }
+      ],
+      lihatJuga: [
+        {
+          label: "Abdullah bin Ubay bin Salul",
+          tokoh: "abdullahubay"
+        },
+        {
+          label: "Umar bin Khattab",
+          tokoh: "umar"
+        },
+        {
+          label: "Abdullah bin Umar",
+          tokoh: "ibnuumar",
+          ket: "perawi kisah"
+        },
+        {
+          label: "Al-Abbas bin Abdul Muthalib",
+          tokoh: "abbas",
+          ket: "gamis saat menjadi tawanan Badar"
+        },
+        {
+          label: "At-Taubah 118",
+          wiki: "taubah-118",
+          ket: "Perang Tabuk, surah yang sama"
+        },
+        {
+          label: "An-Nur 11–20",
+          wiki: "nur-11-20",
+          ket: "peran Abdullah bin Ubay dalam haditsul ifki"
+        }
+      ],
+      rujukan: {
+        b4670: {
+          t: "HR. Bukhari no. 4670, dari Ibnu Umar (Kitab Tafsir, bab At-Taubah 80).",
+          url: "https://sunnah.com/bukhari:4670"
+        },
+        b1366: {
+          t: "HR. Bukhari no. 1366, dari Ibnu Abbas dari Umar bin Khattab (Kitab Jenazah, bab dibencinya menshalatkan orang munafik).",
+          url: "https://sunnah.com/bukhari:1366"
+        },
+        m2400a: {
+          t: "HR. Muslim no. 2400a, dari Ibnu Umar (Kitab Fadha'il ash-Shahabah, bab keutamaan Umar).",
+          url: "https://sunnah.com/muslim:2400a"
+        },
+        t3097: {
+          t: "HR. Tirmidzi no. 3097, dari Ibnu Abbas dari Umar (Kitab Tafsir, Surah At-Taubah). Tirmidzi: hasan shahih gharib; Darussalam: shahih.",
+          url: "https://sunnah.com/tirmidhi:3097"
+        },
+        b1350: {
+          t: "HR. Bukhari no. 1350, dari Jabir bin Abdullah (Kitab Jenazah).",
+          url: "https://sunnah.com/bukhari:1350"
+        },
+        b3008: {
+          t: "HR. Bukhari no. 3008, dari Jabir bin Abdullah (Kitab Jihad, bab pakaian untuk tawanan).",
+          url: "https://sunnah.com/bukhari:3008"
+        },
+        wahidi: {
+          t: "Al-Wahidi, Asbab an-Nuzul, At-Taubah 84 (terjemahan Inggris Mokrane Guezzou).",
+          url: "https://www.altafsir.com/AsbabAlnuzol.asp?SoraName=9&Ayah=84&search=yes&img=A&LanguageID=2"
+        },
+        lubab: {
+          t: "As-Suyuthi, Lubab an-Nuqul fi Asbab an-Nuzul, hlm. 109 (Surah Bara'ah, ayat 84).",
+          url: "https://shamela.ws/book/2247/107"
+        },
+        muqbil: {
+          t: "Muqbil bin Hadi Al-Wadi'i, Ash-Shahih al-Musnad min Asbab an-Nuzul, hlm. 109–110 (At-Taubah 84).",
+          url: "https://shamela.ws/book/11547/104"
+        },
+        ik: {
+          t: "Ibnu Katsir, Tafsir al-Qur'an al-'Azhim, tafsir At-Taubah 84.",
+          url: "https://quran.com/9:84/tafsirs/ar-tafsir-ibn-kathir"
+        },
+        thabari: {
+          t: "Ath-Thabari, Jami' al-Bayan, tafsir At-Taubah 84.",
+          url: "https://quran.com/9:84/tafsirs/ar-tafsir-al-tabari"
+        },
+        qurthubi: {
+          t: "Al-Qurthubi, Al-Jami' li Ahkam al-Qur'an, tafsir At-Taubah 84.",
+          url: "https://quran.com/9:84/tafsirs/ar-tafseer-al-qurtubi"
+        },
+        fath: {
+          t: "Ibnu Hajar, Fath al-Bari 8/334 (Kitab Tafsir, bab At-Taubah 80), menukil Al-Waqidi dan Al-Hakim dalam Al-Iklil.",
+          url: "https://shamela.ws/book/1673/4681"
+        },
+        kemenag: {
+          t: "Tafsir Ringkas Kemenag RI dan tafsir lain untuk At-Taubah 84 (dimuat di TafsirWeb).",
+          url: "https://tafsirweb.com/3100-surat-at-taubah-ayat-84.html"
         }
       }
     }

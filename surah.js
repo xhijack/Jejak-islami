@@ -122,7 +122,7 @@
     [114, "An-Nas", "Manusia", "الناس", 6, 1, 21]
   ];
   // Surah yang golongannya diperselisihkan ulama
-  const DIPERSELISIHKAN = new Set([1, 13, 22, 47, 55, 76, 83, 97, 98, 99, 112, 113, 114]);
+  const DIPERSELISIHKAN = new Set([1, 13, 22, 47, 55, 76, 83, 97, 98, 99, 108, 112, 113, 114]);
 
   // Catatan waktu yang punya sumber
   const CATATAN = {

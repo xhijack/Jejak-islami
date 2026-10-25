@@ -107,12 +107,12 @@
   function PustakaList() {
     const P = RJ().pustaka;
     return html`<ul class="nz-list pk-list">${P.map((b) => html`<li key=${b.id}><button type="button" onClick=${() => { const el = document.getElementById("pk-" + b.id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }}>
-      <span class="t"><b>${b.judul}</b><small>${b.penulis}${b.wafat ? ` (w. ${b.wafat})` : ""}</small><small class="y">${{ asbab: "Kitab asbabun nuzul", tafsir: "Kitab tafsir", hadits: "Kitab hadits" }[b.jenis] || b.jenis}</small></span></button></li>`)}</ul>`;
+      <span class="t"><b>${b.judul}</b><small>${b.penulis}${b.wafat ? ` (w. ${b.wafat})` : ""}</small><small class="y">${{ asbab: "Kitab asbabun nuzul", tafsir: "Kitab tafsir", hadits: "Kitab hadits", kajian: "Bacaan berbahasa Indonesia" }[b.jenis] || b.jenis}</small></span></button></li>`)}</ul>`;
   }
   function PustakaDetail({ onSelect }) {
     const { pustaka, kurang, entries } = RJ();
     const total = Object.values(entries).reduce((a, e) => a + e.rujukan.length, 0);
-    const grup = [["asbab", "Kitab asbabun nuzul"], ["tafsir", "Kitab tafsir"], ["hadits", "Kitab hadits dan syarahnya"]];
+    const grup = [["asbab", "Kitab asbabun nuzul"], ["tafsir", "Kitab tafsir"], ["hadits", "Kitab hadits dan syarahnya"], ["kajian", "Bacaan berbahasa Indonesia"]];
     return html`<section class="nz-detail pk-detail" aria-label="Pustaka asbabun nuzul">
       <header class="nz-head"><div><p class="nz-k">Asbabun nuzul · pustaka</p><h2>Sumber yang kami pakai</h2>
         <p class="nz-sub">Setiap kejadian dicek silang ke kitab asbabun nuzul, kitab tafsir, hadits, dan bacaan berbahasa Indonesia. Saat ini ada ${total} tautan rujukan untuk ${Object.keys(entries).length} kejadian, dan semuanya sudah dibuka untuk memastikan isinya.</p></div></header>

@@ -5,7 +5,7 @@
   if (!D) return;
 
   // 1. Tokoh baru: definisi pertama yang dipakai, tokoh lama tidak ditimpa
-  [window.MADINAH, window.HIJRAH, window.PERANG].forEach((src) => {
+  [window.MADINAH, window.HIJRAH, window.PERANG, window.NUZUL_RUJUKAN].forEach((src) => {
     if (!src || !src.tokohBaru) return;
     Object.entries(src.tokohBaru).forEach(([id, t]) => {
       if (D.tokoh[id]) return;
