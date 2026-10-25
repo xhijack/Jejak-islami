@@ -150,7 +150,7 @@
     48: [{ t: "Turun pada malam hari sepulang dari Hudaibiyah, Dzulqa'dah 6 H.", s: "HR. Bukhari no. 4177", url: sn("bukhari", 4177), d: "shahih" }],
     66: [{ t: "Awal surah berkenaan kisah madu di rumah Zainab binti Jahsy; waktunya tidak disebut.", s: "HR. Bukhari no. 4912 (Aisyah)", url: sn("bukhari", 4912), d: "shahih" }],
     60: [{ t: "Ayat 1 turun berkenaan surat Hathib bin Abi Balta'ah, menjelang Fathu Makkah (8 H).", s: "HR. Bukhari no. 4890 (Ali)", url: sn("bukhari", 4890), d: "shahih" }],
-    49: [{ t: "Turun pada tahun para utusan, 9 H.", s: "HR. Bukhari no. 4847", url: sn("bukhari", 4847), d: "shahih" }],
+    49: [{ t: "Ayat-ayat awalnya turun saat rombongan Bani Tamim datang, pada tahun para utusan (9 H), menurut Ibnu Katsir; kisah rombongan itu ada dalam HR. Bukhari no. 4847, tetapi hadits itu sendiri tidak menyebut tahunnya.", s: "Ibnu Katsir, tafsir Al-Hujurat 2", url: "https://quran.com/49:2/tafsirs/ar-tafsir-ibn-kathir", d: "tafsir" }],
     9: [{ t: "Banyak ayatnya berkenaan Perang Tabuk, 9 H. Al-Bara' menyebutnya surah terakhir yang turun secara utuh.", s: "HR. Bukhari no. 4364 (Al-Bara')", url: sn("bukhari", 4364), d: "shahih" }],
     4: [{ t: "Ayat 176 (kalalah) disebut Al-Bara' sebagai bagian terakhir yang turun.", s: "HR. Bukhari no. 4364", url: sn("bukhari", 4364), d: "shahih" }],
     5: [{ t: "Ayat 3 turun pada hari Jumat di Arafah, saat Haji Wada', 10 H.", s: "HR. Bukhari no. 45 (Umar)", url: sn("bukhari", 45), d: "shahih" }],

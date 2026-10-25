@@ -74,6 +74,64 @@
     return parts;
   }
 
+  // ---------- Rujukan silang (window.NUZUL_RUJUKAN dari nuzul-rujukan.js) ----------
+  const RJ = () => window.NUZUL_RUJUKAN || { entries: {}, pustaka: [], kurang: [] };
+  const ST = { "memuat": ["Memuat riwayat ini", "ok"], "riwayat-lain": ["Riwayat lain", "lain"], "tidak-memuat": ["Tidak memuat", "tidak"], "belum-diperiksa": ["Belum diperiksa", "belum"] };
+  const KELOMPOK_RJ = [["asbab", "Kitab asbabun nuzul"], ["tafsir", "Kitab tafsir"], ["hadits", "Hadits dan derajatnya"], ["kajian", "Bacaan berbahasa Indonesia"]];
+  const CEK = [["wahidi", "Al-Wahidi", "Asbab an-Nuzul"], ["suyuthi", "As-Suyuthi", "Lubab an-Nuqul"], ["muqbil", "Muqbil Al-Wadi'i", "Ash-Shahih al-Musnad"], ["ibnukatsir", "Ibnu Katsir", "Tafsir"], ["thabari", "Ath-Thabari", "Tafsir"]];
+  const BHS = { ar: "Arab", en: "Inggris", id: "Indonesia" };
+  const jumlahRJ = (id) => { const e = RJ().entries[id]; return e ? e.rujukan.length : 0; };
+  function RujukanLain({ id, art, refs, onRef }) {
+    const e = RJ().entries[id];
+    if (!e) return null;
+    // Rujukan yang juga dikutip di artikel diberi nomor kutipannya, bukan dihapus
+    const nomor = {};
+    if (refs) refs.order.forEach((k, i) => { const u = art.rujukan[k] && art.rujukan[k].url; if (u && !nomor[u]) nomor[u] = i + 1; });
+    const rs = e.rujukan;
+    return html`<section class="rl" aria-label="Rujukan silang">
+      <h3 class="nz-h">Cek silang sumber</h3>
+      ${e.ringkas && html`<p class="nz-p">${e.ringkas}</p>`}
+      ${e.cek && html`<div class="rl-cek" role="table" aria-label="Apakah kitab ini memuat riwayatnya">
+        ${CEK.map(([k, n, sub]) => { const st = ST[e.cek[k]] || ST["belum-diperiksa"]; return html`<div key=${k} class=${"rl-c " + st[1]} role="row">
+          <span role="cell"><b>${n}</b><small>${sub}</small></span><span role="cell" class="rl-st">${st[0]}</span></div>`; })}
+      </div>`}
+      <h4 class="nz-h4">Rujukan yang dapat dipercaya <small class="rl-n">${rs.length} tautan, semuanya sudah dibuka dan diperiksa</small></h4>
+      ${KELOMPOK_RJ.map(([k, l]) => { const g = rs.filter((r) => r.jenis === k); if (!g.length) return null;
+        return html`<div key=${k} class="rl-g"><p class="rl-gh">${l}</p><ul>${g.map((r, i) => html`<li key=${i}>
+          <p class="rl-t"><a href=${r.url} target="_blank" rel="noopener">${r.judul}</a>${r.penulis && html`<span class="rl-a"> · ${r.penulis}</span>`}</p>
+          <p class="rl-m">${r.bahasa && BHS[r.bahasa] && html`<span class="rl-b">${BHS[r.bahasa]}</span>`}<span class=${"rl-s " + (ST[r.status] || ST.memuat)[1]}>${(ST[r.status] || ST.memuat)[0]}</span>${r.derajat && html`<span class="rl-d">${r.derajat}</span>`}${nomor[r.url] && html`<button type="button" class="rl-cite" onClick=${() => onRef && onRef(nomor[r.url])}>dikutip di artikel [${nomor[r.url]}]</button>`}</p>
+          ${r.ket && html`<p class="rl-k">${r.ket}</p>`}</li>`)}</ul></div>`; })}
+      <p class="nz-src">Status "memuat" berarti kitab itu membawakan riwayat yang sama dengan penjelasan di atas; "riwayat lain" berarti ia menyebut sebab yang berbeda atau tambahan. Muqbil Al-Wadi'i hanya menghimpun riwayat yang ia nilai shahih atau hasan, jadi dimuatnya sebuah riwayat di kitabnya adalah tanda kuat. Lihat tab Pustaka untuk penjelasan setiap kitab.</p>
+    </section>`;
+  }
+  function PustakaList() {
+    const P = RJ().pustaka;
+    return html`<ul class="nz-list pk-list">${P.map((b) => html`<li key=${b.id}><button type="button" onClick=${() => { const el = document.getElementById("pk-" + b.id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }}>
+      <span class="t"><b>${b.judul}</b><small>${b.penulis}${b.wafat ? ` (w. ${b.wafat})` : ""}</small><small class="y">${{ asbab: "Kitab asbabun nuzul", tafsir: "Kitab tafsir", hadits: "Kitab hadits" }[b.jenis] || b.jenis}</small></span></button></li>`)}</ul>`;
+  }
+  function PustakaDetail({ onSelect }) {
+    const { pustaka, kurang, entries } = RJ();
+    const total = Object.values(entries).reduce((a, e) => a + e.rujukan.length, 0);
+    const grup = [["asbab", "Kitab asbabun nuzul"], ["tafsir", "Kitab tafsir"], ["hadits", "Kitab hadits dan syarahnya"]];
+    return html`<section class="nz-detail pk-detail" aria-label="Pustaka asbabun nuzul">
+      <header class="nz-head"><div><p class="nz-k">Asbabun nuzul · pustaka</p><h2>Sumber yang kami pakai</h2>
+        <p class="nz-sub">Setiap kejadian dicek silang ke kitab asbabun nuzul, kitab tafsir, hadits, dan bacaan berbahasa Indonesia. Saat ini ada ${total} tautan rujukan untuk ${Object.keys(entries).length} kejadian, dan semuanya sudah dibuka untuk memastikan isinya.</p></div></header>
+      <h3 class="nz-h">Cara kami memeriksa</h3>
+      <p class="nz-p">Untuk setiap kejadian kami mencari riwayat sebab turunnya di tiga kitab asbabun nuzul (Al-Wahidi, As-Suyuthi, dan Muqbil Al-Wadi'i), di tafsir Ibnu Katsir, Ath-Thabari, dan Al-Qurthubi, di kitab-kitab hadits beserta derajatnya, serta di Tafsir Kemenag RI. Bila sumber-sumber itu berbeda, perbedaannya kami tulis apa adanya di artikel. Situs yang berafiliasi Syiah dan Wikipedia tidak dipakai sebagai rujukan.</p>
+      <p class="nz-p">As-Suyuthi dalam Al-Itqan mengingatkan bahwa sebab turun hanya diketahui dari riwayat sahabat yang menyaksikannya, sehingga sanadnya harus diperiksa. Karena itu setiap riwayat di aplikasi ini diberi label derajat.</p>
+      ${grup.map(([k, l]) => html`<section key=${k}><h3 class="nz-h">${l}</h3>
+        ${pustaka.filter((b) => b.jenis === k).map((b) => html`<article key=${b.id} id=${"pk-" + b.id} class="pk-item">
+          <h4><a href=${b.url} target="_blank" rel="noopener">${b.judul}</a>${b.judulAr && html` <span class="nz-ar" lang="ar">${b.judulAr}</span>`}</h4>
+          <p class="rl-a">${b.penulis}${b.wafat ? `, wafat ${b.wafat}` : ""}</p>
+          <p class="nz-p">${b.ket}</p></article>`)}</section>`)}
+      ${kurang.length > 0 && html`<h3 class="nz-h">Kejadian lain yang akan ditambahkan</h3>
+        <p class="nz-p">Kejadian berikut juga tercatat dengan riwayat shahih atau hasan, tetapi belum ditulis di aplikasi ini.</p>
+        <ul class="nz-catat">${kurang.map((x, i) => html`<li key=${i}><p><b>QS. ${x.surah}: ${x.ayat}.</b> ${x.ringkas}</p>
+          <small><span class=${"nz-der " + (x.derajat === "shahih" ? "shahih" : "sirah")}>${x.derajat}</span> ${x.url ? html`<a href=${x.url} target="_blank" rel="noopener">${x.riwayat}</a>` : x.riwayat}</small></li>`)}</ul>`}
+      <p class="nz-src">Draf. Penilaian derajat mengikuti yang tercantum di sumbernya. Mohon tetap divalidasi kepada ustadz sebelum dikutip.</p>
+    </section>`;
+  }
+
   // ---------- Daftar (panel kanan) ----------
   const ENTRIES = () => (window.__nzEntries || (window.__nzEntries = buildEntries()));
 
@@ -155,16 +213,17 @@
         <div class="nz-tabs" role="tablist">
           <button type="button" role="tab" aria-selected=${tab === "kejadian"} class=${tab === "kejadian" ? "on" : ""} onClick=${() => onTab && onTab("kejadian")}>Per kejadian</button>
           <button type="button" role="tab" aria-selected=${tab === "surah"} class=${tab === "surah" ? "on" : ""} onClick=${() => onTab && onTab("surah")}>Per surah (114)</button>
+          ${window.NUZUL_RUJUKAN && html`<button type="button" role="tab" aria-selected=${tab === "pustaka"} class=${tab === "pustaka" ? "on" : ""} onClick=${() => onTab && onTab("pustaka")}>Pustaka</button>`}
         </div>
-        <p class="loc-ket">${tab === "surah" ? "Kapan setiap surah diturunkan, dan kejadian asbabun nuzul di dalamnya." : "Urutan kejadian turunnya ayat. Pilih salah satu untuk melihat sebab turunnya dan memutar kejadiannya."}</p>
-        ${tab !== "surah" && html`<label class="nz-search"><span class="sr">Cari</span><input id="nz-q" type="search" placeholder="Cari surah atau peristiwa" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>`}
+        <p class="loc-ket">${tab === "surah" ? "Kapan setiap surah diturunkan, dan kejadian asbabun nuzul di dalamnya." : tab === "pustaka" ? "Kitab asbabun nuzul, tafsir, dan hadits yang dipakai untuk mengecek silang setiap kejadian." : "Urutan kejadian turunnya ayat. Pilih salah satu untuk melihat sebab turunnya, rujukan silangnya, dan memutar kejadiannya."}</p>
+        ${tab === "kejadian" && html`<label class="nz-search"><span class="sr">Cari</span><input id="nz-q" type="search" placeholder="Cari surah atau peristiwa" value=${q} onInput=${(e) => setQ(e.target.value)} /></label>`}
       </div>
-      ${tab === "surah" ? html`<${SurahList} sel=${surah} onSelect=${onSurah} />` : html`<ol class="nz-list">
+      ${tab === "surah" ? html`<${SurahList} sel=${surah} onSelect=${onSurah} />` : tab === "pustaka" ? html`<${PustakaList} />` : html`<ol class="nz-list">
         ${list.map((x) => {
           const art = toArticle(x);
           return html`<li key=${x.id}><button type="button" class=${x.id === sel ? "on" : ""} onClick=${() => onSelect(x.id)} aria-pressed=${x.id === sel}>
             <span class="n">${x.no}</span>
-            <span class="t"><b>${x.judul}</b><small>${x.sub}</small><small class="y">${x.u && x.u.waktu ? x.u.waktu : x.tahun ? x.tahun + " M" : "Waktu tidak disebut"}</small><small class=${`st ${x.full ? "full" : ""}`}>${x.full ? "Lengkap" : "Ringkasan"}</small></span>
+            <span class="t"><b>${x.judul}</b><small>${x.sub}</small><small class="y">${x.u && x.u.waktu ? x.u.waktu : x.tahun ? x.tahun + " M" : "Waktu tidak disebut"}</small><small class=${`st ${x.full ? "full" : ""}`}>${x.full ? "Lengkap" : "Ringkasan"}${jumlahRJ(x.id) ? ` · dicek silang ke ${jumlahRJ(x.id)} rujukan` : ""}</small></span>
             ${art.tontonan && html`<span class="nz-play-dot" title="Ada tontonan kejadian" aria-label="Ada tontonan">▶</span>`}
           </button></li>`;
         })}
@@ -205,9 +264,10 @@
       ${art.lead.map((p, i) => html`<p class="nz-p" key=${i}>${T(p)}</p>`)}
       ${why.map((b) => html`<section key=${b.id}><h4 class="nz-h4">${b.judul}</h4>${b.isi.map((p, i) => html`<p class="nz-p" key=${i}>${T(p)}</p>`)}</section>`)}
       ${art.lihatJuga.length > 0 && html`<h4 class="nz-h4">Terkait</h4><div class="chips">${art.lihatJuga.map((l) => html`<button type="button" class="chip go" key=${l.label}
-        onClick=${() => { if (l.wiki) onSelect(l.wiki); else if (l.tempat) onMap({ tahun: art.peta ? art.peta.tahun : 610, tempat: l.tempat }); else if (l.tokoh) onProfile(l.tokoh); }}>${l.label}</button>`)}</div>`}
+        onClick=${() => { if (l.wiki) onSelect(l.wiki); else if (l.tempat) onMap({ tahun: art.peta ? art.peta.tahun : 610, tempat: l.tempat, kota: l.kota }); else if (l.tokoh) onProfile(l.tokoh); }}>${l.label}</button>`)}</div>`}
       <h4 class="nz-h4">Rujukan</h4>
       <ol class="nz-refs">${refs.order.map((k, i) => { const r = art.rujukan[k]; return html`<li key=${k} id=${"nz-r-" + (i + 1)}>${r.url ? html`<a href=${r.url} target="_blank" rel="noopener">${r.t}</a>` : r.t}</li>`; })}</ol>
+      <${RujukanLain} id=${en.id} art=${art} refs=${refs} onRef=${onRef} />
       <footer class="nz-nav">
         ${prev ? html`<button type="button" onClick=${() => onSelect(prev.id)}><small>‹ Sebelumnya</small>${prev.judul}</button>` : html`<span></span>`}
         ${next ? html`<button type="button" class="r" onClick=${() => onSelect(next.id)}><small>Berikutnya ›</small>${next.judul}</button>` : html`<span></span>`}
@@ -215,6 +275,7 @@
     </section>`;
   }
   window.SirahSurahDetail = SurahDetail;
+  window.SirahNuzulPustaka = PustakaDetail;
   window.SirahNuzulList = NuzulList;
   window.SirahNuzulDetail = NuzulDetail;
 })();

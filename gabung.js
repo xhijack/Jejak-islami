@@ -13,6 +13,10 @@
     });
   });
 
+  // 1b. Lokasi tambahan untuk asbabun nuzul: Wadi Nakhlah (jin mendengarkan Al-Qur'an, QS. Al-Jinn 1–2)
+  if (!D.lokasi.nakhlah) D.lokasi.nakhlah = { nama: "Nakhlah", arab: "نخلة", lat: 21.62, lon: 40.13, jenis: "oasis", ikon: "kurma", kecil: true,
+    ket: "Lembah Nakhlah di antara Mekah dan Thaif, di jalan menuju Pasar 'Ukazh. Di sinilah, menurut HR. Bukhari no. 4921, sekelompok jin mendengar Nabi ﷺ membaca Al-Qur'an saat shalat Subuh. Titik di peta adalah perkiraan." };
+
   // 2a. Ikon peta wilayah menurut fungsi tempat
   const IKON = { makkah: "kabah", madinah: "masjid", quds: "kubah", khaibar: "benteng", thaif: "kota", tabuk: "kemah", habasyah: "mahkota", madain: "mahkota",
     badar: "pedang", yarmuk: "pedang", yamamah: "pedang", shiffin: "pedang", mutah: "pedang", hunain: "pedang", nahawand: "pedang",

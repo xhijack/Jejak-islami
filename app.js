@@ -651,7 +651,7 @@
       if (typeof o.wiki === "string" && /^https?:/.test(o.wiki) && !seen.has(o.wiki)) seen.set(o.wiki, o.nama ? "Profil " + o.nama : o.wiki);
       Object.values(o).forEach((v) => { if (v && typeof v === "object") walk(v, depth + 1); });
     };
-    [window.SIRAH, window.MEKAH, window.MADINAH, window.HIJRAH, window.PERANG, window.PERANG_SKENARIO, window.NUZUL, window.SURAH, window.TONTONAN].forEach((x) => walk(x, 0));
+    [window.SIRAH, window.MEKAH, window.MADINAH, window.HIJRAH, window.PERANG, window.PERANG_SKENARIO, window.NUZUL, window.NUZUL_RUJUKAN, window.SURAH, window.TONTONAN].forEach((x) => walk(x, 0));
     if (window.SIRAH_KERABAT) window.SIRAH_KERABAT.EDGES.forEach((e) => { if (e.src && !seen.has(e.src)) seen.set(e.src, e.note || e.src); });
     const hadits = {}, lain = {};
     for (const [url, label] of seen) {
@@ -695,7 +695,7 @@
             ${window.HIJRAH && html`<li><b>Hijrah</b> ${window.HIJRAH.episode.length} kejadian berurutan dengan tanggal, tempat, rute di peta wilayah, dan derajat riwayatnya.</li>`}
             ${window.PERANG && html`<li><b>Perang</b> ${window.PERANG.daftar.length} ekspedisi (27 ghazwah menurut Ibnu Ishaq dan Bani Qainuqa'), dengan jumlah pasukan, korban, kronologi, dan ${window.PERANG_SKENARIO ? Object.keys(window.PERANG_SKENARIO).length : 0} simulasi susunan pasukan.</li>`}
             ${window.SIRAH_KERABAT && html`<li><b>Kekerabatan</b> ${window.SIRAH_KERABAT.EDGES.length} hubungan keluarga, pernikahan, susuan, dan muakhah, dengan pencari jalur hubungan dua tokoh.</li>`}
-            <li><b>Asbabun Nuzul</b> ${window.NUZUL.urutan.length} kejadian (${Object.keys(window.NUZUL.artikel).length} sudah lengkap) dan 114 surah dengan waktu turunnya.</li>
+            <li><b>Asbabun Nuzul</b> ${window.NUZUL.urutan.length} kejadian (${Object.keys(window.NUZUL.artikel).length} sudah lengkap) dan 114 surah dengan waktu turunnya.${window.NUZUL_RUJUKAN ? ` Setiap kejadian dicek silang ke ${Object.values(window.NUZUL_RUJUKAN.entries).reduce((a, e) => a + e.rujukan.length, 0)} rujukan: kitab asbabun nuzul (Al-Wahidi, As-Suyuthi, Muqbil Al-Wadi'i), tafsir, hadits, dan Tafsir Kemenag RI.` : ""}</li>
           </ul>
           <h3>Batasan</h3>
           <p>Narasi, tahun, letak tempat, dan dialog tontonan adalah rekonstruksi dari sumber yang tercantum. Rasulullah ﷺ, para nabi, dan malaikat tidak pernah digambarkan; mereka hanya tampil sebagai nama dan cahaya.</p>
@@ -776,7 +776,8 @@
     if (h.view === "tokoh") r.tokohSel = a && D.tokoh[a] ? a : "nabi";
     if (h.view === "kerabat") r.krRute = a === "fokus" ? { fokus: b } : a && b ? { dari: a, ke: b } : null;
     if (h.view === "nuzul" && window.NUZUL) {
-      if (a === "surah") { r.nzTab = "surah"; r.nzSurah = Math.max(1, Math.min(114, +b || 96)); r.nuzulSel = null; }
+      if (a === "pustaka") { r.nzTab = "pustaka"; r.nuzulSel = null; }
+      else if (a === "surah") { r.nzTab = "surah"; r.nzSurah = Math.max(1, Math.min(114, +b || 96)); r.nuzulSel = null; }
       else { r.nzTab = "kejadian"; r.nuzulSel = a && window.NUZUL.urutan.some((u) => u.id === a) ? a : window.NUZUL.urutan[0].id; }
     }
     return r;
@@ -836,7 +837,7 @@
       if (view === "perang") return tulisHash(view, [prSel, sim ? "simulasi" : null]);
       if (view === "tokoh") return tulisHash(view, [tokohSel]);
       if (view === "kerabat") return tulisHash(view, krRute ? (krRute.fokus ? ["fokus", krRute.fokus] : [krRute.dari, krRute.ke]) : []);
-      if (view === "nuzul") return tulisHash(view, nzTab === "surah" && !nuzulSel ? ["surah", nzSurah] : [nuzulSel]);
+      if (view === "nuzul") return tulisHash(view, nzTab === "pustaka" ? ["pustaka"] : nzTab === "surah" && !nuzulSel ? ["surah", nzSurah] : [nuzulSel]);
       return "#/";
     })();
     const pertama = useRef(true);
@@ -882,7 +883,7 @@
       setView(v);
     };
     const bukaKota = (k, pid, y) => { reset(); setKota(k); if (y != null) setYear(y); setCsel(pid || null); setView("kota"); };
-    const pickTab = (t) => { setNzTab(t); if (t === "surah") { setNuzulSel(null); setNzSurah(nzSurah || 96); } else if (!nuzulSel) setNuzulSel(window.NUZUL.urutan[0].id); };
+    const pickTab = (t) => { setNzTab(t); if (t === "pustaka") return; if (t === "surah") { setNuzulSel(null); setNzSurah(nzSurah || 96); } else if (!nuzulSel) setNuzulSel(window.NUZUL.urutan[0].id); };
     window.__wiki = (id) => { reset(); setView("nuzul"); setNzTab("kejadian"); setNuzulSel(id); };
     window.__buka = (v, id) => { reset(); if (v === "hijrah") setHjSel(id); if (v === "perang") setPrSel(id); if (v === "tokoh") setTokohSel(id); setView(v); };
     window.__tonton = (id) => {
@@ -931,14 +932,15 @@
           : prSel ? html`<${window.SirahPerangDetail} id=${prSel} onSelect=${setPrSel} onClose=${() => setPrSel(null)} onWatch=${(id) => window.__tonton(id)}
               onMap=${lihatPerang} onProfile=${setProfile} onSim=${setSim} />`
           : html`<section class="nz-detail nz-empty"><h2>Pilih ghazwah di kanan</h2><p>Lihat jumlah pasukan, panglima, korban, dan jalannya peristiwa. Sembilan perang yang terjadi pertempuran punya simulasi susunan pasukan.</p></section>`}`;
-      if (view === "nuzul" && window.SirahNuzulList) return html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${setNuzulSel} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />
-        ${nuzulSel && !story && window.SirahNuzulDetail && html`<${window.SirahNuzulDetail} id=${nuzulSel} onSelect=${setNuzulSel} onClose=${() => setNuzulSel(null)}
+      if (view === "nuzul" && window.SirahNuzulList) return html`<${window.SirahNuzulList} sel=${nuzulSel} onSelect=${(id) => { setNzTab("kejadian"); setNuzulSel(id); }} tab=${nzTab} onTab=${pickTab} surah=${nzSurah} onSurah=${(n) => { setNuzulSel(null); setNzSurah(n); }} />
+        ${nzTab === "pustaka" && window.SirahNuzulPustaka && html`<${window.SirahNuzulPustaka} />`}
+        ${nzTab !== "pustaka" && nuzulSel && !story && window.SirahNuzulDetail && html`<${window.SirahNuzulDetail} id=${nuzulSel} onSelect=${setNuzulSel} onClose=${() => setNuzulSel(null)}
           onWatch=${(id) => window.__tonton(id)} onProfile=${setProfile}
-          onMap=${(pt) => { if (pt.tempat) bukaKota("mekah", pt.tempat, pt.tahun); else { reset(); setYear(pt.tahun); setView("wilayah"); setSel(pt.lok); } }} />`}
-        ${!nuzulSel && !(nzTab === "surah" && nzSurah) && html`<section class="nz-detail nz-empty">
+          onMap=${(pt) => { if (pt.tempat) bukaKota(pt.kota === "madinah" && window.MADINAH ? "madinah" : "mekah", pt.tempat, pt.tahun); else { reset(); setYear(pt.tahun); setView("wilayah"); setSel(pt.lok); } }} />`}
+        ${nzTab !== "pustaka" && !nuzulSel && !(nzTab === "surah" && nzSurah) && html`<section class="nz-detail nz-empty">
           <h2>Pilih dari daftar di kanan</h2>
           <p>Buka satu kejadian untuk membaca mengapa ayatnya turun dan memutar kejadiannya, atau pilih tab Per surah untuk melihat kapan setiap surah diturunkan.</p></section>`}
-        ${!nuzulSel && nzTab === "surah" && nzSurah && !story && window.SirahSurahDetail && html`<${window.SirahSurahDetail} no=${nzSurah}
+        ${nzTab === "surah" && !nuzulSel && nzSurah && !story && window.SirahSurahDetail && html`<${window.SirahSurahDetail} no=${nzSurah}
           onSelect=${setNuzulSel} onSurah=${setNzSurah} onClose=${() => setNzSurah(null)} />`}`;
       return null;
     })();

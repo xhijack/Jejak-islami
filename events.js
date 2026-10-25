@@ -24,7 +24,7 @@
         rinci: [
           { k: "Hari Senin", v: "Nabi bersabda tentang hari Senin: \"Pada hari itu aku dilahirkan dan pada hari itu aku diutus atau wahyu diturunkan kepadaku.\"", s: "HR. Muslim no. 1162", url: "https://sunnah.com/muslim:1162b" },
           { k: "Bulan Ramadhan", v: "Al-Qur'an diturunkan pada bulan Ramadhan.", s: "QS. Al-Baqarah: 185" },
-          { k: "Tanggal", v: "Diperselisihkan. Al-Mubarakfuri menghitung Senin 21 Ramadhan sebelum fajar, bertepatan 10 Agustus 610 M. Di Indonesia, Nuzulul Qur'an umum diperingati 17 Ramadhan.", s: "Wikipedia: Muhammad's first revelation", url: "https://en.wikipedia.org/wiki/Muhammad%27s_first_revelation" },
+          { k: "Tanggal", v: "Diperselisihkan. Al-Mubarakfuri, dengan menghitung hari Senin di bulan Ramadhan tahun itu, menyimpulkan malam 21 Ramadhan, bertepatan 10 Agustus 610 M. Di Indonesia, Nuzulul Qur'an umum diperingati 17 Ramadhan.", s: "Ar-Rahiq Al-Makhtum (Al-Mubarakfuri)", url: "https://usul.ai/t/the-sealed-nectar-with-additions/19" },
           { k: "Usia beliau", v: "40 tahun.", s: "HR. Bukhari no. 3902 (Ibnu Abbas)", url: "https://sunnah.com/bukhari:3902" }
         ]
       },
@@ -51,8 +51,8 @@
         ] },
         { judul: "Berjalan ke Jabal Nur", beats: [
           { inside: null, rasul: { path: "pergi", from: 0, to: 1, dur: 16000 }, cam: { follow: "rasul", dist: 9, el: 0.55, az: "behind", up: 3 },
-            sumber: "Rute perkiraan; letak Jabal Nur: Wikipedia", url: "https://en.wikipedia.org/wiki/Jabal_al-Nour",
-            narr: "Beliau berjalan ke utara melewati Ma'la, menuju Jabal Nur, sekitar 4 km dari Ka'bah." },
+            sumber: "Rute perkiraan; letak Jabal Nur: Ar-Rahiq Al-Makhtum", url: "https://usul.ai/t/the-sealed-nectar-with-additions/18",
+            narr: "Beliau berjalan ke utara melewati Ma'la, menuju Jabal Nur, sekitar dua mil dari Mekah." },
           { rasul: { path: "naik", from: 0, to: 1, dur: 10000 }, cam: { follow: "rasul", dist: 4, el: 0.45, az: "behind", up: 3 },
             sumber: "Rute pendakian perkiraan", narr: "Gua Hira berada di dekat puncak Jabal Nur. Jalannya menanjak dan berbatu." },
           { cam: CAM_GUA, ...B3, narr: "Beliau tiba di mulut Gua Hira." },
@@ -221,7 +221,7 @@
       judul: "Awal periode Mekah, ±612 M",
       rinci: [
         { k: "Waktu", v: "Tahun, bulan, dan hari tidak disebut dalam riwayat. ±612 M adalah perkiraan.", s: "Perkiraan" },
-        { k: "Lama tertunda", v: "Dua atau tiga malam.", s: "HR. Bukhari no. 4950", url: "https://sunnah.com/bukhari:4950" },
+        { k: "Lama tertunda", v: "Dua atau tiga malam; dalam lafaz lain riwayat Jundub, satu atau dua malam (HR. Bukhari no. 4983).", s: "HR. Bukhari no. 4950", url: "https://sunnah.com/bukhari:4950" },
         { k: "Riwayat lain", v: "Beberapa hari, menurut riwayat Ibnu Abbas.", s: "Tafsir Ibnu Katsir", url: "https://quran.com/93:1/tafsirs/en-tafisr-ibn-kathir" }
       ]
     },
@@ -243,8 +243,8 @@
         { ...B4950, hold: 1500,
           say: { who: "perempuan", text: "Wahai Muhammad, aku berharap setanmu telah meninggalkanmu. Aku tidak melihatnya mendekatimu sejak dua atau tiga malam.",
             arab: "يَا مُحَمَّدُ، إِنِّي لَأَرْجُو أَنْ يَكُونَ شَيْطَانُكَ قَدْ تَرَكَكَ" } },
-        { sumber: "Catatan penyusun",
-          narr: "Shahih Bukhari tidak menyebut nama perempuan ini. Sebagian ulama menyebut riwayat di luar Shahih yang menamainya Ummu Jamil, istri Abu Lahab. Keterangan ini perlu diverifikasi." },
+        { sumber: "Ad-Durr al-Mantsur (riwayat Al-Hakim); Al-Muharrar (mengutip Ibnu Hajar)", url: "https://quranpedia.net/surah/4/93/book/460",
+          narr: "Shahih Bukhari tidak menyebut nama perempuan ini. Dalam riwayat Al-Hakim dari Zaid bin Arqam ia adalah istri Abu Lahab, dan Ibnu Hajar menyebut namanya Ummu Jamil binti Harb." },
         { chars: [{ id: "perempuan", path: "datang", from: 1, to: 0, dur: 5000, on: false }], cam: { at: [125, 98], dist: 4, el: 0.55, az: -0.94, up: 3 }, ...M1797,
           narr: "Dalam riwayat Muslim, kaum musyrik berkata: \"Muhammad telah ditinggalkan.\"" }
       ] },
@@ -315,7 +315,7 @@
         { chars: [{ id: "quraisy2", expr: "senyum" }], ...B4770,
           say: { who: "quraisy2", text: "Ya. Kami tidak pernah mendapatimu kecuali berkata benar.", arab: "مَا جَرَّبْنَا عَلَيْكَ إِلَّا صِدْقًا" } },
         { chars: [{ id: "quraisy1", expr: "kaget" }, { id: "quraisy3", expr: "khawatir" }], ...B4770, hold: 1200,
-          say: { who: "rasul", text: "Sesungguhnya aku adalah pemberi peringatan bagi kalian sebelum datangnya azab yang pedih.", arab: "فَإِنِّي نَذِيرٌ لَكُمْ بَيْنَ يَدَيْ عَذَابٍ شَدِيدٍ" } },
+          say: { who: "rasul", text: "Sesungguhnya aku adalah pemberi peringatan bagi kalian sebelum datangnya azab yang keras.", arab: "فَإِنِّي نَذِيرٌ لَكُمْ بَيْنَ يَدَيْ عَذَابٍ شَدِيدٍ" } },
         { sumber: "HR. Bukhari no. 2753 (Abu Hurairah)", url: "https://sunnah.com/bukhari:2753", hold: 1500,
           narr: "Dalam riwayat Abu Hurairah, beliau berseru: \"Wahai kaum Quraisy, selamatkanlah diri kalian.\" Sampai kepada putrinya: \"Wahai Fatimah, mintalah dari hartaku sesukamu, tetapi aku tidak dapat menolongmu sedikit pun dari Allah.\"" }
       ] },
@@ -332,8 +332,8 @@
           arab: "وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ ﴿٤﴾ فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ ﴿٥﴾",
           text: "Dan (begitu pula) istrinya, pembawa kayu bakar. Di lehernya ada tali dari sabut." } },
         { jibril: jibAt(JIB_SHAFA, 0, 24), chars: [{ id: "quraisy1", on: false }, { id: "quraisy2", on: false }, { id: "quraisy3", on: false }, { id: "abulahab", on: false }],
-          cam: { at: [110, 0], dist: 24, el: 0.72, az: Math.PI - 0.4, up: 0 }, sumber: "Tafsir Ibnu Katsir", url: "https://quran.com/111:1/tafsirs/en-tafisr-ibn-kathir",
-          narr: "Kata \"celaka\" yang diucapkan Abu Lahab dijawab dengan kata yang sama. Ia adalah paman Nabi sendiri, dan ia wafat dalam kekafiran setelah Perang Badar." }
+          cam: { at: [110, 0], dist: 24, el: 0.72, az: Math.PI - 0.4, up: 0 }, sumber: "Tafsir Ibnu Katsir", url: "https://quran.com/111:5/tafsirs/ar-tafsir-ibn-kathir",
+          narr: "Kata \"celaka\" yang diucapkan Abu Lahab dijawab dengan kata yang sama. Ia adalah paman Nabi sendiri. Ia dan istrinya tidak pernah beriman, dan para ulama memandang surah ini sebagai mukjizat." }
       ] }
     ],
     penutup: "Sejak hari itu dakwah dilakukan secara terang-terangan, dan permusuhan Quraisy pun makin keras."
@@ -475,8 +475,8 @@
     tanggal: {
       judul: "Suatu malam, ±1 tahun sebelum Hijrah",
       rinci: [
-        { k: "Tanggal", v: "Tidak disebut dalam hadits shahih. Pendapat yang masyhur: 27 Rajab. Ibnu Sa'd mencatat tanggal lain, dan sebagian peneliti menilai 27 Rajab tidak bersandar pada riwayat yang kuat.", s: "Wikipedia: Isra' and Mi'raj", url: "https://en.wikipedia.org/wiki/Isra%27_and_Mi%27raj" },
-        { k: "Tempat berangkat", v: "Al-Hathim atau Al-Hijr di sisi Ka'bah.", s: "HR. Bukhari no. 3887", url: "https://sunnah.com/bukhari:3887" }
+        { k: "Tanggal", v: "Tidak disebut dalam hadits shahih dan diperselisihkan ulama: setahun sebelum Hijrah (Az-Zuhri), malam 27 Rabi'ul Akhir setahun sebelum Hijrah (Al-Harbi), enam belas bulan sebelum Hijrah (As-Suddi), atau dua atau tiga tahun sebelum Hijrah (dikuatkan Ibnu Hajar). Tanggal 27 Rajab populer sebagai hari peringatan, tetapi tidak bersandar pada riwayat shahih.", s: "Tafsir Al-Qurthubi dan Ibnu Katsir (Al-Isra' 1); Fath al-Bari 8/670", url: "https://quran.com/17:1/tafsirs/ar-tafseer-al-qurtubi" },
+        { k: "Tempat berangkat", v: "Al-Hathim atau Al-Hijr di sisi Ka'bah menurut riwayat ini; dalam riwayat Abu Dzar (HR. Bukhari no. 349), dari rumah beliau di Mekah.", s: "HR. Bukhari no. 3887", url: "https://sunnah.com/bukhari:3887" }
       ]
     },
     pengantar: PENGANTAR("HR. Bukhari no. 3887 dan 3886 serta HR. Muslim no. 162") + " Buraq hanya disebut dalam narasi.",
@@ -541,8 +541,8 @@
       judul: "16 atau 17 bulan setelah Hijrah",
       rinci: [
         { k: "Lama menghadap Baitul Maqdis", v: "16 atau 17 bulan setelah tiba di Madinah.", s: "HR. Bukhari no. 4486", url: "https://sunnah.com/bukhari:4486" },
-        { k: "Bulan", v: "Rajab atau Sya'ban 2 H (±624 M) menurut kitab sirah.", s: "Wikipedia: Qibla", url: "https://en.wikipedia.org/wiki/Qibla" },
-        { k: "Shalat", v: "Shalat pertama menghadap Ka'bah adalah shalat Ashar.", s: "HR. Bukhari no. 4486", url: "https://sunnah.com/bukhari:4486" }
+        { k: "Bulan", v: "Diperselisihkan: Rajab 2 H, Selasa pertengahan Sya'ban, atau dua bulan sebelum Badar (±624 M). Ibnu Hajar menguatkan pertengahan Rajab 2 H sebagai pendapat jumhur.", s: "Tafsir Al-Qurthubi (Al-Baqarah 142); Ibnu Hajar dikutip Fatwa Islamweb 240181", url: "https://quran.com/2:142/tafsirs/ar-tafseer-al-qurtubi" },
+        { k: "Shalat", v: "Shalat pertama menghadap Ka'bah adalah shalat Ashar menurut riwayat Al-Bara'; ada riwayat lain yang menyebut shalat Zhuhur.", s: "HR. Bukhari no. 4486", url: "https://sunnah.com/bukhari:4486" }
       ]
     },
     pengantar: PENGANTAR("HR. Bukhari no. 4486 dan 403") + " Kejadian ini di Madinah, jadi ditampilkan sebagai panggung, bukan di peta Mekah.",
@@ -567,7 +567,9 @@
           narr: "Seorang laki-laki yang ikut shalat bersama Nabi melewati jamaah sebuah masjid yang sedang ruku', masih menghadap Baitul Maqdis." },
         { ...B4486, say: { who: "kabar", text: "Aku bersaksi demi Allah, aku telah shalat bersama Nabi menghadap Mekah.", arab: "أَشْهَدُ بِاللَّهِ لَقَدْ صَلَّيْتُ مَعَ النَّبِيِّ قِبَلَ مَكَّةَ" } },
         { inside: { chars: [{ id: "sahabat2", expr: "kaget" }, { id: "sahabat3", expr: "kaget" }] }, ...B4486,
-          narr: "Mereka pun berputar menghadap Ka'bah dalam keadaan masih ruku'. Tempat ini kemudian dikenal sebagai Masjid Al-Qiblatain, \"masjid dua kiblat\"." },
+          narr: "Mereka pun berputar menghadap Ka'bah dalam keadaan masih ruku'. Hadits ini tidak menyebut nama masjidnya." },
+        { ...S_("Tafsir Al-Qurthubi (Al-Baqarah 142); Wafa' al-Wafa' (As-Samhudi)", "https://shamela.ws/book/23695/273"),
+          narr: "Nama Masjid Al-Qiblatain, \"masjid dua kiblat\", dikaitkan dengan riwayat lain: shalat Zhuhur di masjid Bani Salimah. Riwayat tentang masjid mana yang dimaksud berbeda-beda." },
         { ...S_("HR. Bukhari no. 403 (Ibnu Umar)", "https://sunnah.com/bukhari:403"),
           narr: "Jamaah di Quba baru menerima kabar ini keesokan harinya, saat shalat Subuh, lalu mereka juga berputar ke arah Ka'bah." },
         { inside: { chars: [{ id: "sahabat2", expr: "lembut" }, { id: "sahabat3", expr: "lembut" }] }, ...B4486,
@@ -587,7 +589,7 @@
       judul: "17 Ramadhan 2 H (±624 M)",
       rinci: [
         { k: "Tanggal", v: "17 Ramadhan 2 H, hari Jumat, menurut kitab sirah.", s: "Sirah Ibnu Hisyam" },
-        { k: "Jumlah pasukan", v: "Kaum musyrikin 1.000 orang; kaum muslimin 319 orang.", s: "HR. Muslim no. 1763", url: "https://sunnah.com/muslim:1763" }
+        { k: "Jumlah pasukan", v: "Kaum musyrikin 1.000 orang; kaum muslimin 319 orang menurut riwayat ini. Riwayat Al-Bara' (HR. Bukhari no. 3957) dan At-Tirmidzi menyebut \"tiga ratus sepuluh lebih\".", s: "HR. Muslim no. 1763", url: "https://sunnah.com/muslim:1763" }
       ]
     },
     pengantar: PENGANTAR("HR. Muslim no. 1763") + " Pertempuran tidak digambarkan.",
@@ -631,7 +633,7 @@
       rinci: [
         { k: "Waktu", v: "Akhir Shafar atau awal Rabi'ul Awwal, tahun pertama Hijrah, menurut kitab sirah.", s: "Sirah Ibnu Hisyam" },
         { k: "Tempat musyawarah", v: "Darun Nadwah menurut kitab sirah; riwayat Ahmad hanya menyebut \"di Mekah\".", s: "HR. Ahmad no. 3251", url: "https://hadithunlocked.com/ahmad:3251" },
-        { k: "Turunnya ayat", v: "Al-Anfal turun di Madinah setelah Perang Badar (2 H); ayat 30 mengenang malam ini.", s: "Catatan penyusun" }
+        { k: "Turunnya ayat", v: "Menurut Ibnu Abbas, Surah Al-Anfal turun tentang Perang Badar (2 H); ayat 30 turun di Madinah dan mengenang malam ini. Ath-Thabari memuat riwayat Mujahid bahwa ayat ini Makkiyah, tetapi itu pendapat minoritas.", s: "HR. Bukhari no. 4645", url: "https://sunnah.com/bukhari:4645" }
       ]
     },
     pengantar: PENGANTAR("HR. Ahmad no. 3251, HR. Bukhari no. 3905, dan Sirah Ibnu Hisyam") + " Usul Abu Jahal berasal dari kitab sirah.",
@@ -748,18 +750,19 @@
     tanggal: {
       judul: "Syawal 5 H (±627 M)",
       rinci: [
-        { k: "Tahun", v: "Syawal 5 H menurut Ibnu Ishaq; Musa bin Uqbah menyebut 4 H.", s: "Sirah Ibnu Hisyam" },
+        { k: "Tahun", v: "Syawal 5 H menurut pendapat yang masyhur; Musa bin 'Uqbah dan lainnya menyebut 4 H.", s: "Tafsir Ibnu Katsir, Al-Ahzab 9–10", url: "https://quran.com/33:10/tafsirs/en-tafisr-ibn-kathir" },
+        { k: "Letak parit", v: "Sisi utara kota menurut Al-Mubarakfuri; Ibnu Katsir menyebut parit digali di arah timur Madinah.", s: "Ar-Rahiq Al-Makhtum; Tafsir Ibnu Katsir", url: "https://usul.ai/t/the-sealed-nectar-with-additions/227" },
         { k: "Ayat", v: "Aisyah: ayat \"ketika mereka datang dari atas dan dari bawahmu\" terjadi pada hari Khandaq.", s: "HR. Bukhari no. 4103", url: "https://sunnah.com/bukhari:4103" }
       ]
     },
-    pengantar: PENGANTAR("HR. Bukhari no. 4099 dan 4103 serta Sirah Ibnu Hisyam"),
+    pengantar: PENGANTAR("HR. Bukhari no. 4099 dan 4103, Sirah Ibnu Hisyam, dan Ar-Rahiq Al-Makhtum"),
     tokoh: { sahabat: { nama: "Kaum Muhajirin" }, sahabat2: { nama: "Kaum Anshar" } },
     lampu: [], paths: {},
     babak: [
       { judul: "Menggali parit", beats: [
         { inside: { scene: "khandaq", cam: { x: 800, y: 470, s: 1 }, rasul: { x: 600, y: 600, small: false, state: "tenang" },
-            chars: [{ id: "sahabat", x: 920, y: 640, expr: "tegas", on: true }, { id: "sahabat2", x: 1220, y: 650, expr: "tegas", on: true }] }, tanggal: true, ...S_("Sirah Ibnu Hisyam", ""),
-          narr: "Quraisy dan kabilah-kabilah sekutunya bergerak menuju Madinah. Kaum muslimin menggali parit di sisi utara kota yang terbuka." },
+            chars: [{ id: "sahabat", x: 920, y: 640, expr: "tegas", on: true }, { id: "sahabat2", x: 1220, y: 650, expr: "tegas", on: true }] }, tanggal: true, ...S_("Ar-Rahiq Al-Makhtum (kitab sirah)", "https://usul.ai/t/the-sealed-nectar-with-additions/227"),
+          narr: "Quraisy dan kabilah-kabilah sekutunya bergerak menuju Madinah. Kaum muslimin menggali parit di sisi utara kota, satu-satunya sisi yang tidak terlindung harrah, gunung, dan kebun kurma." },
         { ...B4099, narr: "Di pagi yang dingin, kaum Muhajirin dan Anshar menggali dan mengangkat tanah. Rasulullah ﷺ ikut bersama mereka." },
         { ...B4099, say: { who: "rasul", text: "Ya Allah, sesungguhnya kehidupan (sejati) adalah kehidupan akhirat. Maka ampunilah kaum Anshar dan Muhajirin.", arab: "اللَّهُمَّ إِنَّ الْعَيْشَ عَيْشُ الْآخِرَهْ، فَاغْفِرْ لِلْأَنْصَارِ وَالْمُهَاجِرَهْ" } },
         { inside: { chars: [{ id: "sahabat", expr: "senyum" }, { id: "sahabat2", expr: "senyum" }] }, ...B4099,
@@ -786,9 +789,9 @@
     judul: "Haditsul Ifki",
     tahun: 627,
     tanggal: {
-      judul: "Sepulang sebuah ekspedisi, 5 atau 6 H",
+      judul: "Sepulang sebuah ekspedisi, 4–6 H (diperselisihkan)",
       rinci: [
-        { k: "Ekspedisi", v: "Hadits tidak menyebut namanya. Kitab sirah menyebut ekspedisi Bani Mushthaliq; tahunnya diperselisihkan (5 atau 6 H).", s: "Sirah Ibnu Hisyam" },
+        { k: "Ekspedisi", v: "Hadits tidak menyebut namanya. Al-Qurthubi menyebutnya ghazwah Bani al-Mushthaliq (al-Muraisi'): 6 H menurut Ibnu Ishaq, 4 H menurut Musa bin 'Uqbah; ada pula yang menyebut Sya'ban 5 H.", s: "Tafsir Al-Qurthubi, An-Nur 11", url: "https://quran.com/24:11/tafsirs/ar-tafseer-al-qurtubi" },
         { k: "Lama wahyu tertunda", v: "Sekitar sebulan.", s: "HR. Bukhari no. 4750", url: "https://sunnah.com/bukhari:4750" }
       ]
     },
@@ -850,7 +853,7 @@
       judul: "Dzulqa'dah 6 H (±628 M), malam hari",
       rinci: [
         { k: "Bulan", v: "Umrah Hudaibiyah terjadi di bulan Dzulqa'dah.", s: "HR. Bukhari no. 1778", url: "https://sunnah.com/bukhari:1778" },
-        { k: "Waktu turun", v: "Malam hari, dalam perjalanan pulang.", s: "HR. Bukhari no. 4177", url: "https://sunnah.com/bukhari:4177" }
+        { k: "Waktu turun", v: "Malam hari, dalam salah satu perjalanan beliau. Al-Bukhari meletakkan hadits ini di bab Hudaibiyah, dan Ibnu Katsir menyebut surah ini turun sepulang dari Hudaibiyah.", s: "HR. Bukhari no. 4177", url: "https://sunnah.com/bukhari:4177" }
       ]
     },
     pengantar: PENGANTAR("HR. Bukhari no. 4177 dan 4172"),

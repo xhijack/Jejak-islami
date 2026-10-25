@@ -253,8 +253,8 @@
         ket: "Gunung di timur dan tenggara Masjidil Haram. Bukit Shafa berada di kakinya.",
         riwayat: [
           { t: [619, 619], judul: "Tawaran malaikat penjaga gunung", tokoh: ["nabi"], derajat: "shahih", sumber: "HR. Bukhari no. 3231 (Aisyah)", url: sn("bukhari", 3231),
-            isi: "Sepulang dari Thaif, malaikat penjaga gunung menawarkan untuk menimpakan Al-Akhsyabain kepada penduduk Mekah. Nabi menolak dan berharap dari keturunan mereka lahir orang yang menyembah Allah.",
-            catatan: "Al-Akhsyabain ditafsirkan sebagai Abu Qubais dan gunung di seberangnya." }
+            isi: "Setelah ditolak Ibnu Abdi Yalil, Nabi pergi dalam keadaan sangat sedih. Malaikat penjaga gunung lalu menawarkan untuk menimpakan Al-Akhsyabain kepada kaum beliau. Nabi menolak dan berharap dari keturunan mereka lahir orang yang menyembah Allah semata.",
+            catatan: "Al-Akhsyabain ditafsirkan sebagai Abu Qubais dan gunung di seberangnya. Hadits ini tidak menyebut nama Thaif; kitab sirah menempatkan peristiwa ini sepulang dari Thaif." }
         ] },
       { id: "quaiqian", nama: "Jabal Qu'aiqi'an", arab: "قعيقعان", jenis: "gunung", e: -390, n: 150, lod: 0, keyakinan: "pasti",
         ket: "Gunung di sisi barat lembah Mekah, berhadapan dengan Abu Qubais.", riwayat: [] },
