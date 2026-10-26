@@ -675,7 +675,7 @@
     const s = document.createElement("style"); s.id = "ps-css";
     s.textContent = `
 .ps-root { position: absolute; inset: 0; z-index: 40; overflow: hidden; border-radius: 14px; background: radial-gradient(120% 90% at 40% 10%, var(--lapis-1, #121e45), var(--lapis-0, #0b1430) 70%); color: var(--ink, #ece4d2); font: 14px/1.5 var(--f-ui, system-ui); border: 1px solid var(--line, rgba(212,174,90,.28)); }
-.ps-stage { position: absolute; left: 0; right: 0; top: 0; bottom: var(--ps-bottom, 170px); z-index: 0; }
+.ps-stage { position: absolute; inset: 0; z-index: 0; }
 .ps-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .ps-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
 .ps-lab { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform; }
@@ -697,73 +697,107 @@
 .ps-rasul span { font: 15px/1.2 var(--f-ar, serif); color: #fff3cf; }
 .ps-rasul b { font-size: 10.5px; font-weight: 600; color: #fff3cf; }
 .ps-labels.atas .ps-unit .ps-lab-in { padding: 3px 9px 4px; }
-.ps-head { position: absolute; left: 12px; top: 12px; width: min(380px, calc(100% - 24px)); box-sizing: border-box; padding: 12px 14px; border-radius: 12px; background: rgba(11, 20, 48, .88); border: 1px solid var(--line, rgba(212,174,90,.28)); z-index: 3; }
-.ps-k { margin: 0; font-size: 11.5px; color: var(--muted, #a7aec6); }
-.ps-head h2 { margin: 1px 0 0; font: 600 21px/1.2 var(--f-text, Georgia, serif); color: var(--gold-soft, #ecd8a2); }
-.ps-head .ps-ar { margin: 0; font: 17px/1.3 var(--f-ar, serif); color: var(--gold, #d4ae5a); }
-.ps-when { margin: 2px 0 0; font-size: 12.5px; color: var(--ink, #ece4d2); }
-.ps-count { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+/* Tampilan sinematik: judul kecil, teks narasi seperti subtitle, kendali ringkas yang memudar saat diputar. Rincian ada di laci Info. */
+.ps-shade { position: absolute; left: 0; right: 0; bottom: 0; height: 40%; z-index: 2; pointer-events: none; background: linear-gradient(to top, rgba(5, 9, 24, .82), rgba(5, 9, 24, .35) 55%, rgba(5, 9, 24, 0)); transition: opacity .5s; }
+.ps-root.nocap .ps-shade { opacity: 0; }
+.ps-title { position: absolute; left: 16px; top: 13px; z-index: 3; max-width: calc(100% - 420px); text-shadow: 0 1px 3px rgba(0, 0, 0, .75); transition: opacity .5s; }
+.ps-title .k { margin: 0; font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted, #a7aec6); }
+.ps-title h2 { margin: 0; font: 600 19px/1.25 var(--f-text, Georgia, serif); color: var(--gold-soft, #ecd8a2); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.ps-title h2 .ar { font: 15px/1.2 var(--f-ar, serif); color: var(--gold, #d4ae5a); }
+.ps-vs { margin: 5px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font: 600 13px var(--f-ui, system-ui); font-variant-numeric: tabular-nums; color: var(--ink, #ece4d2); }
+.ps-vs span { display: inline-flex; align-items: center; gap: 5px; }
+.ps-vs i { width: 8px; height: 8px; border-radius: 2px; }
+.ps-vs em { font-style: normal; font-weight: 500; font-size: 11.5px; color: var(--muted, #a7aec6); }
+.ps-disc-mini { margin: 3px 0 0; font-size: 10.5px; color: rgba(167, 174, 198, .85); }
+.ps-tools { position: absolute; right: 12px; top: 12px; display: flex; gap: 6px; align-items: center; z-index: 4; transition: opacity .5s; }
+.ps-seg { display: flex; border-radius: 9px; border: 1px solid rgba(255, 255, 255, .12); background: rgba(8, 13, 34, .55); backdrop-filter: blur(6px); overflow: hidden; }
+.ps-seg button { height: 30px; min-width: 30px; padding: 0 10px; border: 0; background: none; color: var(--ink, #ece4d2); font: 600 12px var(--f-ui, system-ui); cursor: pointer; }
+.ps-seg button + button { border-left: 1px solid rgba(255, 255, 255, .1); }
+.ps-seg button.on { background: rgba(212, 174, 90, .9); color: var(--lapis-0, #0b1430); }
+.ps-seg button:hover:not(.on) { background: rgba(27, 43, 94, .8); }
+.ps-seg.ic button { padding: 0; width: 30px; font-size: 15px; font-weight: 500; }
+.ps-btn { height: 30px; min-width: 30px; padding: 0 9px; border-radius: 9px; border: 1px solid rgba(255, 255, 255, .12); background: rgba(8, 13, 34, .55); backdrop-filter: blur(6px); color: var(--ink, #ece4d2); font: 600 12px var(--f-ui, system-ui); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.ps-btn:hover { background: rgba(27, 43, 94, .85); }
+.ps-btn.on { border-color: var(--gold, #d4ae5a); color: var(--gold-soft, #ecd8a2); }
+.ps-btn svg { width: 15px; height: 15px; }
+.ps-close { font-size: 19px; font-weight: 400; line-height: 1; }
+.ps-utara { position: absolute; right: 16px; top: 52px; z-index: 3; width: 38px; height: 50px; display: flex; flex-direction: column; align-items: center; color: var(--gold-soft, #ecd8a2); font: 700 12px var(--f-ui, system-ui); pointer-events: none; text-shadow: 0 1px 2px #000; }
+.ps-utara svg { width: 20px; height: 28px; }
+.ps-cap { position: absolute; left: 50%; bottom: 62px; transform: translateX(-50%); width: min(780px, calc(100% - 40px)); z-index: 3; text-align: center; pointer-events: none; text-shadow: 0 1px 2px #000, 0 0 14px rgba(0, 0, 0, .65); animation: psCap .45s ease both; }
+@keyframes psCap { from { opacity: 0; transform: translate(-50%, 6px); } }
+.ps-cap .k { margin: 0; font: 600 11px var(--f-ui, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--gold, #d4ae5a); }
+.ps-cap h3 { margin: 2px 0 4px; font: 600 18px/1.25 var(--f-text, Georgia, serif); color: var(--gold-soft, #ecd8a2); }
+.ps-cap p { margin: 0 auto; max-width: 70ch; font: 15px/1.55 var(--f-text, Georgia, serif); color: #f4eddd; }
+.ps-dock { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 4; display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 99px; background: rgba(8, 13, 34, .6); border: 1px solid rgba(255, 255, 255, .1); backdrop-filter: blur(8px); transition: opacity .5s; }
+.ps-dock > button { height: 32px; min-width: 32px; border-radius: 99px; border: 0; background: none; color: var(--ink, #ece4d2); font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.ps-dock > button:hover:not(:disabled) { background: rgba(255, 255, 255, .08); }
+.ps-dock > button:disabled { opacity: .35; cursor: default; }
+.ps-dock > button.play { background: var(--gold, #d4ae5a); color: var(--lapis-0, #0b1430); }
+.ps-dock > button.play svg { width: 14px; height: 14px; }
+.ps-dock > button.cc { font: 600 11px var(--f-ui, system-ui); padding: 0 10px; color: var(--muted, #a7aec6); }
+.ps-dock > button.cc.on { color: var(--gold-soft, #ecd8a2); }
+.ps-dots { display: flex; align-items: center; gap: 5px; padding: 0 8px; }
+.ps-dots button { position: relative; width: 18px; height: 6px; padding: 0; border: 0; border-radius: 99px; background: rgba(255, 255, 255, .22); cursor: pointer; transition: width .3s, background .3s; }
+.ps-dots button::before { content: ""; position: absolute; inset: -10px -3px; }
+.ps-dots button.done { background: rgba(212, 174, 90, .55); }
+.ps-dots button.on { width: 32px; background: var(--gold, #d4ae5a); }
+.ps-dots button:hover:not(.on) { background: rgba(255, 255, 255, .45); }
+.ps-root.idle .ps-dock, .ps-root.idle .ps-tools, .ps-root.idle .ps-utara { opacity: 0; pointer-events: none; }
+.ps-root.idle .ps-title { opacity: .55; }
+.ps-root.idle { cursor: none; }
+.ps-root:fullscreen { border-radius: 0; border: 0; }
+.ps-info { position: absolute; top: 52px; right: 12px; bottom: 62px; width: min(350px, calc(100% - 24px)); box-sizing: border-box; overflow: auto; z-index: 5; padding: 14px 16px 16px; border-radius: 12px; background: rgba(8, 13, 34, .93); border: 1px solid var(--line, rgba(212,174,90,.28)); backdrop-filter: blur(8px); font-size: 12.5px; line-height: 1.5; animation: psInfo .22s ease both; }
+@keyframes psInfo { from { opacity: 0; transform: translateX(10px); } }
+.ps-info h3 { margin: 0 0 8px; font: 600 15px var(--f-text, Georgia, serif); color: var(--gold-soft, #ecd8a2); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ps-info h4 { margin: 14px 0 5px; font: 600 11px var(--f-ui, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #a7aec6); }
+.ps-info p { margin: 0 0 4px; color: var(--ink, #ece4d2); }
+.ps-info a { color: var(--gold-soft, #ecd8a2); }
+.ps-info .muted { color: var(--muted, #a7aec6); font-size: 11.5px; }
+.ps-count { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .ps-side { display: flex; flex-direction: column; gap: 1px; }
-.ps-side h4 { margin: 0; font: 600 11.5px var(--f-ui, system-ui); color: var(--muted, #a7aec6); display: flex; align-items: center; gap: 6px; }
-.ps-side h4 i { width: 9px; height: 9px; border-radius: 2px; }
-.ps-side .big { font: 600 22px/1.1 var(--f-ui, system-ui); font-variant-numeric: tabular-nums; color: var(--ink, #ece4d2); }
-.ps-side .big.na { font-size: 13px; font-weight: 500; color: var(--muted, #a7aec6); padding: 4px 0; }
+.ps-side h5 { margin: 0; font: 600 11.5px var(--f-ui, system-ui); color: var(--muted, #a7aec6); display: flex; align-items: center; gap: 6px; }
+.ps-side h5 i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.ps-side .big { font: 600 20px/1.1 var(--f-ui, system-ui); font-variant-numeric: tabular-nums; color: var(--ink, #ece4d2); }
+.ps-side .big.na { font-size: 12.5px; font-weight: 500; color: var(--muted, #a7aec6); padding: 3px 0; }
 .ps-side small { font-size: 11.5px; color: var(--muted, #a7aec6); font-variant-numeric: tabular-nums; }
 .ps-side small b { color: var(--gold-soft, #ecd8a2); font-weight: 600; }
-.ps-bar { grid-column: 1 / -1; display: flex; height: 6px; border-radius: 4px; overflow: hidden; background: rgba(255,255,255,.08); }
+.ps-bar { grid-column: 1 / -1; display: flex; height: 5px; border-radius: 4px; overflow: hidden; background: rgba(255,255,255,.08); }
 .ps-bar i { display: block; height: 100%; transition: width .6s ease; }
-.ps-tools { position: absolute; right: 12px; top: 12px; display: flex; gap: 8px; align-items: flex-start; z-index: 3; }
-.ps-seg { display: flex; border-radius: 10px; border: 1px solid var(--line, rgba(212,174,90,.28)); background: rgba(13, 22, 52, .9); overflow: hidden; }
-.ps-seg button { height: 34px; padding: 0 12px; border: 0; background: none; color: var(--ink, #ece4d2); font: 600 12.5px var(--f-ui, system-ui); cursor: pointer; }
-.ps-seg button + button { border-left: 1px solid rgba(212, 174, 90, .18); }
-.ps-seg button.on { background: var(--gold, #d4ae5a); color: var(--lapis-0, #0b1430); }
-.ps-seg button:hover:not(.on) { background: var(--lapis-2, #1b2b5e); }
-.ps-btn { height: 34px; min-width: 34px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line, rgba(212,174,90,.28)); background: rgba(13, 22, 52, .9); color: var(--ink, #ece4d2); font-size: 16px; cursor: pointer; }
-.ps-btn:hover { background: var(--lapis-2, #1b2b5e); }
-.ps-close { font-size: 20px; line-height: 1; }
-.ps-utara { position: absolute; right: 16px; top: 58px; z-index: 3; width: 38px; height: 50px; display: flex; flex-direction: column; align-items: center; color: var(--gold-soft, #ecd8a2); font: 700 12px var(--f-ui, system-ui); pointer-events: none; }
-.ps-utara svg { width: 22px; height: 30px; }
-.ps-legend { position: absolute; left: 12px; bottom: var(--ps-bottom, 170px); z-index: 3; max-width: min(360px, calc(100% - 24px)); padding: 8px 10px; border-radius: 10px; background: rgba(11, 20, 48, .86); border: 1px solid rgba(212, 174, 90, .18); font-size: 11.5px; color: var(--muted, #a7aec6); }
-.ps-legend .row { display: flex; flex-wrap: wrap; gap: 3px 12px; }
+.ps-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--ink, #ece4d2); }
 .ps-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .ps-legend i.sw { width: 10px; height: 10px; border-radius: 2px; }
 .ps-legend i.ln { width: 16px; height: 3px; border-radius: 2px; }
 .ps-legend i.glow { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle, #fff6d8, rgba(255, 220, 140, 0) 70%); }
 .ps-legend svg { width: 16px; height: 14px; }
-.ps-legend .per { margin: 4px 0 0; color: var(--ink, #ece4d2); }
-.ps-legtoggle { position: absolute; left: 12px; bottom: var(--ps-bottom, 170px); z-index: 3; }
-.ps-bottom { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 3; display: flex; flex-direction: column; gap: 8px; padding: 10px 14px; border-radius: 12px; background: rgba(8, 13, 34, .9); border: 1px solid var(--line, rgba(212,174,90,.28)); }
-.ps-ctl { display: flex; gap: 8px; align-items: stretch; }
-.ps-ctl > button { flex: none; height: 34px; min-width: 38px; border-radius: 9px; border: 1px solid var(--line, rgba(212,174,90,.28)); background: var(--lapis-2, #1b2b5e); color: var(--ink, #ece4d2); font-size: 16px; cursor: pointer; }
-.ps-ctl > button.play { min-width: 74px; font: 600 13px var(--f-ui, system-ui); background: var(--gold, #d4ae5a); color: var(--lapis-0, #0b1430); border-color: var(--gold, #d4ae5a); }
-.ps-ctl > button:disabled { opacity: .4; cursor: default; }
-.ps-fase { flex: 1; display: flex; gap: 3px; min-width: 0; }
-.ps-fase button { flex: 1; min-width: 0; position: relative; padding: 4px 6px 6px; border: 0; border-radius: 7px; background: rgba(27, 43, 94, .7); color: var(--muted, #a7aec6); font-size: 11px; text-align: left; cursor: pointer; overflow: hidden; }
-.ps-fase button span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ps-fase button small { display: block; font-size: 10px; color: rgba(167, 174, 198, .8); }
-.ps-fase button small i { font-style: normal; }
-.ps-fase button.on { background: rgba(212, 174, 90, .22); color: var(--gold-soft, #ecd8a2); box-shadow: inset 0 -2px 0 var(--gold, #d4ae5a); }
-.ps-fase button.done { color: var(--ink, #ece4d2); }
-.ps-narr h3 { margin: 0; font: 600 16px/1.3 var(--f-text, Georgia, serif); color: var(--gold-soft, #ecd8a2); }
-.ps-narr h3 small { font: 500 12px var(--f-ui, system-ui); color: var(--muted, #a7aec6); margin-left: 8px; }
-.ps-narr p { margin: 3px 0 0; font: 14px/1.55 var(--f-text, Georgia, serif); color: var(--ink, #ece4d2); max-width: 86ch; }
-.ps-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 11.5px; color: var(--muted, #a7aec6); }
-.ps-meta a { color: var(--gold-soft, #ecd8a2); }
-.ps-meta .der { padding: 0 6px; border-radius: 99px; border: 1px solid rgba(212,174,90,.35); }
-.ps-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.ps-der { display: inline-block; padding: 0 7px; border-radius: 99px; border: 1px solid rgba(212,174,90,.35); font-size: 11px; color: var(--gold-soft, #ecd8a2); margin-right: 6px; }
+.ps-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
 .ps-chips button { padding: 1px 8px; border-radius: 99px; border: 1px solid var(--line, rgba(212,174,90,.28)); background: var(--lapis-2, #1b2b5e); color: var(--ink, #ece4d2); font-size: 11.5px; cursor: pointer; }
 .ps-chips button:hover { border-color: var(--gold, #d4ae5a); }
-.ps-disc { margin: 0; font-size: 11px; color: var(--muted, #a7aec6); }
-.ps-disc button { border: 0; background: none; color: var(--gold-soft, #ecd8a2); font-size: 11px; cursor: pointer; padding: 0; text-decoration: underline; }
-.ps-catat { margin: 2px 0 0; font-size: 11.5px; color: var(--ink, #ece4d2); max-width: 90ch; }
-.ps-srcs { display: none; margin: 0; padding: 0; list-style: none; font-size: 11.5px; }
-.ps-srcs.open { display: flex; flex-wrap: wrap; gap: 2px 12px; }
-.ps-srcs a { color: var(--gold-soft, #ecd8a2); }
+.ps-srcs { margin: 0; padding-left: 16px; }
+.ps-srcs li { margin: 2px 0; }
+.ps-keys { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 11.5px; color: var(--muted, #a7aec6); }
+.ps-keys kbd { font: 600 11px var(--f-ui, system-ui); color: var(--ink, #ece4d2); padding: 0 5px; border-radius: 4px; border: 1px solid rgba(255,255,255,.18); justify-self: start; }
+/* Label di medan: ringkas pada mode diorama, kotak lengkap pada mode konstruksi */
+.ps-unit.ps-muslim { --c: #57c08a; } .ps-unit.ps-musuh { --c: #e0675a; } .ps-unit.ps-netral { --c: #b9b5ad; }
+.ps-labels:not(.atas) .ps-unit .ps-lab-in { flex-direction: row; align-items: baseline; gap: 5px; padding: 1px 7px 2px 6px; border: 0; border-radius: 6px; background: rgba(8, 13, 34, .42); text-shadow: 0 1px 2px #000; }
+.ps-labels:not(.atas) .ps-unit .ps-lab-in::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c, #888); align-self: center; flex: none; }
+.ps-labels:not(.atas) .ps-unit b { font-size: 11px; font-weight: 600; }
+.ps-labels:not(.atas) .ps-unit span { font-size: 10.5px; opacity: .9; }
+.ps-labels:not(.atas) .ps-tokoh .ps-lab-in { background: rgba(8, 13, 34, .3); }
+.ps-labels:not(.atas) .ps-fitur:not(.ps-j-gunung):not(.ps-j-bukit) .ps-lab-in { background: none; }
+.ps-root.nolab .ps-lab:not(.ps-rasul) { visibility: hidden; }
+.ps-root .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ps-none { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted, #a7aec6); }
 @media (max-width: 760px) {
-  .ps-head { width: calc(100% - 24px); padding: 9px 11px; } .ps-head h2 { font-size: 17px; } .ps-count { margin-top: 6px; }
-  .ps-tools { top: auto; bottom: var(--ps-bottom, 170px); right: 12px; }
-  .ps-fase button span, .ps-fase button small i { display: none; } .ps-fase button { text-align: center; } .ps-fase button small { font-size: 12px; color: inherit; } .ps-legend { display: none; }
+  .ps-tools { left: 8px; right: 8px; top: 8px; justify-content: flex-end; gap: 5px; }
+  .ps-tools .ps-seg.ic, .ps-tools .ps-btn > span { display: none; }
+  .ps-title { left: 12px; top: 46px; max-width: calc(100% - 24px); }
+  .ps-title h2 .ar { font-size: 13px; }
+  .ps-title h2 { font-size: 16px; }
+  .ps-cap { bottom: 56px; width: calc(100% - 20px); } .ps-cap h3 { font-size: 15px; } .ps-cap p { font-size: 13px; line-height: 1.45; }
+  .ps-utara { top: 92px; }
+  .ps-info { top: 44px; bottom: 56px; }
+  .ps-dots button { width: 12px; } .ps-dots button.on { width: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { .ps-bar i { transition: none; } }
 `;
@@ -784,9 +818,9 @@
     ensureCss();
     const sk = window.PERANG_SKENARIO && window.PERANG_SKENARIO[id];
     const data = window.PERANG && window.PERANG.daftar.find((d) => d.id === id);
-    const box = useRef(null), api = useRef(null), root = useRef(null), bottom = useRef(null);
+    const box = useRef(null), api = useRef(null), root = useRef(null), idleT = useRef(0);
     const [i, setI] = useState(0), [playing, setPlaying] = useState(false), [view, setView] = useState("diorama");
-    const [legend, setLegend] = useState(true), [catat, setCatat] = useState(false), [srcOpen, setSrcOpen] = useState(false);
+    const [info, setInfo] = useState(false), [cap, setCap] = useState(true), [lab, setLab] = useState(true), [idle, setIdle] = useState(false), [fs, setFs] = useState(false);
     const [per, setPer] = useState(null);
     useEffect(() => {
       if (!sk || !box.current || !window.THREE) return;
@@ -803,21 +837,33 @@
       const t = setTimeout(() => { if (i < n - 1) setI(i + 1); else setPlaying(false); }, ms);
       return () => clearTimeout(t);
     }, [playing, i]);
+    // Kendali memudar saat diputar dan tetikus diam; muncul lagi saat digerakkan
+    const wake = () => { setIdle(false); clearTimeout(idleT.current); idleT.current = setTimeout(() => setIdle(true), 2600); };
+    useEffect(() => { wake(); return () => clearTimeout(idleT.current); }, [playing]);
+    useEffect(() => {
+      const f = () => setFs(!!document.fullscreenElement && document.fullscreenElement === root.current);
+      document.addEventListener("fullscreenchange", f); return () => document.removeEventListener("fullscreenchange", f);
+    }, []);
+    const canFs = typeof document !== "undefined" && document.fullscreenEnabled;
+    const toggleFs = () => { try { if (document.fullscreenElement) document.exitFullscreen(); else root.current && root.current.requestFullscreen(); } catch (e) {} };
+    const togglePlay = () => { if (i >= n - 1 && !playing) { setI(0); setPlaying(true); } else setPlaying(!playing); };
+    const goto = (k) => { setPlaying(false); setI(Math.max(0, Math.min(n - 1, k))); };
     useEffect(() => {
       const k = (e) => {
         if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
-        if (e.key === "Escape") { e.preventDefault(); onClose && onClose(); }
-        else if (e.key === " ") { e.preventDefault(); if (i >= n - 1 && !playing) { setI(0); setPlaying(true); } else setPlaying(!playing); }
-        else if (e.key === "ArrowRight") { e.preventDefault(); setPlaying(false); setI(Math.min(n - 1, i + 1)); }
-        else if (e.key === "ArrowLeft") { e.preventDefault(); setPlaying(false); setI(Math.max(0, i - 1)); }
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        wake();
+        if (e.key === "Escape") { if (document.fullscreenElement) return; e.preventDefault(); if (info) setInfo(false); else onClose && onClose(); }
+        else if (e.key === " ") { e.preventDefault(); togglePlay(); }
+        else if (e.key === "ArrowRight") { e.preventDefault(); goto(i + 1); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); goto(i - 1); }
+        else if (e.key === "i" || e.key === "I") setInfo(!info);
+        else if (e.key === "t" || e.key === "T") setCap(!cap);
+        else if (e.key === "l" || e.key === "L") setLab(!lab);
+        else if ((e.key === "f" || e.key === "F") && canFs) toggleFs();
       };
       window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k);
     });
-    useEffect(() => {
-      const b = bottom.current, r = root.current; if (!b || !r) return;
-      const upd = () => r.style.setProperty("--ps-bottom", b.offsetHeight + 18 + "px");
-      const ro = new ResizeObserver(upd); ro.observe(b); upd(); return () => ro.disconnect();
-    }, [id]);
     if (!sk || !data) return html`<div class="ps-root"><div class="ps-none"><p>Simulasi untuk peristiwa ini belum tersedia.</p>
       <button type="button" class="ps-btn ps-close" style=${{ position: "absolute", right: "12px", top: "12px" }} onClick=${onClose} aria-label="Tutup simulasi">×</button></div></div>`;
 
@@ -834,76 +880,100 @@
     const mNow = sum("muslim"), eNow = sum("musuh");
     const tm = mus.jumlah || 0, te = lawan.jumlah || 0, totalBar = Math.max(1, tm + te);
     const side = (k, title, total, ket, now, gugur, label2, color) => html`<div class="ps-side" title=${ket || ""}>
-      <h4><i style=${{ background: color }}></i>${title}</h4>
+      <h5><i style=${{ background: color }}></i>${title}</h5>
       ${total != null ? html`<span class="big">${fmt(total)}</span>` : html`<span class="big na">Jumlah tidak tercatat</span>`}
       <small>di medan saat ini: <b>${now != null ? fmt(now) : "—"}</b></small>
       <small>${label2}: <b>${gugur != null ? fmt(gugur) : "tidak tercatat"}</b>${k === "musuh" && kor.tawanan ? html` · ditawan <b>${fmt(kor.tawanan)}</b>` : ""}</small>
+      ${ket && html`<small>${ket}</small>`}
     </div>`;
-    const tokohChips = [...new Set(sk.unit.filter((u) => stt && stt.units[u.id] && stt.units[u.id].aktif).flatMap((u) => [u.tokoh, u.panglima]).filter((x) => x && window.SIRAH && window.SIRAH.tokoh[x]))].slice(0, 7);
-    const srcs = [...(F.url ? [{ sumber: F.sumber || "Sumber fase ini", url: F.url }] : []), ...(data.riwayat || []).filter((r) => r.url)];
+    const tokohChips = [...new Set(sk.unit.filter((u) => stt && stt.units[u.id] && stt.units[u.id].aktif).flatMap((u) => [u.tokoh, u.panglima]).filter((x) => x && window.SIRAH && window.SIRAH.tokoh[x]))].slice(0, 8);
+    const srcs = [...(F.url ? [{ sumber: F.sumber || "Sumber fase ini", url: F.url }] : []), ...(data.riwayat || []).filter((r) => r.url && r.url !== F.url)];
     const jenisAda = [...new Set(sk.unit.map((u) => u.jenis).filter((j) => ICON[j]))];
-    return html`<div class="ps-root" ref=${root} role="region" aria-label=${"Simulasi " + data.nama}>
+    const DERJ = { shahih: "Hadits shahih", sirah: "Kitab sirah", lemah: "Riwayat lemah" };
+    const gugur = [kor.muslim ? `${fmt(kor.muslim)} syahid` : "", kor.musuh ? `${fmt(kor.musuh)} tewas` : ""].filter(Boolean).join(" · ");
+    const cls = ["ps-root", idle && playing && !info ? "idle" : "", cap ? "" : "nocap", lab ? "" : "nolab"].filter(Boolean).join(" ");
+    const ICO = {
+      play: html`<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5 L12 7 L3 12.5 Z" fill="currentColor"/></svg>`,
+      pause: html`<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="1.5" width="3.2" height="11" rx="1" fill="currentColor"/><rect x="8.3" y="1.5" width="3.2" height="11" rx="1" fill="currentColor"/></svg>`,
+      ulang: html`<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M11.5 7a4.5 4.5 0 1 1-1.4-3.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.6 1.2 V4.4 H7.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+      info: html`<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2 V11.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="4.8" r="1" fill="currentColor"/></svg>`,
+      label: html`<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3.5 H10 L14 8 L10 12.5 H2 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>${lab ? "" : html`<path d="M2 14 L14 2" stroke="currentColor" stroke-width="1.5"/>`}</svg>`,
+      fs: html`<svg viewBox="0 0 16 16" aria-hidden="true"><path d=${fs ? "M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4" : "M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    };
+    return html`<div class=${cls} ref=${root} role="region" aria-label=${"Simulasi " + data.nama} onPointerMove=${wake} onPointerDown=${wake}>
       <div class="ps-stage" ref=${box}></div>
-      <div class="ps-head">
-        <p class="ps-k">Simulasi ghazwah · ${data.tahun} M · ${data.h}</p>
-        <h2>${data.nama}</h2>
-        ${data.arab && html`<p class="ps-ar" lang="ar" dir="rtl">${data.arab}</p>`}
-        <p class="ps-when" title=${data.tanggal || ""}>${data.tanggal && data.tanggal.length < 58 ? data.tanggal : data.bulan}${data.tempat && data.tempat.nama && data.tempat.nama.length < 40 ? " · " + data.tempat.nama : ""}</p>
-        <div class="ps-count">
-          ${side("muslim", "Kaum Muslimin", mus.jumlah, mus.ket, mNow, kor.muslim, "syahid", "#57c08a")}
-          ${side("musuh", namaLawan, lawan.jumlah, lawan.ket, eNow, kor.musuh, "tewas", "#e0675a")}
-          <div class="ps-bar" aria-hidden="true"><i style=${{ width: (tm / totalBar) * 100 + "%", background: "#57c08a" }}></i><i style=${{ width: (te / totalBar) * 100 + "%", background: "#e0675a" }}></i></div>
-        </div>
+      <div class="ps-shade"></div>
+      <div class="ps-title">
+        <p class="k">Simulasi · ${data.tahun} M · ${data.h}</p>
+        <h2>${data.nama}${data.arab && html`<span class="ar" lang="ar" dir="rtl">${data.arab}</span>`}</h2>
+        <p class="ps-vs">
+          <span title=${mus.ket || ""}><i style=${{ background: "#57c08a" }}></i>${mus.jumlah != null ? fmt(mus.jumlah) : "?"}</span>
+          <em>lawan</em>
+          <span title=${lawan.ket || ""}><i style=${{ background: "#e0675a" }}></i>${lawan.jumlah != null ? fmt(lawan.jumlah) : "?"}</span>
+          ${gugur && html`<em>${gugur}</em>`}
+        </p>
+        <p class="ps-disc-mini">Rekonstruksi ilustratif, bukan peta arkeologis</p>
       </div>
       <div class="ps-tools">
         <div class="ps-seg" role="group" aria-label="Tampilan">
           <button type="button" class=${view === "diorama" ? "on" : ""} aria-pressed=${view === "diorama"} onClick=${() => setView("diorama")}>Diorama</button>
           <button type="button" class=${view === "atas" ? "on" : ""} aria-pressed=${view === "atas"} onClick=${() => setView("atas")}>Konstruksi</button>
         </div>
-        <button type="button" class="ps-btn" onClick=${() => api.current && api.current.zoom(0.8)} aria-label="Perbesar">+</button>
-        <button type="button" class="ps-btn" onClick=${() => api.current && api.current.zoom(1.25)} aria-label="Perkecil">−</button>
-        <button type="button" class="ps-btn" onClick=${() => api.current && api.current.reset()} aria-label="Kembalikan kamera" title="Kembalikan kamera">⟲</button>
-        <button type="button" class="ps-btn ps-close" onClick=${onClose} aria-label="Tutup simulasi">×</button>
+        <div class="ps-seg ic" role="group" aria-label="Kamera">
+          <button type="button" onClick=${() => api.current && api.current.zoom(0.8)} aria-label="Perbesar" title="Perbesar">+</button>
+          <button type="button" onClick=${() => api.current && api.current.zoom(1.25)} aria-label="Perkecil" title="Perkecil">−</button>
+          <button type="button" onClick=${() => api.current && api.current.reset()} aria-label="Kembalikan kamera" title="Kembalikan kamera">⟲</button>
+        </div>
+        <button type="button" class=${`ps-btn${lab ? "" : " on"}`} onClick=${() => setLab(!lab)} aria-pressed=${!lab} aria-label=${lab ? "Sembunyikan label pasukan" : "Tampilkan label pasukan"} title=${lab ? "Sembunyikan label (L)" : "Tampilkan label (L)"}>${ICO.label}</button>
+        <button type="button" class=${`ps-btn${info ? " on" : ""}`} onClick=${() => setInfo(!info)} aria-expanded=${info} title="Jumlah pasukan, legenda, sumber (I)">${ICO.info}<span>Info</span></button>
+        ${canFs && html`<button type="button" class="ps-btn" onClick=${toggleFs} aria-label=${fs ? "Keluar layar penuh" : "Layar penuh"} title=${fs ? "Keluar layar penuh (F)" : "Layar penuh (F)"}>${ICO.fs}</button>`}
+        <button type="button" class="ps-btn ps-close" onClick=${onClose} aria-label="Tutup simulasi" title="Tutup (Esc)">×</button>
       </div>
       ${view === "atas" && html`<div class="ps-utara" aria-label="Arah utara"><svg viewBox="0 0 22 30"><path d="M11 1 L19 27 L11 21 L3 27 Z" fill="currentColor" opacity=".85"/></svg>U</div>`}
-      ${legend ? html`<div class="ps-legend">
-          <div class="row">
-            <span><i class="sw" style=${{ background: "#57c08a" }}></i>Muslimin</span>
-            <span><i class="sw" style=${{ background: "#e0675a" }}></i>${namaLawan}</span>
-            ${sk.unit.some((u) => u.sisi === "netral") && html`<span><i class="sw" style=${{ background: "#b9b5ad" }}></i>Pihak lain</span>`}
-            <span><i class="glow"></i>Posisi Rasulullah ﷺ</span>
-            <span><i class="ln" style=${{ background: "linear-gradient(90deg,#57c08a,#e0675a)" }}></i>Gerakan</span>
-          </div>
-          <div class="row" style=${{ marginTop: "3px" }}>${jenisAda.map((j) => html`<span key=${j} style=${{ color: "var(--ink)" }}>${ICON[j]}${JENIS[j]}</span>`)}</div>
-          ${per && html`<p class="per">1 figur ≈ ${fmt(per)} orang. Tokoh bernama tampil sebagai figur sendiri.</p>`}
-          <p class="ps-disc" style=${{ marginTop: "2px" }}><button type="button" onClick=${() => setLegend(false)}>Sembunyikan legenda</button></p>
-        </div>` : html`<button type="button" class="ps-btn ps-legtoggle" onClick=${() => setLegend(true)}>Legenda</button>`}
-      <div class="ps-bottom" ref=${bottom}>
-        <div class="ps-ctl">
-          <button type="button" onClick=${() => { setPlaying(false); setI(Math.max(0, i - 1)); }} disabled=${i === 0} aria-label="Fase sebelumnya">‹</button>
-          <button type="button" class="play" onClick=${() => { if (i >= n - 1 && !playing) { setI(0); setPlaying(true); } else setPlaying(!playing); }}>${playing ? "Jeda" : i >= n - 1 ? "Ulangi" : "Putar"}</button>
-          <button type="button" onClick=${() => { setPlaying(false); setI(Math.min(n - 1, i + 1)); }} disabled=${i >= n - 1} aria-label="Fase berikutnya">›</button>
-          <div class="ps-fase" role="group" aria-label="Fase">
-            ${sk.fase.map((f, k) => html`<button type="button" key=${k} class=${k === i ? "on" : k < i ? "done" : ""} aria-current=${k === i ? "step" : undefined} onClick=${() => { setPlaying(false); setI(k); }} title=${f.judul}>
-              <small><i>Fase </i>${k + 1}</small><span>${f.judul}</span></button>`)}
-          </div>
-        </div>
-        <div class="ps-narr" aria-live="polite">
-          <h3>${F.judul}${F.waktu && html`<small>${F.waktu}</small>`}</h3>
+      ${cap ? html`<div class="ps-cap" key=${i} aria-live="polite">
+          <p class="k">Fase ${i + 1} dari ${n}${F.waktu ? " · " + F.waktu : ""}</p>
+          <h3>${F.judul}</h3>
           <p>${F.narasi}</p>
+        </div>` : html`<p class="sr-only" aria-live="polite">${F.judul}</p>`}
+      <div class="ps-dock">
+        <button type="button" onClick=${() => goto(i - 1)} disabled=${i === 0} aria-label="Fase sebelumnya" title="Fase sebelumnya (←)">‹</button>
+        <button type="button" class="play" onClick=${togglePlay} aria-label=${playing ? "Jeda" : i >= n - 1 ? "Ulangi" : "Putar"} title="Putar / jeda (Spasi)">${playing ? ICO.pause : i >= n - 1 ? ICO.ulang : ICO.play}</button>
+        <button type="button" onClick=${() => goto(i + 1)} disabled=${i >= n - 1} aria-label="Fase berikutnya" title="Fase berikutnya (→)">›</button>
+        <div class="ps-dots" role="group" aria-label="Fase">
+          ${sk.fase.map((f, k) => html`<button type="button" key=${k} class=${k === i ? "on" : k < i ? "done" : ""} aria-current=${k === i ? "step" : undefined} aria-label=${`Fase ${k + 1}: ${f.judul}`} title=${`Fase ${k + 1}: ${f.judul}`} onClick=${() => goto(k)}></button>`)}
         </div>
-        <div class="ps-meta">
-          ${F.derajat && html`<span class="der">${F.derajat === "shahih" ? "Hadits shahih" : F.derajat === "sirah" ? "Kitab sirah" : F.derajat === "lemah" ? "Riwayat lemah" : F.derajat}</span>`}
-          ${F.sumber && html`<span>Sumber: ${F.url ? html`<a href=${F.url} target="_blank" rel="noopener">${F.sumber}</a>` : F.sumber}</span>`}
-          ${tokohChips.length > 0 && onProfile && html`<div class="ps-chips">${tokohChips.map((t) => html`<button type="button" key=${t} onClick=${() => onProfile(t)}>${nm(t)}</button>`)}</div>`}
-        </div>
-        <p class="ps-disc">Rekonstruksi ilustratif: letak dan susunan pasukan disusun dari kitab sirah dan perkiraan, bukan peta arkeologis. Angka total dari sumber pada data perang.
-          ${" "}<button type="button" onClick=${() => setCatat(!catat)} aria-expanded=${catat}>${catat ? "Tutup catatan" : "Catatan rekonstruksi"}</button>
-          ${" · "}<button type="button" onClick=${() => setSrcOpen(!srcOpen)} aria-expanded=${srcOpen}>${srcOpen ? "Tutup sumber" : `Sumber (${srcs.length})`}</button>
-          ${" · "}Spasi: putar/jeda, ←/→: fase, Esc: tutup.</p>
-        ${catat && html`<p class="ps-catat">${sk.catatan}</p>`}
-        <ul class=${`ps-srcs${srcOpen ? " open" : ""}`}>${srcs.map((r, k) => html`<li key=${k}><a href=${r.url} target="_blank" rel="noopener">${(r.sumber || r.url).split(":")[0]}</a></li>`)}</ul>
+        <button type="button" class=${`cc${cap ? " on" : ""}`} onClick=${() => setCap(!cap)} aria-pressed=${cap} title="Tampilkan atau sembunyikan narasi (T)">Teks</button>
       </div>
+      ${info && html`<aside class="ps-info" aria-label="Rincian simulasi">
+        <h3>${data.nama}<button type="button" class="ps-btn ps-close" onClick=${() => setInfo(false)} aria-label="Tutup info">×</button></h3>
+        <p class="muted">${data.tanggal || data.bulan}${data.tempat && data.tempat.nama ? " · " + data.tempat.nama : ""}</p>
+        <h4>Kekuatan pasukan</h4>
+        <div class="ps-count">
+          ${side("muslim", "Kaum Muslimin", mus.jumlah, mus.ket, mNow, kor.muslim, "syahid", "#57c08a")}
+          ${side("musuh", namaLawan, lawan.jumlah, lawan.ket, eNow, kor.musuh, "tewas", "#e0675a")}
+          <div class="ps-bar" aria-hidden="true"><i style=${{ width: (tm / totalBar) * 100 + "%", background: "#57c08a" }}></i><i style=${{ width: (te / totalBar) * 100 + "%", background: "#e0675a" }}></i></div>
+        </div>
+        <h4>Fase ini</h4>
+        <p>${F.derajat && html`<span class="ps-der">${DERJ[F.derajat] || F.derajat}</span>`}${F.sumber && html`${F.url ? html`<a href=${F.url} target="_blank" rel="noopener">${F.sumber}</a>` : F.sumber}`}</p>
+        ${tokohChips.length > 0 && onProfile && html`<div class="ps-chips">${tokohChips.map((t) => html`<button type="button" key=${t} onClick=${() => onProfile(t)}>${nm(t)}</button>`)}</div>`}
+        <h4>Legenda</h4>
+        <div class="ps-legend">
+          <span><i class="sw" style=${{ background: "#57c08a" }}></i>Muslimin</span>
+          <span><i class="sw" style=${{ background: "#e0675a" }}></i>${namaLawan}</span>
+          ${sk.unit.some((u) => u.sisi === "netral") && html`<span><i class="sw" style=${{ background: "#b9b5ad" }}></i>Pihak lain</span>`}
+          <span><i class="glow"></i>Posisi Rasulullah ﷺ</span>
+          <span><i class="ln" style=${{ background: "linear-gradient(90deg,#57c08a,#e0675a)" }}></i>Gerakan</span>
+          ${jenisAda.map((j) => html`<span key=${j}>${ICON[j]}${JENIS[j]}</span>`)}
+        </div>
+        ${per && html`<p class="muted" style=${{ marginTop: "6px" }}>1 figur ≈ ${fmt(per)} orang. Tokoh bernama tampil sebagai figur sendiri.</p>`}
+        <h4>Catatan rekonstruksi</h4>
+        <p class="muted">Rekonstruksi ilustratif: letak dan susunan pasukan disusun dari kitab sirah dan perkiraan, bukan peta arkeologis. Angka total dari sumber pada data perang.</p>
+        ${sk.catatan && html`<p>${sk.catatan}</p>`}
+        ${srcs.length > 0 && html`<h4>Sumber (${srcs.length})</h4>
+          <ul class="ps-srcs">${srcs.map((r, k) => html`<li key=${k}><a href=${r.url} target="_blank" rel="noopener">${r.sumber || r.url}</a></li>`)}</ul>`}
+        <h4>Pintasan papan ketik</h4>
+        <div class="ps-keys"><kbd>Spasi</kbd><span>putar / jeda</span><kbd>← →</kbd><span>fase sebelum / berikut</span><kbd>T</kbd><span>narasi</span><kbd>L</kbd><span>label pasukan</span><kbd>I</kbd><span>info ini</span>${canFs && html`<kbd>F</kbd><span>layar penuh</span>`}<kbd>Esc</kbd><span>tutup</span></div>
+      </aside>`}
     </div>`;
   }
   window.SirahSimulasi = SirahSimulasi;

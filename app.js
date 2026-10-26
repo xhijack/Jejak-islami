@@ -945,7 +945,7 @@
       return null;
     })();
 
-    return html`<div class=${`app${city ? " in-city" : ""}`}>
+    return html`<div class=${`app${city ? " in-city" : ""}${view === "perang" && sim ? " sim-fokus" : ""}`}>
       <header class="top">
         <div class="brand"><h1>Jejak Sirah</h1><p>570–661 M, dari Tahun Gajah sampai Khulafaur Rasyidin</p></div>
         <nav class="nav" aria-label="Bagian utama">
